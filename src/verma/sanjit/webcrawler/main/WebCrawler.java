@@ -11,7 +11,6 @@ import java.util.concurrent.Executors;
 public class WebCrawler {
 
     private static final String BASE_URL = "http://mail-archives.apache.org/mod_mbox/maven-users/";
-    private Set<String> pagesVisited = new HashSet<>();
     private List<String> pageToVisit = null;
     private ExecutorService executorService = Executors.newFixedThreadPool(100);
 
