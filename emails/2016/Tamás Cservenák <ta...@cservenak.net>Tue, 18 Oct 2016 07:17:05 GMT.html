@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Comparing specifying repositories in pom vs. settings.xml?</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201610.mbox/%3cCAFd2cZUOOW7NEFCrQmCCxYOqCY1ew0goXjmd6jkpwVpZTCNoHw@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201610.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201610.mbox/%3c5805d6fd.c7212e0a.db30b.b75f@mx.google.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201610.mbox/%3c20161017220403.9570129C0C9B@dd17332.kasserver.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201610.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201610.mbox/%3c5805d6fd.c7212e0a.db30b.b75f@mx.google.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201610.mbox/%3cCAFd2cZUOOW7NEFCrQmCCxYOqCY1ew0goXjmd6jkpwVpZTCNoHw@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201610.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201610.mbox/%3c5805d6fd.c7212e0a.db30b.b75f@mx.google.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201610.mbox/%3c20161017220403.9570129C0C9B@dd17332.kasserver.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201610.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201610.mbox/%3c5805d6fd.c7212e0a.db30b.b75f@mx.google.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Tamás Cservenák &lt;ta...@cservenak.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Comparing specifying repositories in pom vs. settings.xml?</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Tue, 18 Oct 2016 07:17:05 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+"The best way is to sync your stuff to the Central Repository" -- true,
+
+but again, there are cases where this is _not possible_. What then? I feel
+we keep repeating this mantra, but leaving out some cornerstones...
+
+On Tue, Oct 18, 2016 at 12:04 AM Manfred Moser &lt;manfred@simpligility.com&gt;
+wrote:
+
+&gt; The best way is to sync your stuff to the Central Repository imho.
+&gt;
+&gt; Otherwise you are probably best off with using repositories in the POM or
+&gt; a checked in settings file and build.sh reference command build like mvn -s
+&gt; ...
+&gt;
+&gt; manfred
+&gt;
+&gt; Curtis Rueden wrote on 2016-10-17 15:00:
+&gt;
+&gt; &gt; Hi everyone,
+&gt; &gt;
+&gt; &gt; I have an OSS project with "mixed" dependencies—some in central, and some
+&gt; &gt; in our public Maven repo (because they are still in incubation or
+&gt; &gt; beta). Every time this discussion arises, I find myself wondering the
+&gt; same
+&gt; &gt; thing: how can you achieve an "out-of-the-box" build for such a project,
+&gt; &gt; without specifying &lt;repositories&gt;? All the alternatives I see people
+&gt; &gt; suggest (e.g., checking in settings.xml to the repository) would require
+&gt; &gt; each and every new developer to perform some one-time bootstrap before
+&gt; the
+&gt; &gt; project will build. This will turn away many new &amp; inexperienced
+&gt; developers
+&gt; &gt; if they try to import the project into their favorite IDE and it fails to
+&gt; &gt; build.
+&gt; &gt;
+&gt; &gt; Regards,
+&gt; &gt; Curtis
+&gt; &gt;
+&gt; &gt; --
+&gt; &gt; Curtis Rueden
+&gt; &gt; LOCI software architect - http://loci.wisc.edu/software
+&gt; &gt; ImageJ2 lead, Fiji maintainer - http://imagej.net/User:Rueden
+&gt; &gt;
+&gt; &gt;
+&gt; &gt; On Mon, Oct 17, 2016 at 4:48 PM, Manfred Moser &lt;manfred@simpligility.com
+&gt; &gt;
+&gt; &gt; wrote:
+&gt; &gt;
+&gt; &gt;&gt; If you really feel you need to control the source of where you download
+&gt; &gt;&gt; components from within the source control system
+&gt; &gt;&gt; I would still NOT use the repositories definition in the POM since that
+&gt; is
+&gt; &gt;&gt; them transferred to the target repo on deployment (unless you use
+&gt; flatten).
+&gt; &gt;&gt;
+&gt; &gt;&gt; Instead I would check in a specific settings.xml as part of the
+&gt; project...
+&gt; &gt;&gt; or even multiple ones for different build scenarios..
+&gt; &gt;&gt;
+&gt; &gt;&gt; Manfred
+&gt; &gt;&gt;
+&gt; &gt;&gt; KARR, DAVID wrote on 2016-10-17 14:42:
+&gt; &gt;&gt;
+&gt; &gt;&gt; &gt;&gt; -----Original Message-----
+&gt; &gt;&gt; &gt;&gt; From: Manfred Moser [mailto:manfred@simpligility.com]
+&gt; &gt;&gt; &gt;&gt; Sent: Monday, October 17, 2016 1:35 PM
+&gt; &gt;&gt; &gt;&gt; To: users@maven.apache.org
+&gt; &gt;&gt; &gt;&gt; Subject: Re: Comparing specifying repositories in pom vs.
+&gt; settings.xml?
+&gt; &gt;&gt; &gt;&gt;
+&gt; &gt;&gt; &gt;&gt;
+&gt; http://blog.sonatype.com/2009/02/why-putting-repositories-in-your-poms-
+&gt; &gt;&gt; &gt;&gt; is-a-bad-idea/
+&gt; &gt;&gt; &gt;
+&gt; &gt;&gt; &gt; The point about open-source projects is well-taken.  I would never
+&gt; &gt;&gt; specify
+&gt; &gt;&gt; &gt; repositories in a POM for a public project.
+&gt; &gt;&gt; &gt;
+&gt; &gt;&gt; &gt; The section about "Enterprise" just seems odd to me.  It seems very
+&gt; &gt;&gt; focused on
+&gt; &gt;&gt; &gt; "central", when that might not be the case at all.  We use many
+&gt; &gt;&gt; open-source
+&gt; &gt;&gt; &gt; projects, but those aren't very volatile.  We use dozens of internal
+&gt; &gt;&gt; artifacts,
+&gt; &gt;&gt; &gt; and there isn't a lot of doubt about what repos to get particular
+&gt; kinds
+&gt; &gt;&gt; of
+&gt; &gt;&gt; &gt; artifacts from.  I find build repeatability more important (specifying
+&gt; &gt;&gt; all
+&gt; &gt;&gt; &gt; requirements in the build script).  The requirement about "generally
+&gt; &gt;&gt; will want
+&gt; &gt;&gt; &gt; all your developers using the same set of repositories" is pretty
+&gt; &gt;&gt; important to
+&gt; &gt;&gt; &gt; me, but the recommended solution just seems counterproductive.
+&gt; &gt;&gt; Specifying it
+&gt; &gt;&gt; &gt; in the POM for the project seems to be the most direct way to ensure
+&gt; &gt;&gt; that.
+&gt; &gt;&gt; &gt;
+&gt; &gt;&gt; &gt;&gt; KARR, DAVID wrote on 2016-10-17 13:03:
+&gt; &gt;&gt; &gt;&gt;
+&gt; &gt;&gt; &gt;&gt; &gt; One thing I run into when jumping between different projects is
+&gt; &gt;&gt; &gt;&gt; &gt; different expectations for what maven repos I need to be using.
+ In
+&gt; &gt;&gt; &gt;&gt; &gt; the past, I had to have multiple copies of "~/.m2/settings.xml"
+&gt; lying
+&gt; &gt;&gt; &gt;&gt; &gt; around, and I would hack the specified repos when I needed to.
+&gt; &gt;&gt; &gt;&gt; &gt;
+&gt; &gt;&gt; &gt;&gt; &gt; Recently, I saw a situation where the required repositories were
+&gt; &gt;&gt; &gt;&gt; &gt; simply defined in the top-level pom for the project.  If this
+is
+&gt; done
+&gt; &gt;&gt; &gt;&gt; &gt; consistently, there's no longer any need to hack the settings.xml
+&gt; &gt;&gt; &gt;&gt; file.
+&gt; &gt;&gt; &gt;&gt; &gt;
+&gt; &gt;&gt; &gt;&gt; &gt; I seem to remember seeing some advice that specifying repositories
+&gt; in
+&gt; &gt;&gt; &gt;&gt; &gt; the POM is a bad practice.  If I'm remembering this correctly,
+this
+&gt; &gt;&gt; &gt;&gt; &gt; seems odd.  Forcing the correct repos to be defined in the
+&gt; &gt;&gt; &gt;&gt; &gt; settings.xml works against "repeatable builds".
+&gt; &gt;&gt; &gt;&gt; &gt;
+&gt; &gt;&gt; &gt;&gt; &gt; What is the recommended advice here?
+&gt; &gt;&gt; &gt;&gt; &gt;
+&gt; &gt;&gt; &gt;&gt; &gt;
+&gt; ---------------------------------------------------------------------
+&gt; &gt;&gt; &gt;&gt; &gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; &gt;&gt; &gt;&gt; &gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt; &gt;&gt; &gt;&gt; &gt;
+&gt; &gt;&gt; &gt;&gt;
+&gt; &gt;&gt; &gt;&gt;
+&gt; &gt;&gt; &gt;&gt; ---------------------------------------------------------------------
+&gt; &gt;&gt; &gt;&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; &gt;&gt; &gt;&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt; &gt;&gt; &gt;
+&gt; &gt;&gt; &gt;
+&gt; &gt;&gt; &gt; ---------------------------------------------------------------------
+&gt; &gt;&gt; &gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; &gt;&gt; &gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt; &gt;&gt; &gt;
+&gt; &gt;&gt;
+&gt; &gt;&gt;
+&gt; &gt;&gt; ---------------------------------------------------------------------
+&gt; &gt;&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; &gt;&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt; &gt;&gt;
+&gt; &gt;&gt;
+&gt; &gt;
+&gt;
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201610.mbox/raw/%3cCAPLpRQKPzLbSE4mo2cP9qFSZk4begeCgNjPdBctfSe9ZTRWFiQ@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, Quoted Printable, 5604 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201610.mbox/raw/%3cCAPLpRQKPzLbSE4mo2cP9qFSZk4begeCgNjPdBctfSe9ZTRWFiQ@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

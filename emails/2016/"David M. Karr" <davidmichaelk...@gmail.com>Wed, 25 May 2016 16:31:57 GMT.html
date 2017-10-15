@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Explain why bundle artifact can't be found in repo?</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201605.mbox/%3c20160525144002.A5F6B29C123F@dd17332.kasserver.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201605.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201605.mbox/%3c010E15C6-88E0-450B-A3CA-A33936E99D87@tu-clausthal.de%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201605.mbox/%3c20160524232037.21dbff4a@tc%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201605.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201605.mbox/%3c010E15C6-88E0-450B-A3CA-A33936E99D87@tu-clausthal.de%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201605.mbox/%3c20160525144002.A5F6B29C123F@dd17332.kasserver.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201605.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201605.mbox/%3c010E15C6-88E0-450B-A3CA-A33936E99D87@tu-clausthal.de%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201605.mbox/%3c20160524232037.21dbff4a@tc%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201605.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201605.mbox/%3c010E15C6-88E0-450B-A3CA-A33936E99D87@tu-clausthal.de%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">&quot;David M. Karr&quot; &lt;davidmichaelk...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Explain why bundle artifact can't be found in repo?</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Wed, 25 May 2016 16:31:57 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+I'm trying to fully understand the difference between a "bundle" 
+artifact and a "jar" artifact.  I understand the basic idea, but there 
+must be something subtle I'm missing, or there is something else wrong 
+in my environment that I'm missing.
+
+I have the following dependency in a small Maven project:
+----------------------
+     &lt;dependency&gt;
+&lt;groupId&gt;org.opendaylight.mdsal.model&lt;/groupId&gt;
+         &lt;artifactId&gt;ietf-yang-types&lt;/artifactId&gt;
+&lt;version&gt;2010.09.24.8.1-Beryllium-SR1&lt;/version&gt;
+         &lt;type&gt;bundle&lt;/type&gt;
+     &lt;/dependency&gt;
+-------------------
+
+This build (mvn -U install) fails with the following:
+--------------------
+[ERROR] Failed to execute goal on project yangproject2: Could not 
+resolve dependencies for project 
+com.att.yang:yangproject2:jar:0.0.1-SNAPSHOT: Could not find artifact 
+org.opendaylight.mdsal.model:ietf-yang-types:bundle:2010.09.24.8.1-Beryllium-SR1 
+in opendaylight-mirror 
+(https://nexus.opendaylight.org/content/repositories/opendaylight.release/) 
+-&gt; [Help 1]
+--------------------
+
+I've looked in 
+https://nexus.opendaylight.org/content/repositories/opendaylight.release/org/opendaylight/mdsal/model/ietf-yang-types/2010.09.24.8.1-Beryllium-SR1/
+
+, and it has both a jar and a pom, along with many other associated 
+artifacts.  I've inspected both the jar and the pom, and I don't see 
+anything wrong with them.
+
+What is going on here that I'm missing?
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201605.mbox/raw/%3c5745D37D.7010808@gmail.com%3e/">Unnamed text/plain</a> (inline, 7-Bit, 1589 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201605.mbox/raw/%3c5745D37D.7010808@gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

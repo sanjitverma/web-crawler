@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Invoking Maven goals outside a project directory structure</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201209.mbox/%3cCALy+7Uk=5S4AAp5Ukom9LazSU6dRP3j-zxk66pfs_Nw4NaOy=w@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201209.mbox/%3c58EAA08AF8232344ADDB2E31D4996BFD059920@SMRPEXCHIDAG1.prod.ad.merc.chicago.cme.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201209.mbox/%3c505C718B.4000801@maven.zuhause.org%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201209.mbox/%3c58EAA08AF8232344ADDB2E31D4996BFD0599AA@SMRPEXCHIDAG1.prod.ad.merc.chicago.cme.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201209.mbox/%3cCALy+7Uk=5S4AAp5Ukom9LazSU6dRP3j-zxk66pfs_Nw4NaOy=w@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201209.mbox/%3c58EAA08AF8232344ADDB2E31D4996BFD059920@SMRPEXCHIDAG1.prod.ad.merc.chicago.cme.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201209.mbox/%3c505C718B.4000801@maven.zuhause.org%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201209.mbox/%3c58EAA08AF8232344ADDB2E31D4996BFD0599AA@SMRPEXCHIDAG1.prod.ad.merc.chicago.cme.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Curtis Rueden &lt;ctrue...@wisc.edu&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Invoking Maven goals outside a project directory structure</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Fri, 21 Sep 2012 16:26:06 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hi everyone,
+
+I was wondering whether there is a way to utilize certain useful Maven
+goals when outside of a particular Maven project's actual source directory
+structure. For example, I would like to ask Maven for the effective POM of
+an installed artifact.
+
+Why? Because I want to know the classpath fragment (all necessary JARs from
+the local repository cache) for a given GAV.
+
+I started writing a script to compute it manually. Current work in progress
+is here:
+    https://gist.github.com/3762396
+
+However, it would be nice to lean on the Maven command line tool to do the
+heavy lifting, rather than doing recursive parsing like my script does now.
+I definitely don't want to reinvent all the goodness that Maven provides.
+Right now, there are many things the script can't deal with:
+   1) downloading missing artifacts from a remote repository;
+   2) computing an effective POM for the project;
+   3) resolving properties properly from that effective POM...
+Just to name a few at the tip of the iceberg.
+
+It seems like many Maven goals (e.g., help:effective-pom, dependency:list,
+dependency:tree) would make sense to invoke with respect to a given Maven
+project, when outside of that project's actual source folder.
+
+Is this at all possible? Or any alternative suggestion to achieve my goals
+here?
+
+Thanks,
+Curtis
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201209.mbox/raw/%3cCADN69ykE57Z-9w-PfqYFA5Nb_zL6A8rSDbaiNAiOvgVhpqvxaA@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 1321 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201209.mbox/raw/%3cCADN69ykE57Z-9w-PfqYFA5Nb_zL6A8rSDbaiNAiOvgVhpqvxaA@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

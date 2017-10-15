@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: [EXTERNAL] Re: help with version range</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201609.mbox/%3cF21547B4F425F9428444D12A512705066D278E16@NP1EXMB105.corp.halliburton.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201609.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201609.mbox/%3cF21547B4F425F9428444D12A512705066D278EAF@NP1EXMB105.corp.halliburton.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201609.mbox/%3cF21547B4F425F9428444D12A512705066D278E16@NP1EXMB105.corp.halliburton.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201609.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201609.mbox/%3cF21547B4F425F9428444D12A512705066D278EAF@NP1EXMB105.corp.halliburton.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201609.mbox/%3cF21547B4F425F9428444D12A512705066D278E16@NP1EXMB105.corp.halliburton.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201609.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201609.mbox/%3cF21547B4F425F9428444D12A512705066D278EAF@NP1EXMB105.corp.halliburton.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201609.mbox/%3cF21547B4F425F9428444D12A512705066D278E16@NP1EXMB105.corp.halliburton.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201609.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201609.mbox/%3cF21547B4F425F9428444D12A512705066D278EAF@NP1EXMB105.corp.halliburton.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Christian Schulte ...@schulte.it&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: [EXTERNAL] Re: help with version range</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Sat, 24 Sep 2016 01:47:15 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Am 09/24/16 um 02:15 schrieb Justin Georgeson:
+&gt; The Aether doc shows both bounds being inclusive with the min/max form, but you have
+an exclusive upper bound. Using "[1.1.min,1.1.max]" is working for me with both 3.2.5 and
+3.3.9. So that's awesome! The .* form is working for me too. I'm using JDK 1.8.0_102, and
+my projects are pretty much all Tycho packaging-types.
+&gt; 
+&gt; I am seeing these warnings
+&gt; 
+&gt; [WARNING] Failed to canonicalize path C:\Code\caches\m2\com\lgc\master\[1.1.*]\master-[1.1.*].pom.lastUpdated:
+The filename, direc
+&gt; tory name, or volume label syntax is incorrect
+&gt; Downloading: http://cmartifacts3.lgc.com/artifactory/maven-virtual/com/lgc/master/%5B1.1.*%5D/master-%5B1.1.*%5D.pom
+&gt; [WARNING] Failed to canonicalize path C:\Code\caches\m2\com\lgc\master\[1.1.*]\master-[1.1.*].pom.lastUpdated:
+Invalid argument
+&gt; [WARNING] Failed to create parent directories for tracking file C:\Code\caches\m2\com\lgc\master\[1.1.*]\master-[1.1.*].pom.lastUp
+&gt; dated
+&gt; [WARNING] Failed to build parent project for com.lgc.lowest:lowest-parent:pom:10.5.2-SNAPSHOT
+&gt; 
+&gt; Which are reported in the original JIRA ticket for the feature
+&gt; 
+&gt; https://issues.apache.org/jira/browse/MNG-2199
+&gt; 
+&gt; But it is ultimately working.
+
+Can you please test a recent 3.4.0-SNAPSHOT and report if those messages
+disappear? Parent version ranges are broken in the Maven versions you
+mentioned.
+
+&lt;https://builds.apache.org/view/All/job/maven-3.3-release-status-build/&gt;
+
+Regards,
+-- 
+Christian
+
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201609.mbox/raw/%3ca53b1b77-99c6-c33b-b373-b28180be242c@schulte.it%3e/">Unnamed text/plain</a> (inline, 7-Bit, 1674 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201609.mbox/raw/%3ca53b1b77-99c6-c33b-b373-b28180be242c@schulte.it%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

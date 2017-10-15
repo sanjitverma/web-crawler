@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Override plugin dependencies?</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201208.mbox/%3cCA+nPnMyvUDSRvpnj2v+SQ3VuvBiqOMXs10aS2zzQVWM4wHw5mg@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201208.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201208.mbox/%3c5033B7B0.6000104@gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201208.mbox/%3cCAKDUN1saL5zPRkSO7tTwu+JSr__fv4iFAY8eZHKK58e=ErpU+g@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201208.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201208.mbox/%3cBLU142-W20D28A3C2E69429CCCA36AEB80@phx.gbl%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201208.mbox/%3cCA+nPnMyvUDSRvpnj2v+SQ3VuvBiqOMXs10aS2zzQVWM4wHw5mg@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201208.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201208.mbox/%3c5033B7B0.6000104@gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201208.mbox/%3cCAKDUN1saL5zPRkSO7tTwu+JSr__fv4iFAY8eZHKK58e=ErpU+g@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201208.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201208.mbox/%3cBLU142-W20D28A3C2E69429CCCA36AEB80@phx.gbl%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Billy Newman &lt;newman...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Override plugin dependencies?</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Tue, 21 Aug 2012 15:20:37 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Anders,
+
+I agree with you comment about internet access. Unfortunately I will
+never have access to the internet from my workstation.  This has made
+maven extremely painful to work with, but something I have to deal
+with.
+
+As for your solution I cannot get it to work.  In my main pom I have:
+&lt;build&gt;
+  &lt;pluginManagement&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;artifactId&gt;maven-javadoc-plugin&lt;/artifactId&gt;
+        &lt;version&gt;2.8.1&lt;/version&gt;
+.....
+
+
+
+
+When I try to use the release:perform goal I get the following error:
+
+Error building POM (may not be this projects POM)
+
+Project ID: org.apache.maven.plugins:maven-javadoc-plugin
+
+Reason: POM 'org.apache.maven.plugins:maven-javadoc-plugin' not found
+in repository: Unable to download the artifact from any repository
+org.apache.maven.plugins:maven-javadoc-plugin:pom:2.5
+
+
+So this error is not telling me anything I don't already know,
+maven-javadoc-plugin version 2.5 is not in my repository, I only have
+version 2.8.1.  But adding version 2.8.1 to my plugin management
+section did not work as the release-plugin has a dependency that has a
+dependency on version 2.5.
+
+Sure I can pull version 2.5 back to my internal repo, but if I can
+control the version of a plugin that maven would use throughout its
+build (even if another pom says use a different version) that would
+help.
+
+I also tried to create a pom with maven-release-plugin defined then:
+mvn dependency:go-offline
+
+That pulled some of the dependencies but not all.  I.E. that did not
+pull the maven-javadoc-plugin
+
+Any more ideas?
+
+Thanks for all the help thus far.
+Billy
+
+
+On Mon, Aug 20, 2012 at 11:57 PM, Anders Hammar &lt;anders@hammar.net&gt; wrote:
+&gt; Just ignore Martin's mail. It doesn't make any sense to me either.
+&gt;
+&gt; To answer your questions, I'll start with #2 first:
+&gt;
+&gt; The best solution to this problem is to get a repo manager (archiva in
+&gt; your case) that has Internet access. It will be VERY difficult for you
+&gt; to work with Maven unless you do this. Trust me, I've tried!
+&gt;
+&gt; And then #1:
+&gt;
+&gt; What you need to do is to define the version of the plugins you want
+&gt; to use in the pluginManagement section. The best solution to handle
+&gt; this is to do this in a parent pom which all your projects inherit
+&gt; from. This will ensure that you'll use that version you want, and it
+&gt; will also ensure that the same version is always used (which is not
+&gt; the case when you don't pin down the version, it could then change
+&gt; when new versions are released or when you upgrade Maven depending on
+&gt; what plugin we're talking about).
+&gt;
+&gt;
+&gt;
+&gt; On Tue, Aug 21, 2012 at 3:21 AM, Billy Newman &lt;newmanw10@gmail.com&gt; wrote:
+&gt;&gt; This is very confusing to me. I have a remote repository (Archiva) where we store
+all the plugins we bring in. This includes version 2.3.2 of the release plugin. When I use
+the 2.3.2 release plugin it asks for 2.5 of the javadoc plugin which I do not have in my internal
+remote repository.
+&gt;&gt;
+&gt;&gt; Sent from my iPhone
+&gt;&gt;
+&gt;&gt; On Aug 20, 2012, at 7:13 PM, Martin Gainty &lt;mgainty@hotmail.com&gt; wrote:
+&gt;&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt; I would aggregate all of your local plugins into a local-only pom.xml which would
+identify your local repository as your 'primary repository'
+&gt;&gt;&gt; when using the local-only pom you would always identify 2.8.1 as the only maven-javadoc-plugin
+stored in local repository
+&gt;&gt;&gt; the other poms will reference the 'normal' repositories from maven settings.xml
+which will of course reference the 2.5 maven-javadoc-plugin
+&gt;&gt;&gt;
+&gt;&gt;&gt; http://maven.apache.org/guides/introduction/introduction-to-repositories.html
+&gt;&gt;&gt;
+&gt;&gt;&gt; Martin Gainty
+&gt;&gt;&gt; ______________________________________________
+&gt;&gt;&gt; Verzicht und Vertraulichkeitanmerkung/Note de déni et de confidentialité
+&gt;&gt;&gt;
+&gt;&gt;&gt; Diese Nachricht ist vertraulich. Sollten Sie nicht der vorgesehene Empfaenger
+sein, so bitten wir hoeflich um eine Mitteilung. Jede unbefugte Weiterleitung oder Fertigung
+einer Kopie ist unzulaessig. Diese Nachricht dient lediglich dem Austausch von Informationen
+und entfaltet keine rechtliche Bindungswirkung. Aufgrund der leichten Manipulierbarkeit von
+E-Mails koennen wir keine Haftung fuer den Inhalt uebernehmen.
+&gt;&gt;&gt; Ce message est confidentiel et peut être privilégié. Si vous n'êtes pas le
+destinataire prévu, nous te demandons avec bonté que pour satisfaire informez l'expéditeur.
+N'importe quelle diffusion non autorisée ou la copie de ceci est interdite. Ce message sert
+à l'information seulement et n'aura pas n'importe quel effet légalement obligatoire. Étant
+donné que les email peuvent facilement être sujets à la manipulation, nous ne pouvons accepter
+aucune responsabilité pour le contenu fourni.
+&gt;&gt;&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; Subject: Override plugin dependencies?
+&gt;&gt;&gt;&gt; From: newmanw10@gmail.com
+&gt;&gt;&gt;&gt; Date: Mon, 20 Aug 2012 18:50:16 -0600
+&gt;&gt;&gt;&gt; To: users@maven.apache.org
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; I have a couple of quick questions about plugins and their dependencies.
+ I am on a private network so it is sometimes difficult to get a plugin and all it's dependencies.
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; 1.  I am trying to use the maven-release-plugin and during the deploy phase
+it is looking for the maven-javadoc-plugin version 2.5. I have version 2.8.1 in my private
+archiva repository. Is there anyway I can specify when using the release plugin to use a different
+version for one of its dependencies.
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; 2. I do not think #1 is possible for a few reasons. As such is there a good
+way to download a plugin and all of its dependencies so that I can bring them over to a private
+repository?  I think the problem here is that different dependencies are pulled during different
+phases of the build, so unless I actually run the plugin I am not sure I can get all the dependencies.
+Any thoughts?
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; Thanks,
+&gt;&gt;&gt;&gt; Billy
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; Sent from my iPhone
+&gt;&gt;&gt;&gt; ---------------------------------------------------------------------
+&gt;&gt;&gt;&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt;&gt;&gt;&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;
+&gt;&gt;
+&gt;&gt; ---------------------------------------------------------------------
+&gt;&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt;&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;&gt;
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201208.mbox/raw/%3cCAD34qgkBwYWMNSgz_=S5ArmvXkGSmyg_sYuUnrDvNwGpEgRU4g@mail.gmail.com%3e/">Unnamed text/plain</a> (inline, Quoted Printable, 6620 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201208.mbox/raw/%3cCAD34qgkBwYWMNSgz_=S5ArmvXkGSmyg_sYuUnrDvNwGpEgRU4g@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: [maven-3/trunk] bootstrap-build failing</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201211.mbox/%3c829C9ED1-358C-4BF1-B71E-D2B35697D633@sharp.fm%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201211.mbox/%3cC76B3518F981E0468383F7E091A595B88EFBE1@c005815.chres1.doleni.net%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201211.mbox/%3c829C9ED1-358C-4BF1-B71E-D2B35697D633@sharp.fm%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201211.mbox/%3cC76B3518F981E0468383F7E091A595B88EFBE2@c005815.chres1.doleni.net%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201211.mbox/%3c829C9ED1-358C-4BF1-B71E-D2B35697D633@sharp.fm%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201211.mbox/%3cC76B3518F981E0468383F7E091A595B88EFBE1@c005815.chres1.doleni.net%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201211.mbox/%3c829C9ED1-358C-4BF1-B71E-D2B35697D633@sharp.fm%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201211.mbox/%3cC76B3518F981E0468383F7E091A595B88EFBE2@c005815.chres1.doleni.net%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Anders Hammar &lt;and...@hammar.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: [maven-3/trunk] bootstrap-build failing</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Thu, 01 Nov 2012 11:10:56 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+While you're at it: Give us info on what version of Ant you're using as
+well what JDK version. If you want to speed things up, you could try a
+different Ant version. (I don't know which Ant version is preferred though
+as I always build with Maven.)
+
+The slf4j "error" is most likely safe to ignore. That has to do about the
+logging and just says it's defaulting to the no-op impl.
+
+/Anders
+
+
+On Thu, Nov 1, 2012 at 11:58 AM, Graham Leggett &lt;minfrin@sharp.fm&gt; wrote:
+
+&gt; On 01 Nov 2012, at 12:43 PM, "Stadelmann Josef" &lt;
+&gt; josef.stadelmann@axa-winterthur.ch&gt; wrote:
+&gt;
+&gt; &gt; What does that mean?
+&gt; &gt; are you saying that maven developers will not fix the bootstrap-build
+&gt; problem shown below or
+&gt; &gt; are you saying that "This mailing list strips HTML" I have delivered
+&gt; insufficient information?
+&gt;
+&gt; You have delivered insufficient information.
+&gt;
+&gt; HTML mail provides for different fonts and different colours, while plain
+&gt; text mail doesn't. HTML mail also provides a layout headache for makers of
+&gt; mailing list archiving software, and introduces all sorts of security
+&gt; headaches too, and so standard practise for many mailing lists is to take
+&gt; into account the text-only version of your email only.
+&gt;
+&gt; To see what your email looks like in the archives, see below:
+&gt;
+&gt;
+&gt; http://mail-archives.apache.org/mod_mbox/maven-users/201211.mbox/%3CC76B3518F981E0468383F7E091A595B88EFBE0%40c005815.chres1.doleni.net%3E
+&gt;
+&gt; As you can see, no red colour, so we have no idea what lines you are
+&gt; referring to.
+&gt;
+&gt; Regards,
+&gt; Graham
+&gt; --
+&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201211.mbox/raw/%3cCAKDUN1uHw81no_tE+-7boZLV5HUy3cNq=SnDM-Bwpha1XKUpaw@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 1531 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201211.mbox/raw/%3cCAKDUN1uHw81no_tE+-7boZLV5HUy3cNq=SnDM-Bwpha1XKUpaw@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

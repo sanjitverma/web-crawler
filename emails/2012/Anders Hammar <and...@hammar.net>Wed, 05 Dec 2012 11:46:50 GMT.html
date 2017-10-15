@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Wrong resolution of dependency scope by Maven 3?</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201212.mbox/%3c9fbf6ef5-8f0e-4ee8-a020-a8e5b7df6ff5@husmusen%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201212.mbox/%3cCAKDUN1txEX8eUf2=RzeKWBfV_tOBA7nGRy+iAL8mcx73nnRcrA@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201212.mbox/%3cCA+u5K_-6UXtGKiSs_jBdYvy=_xxXeTRA==Wga9mvRX0GRis9kQ@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201212.mbox/%3c50BEF808.2030505@xanthippe.ping.de%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201212.mbox/%3c9fbf6ef5-8f0e-4ee8-a020-a8e5b7df6ff5@husmusen%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201212.mbox/%3cCAKDUN1txEX8eUf2=RzeKWBfV_tOBA7nGRy+iAL8mcx73nnRcrA@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201212.mbox/%3cCA+u5K_-6UXtGKiSs_jBdYvy=_xxXeTRA==Wga9mvRX0GRis9kQ@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201212.mbox/%3c50BEF808.2030505@xanthippe.ping.de%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Anders Hammar &lt;and...@hammar.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Wrong resolution of dependency scope by Maven 3?</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Wed, 05 Dec 2012 11:46:50 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+First I thought this could be a problem in the dependency plugin, but I see
+the same result when viewing this in the dependency hierachy of m2e (which
+uses Maven 3.0.4). Seems to be a bug - you should file a ticket.
+
+/Anders
+
+
+On Tue, Dec 4, 2012 at 9:00 PM, Dmitry Batrak &lt;batrdmi@gmail.com&gt; wrote:
+
+&gt; Hi,
+&gt;
+&gt; While trying to migrate a project from Maven 2 to Maven 3, I
+&gt; encountered a problem, the essence of which can be demonstrated by the
+&gt; following simple example.
+&gt; Consider the following POM:
+&gt;
+&gt; &lt;project&gt;
+&gt;     &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+&gt;
+&gt;     &lt;groupId&gt;test&lt;/groupId&gt;
+&gt;     &lt;artifactId&gt;A&lt;/artifactId&gt;
+&gt;     &lt;version&gt;1.0&lt;/version&gt;
+&gt;
+&gt;     &lt;dependencies&gt;
+&gt;         &lt;dependency&gt;
+&gt;             &lt;groupId&gt;org.apache.axis2&lt;/groupId&gt;
+&gt;             &lt;artifactId&gt;axis2-xmlbeans&lt;/artifactId&gt;
+&gt;             &lt;version&gt;1.5&lt;/version&gt;
+&gt;             &lt;scope&gt;provided&lt;/scope&gt;
+&gt;         &lt;/dependency&gt;
+&gt;         &lt;dependency&gt;
+&gt;             &lt;groupId&gt;org.apache.axis2&lt;/groupId&gt;
+&gt;             &lt;artifactId&gt;axis2-codegen&lt;/artifactId&gt;
+&gt;             &lt;version&gt;1.5&lt;/version&gt;
+&gt;             &lt;exclusions&gt;
+&gt;                 &lt;exclusion&gt;
+&gt;                     &lt;groupId&gt;org.apache.geronimo.specs&lt;/groupId&gt;
+&gt;                     &lt;artifactId&gt;geronimo-stax-api_1.0_spec&lt;/artifactId&gt;
+&gt;                 &lt;/exclusion&gt;
+&gt;             &lt;/exclusions&gt;
+&gt;         &lt;/dependency&gt;
+&gt;     &lt;/dependencies&gt;
+&gt; &lt;/project&gt;
+&gt;
+&gt; Running 'mvn dependency:resolve' for this POM yields a strange result.
+&gt; Namely, it says that that my module depends on
+&gt; geronimo-stax-api_1.0_spec with 'compile' scope.
+&gt; This artifact is a transitive dependency of both axis2-xmlbeans and
+&gt; axis2-codegen, and, according to rules for transitive dependencies, I
+&gt; would expect the resolved scope of geronimo-stax-api_1.0_spec to be
+&gt; 'provided'. With Maven 2 I get exactly the result I expect.
+&gt;
+&gt; Should I raise a JIRA ticket for this issue, or am I missing some
+&gt; point, and this is the desired behaviour in the new version of Maven?
+&gt;
+&gt; For reference - I used Maven version 3.0.4. I also checked the above
+&gt; with the latest version (2.6) of dependency plugin - result was the
+&gt; same.
+&gt;
+&gt; Best regards,
+&gt; Dmitry Batrak
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201212.mbox/raw/%3cCAKDUN1svVP3kabDcXm3fUxsmYBO9q1Wrsuo_iZCRcQUwy21ytQ@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 2359 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201212.mbox/raw/%3cCAKDUN1svVP3kabDcXm3fUxsmYBO9q1Wrsuo_iZCRcQUwy21ytQ@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

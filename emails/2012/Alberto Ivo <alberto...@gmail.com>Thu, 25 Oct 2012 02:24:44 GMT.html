@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Repository Order</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201210.mbox/%3cCADVp3v9s4poJUCExHZOdAvmCSS=GKShnUxZy-hjY+P69Rkib4Q@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201210.mbox/%3c255343FA5EEE4D4599D4588EE379349B23A72FC1@RHV-EXRDA-S21.corp.ebay.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201210.mbox/%3cCADVp3v9s4poJUCExHZOdAvmCSS=GKShnUxZy-hjY+P69Rkib4Q@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201210.mbox/%3cCABOjBFmNhSq=LnACRZ_BWBfN4fvFvt0wMQbMf4js7F3WgR7Bnw@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201210.mbox/%3cCADVp3v9s4poJUCExHZOdAvmCSS=GKShnUxZy-hjY+P69Rkib4Q@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201210.mbox/%3c255343FA5EEE4D4599D4588EE379349B23A72FC1@RHV-EXRDA-S21.corp.ebay.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201210.mbox/%3cCADVp3v9s4poJUCExHZOdAvmCSS=GKShnUxZy-hjY+P69Rkib4Q@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201210.mbox/%3cCABOjBFmNhSq=LnACRZ_BWBfN4fvFvt0wMQbMf4js7F3WgR7Bnw@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Alberto Ivo &lt;alberto...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Repository Order</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Thu, 25 Oct 2012 02:24:44 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Oh, I get it now.
+Thak you all for the replies.
+I will study one of those MRM.
+Thank you very much!!!!!!
+
+Ivo
+
+
+On Wed, Oct 24, 2012 at 11:47 PM, Barrie Treloar &lt;baerrach@gmail.com&gt; wrote:
+
+&gt; On Thu, Oct 25, 2012 at 10:37 AM, Alberto Ivo &lt;albertoivo@gmail.com&gt;
+&gt; wrote:
+&gt; &gt; Hello,
+&gt; &gt;
+&gt; &gt; I have 5 repositories in my pom.xml, and some of these repositories have
+&gt; &gt; repeated jar files.
+&gt; &gt;
+&gt; &gt; My question is: is there a way to know from what repository maven will
+&gt; &gt; download the jar file? It will download from both repositories? It will
+&gt; &gt; download from the first repository? It will download from the last
+&gt; &gt; repository?
+&gt; &gt;
+&gt; &gt; Thanks in advance.
+&gt; &gt;
+&gt; &gt; Ivo.
+&gt;
+&gt; Ivo, you need to search back in the archives about why putting
+&gt; repository declarations in pom.xml is a bad idea.
+&gt;
+&gt; Look especially for the one that is trying to speed up the build process.
+&gt;
+&gt; Short summary:
+&gt; Maven will needless contact all five of your repositories looking for
+&gt; artifacts that probably aren't even there.
+&gt; This will require a tcp/ip connection for each one and when you have
+&gt; large dependencies this can significantly slow down your build.
+&gt; Which is why we all recommend putting a Maven Repository Manager (MRM)
+&gt; in between you and the rest of the w
+&gt; orld.
+&gt;
+&gt; MRMs have the smarts to know that a repository has already been
+&gt; checked for an artifact and doesn't have it.
+&gt; They can be configured to blacklist/whitelist artifacts so you dont
+&gt; leak your internal development artifact names to external
+&gt; repositories, or waste time looking for something that doesn't exist
+&gt; at that repo.
+&gt;
+&gt; As others in this thread have said, asking where an artifact has come
+&gt; from wont really help you.
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201210.mbox/raw/%3cCABOjBFkqoCV9pJAmy+AhaYhFpXeg3DkxjCShsowG08yLdj9kwA@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 1896 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201210.mbox/raw/%3cCABOjBFkqoCV9pJAmy+AhaYhFpXeg3DkxjCShsowG08yLdj9kwA@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

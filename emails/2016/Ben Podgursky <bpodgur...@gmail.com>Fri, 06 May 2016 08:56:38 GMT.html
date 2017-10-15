@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: An idea I had for one way of doing Continuous Delivery with Maven</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201605.mbox/%3cCADVp3v8fupASaEUe1v5i__Ak60KM7rDzf=0HNE3QLHLh_3DVSQ@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201605.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201605.mbox/%3cFD57C047-5E0D-42F0-B484-3116FF017727@sri.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201605.mbox/%3cCADVp3v8fupASaEUe1v5i__Ak60KM7rDzf=0HNE3QLHLh_3DVSQ@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201605.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201605.mbox/%3c1462463921246-5867105.post@n5.nabble.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201605.mbox/%3cCADVp3v8fupASaEUe1v5i__Ak60KM7rDzf=0HNE3QLHLh_3DVSQ@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201605.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201605.mbox/%3cFD57C047-5E0D-42F0-B484-3116FF017727@sri.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201605.mbox/%3cCADVp3v8fupASaEUe1v5i__Ak60KM7rDzf=0HNE3QLHLh_3DVSQ@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201605.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201605.mbox/%3c1462463921246-5867105.post@n5.nabble.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Ben Podgursky &lt;bpodgur...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: An idea I had for one way of doing Continuous Delivery with Maven</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Fri, 06 May 2016 08:56:38 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Of course, we tag the MANIFEST of all jars with the git commit.  We
+actually go a bit farther and print out all dependency git SHA1s during the
+build process, so you only have to refer to the jenkins build log to do a
+bisect and not dig through jars.
+
+I describe how we did that here:
+http://liveramp.com/engineering/identifying-maven-snapshot-artifacts-by-git-revision/
+
+On Thu, May 5, 2016 at 6:32 PM, Barrie Treloar &lt;baerrach@gmail.com&gt; wrote:
+
+&gt; On 6 May 2016 at 09:48, Ben Podgursky &lt;bpodgursky@gmail.com&gt; wrote:
+&gt;
+&gt; &gt; I see these discussions often, and I wanted to jump in and mention how we
+&gt; &gt; handle continuous deploys, because I feel that it avoids many of the
+&gt; &gt; downsides mentioned here, albeit with some (IMO) minor costs:
+&gt; &gt;
+&gt; &gt; - all of our internal dependencies are SNAPSHOT.  we do not do releases,
+&gt; &gt; ever, or ever depend on a fixed version
+&gt; &gt;
+&gt; &gt; - we attach to the package phase of our builds an assembly which packages
+&gt; &gt; the artifact and all of the  dependencies it tested against into a tar.gz
+&gt; &gt;
+&gt; &gt; - we deploy the tar.gz to our artifact server with a snapshot version
+&gt; (ex,
+&gt; &gt; MY_PROJECT-1.0-deploy.tar.gz)
+&gt; &gt;
+&gt; &gt; - when deploying we simply take the last snapshot deploy artifact and
+&gt; unzip
+&gt; &gt; it in production (+ some  config files etc).
+&gt; &gt;
+&gt; &gt; so while you use SNAPSHOT versions, you are guaranteed that you are
+&gt; &gt; deploying against tested dependencies.  and you never have to commit
+&gt; &gt; updated dependency versions, do releases, etc.  the only real cost is a
+&gt; bit
+&gt; &gt; of artifact server disk space… but disk space is incredibly cheap.
+&gt;
+&gt;
+&gt; You left out tagging the source code in the built jars.
+&gt;
+&gt; How are you supposed to pull up the code in production?
+&gt; Or git bisect, or diff between versions to track down when a defect was
+&gt; introduced?
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201605.mbox/raw/%3cCAC21K-7nBG+on=Fjt+psJHSowNoX15h2ESW6ZxE5y_Bbhq4YJA@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, Quoted Printable, 1811 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201605.mbox/raw/%3cCAC21K-7nBG+on=Fjt+psJHSowNoX15h2ESW6ZxE5y_Bbhq4YJA@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

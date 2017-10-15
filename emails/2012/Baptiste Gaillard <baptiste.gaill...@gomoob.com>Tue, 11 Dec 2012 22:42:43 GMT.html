@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>File lock problem in custom Maven Reporting Plugin</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201212.mbox/%3cCAD34qgkSbBgqOxRizK=eMtQHTq4JhXh7Oice00e6eycBWgpd1Q@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201212.mbox/%3cOF3B419BAE.EB6EFFD0-ON65257AD2.001C7E4A-65257AD2.001DB55B@tcs.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201212.mbox/%3cCAD34qgkSbBgqOxRizK=eMtQHTq4JhXh7Oice00e6eycBWgpd1Q@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201212.mbox/%3cop.wpfhepnzkdkhrr@columbia%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201212.mbox/%3cCAD34qgkSbBgqOxRizK=eMtQHTq4JhXh7Oice00e6eycBWgpd1Q@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201212.mbox/%3cOF3B419BAE.EB6EFFD0-ON65257AD2.001C7E4A-65257AD2.001DB55B@tcs.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201212.mbox/%3cCAD34qgkSbBgqOxRizK=eMtQHTq4JhXh7Oice00e6eycBWgpd1Q@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201212.mbox/%3cop.wpfhepnzkdkhrr@columbia%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Baptiste Gaillard &lt;baptiste.gaill...@gomoob.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">File lock problem in custom Maven Reporting Plugin</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Tue, 11 Dec 2012 22:42:43 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hi, I'm currently creating a new Maven Reporting Plugin which integrate an
+external tool used to generate a Javascript documentation in my Maven Web
+Site.
+
+My report Mojo is very simple and is declared using :
+
+/**
+ * @goal jsduck
+ * @phase site
+ */
+public class JSDuckReportMojo extends AbstractMavenReport {
+...
+}
+
+I encounter a file locking problem (i.e already opened elsewhere and not
+closed) at the beginning of my 'executeReport' method :
+
+*
+protected void executeReport(Locale locale) throws MavenReportException {
+
+    // JSDuck creates an 'index.html' file itself and crashes if one file
+with this name already exist
+    File jsduckIndex = new File("target/site/jsduck/index.html");
+
+    if (jsduckIndex.exists() &amp;&amp; !jsduckIndex.delete()) {
+        throw new MavenReportException("Fail to delete the previously
+generated index.html !"
+);
+    }
+
+    // Use a document generator which absolutly need to have an empty
+target directory
+    ...
+}
+*
+
+The tool I'm integrating is called 'jsduck' and absolutely needs to have an
+empty target directory to work, its root index file is called 'index.html'.
+
+So I've also implemented the 'getOutputName' function :
+
+public String getOutputName() {
+return "jsduck/index";
+}
+
+But, the file 'target/site/jsduck/index.html' has already been created
+automagically by Maven.
+In the 'executeReport' this file is there, empty and locked !
+
+So, I can't delete this 'index.html' file and let JSDuck create itself :-(
+
+Is it normal that Maven locks this 'index.html' file (because it has been
+declared in the 'getOutputName()' ) ?
+How can I unlock this file inside the 'executeReport' function to let
+JSDuck generate my documentation ?
+
+I've already tried to debug the 'AbstractMavenReport' class and only found
+a 'PrintWriter' attached to the 'Sink' (in the 'execute' method) which
+could cause this locking problem.
+Calling the 'close' method at the beginning of the 'executeReport' method
+seems to have no effect...
+
+Thanks for you help,
+
+Baptiste
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201212.mbox/raw/%3cCAF+yAzeKb+v4Gz=XFgBcbcHee=-kfb0u2hmCncRcn8-GS2oWrw@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 1989 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201212.mbox/raw/%3cCAF+yAzeKb+v4Gz=XFgBcbcHee=-kfb0u2hmCncRcn8-GS2oWrw@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

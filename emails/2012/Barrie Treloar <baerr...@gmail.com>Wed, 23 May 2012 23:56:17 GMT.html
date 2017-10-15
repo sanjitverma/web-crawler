@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Values from pom.xml being injected into deployed jsp attributes</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201205.mbox/%3cCAA6rS-1R7=Wciq4Qw46ojNTRhQ92kJhOMsMVnJLPxX4Q0nD=Rg@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cCBE2CBB7.38FB0%25rbracewe@qualcomm.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201205.mbox/%3cCAA6rS-1R7=Wciq4Qw46ojNTRhQ92kJhOMsMVnJLPxX4Q0nD=Rg@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cCBE2CBB7.38FB0%25rbracewe@qualcomm.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201205.mbox/%3cCAA6rS-1R7=Wciq4Qw46ojNTRhQ92kJhOMsMVnJLPxX4Q0nD=Rg@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cCBE2CBB7.38FB0%25rbracewe@qualcomm.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201205.mbox/%3cCAA6rS-1R7=Wciq4Qw46ojNTRhQ92kJhOMsMVnJLPxX4Q0nD=Rg@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cCBE2CBB7.38FB0%25rbracewe@qualcomm.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Barrie Treloar &lt;baerr...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Values from pom.xml being injected into deployed jsp attributes</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Wed, 23 May 2012 23:56:17 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+On Thu, May 24, 2012 at 9:01 AM, Matt Veitas &lt;mveitas@gmail.com&gt; wrote:
+&gt; I confirmed that resource filtering is only happening to the files are
+&gt; targeting. I also made just to run the maven install with -X to make sure
+&gt; that the filtering was only happening the specified resources.
+&gt;
+&gt; If I explode the war file it contains the jsp files that still contain the
+&gt; ${name} and ${url} references. By removing the pom.xml and pom.properties
+&gt; from the war everything works as expected. Someone brought up a point about
+&gt; JDK 1.6 and xml based properties files and how it might be something reading
+&gt; the pom.xml. We haven't been able to figure out what would be causing it.
+
+Another thought is to grep every file and look for the keys that are
+being replaced.
+I suspect it may be &lt;exploded.war&gt;/maven/&lt;groupId&gt;/&lt;artifactId&gt;pom.properties
+If you can find all the files with those keys, and then "fiddle" with
+the values to determine which file is causing the problem that might
+help you with extra google queries or questions to mailing lists.
+
+I don't do a lot of web development so I can't offer any more advice.
+Someone else might have bright ideas.
+
+It may also be specific to you web container.
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201205.mbox/raw/%3cCADVp3v_65OqgueWLx4jBa7YbfQ0t0bR_cucZRmBQ21ptqEb-1Q@mail.gmail.com%3e/">Unnamed text/plain</a> (inline, None, 1392 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201205.mbox/raw/%3cCADVp3v_65OqgueWLx4jBa7YbfQ0t0bR_cucZRmBQ21ptqEb-1Q@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>release:branch creates branch only from HEAD?</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201211.mbox/%3c50B616C2.8050704@artifact-software.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201211.mbox/%3cCALhtWkcoFE3m_tSCqisF2myKyCqF1SqkVXSHb98wLvXa=ggiaQ@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201211.mbox/%3cCAHRpksqd6xLBXbjwBwTR9zLRzjM667LUvYOR7EJd4UBzFZ0ULA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201211.mbox/%3cCALhtWkcoFE3m_tSCqisF2myKyCqF1SqkVXSHb98wLvXa=ggiaQ@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201211.mbox/%3c50B616C2.8050704@artifact-software.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201211.mbox/%3cCALhtWkcoFE3m_tSCqisF2myKyCqF1SqkVXSHb98wLvXa=ggiaQ@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201211.mbox/%3cCAHRpksqd6xLBXbjwBwTR9zLRzjM667LUvYOR7EJd4UBzFZ0ULA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201211.mbox/%3cCALhtWkcoFE3m_tSCqisF2myKyCqF1SqkVXSHb98wLvXa=ggiaQ@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Aliaksei Lahachou &lt;aliaksei.lahac...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">release:branch creates branch only from HEAD?</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Wed, 28 Nov 2012 13:51:37 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hello everyone!
+
+release:prepare/perform creates release only from HEAD revision and I can
+understand that - it has to commit release POMs before it creates a tag,
+because the tag may not be modified.
+
+If I want to perform a release from a specific revision, I have to create a
+branch first. And I thought that release:branch can help me here - it could
+create a branch then update POM in the new branch. But it seems that it has
+just the same logic as release:prepare - it attempts to commit release POMs
+before branching.
+
+Is there any prescribed sequence for making a release from a revision, or
+is this scenario not supported?
+
+
+Regards,
+htfv (Aliaksei Lahachou)
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201211.mbox/raw/%3cCALcFPWERF6ReyfbKYy7TqTL7OMnHjQGBCX3Kvg4dXPuPBW99+A@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 668 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201211.mbox/raw/%3cCALcFPWERF6ReyfbKYy7TqTL7OMnHjQGBCX3Kvg4dXPuPBW99+A@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

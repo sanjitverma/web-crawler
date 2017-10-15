@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: How to put a dependency in the classpath BEFORE jre.jar?</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201209.mbox/%3cCA+nPnMyuzhFciGm=YUSpDY9Kep-DKz=ZoiQGeUSX+fU6pxdJew@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201209.mbox/%3c50605503.60302@gmx.de%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201209.mbox/%3cCA+nPnMyuzhFciGm=YUSpDY9Kep-DKz=ZoiQGeUSX+fU6pxdJew@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201209.mbox/%3cCA+nPnMwP=vH8dRzXb2HfgevDro3SHQudo+YhNDjDmRM=_oDOzw@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201209.mbox/%3cCA+nPnMyuzhFciGm=YUSpDY9Kep-DKz=ZoiQGeUSX+fU6pxdJew@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201209.mbox/%3c50605503.60302@gmx.de%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201209.mbox/%3cCA+nPnMyuzhFciGm=YUSpDY9Kep-DKz=ZoiQGeUSX+fU6pxdJew@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201209.mbox/%3cCA+nPnMwP=vH8dRzXb2HfgevDro3SHQudo+YhNDjDmRM=_oDOzw@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Benson Margulies &lt;bimargul...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: How to put a dependency in the classpath BEFORE jre.jar?</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Mon, 24 Sep 2012 11:58:10 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Folks,
+
+Much electronic ink was spilt on the subject of POM5. One of the pools
+of ink was created by my attempt, some months ago, to move the design
+along.
+
+I wish someone would propose a concrete next step.
+
+--benson
+
+
+On Mon, Sep 24, 2012 at 4:41 AM, Stephen Connolly
+&lt;stephen.alan.connolly@gmail.com&gt; wrote:
+&gt; Markus,
+&gt;
+&gt; perhaps you mis-understood my point.
+&gt;
+&gt; this is a hard problem, that does not mean we should shirk away...
+&gt;
+&gt; that does mean we have to solve it very close to right
+&gt;
+&gt; the great pom migration of Maven 1 to Maven 2 left deep scars... because it
+&gt; got some things wrong.
+&gt;
+&gt; When we do the next "migration" of Maven 2/3 to Maven 4 (personally I would
+&gt; prefer to call it Maven 5 so that the pom version and maven version align)
+&gt; we need to get that right.
+&gt;
+&gt; The model version 5 pom will likely be with us for quite some time...
+&gt;
+&gt; And there are going to be very many consumers of the model version 4 pom
+&gt; for some time...
+&gt;
+&gt; So we need a reliable way to allow those consumers to continue to consumer
+&gt; artifacts that were built with a model 5 pom.
+&gt;
+&gt; A lot of the consumers are not even using Maven... we have IVY, Gradle,
+&gt; Leinengen, SBT, etc.
+&gt;
+&gt; Some of the consumers are not even JVM hosted... for example (at work) we
+&gt; have chef scripts that run on RVM and parse the pom to decide what
+&gt; artifacts to populate on the server they describe.
+&gt;
+&gt; Adding a feature that requires a pom change is not something to just "hack"
+&gt; in.
+&gt;
+&gt; On top of that, there is the question of do we even want to stick with
+&gt; XML... at least the XML as we have it...
+&gt;
+&gt; A lot of people would prefer
+&gt;
+&gt;   &lt;dependencies&gt;
+&gt;     &lt;d g="..." a="..." v="..." s="provided"/&gt;
+&gt;   &lt;/dependencies&gt;
+&gt;
+&gt; as that saves typing.... better yet might even be
+&gt;
+&gt;   &lt;dependencies&gt;
+&gt;     &lt;dependency coord="groupId:artifactId:version[:type[:classifier]]"
+&gt; scope="provided" optional="true"/&gt;
+&gt;   &lt;/dependencies&gt;
+&gt;
+&gt; and who says we need to stay in xml:
+&gt;
+&gt;   "dependencies":[
+&gt;     {"name":"groupId:artifactId:version[:type[:classifier]]",
+&gt;      "scope":"provided",
+&gt;      "optional":true
+&gt;     }
+&gt;   ]
+&gt;
+&gt; Note: strict JSON would be annoying though... might want to relax the rules
+&gt; on quoting and allow comments.
+&gt;
+&gt; These are the questions that vex us while we try to determine how to solve
+&gt; the "how to get to model 5" problem... and that is even before we start
+&gt; answering the "what should model 5" look like.
+&gt;
+&gt; I like some of your idea about the concept of a platform but this is not as
+&gt; trivial as you think.
+&gt;
+&gt; There is the issue of building with JDK5 an artifact to be run on JDK5 or
+&gt; JDK6
+&gt;
+&gt; There is the issue of somebody building their own patched JAX-RS and
+&gt; publishing at their own coordinates... how would the "platform" know that
+&gt; "com.foobar.manchu:jersey-patched-by-bob:0.1.2" is supposed to be
+&gt; endorsed... other than by scanning the jar file and looking for paths
+&gt; within....
+&gt;
+&gt; What do we do when building a .WAR that includes that dependency?
+&gt;
+&gt; Please file a JIRA so that your platform idea does not get lost in the ML,
+&gt; but I don't think in its current shape that it is the right solution.
+&gt;
+&gt; I would be more thinking along the lines of a "platform" packaging type...
+&gt; coupled with the "provides" (sort of inverse of dependencies) element or
+&gt; scope...
+&gt;
+&gt; My reasoning is this... when you need to replace an "endorsed" dependency
+&gt; what you are really saying is "I *need* to run on a different platform"
+&gt;
+&gt; The Endorsed mechanism is just a way of modifying the platform that you run
+&gt; on without having to produce a custom build of that platform...
+&gt;
+&gt; So to my mind, you create modules for the platforms that you require...
+&gt; those platforms have their dependencies listed as either &lt;provides&gt;
+&gt; elements in a model 5 pom, or as &lt;scope&gt;provides&lt;/scope&gt; (in a model 5 pom
+&gt; again... because unfortunately the allowed values of the scope element are
+&gt; locked in model 4) so we can filter the dependencies appropriately...
+&gt;
+&gt; It would be nice if we could find a way of building the same module for
+&gt; multiple platforms at the same time... but the key here is to realize that
+&gt; it is not the .jar that you build for a platform... but the "executable
+&gt; .jar" or the ".war" or the ".ear", etc that you build for the platform...
+&gt; so those would be "thin" modules, and duplication of modules is less of an
+&gt; issue... IOW one module per platform... though nothing to stop multiple
+&gt; executions of the maven war plugin with the different platforms
+&gt; configured... works too because (bar skinny wars in ear) .war files are a
+&gt; final end of the chain artifact.
+&gt;
+&gt; [In fact, if we look at this from a better decomposition PoV might make
+&gt; more sense to have a "webapp" packaging that holds the .war content and
+&gt; make .war a final end of the line artifact... but getting sidetracked again]
+&gt;
+&gt; With this model... you would also see platforms for each of the JavaEE
+&gt; containers, as well as a generic JavaEE specification platform...
+&gt;
+&gt; [the "webapp" packaging then becomes more needed... think of skinny .wars
+&gt; being packaged into a .ear for each platform that you want to deploy the
+&gt; .ear onto... on older platforms you might need the newer version of JSF, on
+&gt; TomEE you may need additional dependencies because it is implementing one
+&gt; profile, etc]
+&gt;
+&gt; IOW I think the concept of a platform is a good idea... but there is a lot
+&gt; more to it than meets the eye.
+&gt;
+&gt; -Stephen
+&gt;
+&gt; P.S.
+&gt;
+&gt; I am quite sure others will come along and poke holes in my ideas above too!
+&gt;
+&gt; On 22 September 2012 10:19, Markus KARG &lt;markus@headcrashing.eu&gt; wrote:
+&gt;
+&gt;&gt; Stephen,
+&gt;&gt;
+&gt;&gt; if we would never address problems that seem hard to fix at first sight,
+&gt;&gt; then the Maven core would never evolve and other system would take over
+&gt;&gt; some
+&gt;&gt; day. So a discussion like this one is essential for the future of this
+&gt;&gt; tool.
+&gt;&gt; There are too much things left open due to concerns like these (e. g. see
+&gt;&gt; the long lasting discussion about SNAPSHOTs being included in version
+&gt;&gt; ranges), so we should start solving them step by step instead of flinching
+&gt;&gt; due to virtual efforts. :-)
+&gt;&gt;
+&gt;&gt; So let me chime in here and start a discussion by throwing a proposal in
+&gt;&gt; the
+&gt;&gt; ring: Introduction of the "Platform" interface in Maven 4!
+&gt;&gt;
+&gt;&gt; Possibly the best way to resolve the endorsed dependency problem mid-term
+&gt;&gt; would be to understand how it comes to the endorsed-ness: Obviously this is
+&gt;&gt; because someone in an official position (like the JCP) decides that
+&gt;&gt; something that was a "normal" dependency before now is "pre-packaged" with
+&gt;&gt; the official runtime package (like the JRE). In the end, that means, that
+&gt;&gt; Maven has to know about that decision to be able to deal with its effects.
+&gt;&gt;
+&gt;&gt; Looking it this way I have to contradict in part:
+&gt;&gt;
+&gt;&gt; * This is _not_ a Java-only problem, as potentially there could be endorsed
+&gt;&gt; libraries in other runtime systems, too, like .NET or Flash, or even Win32
+&gt;&gt; (for example, I can vividly remember that "GDI+" first was a custom DLL
+&gt;&gt; that
+&gt;&gt; everyone had to ship with his own application EXE, but later it was part of
+&gt;&gt; the official Windows SDK, pre-packaged with the operating system; same with
+&gt;&gt; newer ODBC releases BTW). While I do not say that those named examples in
+&gt;&gt; fact do have an endorsement facility (obvisouly besides Win32 where I named
+&gt;&gt; two examples), it could be possible that _some_ other Maven-supported
+&gt;&gt; platform _will_ have such a facility now or in future. So as it is not a
+&gt;&gt; Java-only problem, it makes sense to have a _common_ solution.
+&gt;&gt;
+&gt;&gt; * It is _not_ a problem of scope, since scope is to be defined solely by
+&gt;&gt; the
+&gt;&gt; view of the using dependent project always. If the dependent project needs
+&gt;&gt; this library for test only, scope still is 'test' (e. g. a Win32 program
+&gt;&gt; might need a particular release of ODBC for an integration test, while at
+&gt;&gt; runtime it possibly might never use ODBC at all). The fact that a library
+&gt;&gt; was in user space in JRE 5 but is in system space in JRE 6 does not have
+&gt;&gt; any
+&gt;&gt; influence on this project's use, hence, of the scope. So there is no need
+&gt;&gt; for another scope.
+&gt;&gt;
+&gt;&gt; * Endorsed libraries are _not_ a problem of one particular dependent
+&gt;&gt; project, but an inherent decision of the platform itself (_every_ dependent
+&gt;&gt; project on this particular platform (JRE 6 in this example) suffer from the
+&gt;&gt; _same_ pain, as _the platform_ decides that this is endorsed, but neither
+&gt;&gt; the dependent project nor the dependency itself). So it is nothing to get
+&gt;&gt; configured in neither the dependent POM nor in the dependency's POM, but it
+&gt;&gt; is solely a third place that makes up the endorsed-ness: The POM of the
+&gt;&gt; "platform" (here: the POM of a hypthetical artifact that makes up what we
+&gt;&gt; know as "JRE 6"). Which simply does not exist in Maven 3 AFAIK.
+&gt;&gt;
+&gt;&gt; * As a result, it is _not_ a particular problem of the compiler, since
+&gt;&gt; _all_
+&gt;&gt; compilers (jikes, javac, eclipse) need to support endorsed libraries. As
+&gt;&gt; all
+&gt;&gt; compilers might have different configuration switches, and selection of the
+&gt;&gt; particular compiler might be out of scope of the POM (i. e. defined in
+&gt;&gt; company pom for example), it simply is no sophisticated solution to provide
+&gt;&gt; particular javac options inside of each single dependent POM.
+&gt;&gt;
+&gt;&gt; * So as AFAIK Maven 3 does not yet know the concept of "Platform" modules,
+&gt;&gt; the solution obviously is to add this new concept to Maven 4: Strip the
+&gt;&gt; knowledge about the different platforms (hence, JREs) from the lots of
+&gt;&gt; plugins (like the compiler-plugin or the jar-plugin) into one single
+&gt;&gt; artifact which forms the "JRE 6 Platform" (including some general
+&gt;&gt; "Platform"
+&gt;&gt; interface common not only for the JREs but for all kinds of "Platforms"
+&gt;&gt; like
+&gt;&gt; .NET and Flash etc.). Using this interface, Maven could resolve the
+&gt;&gt; question
+&gt;&gt; "Is this dependency to be put in the root classpath, or in the user
+&gt;&gt; classpath?" automatically. Maven simply needs to ask the platform (using
+&gt;&gt; the
+&gt;&gt; new interface) what the right classpath is, and the platform would answer
+&gt;&gt; with either 'User' or 'System' (interface-defined enum constants for
+&gt;&gt; example). So the JRE 5 might answer with 'User' while JRE 6 might answer
+&gt;&gt; with 'System' for the same dependency! No need for _any_ configuration in
+&gt;&gt; the POM! No need for _any_ POM schema change! Maven could simply set up the
+&gt;&gt; root classpath fully automatically that way!
+&gt;&gt;
+&gt;&gt; Just like one day Eclipse learned the difference between "JRE" and the
+&gt;&gt; general term "Platform", Maven 4 has to learn this concept, too.
+&gt;&gt;
+&gt;&gt; Maybe I should file a RFE for this?
+&gt;&gt;
+&gt;&gt; Regards
+&gt;&gt; Markus
+&gt;&gt;
+&gt;&gt; &gt; -----Original Message-----
+&gt;&gt; &gt; From: Stephen Connolly [mailto:stephen.alan.connolly@gmail.com]
+&gt;&gt; &gt; Sent: Samstag, 22. September 2012 00:09
+&gt;&gt; &gt; To: Maven Users List
+&gt;&gt; &gt; Subject: Re: How to put a dependency in the classpath BEFORE jre.jar?
+&gt;&gt; &gt;
+&gt;&gt; &gt; 1. Maven is not just about java (though very java focused I admit)
+&gt;&gt; &gt; endorsed does not make sense outside of java 2. Whether a dependency
+&gt;&gt; &gt; needs to be endorsed or not depends on the jvm version it targets... A
+&gt;&gt; &gt; dep can be fine until it gets added to the jvm spec.
+&gt;&gt; &gt; 3. It should probably more correctly be &lt;scope&gt;endorsed&lt;/scope&gt;
+4.
+&gt;&gt; &gt; Where would you package an endorsed dependency within a .war or .ear
+&gt;&gt; &gt; file?
+&gt;&gt; &gt;
+&gt;&gt; &gt; And don't get me started on the fact that to change this requires
+&gt;&gt; &gt; changing the Pom format (which potentially could break ivy, gradle,
+&gt;&gt; &gt; leinengen, sbt,
+&gt;&gt; &gt; etc)
+&gt;&gt; &gt;
+&gt;&gt; &gt; Not an easy problem to solve, but I feel your pain
+&gt;&gt; &gt;
+&gt;&gt; &gt; On Friday, 21 September 2012, Markus KARG wrote:
+&gt;&gt; &gt;
+&gt;&gt; &gt; &gt; Thank you for pointing me to this excellent blog entry, but in fact I
+&gt;&gt; &gt; &gt; wonder why such a great tool like Maven doesn't have built-in support
+&gt;&gt; &gt; &gt; for endorsed dependencies? I mean, in the end a different compiler
+&gt;&gt; &gt; &gt; might break the solution, so it would be a good idea if a dependency
+&gt;&gt; &gt; &gt; could simply marked as &lt;endorsed&gt;true&lt;/endorsed&gt;.
+&gt;&gt; &gt; &gt;
+&gt;&gt; &gt; &gt; &gt; -----Original Message-----
+&gt;&gt; &gt; &gt; &gt; From: Claves Do Amaral
+&gt;&gt; &gt; &gt; &gt; [mailto:Claves.DoAmaral@igmarkets.com&lt;javascript:;&gt;
+&gt;&gt; &gt; &gt; ]
+&gt;&gt; &gt; &gt; &gt; Sent: Donnerstag, 20. September 2012 10:30
+&gt;&gt; &gt; &gt; &gt; To: Maven Users List
+&gt;&gt; &gt; &gt; &gt; Subject: RE: How to put a dependency in the classpath BEFORE
+&gt;&gt; &gt; jre.jar?
+&gt;&gt; &gt; &gt; &gt;
+&gt;&gt; &gt; &gt; &gt; If I understand the problem well, this is equivalent to provide
+&gt;&gt; &gt; &gt; &gt; endorsed libraries at runtime.
+&gt;&gt; &gt; &gt; &gt; I have found this resource, that looks a bit dated, but it may
+&gt;&gt; &gt; work.
+&gt;&gt; &gt; &gt; &gt; Not sure if Maven 3 offers a better solution
+&gt;&gt; &gt; &gt; &gt;
+&gt;&gt; &gt; &gt; &gt; http://www.mindbug.org/2009/02/adding-endorsements-to-mavens-
+&gt;&gt; &gt; &gt; &gt; plugins.html
+&gt;&gt; &gt; &gt; &gt;
+&gt;&gt; &gt; &gt; &gt; Claves
+&gt;&gt; &gt; &gt; &gt;
+&gt;&gt; &gt; &gt; &gt; -----Original Message-----
+&gt;&gt; &gt; &gt; &gt; From: Markus Karg [mailto:karg@quipsy.de &lt;javascript:;&gt;]
+&gt;&gt; &gt; &gt; &gt; Sent: 20 September 2012 09:22
+&gt;&gt; &gt; &gt; &gt; To: users@maven.apache.org &lt;javascript:;&gt;
+&gt;&gt; &gt; &gt; &gt; Subject: How to put a dependency in the classpath BEFORE jre.jar?
+&gt;&gt; &gt; &gt; &gt;
+&gt;&gt; &gt; &gt; &gt; I have a dependency on javaee.jar, which provides newer versions
+&gt;&gt; &gt; for
+&gt;&gt; &gt; &gt; &gt; classes found in JRE's jre.jar (particularly the @Resource
+&gt;&gt; &gt; annotation).
+&gt;&gt; &gt; &gt; &gt; But javaee.jar is always appended to the classpath, while to be
+&gt;&gt; &gt; able
+&gt;&gt; &gt; &gt; &gt; to load the newer version, I need to PREFIX it before jre.jar
+&gt;&gt; &gt; &gt; &gt; instead. How can I configure this in the POM?
+&gt;&gt; &gt; &gt; &gt;
+&gt;&gt; &gt; &gt; &gt;
+&gt;&gt; &gt; &gt; &gt; The information contained in this email is strictly confidential
+&gt;&gt; &gt; and
+&gt;&gt; &gt; &gt; &gt; for the use of the addressee only, unless otherwise indicated. If
+&gt;&gt; &gt; &gt; &gt; you are not the intended recipient, please do not read, copy, use
+&gt;&gt; &gt; or
+&gt;&gt; &gt; &gt; &gt; disclose to others this message or any attachment. Please also
+&gt;&gt; &gt; &gt; &gt; notify the sender by replying to this email or by telephone (+44
+&gt;&gt; &gt; &gt; &gt; (0)20 7896
+&gt;&gt; &gt; &gt; &gt; 0011) and then delete the email and any copies of it. Opinions,
+&gt;&gt; &gt; &gt; &gt; conclusions (etc.) that do not relate to the official business of
+&gt;&gt; &gt; &gt; &gt; this company shall be understood as neither given nor endorsed by
+&gt;&gt; &gt; &gt; &gt; it. IG is a trading name of IG Markets Limited, a company
+&gt;&gt; &gt; registered
+&gt;&gt; &gt; &gt; &gt; in England and Wales under number 04008957. VAT registration number
+&gt;&gt; &gt; 761 2978 07.
+&gt;&gt; &gt; &gt; &gt; Registered Office: Cannon Bridge House, 25 Dowgate Hill, London
+&gt;&gt; &gt; EC4R
+&gt;&gt; &gt; &gt; &gt; 2YA. Authorised and regulated by the Financial Services Authority.
+&gt;&gt; &gt; &gt; &gt; FSA Register number 195355.
+&gt;&gt; &gt; &gt; &gt;
+&gt;&gt; &gt; &gt; &gt; -------------------------------------------------------------------
+&gt;&gt; &gt; -
+&gt;&gt; &gt; &gt; &gt; - To unsubscribe, e-mail:
+&gt;&gt; &gt; &gt; &gt; users-unsubscribe@maven.apache.org&lt;javascript:;&gt;
+&gt;&gt; &gt; &gt; &gt; For additional commands, e-mail:
+&gt;&gt; &gt; &gt; &gt; users-help@maven.apache.org&lt;javascript:;&gt;
+&gt;&gt; &gt; &gt;
+&gt;&gt; &gt; &gt;
+&gt;&gt; &gt; &gt;
+&gt;&gt; &gt; &gt; ---------------------------------------------------------------------
+&gt;&gt; &gt; &gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt;&gt; &gt; &gt; &lt;javascript:;&gt; For additional commands, e-mail:
+&gt;&gt; &gt; &gt; users-help@maven.apache.org&lt;javascript:;&gt;
+&gt;&gt; &gt; &gt;
+&gt;&gt; &gt; &gt;
+&gt;&gt;
+&gt;&gt;
+&gt;&gt; ---------------------------------------------------------------------
+&gt;&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt;&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;&gt;
+&gt;&gt;
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201209.mbox/raw/%3cCALhtWkeGc08k0FpK03h0AvB58T-wsqFpZKm2Vwmw0M_zcXA5bA@mail.gmail.com%3e/">Unnamed text/plain</a> (inline, None, 15315 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201209.mbox/raw/%3cCALhtWkeGc08k0FpK03h0AvB58T-wsqFpZKm2Vwmw0M_zcXA5bA@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

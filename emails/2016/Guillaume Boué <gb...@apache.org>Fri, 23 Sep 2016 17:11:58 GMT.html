@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: [EXTERNAL] Re: help with version range</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201609.mbox/%3c03baf284-0d70-413e-a559-5f56a066efa9@default%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201609.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201609.mbox/%3c0fc57289-15dd-47fe-b443-763441767037@default%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201609.mbox/%3c03baf284-0d70-413e-a559-5f56a066efa9@default%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201609.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201609.mbox/%3c0fc57289-15dd-47fe-b443-763441767037@default%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201609.mbox/%3c03baf284-0d70-413e-a559-5f56a066efa9@default%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201609.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201609.mbox/%3c0fc57289-15dd-47fe-b443-763441767037@default%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201609.mbox/%3c03baf284-0d70-413e-a559-5f56a066efa9@default%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201609.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201609.mbox/%3c0fc57289-15dd-47fe-b443-763441767037@default%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Guillaume Boué &lt;gb...@apache.org&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: [EXTERNAL] Re: help with version range</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Fri, 23 Sep 2016 17:11:58 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Maven will consider 2.0-alpha-1 to be before 2.0-SNAPSHOT. This is 
+documented in ComparableVersion: 
+https://maven.apache.org/ref/3.3.9/maven-artifact/apidocs/org/apache/maven/artifact/versioning/ComparableVersion.html.
+
+Guillaume
+
+Le 23/09/2016 à 18:49, Robert Patrick a écrit :
+&gt; I was not suggesting that it could be changed...only that it doesn't make sense (except
+from a pure mathematical point of view).
+&gt;
+&gt; Given this "engineer's approach" to version range resolution, it seems like a better
+idea is simply to say [1.0,2.0-SNAPSHOT).  I have verified that this eliminates 2.0-SNAPSHOT
+versions.  However, what I have not verified is what happens when you have other pre-release
+versions (e.g., 2.0-alpha-1).  Is 2.0-SNAPSHOT always considered as older than non-SNAPSHOT
+pre-release versions like alpha, beta, etc?
+&gt;
+&gt;
+&gt; -----Original Message-----
+&gt; From: Manfred Moser [mailto:manfred@simpligility.com]
+&gt; Sent: Friday, September 23, 2016 11:47 AM
+&gt; To: users@maven.apache.org
+&gt; Subject: Re: [EXTERNAL] Re: help with version range
+&gt;
+&gt; Fair enough. From the purely engineering/mathematical point of view it might not make
+sense. But I dont see a way to get that changed with breaking a TON of other stuff. And I
+am not even sure if it would be more intuitive instead of just being different.
+&gt;
+&gt; Manfred
+&gt;
+&gt; Robert Patrick wrote on 2016-09-23 09:38:
+&gt;
+&gt;&gt; No, you are making an invalid assumption about what I understand!  I
+&gt;&gt; completely understand the relationship of SNAPSHOTs and other
+&gt;&gt; pre-release artifacts and released versions.
+&gt;&gt;
+&gt;&gt; What I am questioning is the "engineer's approach" to version range
+&gt;&gt; resolution without a valid use case for why Maven should consider
+&gt;&gt; pre-released versions as within the "not including 2.0" version range semantics.
+&gt;&gt;
+&gt;&gt;
+&gt;&gt; -----Original Message-----
+&gt;&gt; From: Manfred Moser [mailto:manfred@simpligility.com]
+&gt;&gt; Sent: Friday, September 23, 2016 11:32 AM
+&gt;&gt; To: users@maven.apache.org
+&gt;&gt; Subject: Re: [EXTERNAL] Re: help with version range
+&gt;&gt;
+&gt;&gt; What you are misunderstanding is how snapshots are meant to be used.
+&gt;&gt; 2.0-SNAPSHOT means that it is a development version working towards
+&gt;&gt; the release of 2.0 and as such the version 2.0-SNAPSHOT is smaller than 2.0.
+&gt;&gt;
+&gt;&gt; If you mislike this you can change how you work with your own projects
+&gt;&gt; at least. .. you can just call your snapshot version 1.99-SNAPSHOT or
+&gt;&gt; whatever while developing and at releas time switch to 2.0 ..
+&gt;&gt;
+&gt;&gt; Manfred
+&gt;&gt;
+&gt;&gt; Robert Patrick wrote on 2016-09-23 08:56:
+&gt;&gt;
+&gt;&gt;&gt; This does seem non-intuitive.    If I say that I want versions  between 1.0
+&gt;&gt;&gt; and
+&gt;&gt;&gt; up to but NOT including 2.0 by saying [1.0,2.0), in what use case
+&gt;&gt;&gt; would I ever want this to resolve to 2.0-SNAPSHOT or any other
+&gt;&gt;&gt; pre-release 2.0 artifact?
+&gt;&gt;&gt; Personally, I cannot think of a single one.
+&gt;&gt;&gt;
+&gt;&gt;&gt; Typically, what I mean when I say [1.0,2.0) is any 1.x version but
+&gt;&gt;&gt; nothing related to 2.0...
+&gt;&gt;&gt;
+&gt;&gt;&gt; -----Original Message-----
+&gt;&gt;&gt; From: Justin Georgeson [mailto:JGeorgeson@lgc.com]
+&gt;&gt;&gt; Sent: Friday, September 23, 2016 10:11 AM
+&gt;&gt;&gt; To: Maven Users List
+&gt;&gt;&gt; Subject: RE: [EXTERNAL] Re: help with version range
+&gt;&gt;&gt;
+&gt;&gt;&gt; Yeah, I was hoping there was something more elegant like 1.1+ or
+&gt;&gt;&gt; something, so I can at least move forward with that.
+&gt;&gt;&gt;
+&gt;&gt;&gt; Logically, does it make sense to resolve 1.2.0-alpha-1 when the user
+&gt;&gt;&gt; has excluded 1.2.0 from their range? If I explicitly don't want the
+&gt;&gt;&gt; release version why would I want the pre-release versions?
+&gt;&gt;&gt;
+&gt;&gt;&gt; -----Original Message-----
+&gt;&gt;&gt; From: ctrueden.wisc@gmail.com [mailto:ctrueden.wisc@gmail.com] On
+&gt;&gt;&gt; Behalf Of Curtis Rueden
+&gt;&gt;&gt; Sent: Friday, September 23, 2016 9:01 AM
+&gt;&gt;&gt; To: Maven Users List
+&gt;&gt;&gt; Subject: [EXTERNAL] Re: help with version range
+&gt;&gt;&gt;
+&gt;&gt;&gt; Hi Justin,
+&gt;&gt;&gt;
+&gt;&gt;&gt; You could write "[1.1.0,1.1.99999]", no? A bit hacky, but would match
+&gt;&gt;&gt; the versions you want in practice.
+&gt;&gt;&gt;
+&gt;&gt;&gt; Regards,
+&gt;&gt;&gt; Curtis
+&gt;&gt;&gt;
+&gt;&gt;&gt; On Sep 23, 2016 8:38 AM, "Justin Georgeson" &lt;JGeorgeson@lgc.com&gt; wrote:
+&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; I’m using the parent version range feature with “[1.1.0,1.2.0)” and
+&gt;&gt;&gt;&gt; it had been going well. However I wanted to start working on 1.2.0
+&gt;&gt;&gt;&gt; of the parent, so I published a 1.2.0-alpha-1 version. And all the
+&gt;&gt;&gt;&gt; projects with te “[1.1.0,1.2.0)” picked it up. I recognize that this
+&gt;&gt;&gt;&gt; is in keeping with the implementation that x.y.z-(alpha|beta|…)
+&gt;&gt;&gt;&gt; precedes x.y.z, but it is unintuitive to me. First in that I’ve
+&gt;&gt;&gt;&gt; stated I don’t want 1.2.0, and second that once I do release 1.2.0
+&gt;&gt;&gt;&gt; the projects which were receiving the alpha builds will not get
+&gt;&gt;&gt;&gt; 1.2.0. I tried with both
+&gt;&gt;&gt;&gt; 3.2.5 and 3.3.9. Can the version range syntax express the range I want?
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; *Justin Georgeson*
+&gt;&gt;&gt;&gt; Landmark Cloud Platforms &amp; DevOps - RM
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; Email: *jgeorgeson@lgc.com* &lt;jgeorgeson@lgc.com&gt;
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; Follow Halliburton: *LinkedIn*
+&gt;&gt;&gt;&gt; &lt;https://urldefense.proofpoint.com/v2/url?u=http-3A__logw332.ati-2Dh
+&gt;&gt;&gt;&gt; o
+&gt;&gt;&gt;&gt; s
+&gt;&gt;&gt;&gt; t.net_gopc.url-3Fxts-3D553058-26xtor-3DEPR-2D25-2D-255bHAL-2Dsignatu
+&gt;&gt;&gt;&gt; r
+&gt;&gt;&gt;&gt; e
+&gt;&gt;&gt;&gt; s-255d-26url-3Dhttp-3A__www.linkedin.com_company_halliburton&amp;d=DQIFa
+&gt;&gt;&gt;&gt; Q
+&gt;&gt;&gt;&gt; &amp;
+&gt;&gt;&gt;&gt; c=PskvixtEUDK7wuWU-tIg6oKuGYBRbrMXk2FZvF0UfTo&amp;r=dLxYM3PBhAqFnkH7uKz_
+&gt;&gt;&gt;&gt; O
+&gt;&gt;&gt;&gt; V
+&gt;&gt;&gt;&gt; ZL1uyui4QoEmBCjCmEiTk&amp;m=y4-iycjs7jCDUAa82A-SQP4DqefDDZjCpFKXFWCrmu8&amp;
+&gt;&gt;&gt;&gt; s = 9g208ksOttPVrCNlOx459-qzk0wWAei89_zhZnej5vM&amp;e= &gt;
+&gt;&gt;&gt;&gt; | *Facebook*
+&gt;&gt;&gt;&gt; &lt;https://urldefense.proofpoint.com/v2/url?u=https-3A__logw332.ati-2D
+&gt;&gt;&gt;&gt; h
+&gt;&gt;&gt;&gt; o
+&gt;&gt;&gt;&gt; st.net_gopc.url-3Fxts-3D553058-26xtor-3DEPR-2D25-2D-255bHAL-2Dsignat
+&gt;&gt;&gt;&gt; u
+&gt;&gt;&gt;&gt; r
+&gt;&gt;&gt;&gt; es-255d-26url-3Dhttps-3A__www.facebook.com_halliburton&amp;d=DQIFaQ&amp;c=Ps
+&gt;&gt;&gt;&gt; k
+&gt;&gt;&gt;&gt; v
+&gt;&gt;&gt;&gt; ixtEUDK7wuWU-tIg6oKuGYBRbrMXk2FZvF0UfTo&amp;r=dLxYM3PBhAqFnkH7uKz_OVZL1u
+&gt;&gt;&gt;&gt; y
+&gt;&gt;&gt;&gt; u
+&gt;&gt;&gt;&gt; i4QoEmBCjCmEiTk&amp;m=y4-iycjs7jCDUAa82A-SQP4DqefDDZjCpFKXFWCrmu8&amp;s=NgT-
+&gt;&gt;&gt;&gt; w O jrb7gpKDJVcRDMmKUQqGfR-PSnXe3I98Lp1c4&amp;e= &gt;
+&gt;&gt;&gt;&gt; | *Twitter*
+&gt;&gt;&gt;&gt; &lt;https://urldefense.proofpoint.com/v2/url?u=https-3A__logw332.ati-2D
+&gt;&gt;&gt;&gt; h
+&gt;&gt;&gt;&gt; o
+&gt;&gt;&gt;&gt; st.net_gopc.url-3Fxts-3D553058-26xtor-3DEPR-2D25-2D-255bHAL-2Dsignat
+&gt;&gt;&gt;&gt; u
+&gt;&gt;&gt;&gt; r
+&gt;&gt;&gt;&gt; es-255d-26url-3Dhttps-3A__twitter.com_halliburton&amp;d=DQIFaQ&amp;c=Pskvixt
+&gt;&gt;&gt;&gt; E
+&gt;&gt;&gt;&gt; U
+&gt;&gt;&gt;&gt; DK7wuWU-tIg6oKuGYBRbrMXk2FZvF0UfTo&amp;r=dLxYM3PBhAqFnkH7uKz_OVZL1uyui4Q
+&gt;&gt;&gt;&gt; o
+&gt;&gt;&gt;&gt; E
+&gt;&gt;&gt;&gt; mBCjCmEiTk&amp;m=y4-iycjs7jCDUAa82A-SQP4DqefDDZjCpFKXFWCrmu8&amp;s=-swEvm-8N
+&gt;&gt;&gt;&gt; W
+&gt;&gt;&gt;&gt; 2 18tPAkOpg46kdPblTNts2y7dbe_w82wM&amp;e= &gt;
+&gt;&gt;&gt;&gt; | *YouTube*
+&gt;&gt;&gt;&gt; &lt;https://urldefense.proofpoint.com/v2/url?u=http-3A__logw332.ati-2Dh
+&gt;&gt;&gt;&gt; o
+&gt;&gt;&gt;&gt; s
+&gt;&gt;&gt;&gt; t.net_gopc.url-3Fxts-3D553058-26xtor-3DEPR-2D25-2D-255bHAL-2Dsignatu
+&gt;&gt;&gt;&gt; r
+&gt;&gt;&gt;&gt; e
+&gt;&gt;&gt;&gt; s-255d-26url-3Dhttp-3A__youtube.com_halliburton&amp;d=DQIFaQ&amp;c=PskvixtEU
+&gt;&gt;&gt;&gt; D
+&gt;&gt;&gt;&gt; K
+&gt;&gt;&gt;&gt; 7wuWU-tIg6oKuGYBRbrMXk2FZvF0UfTo&amp;r=dLxYM3PBhAqFnkH7uKz_OVZL1uyui4QoE
+&gt;&gt;&gt;&gt; m
+&gt;&gt;&gt;&gt; B
+&gt;&gt;&gt;&gt; CjCmEiTk&amp;m=y4-iycjs7jCDUAa82A-SQP4DqefDDZjCpFKXFWCrmu8&amp;s=dTvvV1RKdjY
+&gt;&gt;&gt;&gt; S
+&gt;&gt;&gt;&gt; K
+&gt;&gt;&gt;&gt; _Hc5JX55QI7b2j-A4O9RAX2Dg9qbrU&amp;e= &gt;
+&gt;&gt;&gt;&gt; | *Blog*
+&gt;&gt;&gt;&gt; &lt;https://urldefense.proofpoint.com/v2/url?u=http-3A__logw332.ati-2Dh
+&gt;&gt;&gt;&gt; o
+&gt;&gt;&gt;&gt; s
+&gt;&gt;&gt;&gt; t.net_gopc.url-3Fxts-3D553058-26xtor-3DEPR-2D25-2D-255bHAL-2Dsignatu
+&gt;&gt;&gt;&gt; r
+&gt;&gt;&gt;&gt; e
+&gt;&gt;&gt;&gt; s-255d-26url-3Dhttp-3A__halliburtonblog.com&amp;d=DQIFaQ&amp;c=PskvixtEUDK7w
+&gt;&gt;&gt;&gt; u
+&gt;&gt;&gt;&gt; W
+&gt;&gt;&gt;&gt; U-tIg6oKuGYBRbrMXk2FZvF0UfTo&amp;r=dLxYM3PBhAqFnkH7uKz_OVZL1uyui4QoEmBCj
+&gt;&gt;&gt;&gt; C
+&gt;&gt;&gt;&gt; m
+&gt;&gt;&gt;&gt; EiTk&amp;m=y4-iycjs7jCDUAa82A-SQP4DqefDDZjCpFKXFWCrmu8&amp;s=Or-LJ9tIt99DaFT
+&gt;&gt;&gt;&gt; 0
+&gt;&gt;&gt;&gt; -
+&gt;&gt;&gt;&gt; BpnvVYmC73xtz0gLUBwIg5Woho&amp;e= &gt;
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; &lt;https://urldefense.proofpoint.com/v2/url?u=https-3A__www.landmark.s
+&gt;&gt;&gt;&gt; o
+&gt;&gt;&gt;&gt; l
+&gt;&gt;&gt;&gt; utions_&amp;d=DQIFaQ&amp;c=PskvixtEUDK7wuWU-tIg6oKuGYBRbrMXk2FZvF0UfTo&amp;r=dLx
+&gt;&gt;&gt;&gt; Y
+&gt;&gt;&gt;&gt; M
+&gt;&gt;&gt;&gt; 3PBhAqFnkH7uKz_OVZL1uyui4QoEmBCjCmEiTk&amp;m=y4-iycjs7jCDUAa82A-SQP4Dqef
+&gt;&gt;&gt;&gt; D D ZjCpFKXFWCrmu8&amp;s=f4P54iKSAZYutrqVX1iHAWO9C7nP1vrd3OJGBT9g4LE&amp;e=
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; ------------------------------
+&gt;&gt;&gt;&gt; This e-mail, including any attached files, may contain confidential
+&gt;&gt;&gt;&gt; and privileged information for the sole use of the intended recipient.
+&gt;&gt;&gt;&gt; Any review, use, distribution, or disclosure by others is strictly
+&gt;&gt;&gt;&gt; prohibited.
+&gt;&gt;&gt;&gt; If you are not the intended recipient (or authorized to receive
+&gt;&gt;&gt;&gt; information for the intended recipient), please contact the sender
+&gt;&gt;&gt;&gt; by reply e-mail and delete all copies of this message.
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt; ---------------------------------------------------------------------
+&gt;&gt;&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt;&gt;&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;&gt;&gt;
+&gt;&gt;&gt; ---------------------------------------------------------------------
+&gt;&gt;&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt;&gt;&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;&gt;&gt;
+&gt;&gt;
+&gt;&gt; ---------------------------------------------------------------------
+&gt;&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt;&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;&gt;
+&gt;&gt;
+&gt;&gt; ---------------------------------------------------------------------
+&gt;&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt;&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;&gt;
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+
+
+---
+L'absence de virus dans ce courrier électronique a été vérifiée par le logiciel antivirus
+Avast.
+https://www.avast.com/antivirus
+
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201609.mbox/raw/%3cbdf9c98e-950d-bb41-2ebf-b7d2ef9a0afc@apache.org%3e/">Unnamed text/plain</a> (inline, 8-Bit, 9696 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201609.mbox/raw/%3cbdf9c98e-950d-bb41-2ebf-b7d2ef9a0afc@apache.org%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Accessing child of &lt;licenses&gt; using property syntax?</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201607.mbox/%3cae327f5d-0baf-ae27-1871-98ba44118e16@st.informatik.tu-darmstadt.de%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201607.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201607.mbox/%3c0d88150b-c5a7-ca55-bbf7-739d72874d71@st.informatik.tu-darmstadt.de%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201607.mbox/%3cae327f5d-0baf-ae27-1871-98ba44118e16@st.informatik.tu-darmstadt.de%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201607.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201607.mbox/%3c0d88150b-c5a7-ca55-bbf7-739d72874d71@st.informatik.tu-darmstadt.de%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201607.mbox/%3cae327f5d-0baf-ae27-1871-98ba44118e16@st.informatik.tu-darmstadt.de%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201607.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201607.mbox/%3c0d88150b-c5a7-ca55-bbf7-739d72874d71@st.informatik.tu-darmstadt.de%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201607.mbox/%3cae327f5d-0baf-ae27-1871-98ba44118e16@st.informatik.tu-darmstadt.de%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201607.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201607.mbox/%3c0d88150b-c5a7-ca55-bbf7-739d72874d71@st.informatik.tu-darmstadt.de%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Sebastian Hoß &lt;m...@shoss.de&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Accessing child of &lt;licenses&gt; using property syntax?</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Fri, 08 Jul 2016 09:42:05 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+${project.licenses[0].url} should do the trick
+
+On Thu, Jul 7, 2016 at 5:15 PM Andreas Sewe &lt;
+sewe@st.informatik.tu-darmstadt.de&gt; wrote:
+
+&gt; Hi,
+&gt;
+&gt; I vaguely recall having read the answer to this one years ago, but
+&gt; googling and searching through the Apache JIRA didn't turn it up again. :-(
+&gt;
+&gt; Is it possible to access a single child element of &lt;licenses&gt; POM
+&gt; element using ${} property syntax? I tried
+&gt;
+&gt;   ${project.licenses.1.url}
+&gt;   ${project.licenses.1.license.url}
+&gt;   ${project.licenses.license.1.url}
+&gt;   ${project.licenses.0.url}
+&gt;   ${project.licenses.0.license.url}
+&gt;   ${project.licenses.license.0.url}
+&gt;
+&gt; but to no avail.
+&gt;
+&gt; Any pointers are greatly appreciated.
+&gt;
+&gt; Andreas
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201607.mbox/raw/%3cCAM-dko8-2sSzrBqDncHh_2dcNADhEko7+xUqKjhkjbjAW4XMew@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 900 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201607.mbox/raw/%3cCAM-dko8-2sSzrBqDncHh_2dcNADhEko7+xUqKjhkjbjAW4XMew@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

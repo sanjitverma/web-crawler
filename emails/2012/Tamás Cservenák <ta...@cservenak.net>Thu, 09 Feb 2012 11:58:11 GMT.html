@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Maven 3.0.3, Classifier, maven-metadata.xml, &lt;versioningSnapshot&gt;, and TeamCity</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201202.mbox/%3cF6110B5BB9C8EF409100FAC38728D5F301F533F2@ipipmsg018%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201202.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201202.mbox/%3cCACX7MVCmSE-nd8Dq5BUbyxtuLOek-QDoYw6t=Y4wmOH9G95bsg@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201202.mbox/%3cCA+Dd6v9K7LG6LEHG4BgOwM-Xah3dzdJRdyJE==_y7DEnDnzjvw@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201202.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201202.mbox/%3c4F32E8A0.9040407@gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201202.mbox/%3cF6110B5BB9C8EF409100FAC38728D5F301F533F2@ipipmsg018%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201202.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201202.mbox/%3cCACX7MVCmSE-nd8Dq5BUbyxtuLOek-QDoYw6t=Y4wmOH9G95bsg@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201202.mbox/%3cCA+Dd6v9K7LG6LEHG4BgOwM-Xah3dzdJRdyJE==_y7DEnDnzjvw@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201202.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201202.mbox/%3c4F32E8A0.9040407@gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Tamás Cservenák &lt;ta...@cservenak.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Maven 3.0.3, Classifier, maven-metadata.xml, &lt;versioningSnapshot&gt;, and TeamCity</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Thu, 09 Feb 2012 11:58:11 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hi there,
+
+disclaimer: am from Nexus team (you mentioned Nexus in your story).
+
+you problem is exactly as you point out with "hosed" and "good"
+metadata: loss of information because something downgrades your
+metadata.
+
+Note the "modelVersion" attribute in "good" metadata. By "downgrading"
+(the "bad" one is implicitly having "old" version), you suffer from
+information loss, that information that you actually need for this
+build. This change of metadata happened with Maven3.
+
+In short, _something_ is downgrading your metadata.
+
+As for Nexus, it should not touch your metadata (it will store it
+as-is on deploy), UNLESS you explicitly ask it to "recreate" maven
+metadata OR you use group to access it on older version of Nexus.
+Versions post 1.9.0 (see NEXUS-3849) will create "new" format
+(modelVersion=1.1.0) and should not cause information loss.
+
+Since you do not mention Nexus version you tried in this story, this
+most I can help here.
+
+For Archiva, unsure what it does with Maven metadata, but I bet
+someone from it's team will chime in ;)
+
+
+Thanks,
+~t~
+
+On Wed, Feb 8, 2012 at 9:11 PM, Jason H &lt;wherisat@gmail.com&gt; wrote:
+&gt; Gents,
+&gt;
+&gt; Thank you for any assistance in advance. I'm completely out of ideas,
+&gt; as are the folks at TeamCity. This may be a maven deploy plugin issue,
+&gt; all opinions/insights are welcome and appreciated. At the very highest
+&gt; level I need to be able to continuously deploy linux and windows jars
+&gt; and let a build running on either linux or windows resolve those
+&gt; deployed jars.
+&gt;
+&gt; My setup looks like this (mostly because of matlab licensing fun):
+&gt;
+&gt; pom.xml &lt;modules=A, B&gt;
+&gt; \A &lt;pom file + java code&gt;
+&gt; \B &lt;pom file + java code&gt;
+&gt; \C &lt;pom.xml + modules=D, E&gt;
+&gt; \C\D &lt;pom file + matlab code&gt;
+&gt; \C\E &lt;pom file + matlab code&gt;
+&gt;
+&gt; So when I build my root pom.xml file I do a mvn deploy at the root
+&gt; which deploys A and B. When I do a mvn deploy on C it deploys D and E.
+&gt; B and C need the jars from D and E. When doing a mvn deploy on C
+&gt; OS-dependent jar files are deployed to an apache archiva repository
+&gt; (I've tried sonatype, had the same issue, so I don't think it's an
+&gt; archiva problem). The OS-dependent specification is done by adding the
+&gt; classifier tag in the maven-jar-plugin in C's pom.xml:
+&gt;
+&gt; &lt;build&gt;
+&gt;           &lt;plugins&gt;
+&gt;                &lt;plugin&gt;
+&gt;                     &lt;artifactId&gt;maven-jar-plugin&lt;/artifactId&gt;
+&gt;                     &lt;version&gt;${maven.jar.plugin.version}&lt;/version&gt;
+&gt;                     &lt;configuration&gt;
+&gt;                          &lt;classifier&gt;${envClassifier}&lt;/classifier&gt;
+&gt;                     &lt;/configuration&gt;
+&gt;                &lt;/plugin&gt;
+&gt;           &lt;/plugins&gt;
+&gt; &lt;/build&gt;
+&gt;
+&gt; where envClassifier is defined in the root pom.xml file depending on
+&gt; the current operating system (we deploy windows and linux jars, only
+&gt; 64-bit).
+&gt;
+&gt; I've also updated the maven-deploy-plugin version in the root pom.xml
+&gt; file to version 2.7 (I tried the latest snapshot too, to no avail).
+&gt; The updated maven-deploy-plugin also references the classifier,
+&gt; without this the deployed maven-metadata.xml file did not have the
+&gt; &lt;versioningSnapshot&gt; information needed to resolve dependencies and
+&gt; only the last deployed OS jars were found.
+&gt;
+&gt; &lt;build&gt;
+&gt;        &lt;plugins&gt;
+&gt;               &lt;plugin&gt;
+&gt;               &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+&gt;               &lt;artifactId&gt;maven-deploy-plugin&lt;/artifactId&gt;
+&gt;               &lt;version&gt;2.7&lt;/version&gt;
+&gt;               &lt;configuration&gt;
+&gt;                    &lt;classifier&gt;${envClassifier}&lt;/classifier&gt;
+&gt;               &lt;/configuration&gt;
+&gt;          &lt;/plugin&gt;
+&gt;        &lt;/plugins&gt;
+&gt; &lt;/build&gt;
+&gt;
+&gt; Now we come full force to the issue at hand. I have 4 TeamCity build
+&gt; configurations, 1 that deploys A on windows, 1 that deploys A on
+&gt; linux, 1 that deploys C on windows, and 1 that deploys C on linux.
+&gt; Deploying A is done continuously on every commit (if the build agents
+&gt; can keep up, A is a fast build). Deploying C on windows and linux is
+&gt; (currently) done by manually triggering the build on the build server
+&gt; such that they both start at the same time and therefore are
+&gt; (hopefully) based on the same svn revision (we average a commit every
+&gt; ~20 minutes, so that seems ok for now). Most of the time the deployed
+&gt; maven-metadata.xml file seems to eventually get corrupted and loses
+&gt; all its &lt;versioningSnapshot&gt; information, so I end up with the below
+&gt; as my maven-metadata.xml. It has been very difficult to ascertain when
+&gt; the maven-metadata.xml file gets corrupted, it seems somewhat random.
+&gt; Recently I have seen it get corrupted after a deploy on A, but looking
+&gt; at that build log it doesn't show any updating of C, D, or E's maven
+&gt; metadata. So I really don't know why it keeps getting hosed and after
+&gt; it's hosed dependencies cannot be resolved when building A on either
+&gt; linux or windows (but not both, whichever OS last deployed, that OS
+&gt; build for A can still resolve dependencies). Also the "good"
+&gt; maven-metadata.xml file only seems to have 1 classifier, so maybe
+&gt; that's not even good enough? i.e. In the "Good maven-metadata.xml"
+&gt; example below there is only a "linux" classifier.
+&gt;
+&gt; Hosed maven-metadata.xml:
+&gt; &lt;metadata&gt;
+&gt;     &lt;groupId&gt;com.foo&lt;/groupId&gt;
+&gt;     &lt;artifactId&gt;E&lt;/artifactId&gt;
+&gt;     &lt;version&gt;4.0-SNAPSHOT&lt;/version&gt;
+&gt;     &lt;versioning&gt;
+&gt;          &lt;snapshot&gt;
+&gt;               &lt;buildNumber&gt;325&lt;/buildNumber&gt;
+&gt;               &lt;timestamp&gt;20111205.181820&lt;/timestamp&gt;
+&gt;          &lt;/snapshot&gt;
+&gt;          &lt;lastUpdated&gt;20111205181820&lt;/lastUpdated&gt;
+&gt;     &lt;/versioning&gt;
+&gt; &lt;/metadata&gt;
+&gt;
+&gt; Good maven-metadata.xml:
+&gt; &lt;metadata modelVersion="1.1.0"&gt;
+&gt;     &lt;groupId&gt;com.foo&lt;/groupId&gt;
+&gt;     &lt;artifactId&gt;D&lt;/artifactId&gt;
+&gt;     &lt;version&gt;4.0-SNAPSHOT&lt;/version&gt;
+&gt;     &lt;versioning&gt;
+&gt;          &lt;snapshot&gt;
+&gt;               &lt;timestamp&gt;20111205.200259&lt;/timestamp&gt;
+&gt;               &lt;buildNumber&gt;328&lt;/buildNumber&gt;
+&gt;          &lt;/snapshot&gt;
+&gt;          &lt;lastUpdated&gt;20111205200259&lt;/lastUpdated&gt;
+&gt;          &lt;snapshotVersions&gt;
+&gt;               &lt;snapshotVersion&gt;
+&gt;                    &lt;extension&gt;pom&lt;/extension&gt;
+&gt;                    &lt;value&gt;4.0-20111205.200259-328&lt;/value&gt;
+&gt;                    &lt;updated&gt;20111205200259&lt;/updated&gt;
+&gt;               &lt;/snapshotVersion&gt;
+&gt;               &lt;snapshotVersion&gt;
+&gt;                    &lt;classifier&gt;linux&lt;/classifier&gt;
+&gt;                    &lt;extension&gt;jar&lt;/extension&gt;
+&gt;                    &lt;value&gt;4.0-20111205.200259-328&lt;/value&gt;
+&gt;                    &lt;updated&gt;20111205200259&lt;/updated&gt;
+&gt;               &lt;/snapshotVersion&gt;
+&gt;               &lt;snapshotVersion&gt;
+&gt;                    &lt;classifier&gt;tests&lt;/classifier&gt;
+&gt;                    &lt;extension&gt;jar&lt;/extension&gt;
+&gt;                    &lt;value&gt;4.0-20111205.200259-328&lt;/value&gt;
+&gt;                    &lt;updated&gt;20111205200259&lt;/updated&gt;
+&gt;               &lt;/snapshotVersion&gt;
+&gt;          &lt;/snapshotVersions&gt;
+&gt;     &lt;/versioning&gt;
+&gt; &lt;/metadata&gt;
+&gt;
+&gt; I have tried giving each TeamCity build agent their own private maven
+&gt; repository and even private apache mvn executable.
+&gt;
+&gt; Any help, guidance, or advice is greatly appreciated. We are using
+&gt; maven 3.0.3, CentOS for linux and Win2003 both 64-bit and JDK 1.6_30.
+&gt; We deploy from all our build agents with "mvn clean deploy". With the
+&gt; C project we specify the pom to be C's pom file since TeamCity cannot
+&gt; checkout the A directory and cd into the C directory and then issue
+&gt; the deploy command.
+&gt;
+&gt; Cheers from Florida,
+&gt; Jason
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201202.mbox/raw/%3cCAPLpRQJhPB+=AXCJ3J17QojG-mNbUbdc_xKAH1OK7YG2Jk4z6Q@mail.gmail.com%3e/">Unnamed text/plain</a> (inline, Quoted Printable, 10098 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201202.mbox/raw/%3cCAPLpRQJhPB+=AXCJ3J17QojG-mNbUbdc_xKAH1OK7YG2Jk4z6Q@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

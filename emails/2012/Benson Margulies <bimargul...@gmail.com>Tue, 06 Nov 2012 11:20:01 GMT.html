@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Trim string passed to extraClasspath for jetty plugin</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201211.mbox/%3cCALhtWkfbRVUcvb1w4mn2wkRorBDYA5wxxEyScOfci8CoECexwg@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201211.mbox/%3cCAKDUN1ugdw_XjRhHHUdY3fb5hD4RBtp_-SoMkm4ky0F=2bB_=g@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201211.mbox/%3cCAF_-hNCL248yi4A_C0O=hutOjtS9ZSCxhCe_TpK=oXOHbpVXPg@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201211.mbox/%3cF2F0F3DEA13E114ABD200027183E99A602EEB341@VFLON-XCH2.virtuefusion.corp%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201211.mbox/%3cCALhtWkfbRVUcvb1w4mn2wkRorBDYA5wxxEyScOfci8CoECexwg@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201211.mbox/%3cCAKDUN1ugdw_XjRhHHUdY3fb5hD4RBtp_-SoMkm4ky0F=2bB_=g@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201211.mbox/%3cCAF_-hNCL248yi4A_C0O=hutOjtS9ZSCxhCe_TpK=oXOHbpVXPg@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201211.mbox/%3cF2F0F3DEA13E114ABD200027183E99A602EEB341@VFLON-XCH2.virtuefusion.corp%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Benson Margulies &lt;bimargul...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Trim string passed to extraClasspath for jetty plugin</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Tue, 06 Nov 2012 11:20:01 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+You could offer a patch to the jetty plugin to clean up the string for
+itself.
+
+
+On Tue, Nov 6, 2012 at 2:53 AM, Rice Yeh &lt;riceyeh@gmail.com&gt; wrote:
+
+&gt; Hi,
+&gt;   I have a need to pass a long string to the extraClasspath in jetty
+&gt; plugin. The content of the string is changed often and I like to format it
+&gt; for human readability as shown in the following section. However, it causes
+&gt; problem in jetty's classpath setting. Any way to get around this problem?
+&gt;
+&gt; &lt;extraClasspath&gt;&lt;![CDATA[
+&gt; target/classes;
+&gt; target/test-classes;
+&gt; ../xs-authentication-personnel/target/classes;
+&gt; ../xs-workspace/target/classes;
+&gt; ../xs-personnel-web/target/classes;
+&gt; ../xs-personnel.web/target/test-classes;
+&gt; ../xs-personnel-calendar/target/classes;
+&gt; ../xs-personnel-calendar/target/test-classes;
+&gt; ../xs-personnel-attendance/target/classes;
+&gt; ../xs-personnel-attendance/target/test-classes;
+&gt; ../xs-bp-web/target/classes;
+&gt; ../xs-bp-web/target/test-classes;
+&gt; ../xs-bp-personnel/target/classes;
+&gt; ../xs-common-rs/target/classes;
+&gt; ../xs-common-rs/target/test-classes;
+&gt; ../xs-rs-cxf/target/classes;
+&gt; ../xs-scheduling-web/target/classes;
+&gt; ../xs-scheduling/target/test-classes]]&gt;&lt;/extraClasspath&gt;
+&gt;
+&gt; Rice
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201211.mbox/raw/%3cCALhtWke1DbWb4absFqFLug5iMEV+HjnhwvcR_+MCeTezZjGQHA@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 1197 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201211.mbox/raw/%3cCALhtWke1DbWb4absFqFLug5iMEV+HjnhwvcR_+MCeTezZjGQHA@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

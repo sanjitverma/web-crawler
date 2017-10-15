@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Structuring bigger Maven projects</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201612.mbox/%3cCAB9FDbntQ=_603=QCLz4RdEUYLPC03cE2Y-s_E_7eUYzE+5YWQ@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201612.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201612.mbox/%3cop.ysdftbprkdkhrr@desktop-2khsk44%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201612.mbox/%3c29eb1cf2-cf9e-2175-b91f-b443a714e2de@schulte.it%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201612.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201612.mbox/%3cCAPCUOdHBg96yzmOdCuZ4YX2e-6-6E5u58UDyRPHe3ZfuMO_2+w@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201612.mbox/%3cCAB9FDbntQ=_603=QCLz4RdEUYLPC03cE2Y-s_E_7eUYzE+5YWQ@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201612.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201612.mbox/%3cop.ysdftbprkdkhrr@desktop-2khsk44%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201612.mbox/%3c29eb1cf2-cf9e-2175-b91f-b443a714e2de@schulte.it%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201612.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201612.mbox/%3cCAPCUOdHBg96yzmOdCuZ4YX2e-6-6E5u58UDyRPHe3ZfuMO_2+w@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Ben Tatham &lt;bentat...@nanometrics.ca&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Structuring bigger Maven projects</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Mon, 12 Dec 2016 17:23:11 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+I am happy to see this discussion, and so many responses.  We have
+struggled with it for years, and never found a great solution.  Sounds like
+we do what many others are doing:
+
+- We have many shared internal libraries amount multiple products.
+- We divide each logical set of libraries into their own repos, often
+multi-module builds themselves.
+- Each product is in its own repo as well, also often a multi-module build
+depending on the complexity of the product.
+
+We aren't a huge team, despite the number 4-6 products we have, but
+basically any team can make a change to a library as needed.  We do have
+Pull Requests that are visible  to the whole dev team, and we try to
+maintain some consistency at the library level, but that is a separate
+discussion.
+
+We then have a policy that whenever a PR is merged into a "library", we
+"release" that "library".  We just jgitflow
+&lt;https://bitbucket.org/atlassian/jgit-flow/wiki/Home&gt; for releasing
+because, well obviously, we use git flow.
+
+It is up to the product teams to update their versions for internal
+libraries.  As others have mentioned, we use versions plugin for that.  We
+always keep our versions in properties so we can use mvn
+versions:update-properties.  We configured it to only update our "internal"
+repositories by default so that we can quickly do that without worry of
+bring in some 3rd party/OSS update without vetting it first.    This is
+done with shared corporate parent pom configuration
+&lt;includes&gt;
+  &lt;include&gt;com.yourcompany*:*&lt;/include&gt;
+&lt;/includes&gt;
+&lt;excludeProperties&gt;jetty.version,servlet-api.version,${moreExcludeProperties&gt;&lt;/excludeProperties&gt;
+
+Note the extra ${moreExcludeProperties&gt; at the end, which allows child poms
+to add to the list through another property in their own pom as needed.
+
+We also automatically build our products every night with the latest of all
+the internal libraries.  While a bit delayed, at least we get a
+notification if another teams' update of a library will break a separate
+product - either compile or test.
+
+In the old days of subversion, we used to actually automatically update all
+the poms in our repo whenever we did a release - without a CI server.  That
+was automated through a plugin that scanned all the pom's in the svn repo
+for use of the released library and auto-updated and commited the new
+version.  If not familiar with svn, you can picture each top-level
+directory of svn being converted to a git repo (in a svn "repo" meant
+something different than git, at least practically speaking).  This was
+nice because the author of the library change was the "author" of all the
+pom updates, and thus easy to "blame"/"praise" for a break (or fix) and
+because it was an instantaneous update, so CI would run immediately on all
+the dependent projects.  That was possible because with SVN you could do
+commits without having to actually clone a local copy.  With git spread
+across multiple repos it would require all our devs to have all git repos
+checked out in a consistent fashion to make this scalable -- so not
+something we've preserved when we switch to git years ago.  Alternatively,
+we would have to auto-clone all the known repos in our system -- again, not
+really scalable.
+
+Food for thought -- it's great to hear so many other ways of dealing with
+this problem.
+
+-Ben
+
+
+
+
+
+On Thu, Dec 1, 2016 at 8:57 AM Christian Schulte &lt;cs@schulte.it&gt; wrote:
+
+&gt; Am 12/01/16 um 10:02 schrieb João Cabrita:
+&gt;
+&gt; [...]
+&gt;
+&gt; &gt; Each of the applications live in a separate repository
+&gt;
+&gt; [...]
+&gt;
+&gt; &gt; The libraries also have a repository each
+&gt;
+&gt; [...]
+&gt;
+&gt; That's due to the SCM in use. Yes. This is something to keep in mind as
+&gt; well. What can be one (big) repository using subversion, may need to be
+&gt; split into multiple (tons) of repositories when switching to e.g. git.
+&gt; Basing something on a concept introduced by the SCM in use will make it
+&gt; hard to switch to another technology later. Subversion on the server and
+&gt; git-svn locally is working great here. Commits to the subversion server
+&gt; are really clean because developers could re-arrange theire commits
+&gt; (rebase -i, squash, etc.) locally before. Depending on the subversion
+&gt; revision for anything you'll not change to another SCM technology ever
+&gt; soon (why would you?).
+&gt;
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt; --
+-- 
+Ben Tatham
+Software Architect
+
+*Nano**metrics* *Inc.*
+
+Ottawa * I*  Calgary  *I*  Houston  *I*  Beijing
+
+T: +1 613 505 5065  *I*  bentatham@nanometrics.ca
+ www.nanometrics.ca  *I  *www.microseismicmonitoring.com
+
+This message is intended exclusively for the individual or entity to which
+it is addressed. This communication may contain information that is
+proprietary, privileged, confidential or otherwise legally exempt from
+disclosure. If you are not the named addressee, or have been inadvertently
+and erroneously referenced in the address line, you are not authorized to
+read, print, retain, copy or disseminate this message or any part of it. If
+you have received this message in error, please notify the sender
+immediately by e-mail and delete all copies of the message.
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201612.mbox/raw/%3cCAB9FDb=JcdEWf=h5gP8v3nxE8wk6TfrBMzU7M-LaEzR8z_2m=Q@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, Quoted Printable, 5242 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201612.mbox/raw/%3cCAB9FDb=JcdEWf=h5gP8v3nxE8wk6TfrBMzU7M-LaEzR8z_2m=Q@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

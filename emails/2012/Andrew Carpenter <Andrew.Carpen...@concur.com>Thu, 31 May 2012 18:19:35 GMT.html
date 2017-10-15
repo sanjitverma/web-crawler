@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>RE: mvn clean install -problems</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201205.mbox/%3cCALy+7Un7LbN3owG5LGr6vdByjKDLqZGiQF=ZRZoUPT7UNWs-9w@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cCAPoyBqRHhcLtsT6BABv85gRw1FjqRiYGS1h3nJ=+wwRCKx2OjQ@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201205.mbox/%3cCALy+7Un7LbN3owG5LGr6vdByjKDLqZGiQF=ZRZoUPT7UNWs-9w@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201205.mbox/%3c1338487223455-5710476.post@n5.nabble.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201205.mbox/%3cCALy+7Un7LbN3owG5LGr6vdByjKDLqZGiQF=ZRZoUPT7UNWs-9w@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cCAPoyBqRHhcLtsT6BABv85gRw1FjqRiYGS1h3nJ=+wwRCKx2OjQ@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201205.mbox/%3cCALy+7Un7LbN3owG5LGr6vdByjKDLqZGiQF=ZRZoUPT7UNWs-9w@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201205.mbox/%3c1338487223455-5710476.post@n5.nabble.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Andrew Carpenter &lt;Andrew.Carpen...@concur.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">RE: mvn clean install -problems</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Thu, 31 May 2012 18:19:35 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Aright, that’s what I suspected.  I just wasn't sure, as  Maven is new to me.  I will talk
+to my people.  Thanks, Wayne.
+
+-----Original Message-----
+From: Wayne Fay [mailto:waynefay@gmail.com]
+Sent: Thursday, May 31, 2012 11:17 AM
+To: Maven Users List
+Subject: Re: mvn clean install -problems
+
+On Thu, May 31, 2012 at 12:54 PM, Andrew Carpenter &lt;Andrew.Carpenter@concur.com&gt; wrote:
+&gt; Hello
+&gt;    I have recently started using Maven 2 and I have tried using it to
+&gt; build a project that I have.  I got errors saying that I did not have
+&gt; requisite
+&gt; files: Here is the error:
+&gt;
+&gt; Downloading: http://repo1.maven.org/maven2/com/concur/core/concur-
+&gt; properties/1.0-alpha-2/concur-properties-1.0-alpha-2.pom
+&gt; [INFO] Unable to find resource 'com.concur.core:concur-properties:pom:
+&gt; 1.0-alpha-2' in repository central (http://repo1.maven.org/maven2)
+
+...(snip)...
+
+&gt; I do not know where to get these files.  Another coworker of mine got
+&gt; this to work, but he is not available for some time.
+&gt; Could I possible get some suggestions of how to solve this error?
+
+You're sending email from the domain concur.com and showing us an error that says Maven cannot
+find artifacts in Central named
+com.concur.* and then asking **us** where you can get those files from?
+
+Most likely these are internal/private artifacts which someone in your company has produced
+and which your current build requires as a dependency. This means you'll need to work with
+other developers in your company to get access to those artifacts for your own build.
+
+Sounds like someone needs to install a Maven Repo Manager...
+
+Wayne
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+This e-mail message is authorized for use by the intended recipient only and may contain information
+that is privileged and confidential. If you received this message in error, please call us
+immediately at (425) 702-8808 and ask to speak to the message sender. Please do not copy,
+disseminate, or retain this message unless you are the intended recipient. In addition, to
+ensure the security of your data, please do not send any unencrypted credit card or personally
+identifiable information to this email address. Thank you.
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201205.mbox/raw/%3c80BB6C80A4B2D944AF2922F3A8E8312A61E28E16AF@USREDEXCH.concur.concurtech.org%3e/">Unnamed text/plain</a> (inline, Base64, 3451 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201205.mbox/raw/%3c80BB6C80A4B2D944AF2922F3A8E8312A61E28E16AF@USREDEXCH.concur.concurtech.org%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

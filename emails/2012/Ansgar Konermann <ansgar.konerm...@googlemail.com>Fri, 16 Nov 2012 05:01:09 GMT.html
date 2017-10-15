@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Compile and install sub-project on build</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201211.mbox/%3c50A5C361.5060204@artifact-software.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201211.mbox/%3c50A5CA89.9090909@artifact-software.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201211.mbox/%3c50A5C361.5060204@artifact-software.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201211.mbox/%3c50A5CA89.9090909@artifact-software.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201211.mbox/%3c50A5C361.5060204@artifact-software.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201211.mbox/%3c50A5CA89.9090909@artifact-software.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201211.mbox/%3c50A5C361.5060204@artifact-software.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201211.mbox/%3c50A5CA89.9090909@artifact-software.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Ansgar Konermann &lt;ansgar.konerm...@googlemail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Compile and install sub-project on build</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Fri, 16 Nov 2012 05:01:09 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+As a side note: an existing file or http server will suffice to host your
+artifacts (jars) that you want to share between you and your colleagues. No
+need to set up a maven repo mgr. Maven deploy plugin can use many types of
+"remote repository".
+Am 16.11.2012 05:39 schrieb "Ron Wheeler" &lt;rwheeler@artifact-software.com&gt;:
+
+&gt; A Maven Repo is to Maven as a git server is to IntelliJ IDEA
+&gt; A git server looks after sources and makes them available to the IDE
+&gt; A Maven repo looks after jars and makes them available to builds.
+&gt;
+&gt; If you want to share jars between project members, they have to be
+&gt; someplace where they can be found.
+&gt;
+&gt; When you build projectB and are ready to share it with the rest of your
+&gt; project team, you *deploy* it to a Maven Repo that the rest of the team can
+&gt; access.
+&gt;
+&gt; If you don't have a Maven Repo, then each person is going to have to build
+&gt; each artifact from the sources.
+&gt;
+&gt; If you build and*install *an artifact, the jar and pom get put in your
+&gt; repo on your workstation and then it is available to you for other projects
+&gt; done on that same workstation but is not shared with anyone else.
+&gt;
+&gt;
+&gt;
+&gt; On 15/11/2012 11:38 AM, mar wrote:
+&gt;
+&gt;&gt; In my group? I'm sorry, I don't follow.
+&gt;&gt;
+&gt;&gt; Right now we're a team of two. I'm in charge of the development of a small
+&gt;&gt; tool, but my mate might need to check out the code, possibly from outside
+&gt;&gt; the company intranet. Maybe I'm getting the wrong end of how repositories
+&gt;&gt; work. I realise that, by definition, there is a local repository every
+&gt;&gt; machine that uses Maven, and I don't have a problem with artifacts ending
+&gt;&gt; up
+&gt;&gt; there either. What I want to avoid is tying the project to a localized
+&gt;&gt; repository such as "within the intranet, on server02.miniteam", as this
+&gt;&gt; would defeat the purpose of portability.
+&gt;&gt;
+&gt;&gt; It would also be impossible for me to work on this from home during the
+&gt;&gt; weekends like my boss wants me to ;)
+&gt;&gt;
+&gt; That is why you need a Maven Repo just in the same way that you need a git
+&gt; server if you want to download the latest sources on the weekend.
+&gt;
+&gt;&gt; After reading your last reply I was hoping that artifacts got published to
+&gt;&gt; the local repository (~/.m2 if I'm not mistaken?) automagically as they
+&gt;&gt; were
+&gt;&gt; built, but I'm still struggling. I set up a mock project described in the
+&gt;&gt; outline below.
+&gt;&gt;
+&gt; They do if you do an install.
+&gt;
+&gt;&gt;
+&gt;&gt;
+&gt;&gt; Module1 is a class that uses Module2 to reverse and print a string.
+&gt;&gt; ProjectA
+&gt;&gt; acts as the entry point and sends a string to Module1. ProjectB represents
+&gt;&gt; the separation of concern between the modules and ProjectA -- I might want
+&gt;&gt; to use my fancy reverse-and-print tool in other projects!
+&gt;&gt;
+&gt;&gt; When I try to package or compile ProjectA, Maven reports that it can't
+&gt;&gt; find
+&gt;&gt; the dependency ProjectB. mvn validate works fine, I guess it doesn't check
+&gt;&gt; the dependencies.
+&gt;&gt;
+&gt;&gt; I am using IntelliJ IDEA to develop and it too reports that ProjectA can't
+&gt;&gt; find Module1. It recommends that I add Module1 as a dependency to the pom,
+&gt;&gt; which does make the error go away but when trying to do a mvn package it
+&gt;&gt; spits back an error message
+&gt;&gt;
+&gt; I am finding your use of projects and modules a bit confusing. A Maven
+&gt; project depends on other Maven projects.
+&gt; It appears that your ProjectA depends on ProjectB.
+&gt; If you have the projectB listed as a dependency of project A and you do a
+&gt; build of projectA, you will get a jar file that contains all of the classes
+&gt; of projectA and ProjectB.
+&gt; You are done if you are producing a webapp or standalone java application.
+&gt; .
+&gt;
+&gt; What are you trying to make with mvn package and what does the error say.
+&gt;
+&gt; Did your mvn install on Project A make a jar with all your projectA and
+&gt; projectB classes included?
+&gt;
+&gt;
+&gt;
+&gt;&gt; It would seem logical to me that adding ProjectB as a dependency to
+&gt;&gt; ProjectA
+&gt;&gt; should transitively make its modules available, but maybe I'm wrong?
+&gt;&gt;
+&gt; No you are right. Look in the jar to see what classes made it in.
+&gt;
+&gt;&gt; As a second point, I don't believe I'm supposed to manually build and
+&gt;&gt; install these artifacts to my [local] repository? It feels like that would
+&gt;&gt; defeat the purpose of Maven (except for the sweet pull-from-distant-repo
+&gt;&gt; functionality that I've come to love)
+&gt;&gt;
+&gt; If you want to work with your buddy and give him a projectB jar file
+&gt; rather than forcing him to make his own from the sources, you need a jar
+&gt; server (Maven repo).
+&gt;
+&gt;
+&gt;&gt; Thanks for your insight so far.
+&gt;&gt;
+&gt; Did you find the free books?
+&gt;
+&gt;
+&gt;&gt; Ron Wheeler wrote
+&gt;&gt;
+&gt;&gt;&gt; On 15/11/2012 9:08 AM, mar wrote:
+&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; Hello Ron and thank you for your reply,
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; We don't have a centralized repo for our organization and chances to
+&gt;&gt;&gt;&gt; have
+&gt;&gt;&gt;&gt; one are slim. What I'm hoping to achieve is some sort of "intelligent
+&gt;&gt;&gt;&gt; zip-archive" where the project is pulled from git and built/packaged
+&gt;&gt;&gt;&gt; with
+&gt;&gt;&gt;&gt; Maven.
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt; Just make a local one in your group (even if it is a group of one!)
+&gt;&gt;&gt;
+&gt;&gt;&gt;  During this packaging process, the submodule needs to be installed to
+&gt;&gt;&gt;&gt; the
+&gt;&gt;&gt;&gt; user machine-local maven repo: As far as I understand there is way to
+&gt;&gt;&gt;&gt; have
+&gt;&gt;&gt;&gt; the sub-project as a dependency without stuffing it in a repo first.
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; I'm quite new to Maven so maybe I'm making things more complicated than
+&gt;&gt;&gt;&gt; they
+&gt;&gt;&gt;&gt; really are.
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt; Yes. Always remember, "If you need to do it, everybody else is already
+&gt;&gt;&gt; doing it with Maven." There are thousands of projects built with Maven.
+&gt;&gt;&gt; Yours probably will fit just fine.
+&gt;&gt;&gt; Unless you have developed a software application architecture that is so
+&gt;&gt;&gt; bizarre that no one has ever had to do what you need to do, you can just
+&gt;&gt;&gt; do it the Maven way.
+&gt;&gt;&gt; You can not use Maven in any other way and live a happy life. Everyone
+&gt;&gt;&gt; who fights Maven loses. Resistance is futile!
+&gt;&gt;&gt;
+&gt;&gt;&gt; Maven assumes that each "project" builds one artifact.
+&gt;&gt;&gt; If your final product consists of many projects that depend on each
+&gt;&gt;&gt; other, Maven will find the right version of each one.
+&gt;&gt;&gt; Start out with each sub-project as a Maven project. Build it with a
+&gt;&gt;&gt; SNAPSHOT version.
+&gt;&gt;&gt; The resulting jar, pom, etc. will be stored in your local, private repo
+&gt;&gt;&gt; that Maven builds on your machine, so you no longer need the sources to
+&gt;&gt;&gt; use this artifact in other projects.
+&gt;&gt;&gt; If you want to share this artifact with other people then install a
+&gt;&gt;&gt; Maven Repo (Nexus and others are common and have free versions) on a
+&gt;&gt;&gt; machine that is accessible to your group - does not require central IT's
+&gt;&gt;&gt; involvement.
+&gt;&gt;&gt;
+&gt;&gt;&gt; Your top level project will have each of these sub-projects as direct or
+&gt;&gt;&gt; indirect (transitive ) dependencies.
+&gt;&gt;&gt; When you build your top-level project Maven will automatically find the
+&gt;&gt;&gt; latest SNAPSHOT and use it to build the project.
+&gt;&gt;&gt;
+&gt;&gt;&gt; You should only refer to git when you are coding each project.
+&gt;&gt;&gt; There is no need to refer to the sources for the sub-projects once they
+&gt;&gt;&gt; are built (unless you need to fix a bug and rebuild).
+&gt;&gt;&gt;
+&gt;&gt;&gt; You should read at least one of the free Maven books. If not read, at
+&gt;&gt;&gt; least skim one. Pay attention to SNAPSHOTS, they are the key to
+&gt;&gt;&gt; developing up to the final release.
+&gt;&gt;&gt; Releases are immutable. Once you release 1.0.1, Maven will be very upset
+&gt;&gt;&gt; if you make a change and try to release it again. It expects that you
+&gt;&gt;&gt; should be doing 1.0.2-SNAPSHOT once you have released 1.0.1. You very
+&gt;&gt;&gt; seldom have a non-SNAPSHOT version of your projects. When you remove the
+&gt;&gt;&gt; -SNAPSHOT, you are promising the universe that you are done screwing
+&gt;&gt;&gt; around and are seriously committed to this code and are guarantying that
+&gt;&gt;&gt; it works and will issue a patch release to fix any bugs that are found.
+&gt;&gt;&gt; Maven will do its best to represent the interests of the universe and
+&gt;&gt;&gt; will resist your efforts to go back on your word.
+&gt;&gt;&gt; Of course, you can always say "Screw the universe, I want to pretend
+&gt;&gt;&gt; that I did not release 1.0.1 and do it over." but you will have to do
+&gt;&gt;&gt; some manual deletions of artifacts to make that happen. Maven will not
+&gt;&gt;&gt; help you!
+&gt;&gt;&gt;
+&gt;&gt;&gt; How big is your team?
+&gt;&gt;&gt; What IDE do you use? Most IDE's work well to Maven.
+&gt;&gt;&gt; What is the type of application that you are building?
+&gt;&gt;&gt;
+&gt;&gt;&gt; This will help get you more specific advice.
+&gt;&gt;&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; --
+&gt;&gt;&gt;&gt; View this message in context:
+&gt;&gt;&gt;&gt; http://maven.40175.n5.nabble.**com/Compile-and-install-sub-**
+&gt;&gt;&gt;&gt; project-on-build-**tp5731080p5731116.html&lt;http://maven.40175.n5.nabble.com/Compile-and-install-sub-project-on-build-tp5731080p5731116.html&gt;
+&gt;&gt;&gt;&gt; Sent from the Maven - Users mailing list archive at Nabble.com.
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; ------------------------------**------------------------------**
+&gt;&gt;&gt;&gt; ---------
+&gt;&gt;&gt;&gt; To unsubscribe, e-mail:
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt; users-unsubscribe@.apache
+&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; For additional commands, e-mail:
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt; users-help@.apache
+&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt; --
+&gt;&gt;&gt; Ron Wheeler
+&gt;&gt;&gt; President
+&gt;&gt;&gt; Artifact Software Inc
+&gt;&gt;&gt; email:
+&gt;&gt;&gt; rwheeler@
+&gt;&gt;&gt; skype: ronaldmwheeler
+&gt;&gt;&gt; phone: 866-970-2435, ext 102
+&gt;&gt;&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt; ------------------------------**------------------------------**
+&gt;&gt;&gt; ---------
+&gt;&gt;&gt; To unsubscribe, e-mail:
+&gt;&gt;&gt; users-unsubscribe@.apache
+&gt;&gt;&gt; For additional commands, e-mail:
+&gt;&gt;&gt; users-help@.apache
+&gt;&gt;&gt;
+&gt;&gt;
+&gt;&gt;
+&gt;&gt;
+&gt;&gt;
+&gt;&gt; --
+&gt;&gt; View this message in context: http://maven.40175.n5.nabble.**
+&gt;&gt; com/Compile-and-install-sub-**project-on-build-**tp5731080p5731142.html&lt;http://maven.40175.n5.nabble.com/Compile-and-install-sub-project-on-build-tp5731080p5731142.html&gt;
+&gt;&gt; Sent from the Maven - Users mailing list archive at Nabble.com.
+&gt;&gt;
+&gt;&gt; ------------------------------**------------------------------**---------
+&gt;&gt; To unsubscribe, e-mail: users-unsubscribe@maven.**apache.org&lt;users-unsubscribe@maven.apache.org&gt;
+&gt;&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;&gt;
+&gt;&gt;
+&gt;&gt;
+&gt;
+&gt; --
+&gt; Ron Wheeler
+&gt; President
+&gt; Artifact Software Inc
+&gt; email: rwheeler@artifact-software.com
+&gt; skype: ronaldmwheeler
+&gt; phone: 866-970-2435, ext 102
+&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201211.mbox/raw/%3cCA+U2j0qcWYko==agr7UG5eRftPS3KEn2ozvvNxG2dPkcUdFk6w@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 9911 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201211.mbox/raw/%3cCA+U2j0qcWYko==agr7UG5eRftPS3KEn2ozvvNxG2dPkcUdFk6w@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

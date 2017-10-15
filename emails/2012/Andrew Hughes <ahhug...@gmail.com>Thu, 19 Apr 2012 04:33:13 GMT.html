@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Re-Releasing Configured Artifacts, how?</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201204.mbox/%3cCALy+7UnAdhQt3vvuMBi2pN9SpeOXfpiiviy-wEenJ1KDHs82Rg@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201204.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201204.mbox/%3cCBB4E9B2.364B5%25rbracewe@qualcomm.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201204.mbox/%3cCALy+7UmMmtAgMKsERBDxyu1vhk+yVwtsEZRD3CNrpgUHoBugsA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201204.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201204.mbox/%3c4F8FA80E.2010609@artifact-software.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201204.mbox/%3cCALy+7UnAdhQt3vvuMBi2pN9SpeOXfpiiviy-wEenJ1KDHs82Rg@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201204.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201204.mbox/%3cCBB4E9B2.364B5%25rbracewe@qualcomm.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201204.mbox/%3cCALy+7UmMmtAgMKsERBDxyu1vhk+yVwtsEZRD3CNrpgUHoBugsA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201204.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201204.mbox/%3c4F8FA80E.2010609@artifact-software.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Andrew Hughes &lt;ahhug...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Re-Releasing Configured Artifacts, how?</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Thu, 19 Apr 2012 04:33:13 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+I have looked into several options.
+
+Assembly with Qualifiers (new module):
+Looks good because I can run multiple &lt;executions&gt;, each with a unique
+&lt;filter&gt;somefile.property&lt;/filter&gt;. However I can't re-use the same
+assembly description because the classifier is now obatined from the &lt;id&gt;
+in the assembly descriptor :'( . That kinda sucks, it means I would have to
+duplicate the assembly xml for each target classified artifact (or
+copy/filter/rename the assembly xml during a gererate-sources or similar).
+IMHO, this is not the best solution.
+
+Profiles:
+Only allow one build property set to exist, and thus each build can't use
+filtering on the config. For this reason the resulting duplication and
+deviation on each build would introduce bloat and increase the likelyhood
+of breakage.
+
+War Overlays :
+This is (unfortunately) the best solution I have.
+
++acme (pom)
+++acme-webapp (war)  &lt;--- all config options remain as ${someProperty} (ie.
+No Filtering here!)
+++acme-webapp-overlay (pom)
+++acme-webapp-overlay-dev (war)
+++acme-webapp-overlay-uat (war)
+++acme-webapp-overlay-prod (war)
+
+
+The acme-webapp-overlay will configure the
+&lt;plugin&gt;...&lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;&lt;overlays&gt;...
+(as well
+as configure a dependecy too acme-webapp) the and each child module
+(dev,uat,prod) provides their &lt;properties&gt;, which will filter selected
+parts of acme-webapp (war) as it is overlayed.
+
+This works, but I'm over it :)~
+
+
+
+Thanks for all the advice
+
+
+
+On Thu, Apr 19, 2012 at 2:38 AM, Wayne Fay &lt;waynefay@gmail.com&gt; wrote:
+
+&gt; &gt; I will read up some more. But, I was more wondering in regards to
+&gt; &gt; classifiers if I could release x3 (or more) builds of the same module (at
+&gt; &gt; the moment I have one module per conf, each is a war overlay).
+&gt;
+&gt; I am not a huge fan of producing multiple artifacts (thus, your
+&gt; suggestion of classifiers) for these types of purposes.
+&gt;
+&gt; Instead, you should think about what kinds of things you could do that
+&gt; would allow to produce a single artifact and then push it unchanged
+&gt; into your various deployment environments. There are lots of
+&gt; strategies to help with this problem: JNDI, Spring, other DI
+&gt; solutions, etc.
+&gt;
+&gt; Wayne
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201204.mbox/raw/%3cCAMvYC1WNmHo9s4ut_v+sPdptWhYeJ+9qizcFS-6RuURFbv1goA@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 2373 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201204.mbox/raw/%3cCAMvYC1WNmHo9s4ut_v+sPdptWhYeJ+9qizcFS-6RuURFbv1goA@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

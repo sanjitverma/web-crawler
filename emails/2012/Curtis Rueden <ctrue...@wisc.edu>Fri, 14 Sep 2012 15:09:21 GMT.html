@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>maven-nar-plugin status [was: Re: JNI jars dependencies]</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201209.mbox/%3cCAKF+bspP1-hNezUBE--QUFmYWhyWoLYKW+nuqF+nZDtiBMcjnw@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201209.mbox/%3cCACJj-wZ24ghMwR2CmD+bn9p=Y=tdOvnucKoMCaE8UUmmOgx7Cw@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201209.mbox/%3cCAAqLGLOq3SLNN9qwZXMv8g4sEZ7b5-k=Xqe-2z1C5axWk9tpaA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201209.mbox/%3cCACJj-wZ24ghMwR2CmD+bn9p=Y=tdOvnucKoMCaE8UUmmOgx7Cw@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201209.mbox/%3cCAKF+bspP1-hNezUBE--QUFmYWhyWoLYKW+nuqF+nZDtiBMcjnw@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201209.mbox/%3cCACJj-wZ24ghMwR2CmD+bn9p=Y=tdOvnucKoMCaE8UUmmOgx7Cw@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201209.mbox/%3cCAAqLGLOq3SLNN9qwZXMv8g4sEZ7b5-k=Xqe-2z1C5axWk9tpaA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201209.mbox/%3cCACJj-wZ24ghMwR2CmD+bn9p=Y=tdOvnucKoMCaE8UUmmOgx7Cw@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Curtis Rueden &lt;ctrue...@wisc.edu&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">maven-nar-plugin status [was: Re: JNI jars dependencies]</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Fri, 14 Sep 2012 15:09:21 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hi Martin,
+
+
+&gt; There is a problem with the [maven-nar-plugin] project because there are
+&gt; tens of orks on github. If you have any questions about it please ask. I
+&gt; have contact to one of the ative authors and we try to merge all the forks.
+
+
+I am guilty of one of those forks. We submitted a PR (
+https://github.com/duns/maven-nar-plugin/pull/5) but never heard back, so
+we had no choice.
+
+It looks like the canonical version at duns/maven-nar-plugin has not been
+updated for nearly two years. Is that going to change? It would be great
+for this very valuable plugin to be maintained!
+
+Thanks,
+Curtis
+
+
+On Fri, Sep 14, 2012 at 8:26 AM, Martin Eisengardt &lt;
+martin.eisengardt@gmail.com&gt; wrote:
+
+&gt; Ask google about maven-nar-plugin.
+&gt;
+&gt; It introduces nar dependencies (&lt;type&gt;nar&lt;/type&gt;) and internally tries to
+&gt; find out the correct qualifier depending on the current
+&gt; machine/architecture.
+&gt;
+&gt; I am playing around with it because I have a similar situation. There is a
+&gt; problem with the project because there are tens of orks on github. If you
+&gt; have any questions about it please ask. I have contact to one of the ative
+&gt; authors and we try to merge all the forks.
+&gt;
+&gt; On Fri, Sep 14, 2012 at 3:13 PM, Simone Tripodi &lt;simonetripodi@apache.org
+&gt; &gt;wrote:
+&gt;
+&gt; &gt; Hi all guys,
+&gt; &gt;
+&gt; &gt; I have the task of managing a 3rd party forest of dependencies which
+&gt; &gt; contain JNI code, so let's immagine that the provided library
+&gt; &gt; directory tree is as shown below:
+&gt; &gt;
+&gt; &gt; linux-i386
+&gt; &gt; ├── a.jar
+&gt; &gt; ├── b.jar (depends from a.jar)
+&gt; &gt; └── c.jar (depends from a.jar and b.jar)
+&gt; &gt;
+&gt; &gt; linux-x86_64
+&gt; &gt; ├── a.jar
+&gt; &gt; ├── b.jar (depends from a.jar)
+&gt; &gt; └── c.jar (depends from a.jar and b.jar)
+&gt; &gt;
+&gt; &gt; mac-x86_64
+&gt; &gt; ├── a.jar
+&gt; &gt; ├── b.jar (depends from a.jar)
+&gt; &gt; └── c.jar (depends from a.jar and b.jar)
+&gt; &gt;
+&gt; &gt; I was going to put all that jar in my Nexus installation, when I just
+&gt; &gt; realized I need classifiers to manage each platform... While manage a
+&gt; &gt; single dependency would be really easy, managing transitive
+&gt; &gt; dependencies per platform is not trivial, should be profiled...
+&gt; &gt;
+&gt; &gt; Do you have any suggestion on how that situation could be handled?
+&gt; &gt;
+&gt; &gt; Many thanks in advance, all the best!
+&gt; &gt; -Simo
+&gt; &gt;
+&gt; &gt; http://people.apache.org/~simonetripodi/
+&gt; &gt; http://simonetripodi.livejournal.com/
+&gt; &gt; http://twitter.com/simonetripodi
+&gt; &gt; http://www.99soft.org/
+&gt; &gt;
+&gt; &gt; ---------------------------------------------------------------------
+&gt; &gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; &gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt; &gt;
+&gt; &gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201209.mbox/raw/%3cCADN69yngCMW9Rsw0zrdit5S4UB04p-zh6Oa_hJdMHftHgyTmDw@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, Quoted Printable, 2806 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201209.mbox/raw/%3cCADN69yngCMW9Rsw0zrdit5S4UB04p-zh6Oa_hJdMHftHgyTmDw@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Injecting a transitive dependency via dependencyManagement</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201610.mbox/%3c8CD07181-30EA-4218-8B65-96D520CF0D45@sri.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201610.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201610.mbox/%3cCA+nPnMw2L5jj8ZCYhcYHsRwOoPNeMLMF0O-dRtEQbdSPCkuNgA@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201610.mbox/%3cCALhtWkfXx8b_gkDRRn1o92i6XB2dezRiT0q6Y5kDa8Vj3nRy7A@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201610.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201610.mbox/%3cCA+nPnMw2L5jj8ZCYhcYHsRwOoPNeMLMF0O-dRtEQbdSPCkuNgA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201610.mbox/%3c8CD07181-30EA-4218-8B65-96D520CF0D45@sri.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201610.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201610.mbox/%3cCA+nPnMw2L5jj8ZCYhcYHsRwOoPNeMLMF0O-dRtEQbdSPCkuNgA@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201610.mbox/%3cCALhtWkfXx8b_gkDRRn1o92i6XB2dezRiT0q6Y5kDa8Vj3nRy7A@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201610.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201610.mbox/%3cCA+nPnMw2L5jj8ZCYhcYHsRwOoPNeMLMF0O-dRtEQbdSPCkuNgA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Curtis Rueden &lt;ctrue...@wisc.edu&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Injecting a transitive dependency via dependencyManagement</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Thu, 13 Oct 2016 18:00:47 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hi everyone,
+
+I have a project [1] which depends on
+org.apache.xmlgraphics:batik-bridge:1.8, which in turn requires
+org.apache.xmlgraphics:xmlgraphics-commons:2.1 at runtime.
+
+Unfortunately, the POM for batik-bridge somehow does not declare the
+xmlgraphics-commons dependency [2], even though it definitely needs it [3].
+
+Of course, as a good citizen I should contact upstream and ask about this.
+But in the meantime, I want to work around it. I could add a runtime
+dependency on xmlgraphics-commons to my project POM, but what would be
+really nice would be the ability to declare additional transitive
+dependencies in the dependencyManagement section, as has been discussed
+here previously [4], since I want to ensure that any project which depends
+on batik-bridge via our parent POM will inherit a transitive
+xmlgraphics-common dependency.
+
+Unfortunately, based on the previous discussion, I surmise that there is
+currently no mechanism for this? Is there an existing issue? If not, should
+I file one? Or is what I'm looking for here fundamentally undesirable?
+
+Regards,
+Curtis
+
+[1] https://github.com/fiji/IO
+[2]
+https://repo1.maven.org/maven2/org/apache/xmlgraphics/batik-bridge/1.8/batik-bridge-1.8.pom
+[3]
+https://github.com/apache/batik/blob/batik-1_8/sources/org/apache/batik/bridge/PaintServer.java#L46-L53
+[4]
+http://maven.40175.n5.nabble.com/How-to-manage-dependency-quot-includes-quot-td5857771.html
+
+--
+Curtis Rueden
+LOCI software architect - http://loci.wisc.edu/software
+ImageJ2 lead, Fiji maintainer - http://imagej.net/User:Rueden
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201610.mbox/raw/%3cCADN69ymRxd-3_LF-n1St-uFap-Oc7UA0kswVBWisfWiudurX4Q@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 1549 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201610.mbox/raw/%3cCADN69ymRxd-3_LF-n1St-uFap-Oc7UA0kswVBWisfWiudurX4Q@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

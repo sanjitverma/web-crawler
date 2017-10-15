@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: File lock problem in custom Maven Reporting Plugin</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201212.mbox/%3cCAFNCU-90qnHFDmmZnj59kNDXVrkNZ8ZdZYFFtQp3Os6pkjmubg@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201212.mbox/%3c1355857408734-5739060.post@n5.nabble.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201212.mbox/%3cop.wpfhepnzkdkhrr@columbia%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201212.mbox/%3cCAPoyBqQx8tQxvQNnJYkjEGow=j5D=08cvsf9fW2hf4HX6BzKkA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201212.mbox/%3cCAFNCU-90qnHFDmmZnj59kNDXVrkNZ8ZdZYFFtQp3Os6pkjmubg@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201212.mbox/%3c1355857408734-5739060.post@n5.nabble.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201212.mbox/%3cop.wpfhepnzkdkhrr@columbia%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201212.mbox/%3cCAPoyBqQx8tQxvQNnJYkjEGow=j5D=08cvsf9fW2hf4HX6BzKkA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Baptiste Gaillard &lt;baptiste.gaill...@gomoob.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: File lock problem in custom Maven Reporting Plugin</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Tue, 18 Dec 2012 12:24:42 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hi and thanks for the response,
+
+My Mojo already overwrites the isExternalReport() function and returns true
+into it.
+
+To deep a little more I've tried to debug the execution of the Mojo when
+running a 'mvn site' command using that Mojo.
+
+It seems that the function 'executeReport' associated to a reporting Mojo
+is called before 'isExternalReport' is used.
+
+The 'execute' method associated to the 'AbstractMavenReport' (I'm using
+'maven-reporting-impl' version 2.2)   class contains the following lines :
+
+        Writer writer = null;
+        try
+        {
+            File outputDirectory = new File( getOutputDirectory() );
+
+            String filename = getOutputName() + ".html";
+
+            Locale locale = Locale.getDefault();
+
+            SiteRenderingContext siteContext = new SiteRenderingContext();
+            siteContext.setDecoration( new DecorationModel() );
+            siteContext.setTemplateName(
+"org/apache/maven/doxia/siterenderer/resources/default-site.vm" );
+            siteContext.setLocale( locale );
+
+            RenderingContext context = new RenderingContext(
+outputDirectory, filename );
+
+            SiteRendererSink sink = new SiteRendererSink( context );
+
+            generate( sink, null, locale );
+
+...
+
+The 'generate' function then calls the reporting mojo 'executeReport'
+function, so I think my locking problems comes from one of the following
+calls :
+    - 'new RenderingContext'
+    - 'new SiteRendererSink'
+
+Do you have any other ideas ?
+
+Perhaps I should post this message on the developer Mailing List, my
+problems seems to be linked to what Maven (or the 'maven-reporting-impl
+plugin executes internally ?
+
+Thanks,
+
+Baptiste
+
+2012/12/16 Robert Scholte &lt;rfscholte@apache.org&gt;
+
+&gt; This is probably what you need:
+&gt; from org.apache.maven.reporting.**MavenReport.isExternalReport()
+&gt;
+&gt;     /**
+&gt;      * An external report is a report which calls a third party program
+&gt; which generates some reports too.
+&gt;      * A good example is javadoc tool.
+&gt;      *
+&gt;      * @return &lt;tt&gt;true&lt;/tt&gt; if this report is external, &lt;tt&gt;false&lt;/tt&gt;
+&gt; otherwise.
+&gt;      * Default should be &lt;tt&gt;false&lt;/tt&gt;.
+&gt;      */
+&gt;     boolean isExternalReport();
+&gt;
+&gt;
+&gt; Op Tue, 11 Dec 2012 23:42:43 +0100 schreef Baptiste Gaillard &lt;
+&gt; baptiste.gaillard@gomoob.com&gt;**:
+&gt;
+&gt;  Hi, I'm currently creating a new Maven Reporting Plugin which integrate an
+&gt;&gt; external tool used to generate a Javascript documentation in my Maven Web
+&gt;&gt; Site.
+&gt;&gt;
+&gt;&gt; My report Mojo is very simple and is declared using :
+&gt;&gt;
+&gt;&gt; /**
+&gt;&gt;  * @goal jsduck
+&gt;&gt;  * @phase site
+&gt;&gt;  */
+&gt;&gt; public class JSDuckReportMojo extends AbstractMavenReport {
+&gt;&gt; ...
+&gt;&gt; }
+&gt;&gt;
+&gt;&gt; I encounter a file locking problem (i.e already opened elsewhere and not
+&gt;&gt; closed) at the beginning of my 'executeReport' method :
+&gt;&gt;
+&gt;&gt; *
+&gt;&gt;
+&gt;&gt; protected void executeReport(Locale locale) throws MavenReportException {
+&gt;&gt;
+&gt;&gt;     // JSDuck creates an 'index.html' file itself and crashes if one file
+&gt;&gt; with this name already exist
+&gt;&gt;     File jsduckIndex = new File("target/site/jsduck/**index.html");
+&gt;&gt;
+&gt;&gt;     if (jsduckIndex.exists() &amp;&amp; !jsduckIndex.delete()) {
+&gt;&gt;         throw new MavenReportException("Fail to delete the previously
+&gt;&gt; generated index.html !"
+&gt;&gt; );
+&gt;&gt;     }
+&gt;&gt;
+&gt;&gt;     // Use a document generator which absolutly need to have an empty
+&gt;&gt; target directory
+&gt;&gt;     ...
+&gt;&gt; }
+&gt;&gt; *
+&gt;&gt;
+&gt;&gt; The tool I'm integrating is called 'jsduck' and absolutely needs to have
+&gt;&gt; an
+&gt;&gt; empty target directory to work, its root index file is called
+&gt;&gt; 'index.html'.
+&gt;&gt;
+&gt;&gt; So I've also implemented the 'getOutputName' function :
+&gt;&gt;
+&gt;&gt; public String getOutputName() {
+&gt;&gt; return "jsduck/index";
+&gt;&gt; }
+&gt;&gt;
+&gt;&gt; But, the file 'target/site/jsduck/index.**html' has already been created
+&gt;&gt; automagically by Maven.
+&gt;&gt; In the 'executeReport' this file is there, empty and locked !
+&gt;&gt;
+&gt;&gt; So, I can't delete this 'index.html' file and let JSDuck create itself :-(
+&gt;&gt;
+&gt;&gt; Is it normal that Maven locks this 'index.html' file (because it has been
+&gt;&gt; declared in the 'getOutputName()' ) ?
+&gt;&gt; How can I unlock this file inside the 'executeReport' function to let
+&gt;&gt; JSDuck generate my documentation ?
+&gt;&gt;
+&gt;&gt; I've already tried to debug the 'AbstractMavenReport' class and only found
+&gt;&gt; a 'PrintWriter' attached to the 'Sink' (in the 'execute' method) which
+&gt;&gt; could cause this locking problem.
+&gt;&gt; Calling the 'close' method at the beginning of the 'executeReport' method
+&gt;&gt; seems to have no effect...
+&gt;&gt;
+&gt;&gt; Thanks for you help,
+&gt;&gt;
+&gt;&gt; Baptiste
+&gt;&gt;
+&gt;
+&gt; ------------------------------**------------------------------**---------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.**apache.org&lt;users-unsubscribe@maven.apache.org&gt;
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+
+
+-- 
+
+*Baptiste GAILLARD*
+*Mobile : +33(6) 85 12 81 26  &lt;http://+33%286%29%2085%2012%2081%2026%20/&gt;*
+*Mail     :* *baptiste.gaillard@gomoob.com*
+*http://www.gomoob.com*
+*
+*
+**
+*
+*
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201212.mbox/raw/%3cCAF+yAze7W=LYYW4KPrwKSwbdMSCTNtfWnPRTJSt9vKFzmJPSGQ@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 4884 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201212.mbox/raw/%3cCAF+yAze7W=LYYW4KPrwKSwbdMSCTNtfWnPRTJSt9vKFzmJPSGQ@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

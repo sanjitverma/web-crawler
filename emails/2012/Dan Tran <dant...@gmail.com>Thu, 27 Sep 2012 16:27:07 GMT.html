@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Ability to use latest plugin snapshot from maven 3 command line</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201209.mbox/%3c58EAA08AF8232344ADDB2E31D4996BFD05EC70@SMRPEXCHIDAG1.prod.ad.merc.chicago.cme.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201209.mbox/%3cCAHNdxu=iB3Sx_C4cgyGXCw9+-QsfK2zq+y=iYVmPc2L3FwHzCQ@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201209.mbox/%3c58EAA08AF8232344ADDB2E31D4996BFD05EC70@SMRPEXCHIDAG1.prod.ad.merc.chicago.cme.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201209.mbox/%3ck420a1$gvs$1@ger.gmane.org%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201209.mbox/%3c58EAA08AF8232344ADDB2E31D4996BFD05EC70@SMRPEXCHIDAG1.prod.ad.merc.chicago.cme.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201209.mbox/%3cCAHNdxu=iB3Sx_C4cgyGXCw9+-QsfK2zq+y=iYVmPc2L3FwHzCQ@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201209.mbox/%3c58EAA08AF8232344ADDB2E31D4996BFD05EC70@SMRPEXCHIDAG1.prod.ad.merc.chicago.cme.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201209.mbox/%3ck420a1$gvs$1@ger.gmane.org%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Dan Tran &lt;dant...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Ability to use latest plugin snapshot from maven 3 command line</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Thu, 27 Sep 2012 16:27:07 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Thanks for the pointer?  are you talking about plugin registry?  It
+seems this feature is not recommended ( i have not dig deep into it
+yet )
+
+btw, specify full plugin is not desirable ( ie mvn
+groupId:artifactId:version:goal )
+
+more suggestion is greatly appreciated.
+
+-D
+
+On Thu, Sep 27, 2012 at 9:17 AM, Lyons, Roy &lt;Roy.Lyons@cmegroup.com&gt; wrote:
+&gt; Extremely easy fix for that:
+&gt;
+&gt; http://maven.apache.org/guides/introduction/introduction-to-plugin-resoluti
+&gt; on.html
+&gt;
+&gt; -- snip --
+&gt;
+&gt; For clarity, the following are the three ways to reference a mojo
+&gt; from the command line. These will all result in the clean mojo of the
+&gt; maven-clean-plugin being invoked:
+&gt;   mvn org.apache.maven.plugins:maven-clean-plugin:2.0:clean
+&gt;   mvn org.apache.maven.plugins:maven-clean-plugin:clean
+&gt;   mvn clean:clean
+&gt;
+&gt;
+&gt;
+&gt;
+&gt; -- /snip --
+&gt;
+&gt; So just reference your snapshot plugin with:
+&gt;  mvn &lt;groupId&gt;:&lt;artifactId&gt;:&lt;yourVersionIncluding-SNAPSHOT&gt;:&lt;goal&gt;
+&gt;
+&gt; That's it.
+&gt;
+&gt;
+&gt;
+&gt;
+&gt; On 9/27/12 10:35 AM, "Dan Tran" &lt;dantran@gmail.com&gt; wrote:
+&gt;
+&gt;&gt;Hello
+&gt;&gt;
+&gt;&gt;Back in Maven 2, when executing  a plugin goal from command line,
+&gt;&gt;Maven always tries to look for latest version and its snapshot
+&gt;&gt;
+&gt;&gt;In Maven 3, this capability disappear, Maven only looks for latest
+&gt;&gt;released version.
+&gt;&gt;
+&gt;&gt;Would it possible to turn it on from command line?
+&gt;&gt;
+&gt;&gt;I fully understand the benefit of predictability. However, it becomes
+&gt;&gt;very inconvenient to cut the plugin release while still testing.
+&gt;&gt;and we cannt use maven2 because the plugin itself uses maven 3 api ( ie
+&gt;&gt;aether )
+&gt;&gt;
+&gt;&gt;Is there already a request for this?
+&gt;&gt;
+&gt;&gt;Big thanks
+&gt;&gt;
+&gt;&gt;-D
+&gt;&gt;
+&gt;&gt;---------------------------------------------------------------------
+&gt;&gt;To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt;&gt;For additional commands, e-mail: users-help@maven.apache.org
+&gt;&gt;
+&gt;
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201209.mbox/raw/%3cCAPCjjnHsvcpj5Vv1wvVn+-GUv1JVf2eT1TbgDJawZb+rWMfMkw@mail.gmail.com%3e/">Unnamed text/plain</a> (inline, None, 2212 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201209.mbox/raw/%3cCAPCjjnHsvcpj5Vv1wvVn+-GUv1JVf2eT1TbgDJawZb+rWMfMkw@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

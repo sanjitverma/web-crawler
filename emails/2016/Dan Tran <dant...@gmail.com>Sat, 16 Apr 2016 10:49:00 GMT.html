@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Maven &amp; Continuous Delivery</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201604.mbox/%3cCA+nPnMzv0q2E7cCf_Z5=yFxvwZrw+FkrsfkB1_x=ansLToUhEw@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201604.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201604.mbox/%3cCAKumxBwrknPtXB6GXDN0Ezbi=4FJvsa6zscRL6q8UveKgCPPbA@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201604.mbox/%3cCA+nPnMzv0q2E7cCf_Z5=yFxvwZrw+FkrsfkB1_x=ansLToUhEw@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201604.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201604.mbox/%3cCAKumxBwrknPtXB6GXDN0Ezbi=4FJvsa6zscRL6q8UveKgCPPbA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201604.mbox/%3cCA+nPnMzv0q2E7cCf_Z5=yFxvwZrw+FkrsfkB1_x=ansLToUhEw@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201604.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201604.mbox/%3cCAKumxBwrknPtXB6GXDN0Ezbi=4FJvsa6zscRL6q8UveKgCPPbA@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201604.mbox/%3cCA+nPnMzv0q2E7cCf_Z5=yFxvwZrw+FkrsfkB1_x=ansLToUhEw@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201604.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201604.mbox/%3cCAKumxBwrknPtXB6GXDN0Ezbi=4FJvsa6zscRL6q8UveKgCPPbA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Dan Tran &lt;dant...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Maven &amp; Continuous Delivery</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Sat, 16 Apr 2016 10:49:00 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Thanks Stephen.
+
+I was excited for a short moment but hitting the reality where I may have
+to deal with hundreds of dev and qa over the confusion of the hidden
+version. Especially, when they have to rebuild a subset of the product. It
+just not working
+
+Jason van Zyl also mentioned he was working on CD solution for Maven last
+year, not sure what the progress on this front.
+
+-Dan
+
+
+
+On Sat, Apr 16, 2016 at 12:51 AM, Stephen Connolly &lt;
+stephen.alan.connolly@gmail.com&gt; wrote:
+
+&gt; I share your concern. We could fix the concern if we created the
+&gt; transformed pom on disk so that things like GPG signatures were generated
+&gt; correctly, but AIUI the issue there was that the pom could not be put in
+&gt; target as that would break relative paths.
+&gt;
+&gt; I suspect this is also related to the issue of dependency reduced poms for
+&gt; shade... or any feature where the pom to be used downstream in the reactor
+&gt; needs to differ from the pom on disk.
+&gt;
+&gt; For me, having been burned by not building the effective pom from a clean
+&gt; checkout I actually favour the use of the release plugin, typically for CD
+&gt; I just have the next development version the same as the current and if you
+&gt; tune your preparationGoals then you can just have one compile test cycle...
+&gt;
+&gt; But the fight of that blog is a bit like the idiotic quest people have to
+&gt; run the tests once only with code coverage as part of the single test
+&gt; execution... until you have been burned by the code coverage affecting
+&gt; effective bytecode and preventing the synchronization bug from being caught
+&gt; by your tests (plus other test invalidating behaviours I have seen) you
+&gt; will run around trying to get rid of the second test execution...
+&gt;
+&gt; Those who do not understand why we do things will be condemned to repeat
+&gt; our mistakes that made us do things that way.
+&gt;
+&gt; Having said that, it is a good pressure to have people pushing the "why do
+&gt; we need to do it this way" envelope... perhaps it is time that we need to
+&gt; ensure that the release plugin has a page outlining our rational for the
+&gt; current default behaviour, common ways to tweak it and stressing that we
+&gt; have provided a framework for releasing and others are welcome to reuse the
+&gt; framework in their own release plugins
+&gt;
+&gt; On 16 April 2016 at 06:01, Dan Tran &lt;dantran@gmail.com&gt; wrote:
+&gt;
+&gt; &gt; Hi,
+&gt; &gt;
+&gt; &gt; Anyone practicing CD according to this blog?
+&gt; &gt; https://axelfontaine.com/blog/dead-burried.html
+&gt; &gt;
+&gt; &gt; I can build locally, but have a huge concern on the pom deployed at maven
+&gt; &gt; repo since it does NOT  have the exact version
+&gt; &gt;
+&gt; &gt; If you do, please share your experience. Any hick up when you introduce
+&gt; &gt; this new practice?
+&gt; &gt;
+&gt; &gt; For our case, we have about 200 modules project and about 100 dev + qa
+&gt; &gt;
+&gt; &gt; Thanks
+&gt; &gt;
+&gt; &gt; -Dan
+&gt; &gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201604.mbox/raw/%3cCAPCjjnGsJu-VUoD3bBNc25eZaxtJYzO-g42R+SZHy2gfP5UQtw@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 2772 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201604.mbox/raw/%3cCAPCjjnGsJu-VUoD3bBNc25eZaxtJYzO-g42R+SZHy2gfP5UQtw@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

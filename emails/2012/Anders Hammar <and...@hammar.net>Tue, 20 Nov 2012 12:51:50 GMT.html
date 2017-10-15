@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: local repository problem</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201211.mbox/%3cCABY_-Z4H_cfyzYRxdBR2UhQJ1LUmVcDj_n1f3Y=jOJssnf=Zxg@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201211.mbox/%3cB5E72FE8A204C442A678B9A728D562D923BF60@Bramblewattle.nau.froot.nau.edu%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201211.mbox/%3cD58B7D6FE5E2B64A8A1918423F147908136371BC@G2W2526.americas.hpqcorp.net%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201211.mbox/%3cCABY_-Z4H_cfyzYRxdBR2UhQJ1LUmVcDj_n1f3Y=jOJssnf=Zxg@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201211.mbox/%3cCABY_-Z4H_cfyzYRxdBR2UhQJ1LUmVcDj_n1f3Y=jOJssnf=Zxg@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201211.mbox/%3cB5E72FE8A204C442A678B9A728D562D923BF60@Bramblewattle.nau.froot.nau.edu%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201211.mbox/%3cD58B7D6FE5E2B64A8A1918423F147908136371BC@G2W2526.americas.hpqcorp.net%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201211.mbox/%3cCABY_-Z4H_cfyzYRxdBR2UhQJ1LUmVcDj_n1f3Y=jOJssnf=Zxg@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Anders Hammar &lt;and...@hammar.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: local repository problem</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Tue, 20 Nov 2012 12:51:50 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Ok. The simple solution would be to make this repo with your artifacts
+available to him. Either through Internet access or by having him getting
+access via a citrix client or similar (over VPN). This solution will solve
+all future issues you will run into w/t having access to your internal
+artifacts.
+
+Other possible, but painful, solutions include:
+* Create a zip will all artifacts and poms that also include a script that
+install them to his/her local repo.
+* Create a zip with the artifacts and poms in a maven 2 repo structure.
+He/she could then host these locally and point his Maven environment to
+this repo.
+
+Just understand that these solution will bring you lots of work keeping his
+environment in sync with your internal one.
+
+/Anders
+
+
+On Tue, Nov 20, 2012 at 1:13 PM, Levin, Ilya &lt;ilya.levin@hp.com&gt; wrote:
+
+&gt; Thanks for the reply, I should explain what I'm doing.
+&gt;
+&gt; When I run my project in the company network I have access to all the
+&gt; artifacts we create in our repository.
+&gt; When somebody OUTSIDE the company network runs the project he doesn’t have
+&gt; this privilege.
+&gt; Now, Since most of the artifacts we use are stable and doesn’t change, I
+&gt; want him to copy them to his
+&gt; Local repository, so that when he is running  maven, it will uses this
+&gt; (now "local")artifacts and central maven repository for other
+&gt; Artifacts he may use (3rd party etc...)
+&gt;
+&gt; Again thanks.
+&gt;
+&gt; -----Original Message-----
+&gt; From: anders.g.hammar@gmail.com [mailto:anders.g.hammar@gmail.com] On
+&gt; Behalf Of Anders Hammar
+&gt; Sent: יום ג 20 נובמבר 2012 13:57
+&gt; To: Maven Users List
+&gt; Subject: Re: local repository problem
+&gt;
+&gt; First of all, could you enlighten us why you're doing what you're doing?
+&gt; It looks to me that your just making things difficult which will get you
+&gt; into trouble. Maven is designed to work with repositories. If you don't
+&gt; like that then Maven is probably not the tool for you.
+&gt;
+&gt; Secondly, you can never remove all the repos from your build. The
+&gt; super-pom declares central as a repo and you can't remove that. So, there
+&gt; will always be at least one repo declared.
+&gt;
+&gt; To answer the question about the error you run into I believe it is
+&gt; because Maven 3.0.x keeps track of where an artifact has been downloaded
+&gt; from. So if you remove the repo, this might not match although the artifact
+&gt; *file* actually does exist in the local repo.
+&gt;
+&gt; But please, rethink your approach as you, IMHO, are looking for problems.
+&gt;
+&gt; /Anders
+&gt;
+&gt;
+&gt; On Tue, Nov 20, 2012 at 12:39 PM, Levin, Ilya &lt;ilya.levin@hp.com&gt; wrote:
+&gt;
+&gt; &gt; Hi,
+&gt; &gt;
+&gt; &gt; My problem is this.
+&gt; &gt; I want my maven project to take the artifacts only from the local
+&gt; &gt; repository.
+&gt; &gt; The first mvn run is a regular one so that all artifact could be
+&gt; &gt; downloaded to the local repository.
+&gt; &gt; The second run is with flag -o (maven offline) . and it is in fact
+&gt; &gt; works - maven uses only the cache.
+&gt; &gt;
+&gt; &gt; So in that case it's logical to think that if running offline, I can
+&gt; &gt; REMOVE the repository name from my main pom (since all the artifact
+&gt; &gt; are cached).
+&gt; &gt; BUT the minute I do that (and still running  with flag -o) maven
+&gt; &gt; throws this at me:
+&gt; &gt; Unable to find artifact. The repository system is offline but the
+&gt; &gt; artifact &lt;some artifact&gt; is not available in the local repository.
+&gt; &gt;
+&gt; &gt; and of course the artifact is there. When I return back the repository
+&gt; &gt; name to the pom, again it works.
+&gt; &gt; So why do I need the repository name in the pom if running offline?
+&gt; &gt;
+&gt; &gt; Thanks for the help.
+&gt; &gt; ilya
+&gt; &gt;
+&gt; &gt;
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201211.mbox/raw/%3cCAKDUN1v9PK4muXhM_2kHxQYNmbu8faVK0ffdUxtOFaaSb5su8A@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, Quoted Printable, 3788 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201211.mbox/raw/%3cCAKDUN1v9PK4muXhM_2kHxQYNmbu8faVK0ffdUxtOFaaSb5su8A@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

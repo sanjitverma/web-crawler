@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: alternative deploy strategy</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201208.mbox/%3cae9315120e276e9a34ea5169d373d70a.squirrel@www.mosabuam.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201208.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201208.mbox/%3cCAKDUN1s2iVTAbb5aGy51u3Gap3r7EFAaceWacCbk3AOWoD+nwA@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201208.mbox/%3cae9315120e276e9a34ea5169d373d70a.squirrel@www.mosabuam.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201208.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201208.mbox/%3c503E31E7.7030801@springdot.org%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201208.mbox/%3cae9315120e276e9a34ea5169d373d70a.squirrel@www.mosabuam.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201208.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201208.mbox/%3cCAKDUN1s2iVTAbb5aGy51u3Gap3r7EFAaceWacCbk3AOWoD+nwA@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201208.mbox/%3cae9315120e276e9a34ea5169d373d70a.squirrel@www.mosabuam.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201208.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201208.mbox/%3c503E31E7.7030801@springdot.org%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Anders Hammar &lt;and...@hammar.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: alternative deploy strategy</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Wed, 29 Aug 2012 06:52:10 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+If you want to bypass the Repo manager (normally what happens if you
+don't deploy through HTTP) you will also bypass authentication,
+authorization, and other good stuff that a repo manager helps you
+with. Don't do that!
+
+/Anders
+
+On Wed, Aug 29, 2012 at 6:17 AM, Max Spring &lt;m2spring@springdot.org&gt; wrote:
+&gt; I do use Nexus for the group repositories.
+&gt; Using Nexus also locally defeats the purpose.
+&gt; The deploy to a file://... repo gives me the performance I'm looking for.
+&gt;
+&gt; Nexus Pro's staging feature would give me what I want, but I'd still have to
+&gt; transport via HTTP.
+&gt;
+&gt; -Max
+&gt;
+&gt;
+&gt;
+&gt; On 08/28/2012 09:05 PM, Manfred Moser wrote:
+&gt;&gt;
+&gt;&gt; On Tue, August 28, 2012 4:26 pm, Max Spring wrote:
+&gt;&gt;&gt;
+&gt;&gt;&gt; To speed up my large Maven build I'm thinking of using a "local-remote"
+&gt;&gt;&gt; repository sitting on the local file system.
+&gt;&gt;&gt;
+&gt;&gt;&gt; 1) build would start with a wiped local-remote repository
+&gt;&gt;&gt; 2) build's deploys into the local-remote repository
+&gt;&gt;&gt; 3) if build finished successfully, artifacts in the local-remote
+&gt;&gt;&gt; repository get deployed into the real remote group repository.
+&gt;&gt;&gt;
+&gt;&gt;&gt; (The benefits would be that nothing gets deployed until the build
+&gt;&gt;&gt; succeeds
+&gt;&gt;&gt; and the build result is available sooner.)
+&gt;&gt;&gt;
+&gt;&gt;&gt; Are there tools which would help with 3) ?
+&gt;&gt;&gt; I've looked into the Nexus Command Line Tools [1], but they don't do what
+&gt;&gt;&gt; I want.
+&gt;&gt;&gt;
+&gt;&gt;&gt; Alternatively I could write my own using the Maven API, I suppose.
+&gt;&gt;
+&gt;&gt;
+&gt;&gt; Why not just use a local deployment of Nexus?
+&gt;&gt;
+&gt;&gt; manfred
+&gt;&gt;
+&gt;&gt;
+&gt;&gt; ---------------------------------------------------------------------
+&gt;&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt;&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;&gt;
+&gt;&gt;
+&gt;
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201208.mbox/raw/%3cCAKDUN1sxDtLY2Q_Qkx9u=pcyZJW8ZtimSWQ6AdZTP+QJ9Fg4_g@mail.gmail.com%3e/">Unnamed text/plain</a> (inline, None, 2109 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201208.mbox/raw/%3cCAKDUN1sxDtLY2Q_Qkx9u=pcyZJW8ZtimSWQ6AdZTP+QJ9Fg4_g@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

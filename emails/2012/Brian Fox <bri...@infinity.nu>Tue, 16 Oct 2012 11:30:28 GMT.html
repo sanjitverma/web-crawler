@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: How to optimize maven dependencies to get better performance?</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201210.mbox/%3cCADVp3v89vQ2rrNGOgsdjC_L8PbKHf120GXVjF41ZPnAbQ26LEA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201210.mbox/%3cCA+nPnMwxqcMg=27GDXsjc=9co4DnUjB+Fja0o3Si68sZYaNhWQ@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201210.mbox/%3cCADVp3v_Yn7Nrj1WbeBaWNQUtcCozQLMHkyqwW_FYYizcY_OV=w@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201210.mbox/%3c20121011110112.29900be9@linux-du93.site%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201210.mbox/%3cCADVp3v89vQ2rrNGOgsdjC_L8PbKHf120GXVjF41ZPnAbQ26LEA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201210.mbox/%3cCA+nPnMwxqcMg=27GDXsjc=9co4DnUjB+Fja0o3Si68sZYaNhWQ@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201210.mbox/%3cCADVp3v_Yn7Nrj1WbeBaWNQUtcCozQLMHkyqwW_FYYizcY_OV=w@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201210.mbox/%3c20121011110112.29900be9@linux-du93.site%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Brian Fox &lt;bri...@infinity.nu&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: How to optimize maven dependencies to get better performance?</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Tue, 16 Oct 2012 11:30:28 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+The problem below is because your configuration is inside an execution,
+which when run from the command line like mvm enforcer:enforce won't be
+activated. Either bind this plugin to a phase as part of your build, or
+move the configuration element outside the executions block.
+
+On Thu, Oct 11, 2012 at 4:27 AM, Wang, Simon &lt;Yunfeng.Wang@ebay.com&gt; wrote:
+
+&gt; Hi, Barrie,
+&gt;    Ask a stupid question about enforcer plugin.
+&gt; I added enforcer plugin into project pom like this:
+&gt;                         &lt;plugin&gt;
+&gt;
+&gt; &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+&gt;
+&gt; &lt;artifactId&gt;maven-enforcer-plugin&lt;/artifactId&gt;
+&gt;                                         &lt;version&gt;1.1.1&lt;/version&gt;
+&gt;                                         &lt;executions&gt;
+&gt;                                           &lt;execution&gt;
+&gt;                                                 &lt;id&gt;enforce&lt;/id&gt;
+&gt;                                                 &lt;configuration&gt;
+&gt;                                                         &lt;rules&gt;
+&gt;
+&gt; &lt;DependencyConvergence/&gt;
+&gt;                                                         &lt;/rules&gt;
+&gt;                                                 &lt;/configuration&gt;
+&gt;                                                 &lt;goals&gt;
+&gt;                                                   &lt;goal&gt;enforce&lt;/goal&gt;
+&gt;                                                 &lt;/goals&gt;
+&gt;                                           &lt;/execution&gt;
+&gt;                                         &lt;/executions&gt;
+&gt;                         &lt;/plugin&gt;
+&gt;
+&gt; But it always complain missing parameter: rules.
+&gt; Below is debug log.
+&gt;
+&gt; Any mistakes in above code?
+&gt;
+&gt; ~~~
+&gt; [DEBUG] Configuring mojo
+&gt; org.apache.maven.plugins:maven-enforcer-plugin:1.1.1:en
+&gt; force from plugin realm
+&gt; ClassRealm[plugin&gt;org.apache.maven.plugins:maven-enforce
+&gt; r-plugin:1.1.1, parent: sun.misc.Launcher$AppClassLoader@233e233e]
+&gt; [DEBUG] Configuring mojo
+&gt; 'org.apache.maven.plugins:maven-enforcer-plugin:1.1.1:e
+&gt; nforce' with basic configurator --&gt;
+&gt; [DEBUG]   (s) fail = true
+&gt; [DEBUG]   (s) failFast = false
+&gt; [DEBUG]   (f) ignoreCache = false
+&gt; [DEBUG]   (s) project = MavenProject:
+&gt; com.ebay.raptor.buyerexp.framework:CoreApp
+&gt; Framework:4.1.1-W41-SNAPSHOT @
+&gt; C:\gitrepo\search_raptor\CoreAppFramework\pom.xml
+&gt;
+&gt; [DEBUG]   (s) session = org.apache.maven.execution.MavenSession@3d153d15
+&gt; [DEBUG]   (s) skip = false
+&gt; [DEBUG] -- end configuration --
+&gt; [INFO]
+&gt; ------------------------------------------------------------------------
+&gt; [INFO] BUILD FAILURE
+&gt; [INFO]
+&gt; ------------------------------------------------------------------------
+&gt; [INFO] Total time: 3.050s
+&gt; [INFO] Finished at: Thu Oct 11 15:49:28 CST 2012
+&gt; [INFO] Final Memory: 17M/45M
+&gt; [INFO]
+&gt; ------------------------------------------------------------------------
+&gt; [ERROR] Failed to execute goal
+&gt; org.apache.maven.plugins:maven-enforcer-plugin:1.
+&gt; 1.1:enforce (default-cli) on project CoreAppFramework: The parameters
+&gt; 'rules' fo
+&gt; r goal org.apache.maven.plugins:maven-enforcer-plugin:1.1.1:enforce are
+&gt; missing
+&gt; or invalid -&gt; [Help 1]
+&gt; org.apache.maven.lifecycle.LifecycleExecutionException: Failed to execute
+&gt; goal o
+&gt; rg.apache.maven.plugins:maven-enforcer-plugin:1.1.1:enforce (default-cli)
+&gt; on pro
+&gt; ject CoreAppFramework: The parameters 'rules' for goal
+&gt; org.apache.maven.plugins:
+&gt; maven-enforcer-plugin:1.1.1:enforce are missing or invalid
+&gt;         at
+&gt; org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor
+&gt; .java:221)
+&gt;
+&gt;
+&gt;
+&gt; Regards
+&gt; Simon
+&gt; -----Original Message-----
+&gt; From: Wang, Simon [mailto:Yunfeng.Wang@ebay.com]
+&gt; Sent: 2012年10月11日 13:41
+&gt; To: Maven Users List
+&gt; Subject: RE: How to optimize maven dependencies to get better performance?
+&gt;
+&gt; Hi, Barrie,
+&gt;    That's really helpful!
+&gt;
+&gt;    Even I have local cache, it also takes about 2 mins to resolve
+&gt; dependencies.
+&gt;    Also it seems maven still will talk with remote maven server even I
+&gt; have local cache.
+&gt;    Yes, maybe it's caused by unspecified version numbers for dependencies.
+&gt;
+&gt;    I'll try maven-enforcer-plugin.
+&gt;
+&gt;    We're using nexus now, haven't tried MRM, I'll host it and compare it
+&gt; to nexus.
+&gt;
+&gt;    And I saw aether(major in dependency resolving) will take longer time
+&gt; to resolve conflict dependencies.
+&gt;    Is it also a point that need to be improved?
+&gt;    Do you know is there any maven plugin to identify conflict dependencies?
+&gt;
+&gt; Regards
+&gt; Simon
+&gt;
+&gt; -----Original Message-----
+&gt; From: Barrie Treloar [mailto:baerrach@gmail.com]
+&gt; Sent: 2012年10月11日 11:48
+&gt; To: Maven Users List
+&gt; Subject: Re: How to optimize maven dependencies to get better performance?
+&gt;
+&gt; On Thu, Oct 11, 2012 at 1:46 PM, Wang, Simon &lt;Yunfeng.Wang@ebay.com&gt;
+&gt; wrote:
+&gt; &gt; Hi,
+&gt; &gt;    We're in trouble of terrible performance on resolve maven
+&gt; dependencies.
+&gt; &gt; I did some search about it. Basically below ways should be helpful:
+&gt; &gt;
+&gt; &gt; 1. optimize nexus server to improve response time.
+&gt; &gt; 2. optimize maven dependencies.
+&gt; &gt;   1) avoid duplicated dependencies
+&gt; &gt;   2) avoid dependency conflict cases
+&gt; &gt;   3)....
+&gt; &gt;
+&gt; &gt; Any others suggestions?
+&gt;
+&gt; What specifically is your problem?
+&gt;
+&gt; I can only guess at what you mean.
+&gt; I'm assuming that when you run "mvn install" that maven is reaching out to
+&gt; check for new dependencies which can be time consuming, especially with an
+&gt; empty ~/.m2/repository local cache.
+&gt; After the first install this shouldn't be a problem.
+&gt;
+&gt; Firstly make sure that you do not define additional "repository" in either
+&gt; your settings.xml or pom.xml.
+&gt; Every dependency will be checked against all repositories defined.
+&gt; So just by defining one extra repository will double the time it takes to
+&gt; check dependencies.
+&gt; There is no logic in Maven to blacklist/whitelist what artifacts are
+&gt; located where, this is one reason why you use a Repository Manager.
+&gt; You can see that if you declare repositories in your pom.xml and this is
+&gt; published how it will affect everyone that includes your artifacts.
+&gt; Please don't do that.
+&gt;
+&gt; Secondly, make sure you lock down all version numbers of dependencies.
+&gt; It is bad practice to not specify these as it makes your build
+&gt; non-reproducable.
+&gt; This could also be a reason why it is slow as Maven will need to check
+&gt; periodically to see if new versions are available.
+&gt; You can use maven enforcer
+&gt; (http://maven.apache.org/plugins/maven-enforcer-plugin/) to ensure that
+&gt; you have no unversioned artifacts.
+&gt;
+&gt; Thirdly, install a Maven Repository Manager (Nexus is one).
+&gt; This will act as a local proxy and make downloading times much faster.
+&gt; It also provides an aggregation point, so that there is only one
+&gt; repository to check each artifact for and the Repository Manager will hide
+&gt; checking the other repos MRMs also allow you to do whitelist/blacklist
+&gt; stuff to improve performance.
+&gt; If you are in a corporate environment you really want an MRM installed.
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201210.mbox/raw/%3cCAMk_BegP9UcddBn=n0s6vncKuEtw_RgHxMjaBJOE61jMLr6yiw@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, Quoted Printable, 7118 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201210.mbox/raw/%3cCAMk_BegP9UcddBn=n0s6vncKuEtw_RgHxMjaBJOE61jMLr6yiw@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

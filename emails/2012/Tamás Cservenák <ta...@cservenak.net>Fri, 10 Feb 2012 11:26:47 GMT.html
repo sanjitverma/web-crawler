@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Maven 3.0.4 preemptive auth problem</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201202.mbox/%3cCAPoyBqS0BbHECCesVWzcT_oWii41F9QbHRyh5diadfwQ78LhBA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201202.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201202.mbox/%3cCAPYP83S76M8Vj0qnK_kNdbwjnE14-PfEqRuVhYptmEXwVWmRLw@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201202.mbox/%3cCAPoyBqS0BbHECCesVWzcT_oWii41F9QbHRyh5diadfwQ78LhBA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201202.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201202.mbox/%3cAEEBAD80-DA22-4962-81D1-63B28EF77E0E@tesla.io%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201202.mbox/%3cCAPoyBqS0BbHECCesVWzcT_oWii41F9QbHRyh5diadfwQ78LhBA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201202.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201202.mbox/%3cCAPYP83S76M8Vj0qnK_kNdbwjnE14-PfEqRuVhYptmEXwVWmRLw@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201202.mbox/%3cCAPoyBqS0BbHECCesVWzcT_oWii41F9QbHRyh5diadfwQ78LhBA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201202.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201202.mbox/%3cAEEBAD80-DA22-4962-81D1-63B28EF77E0E@tesla.io%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Tamás Cservenák &lt;ta...@cservenak.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Maven 3.0.4 preemptive auth problem</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Fri, 10 Feb 2012 11:26:47 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+403 from nexus means "you gave me credentials, but those credentials
+are no good for content you ask for".
+401 would mean "you wanna access something that is protected and you
+have not authed itself".
+
+Are you _sure_ same request (same!) works in your setup with Maven 303?
+Preemptive or non-preemptive should not matter from Nexus side.
+If still suspect nexus, you can put it into debug log mode and watch
+logs for this single request.... and see what Nexus "thinks" it got as
+auth info and to what permissions it resolves to...
+
+Thanks,
+~t~
+
+On Fri, Feb 10, 2012 at 9:18 AM, Olivier Lamy &lt;olamy@apache.org&gt; wrote:
+&gt; Hello,
+&gt;
+&gt; I'm very interested to know the technical reason of this "403 because
+&gt; of the preemptive authentication(the credentials are valid and work
+&gt; for non-preemptive auth" :-)
+&gt;
+&gt; BTW preemptive cannot be deactivated. (Can you load an issue for that ? )
+&gt;
+&gt; 2012/2/9 Koch, Micah K (Micah) &lt;mkoch@motive.com&gt;:
+&gt;&gt; So I was trying out maven 3.0.4, and it has problems when we have server elements(with
+username and password) defined in our settings, as we get a 403 because of the preemptive
+authentication(the credentials are valid and work for non-preemptive auth with maven 3.0.3).
+ In this particular case its just for a GET request.  I've tried turning preemptive auth
+off, but it didn't seem to work.  Based on the info at:
+&gt;&gt; http://maven.apache.org/guides/mini/guide-http-settings.html
+&gt;&gt; Here is what I tried to turn it off:
+&gt;&gt; &lt;servers&gt;
+&gt;&gt;  &lt;server&gt;
+&gt;&gt;    &lt;id&gt;snapshots&lt;/id&gt;
+&gt;&gt;      &lt;configuration&gt;
+&gt;&gt;        &lt;wagonProvider&gt;httpclient&lt;/wagonProvider&gt;
+&gt;&gt;        &lt;httpConfiguration&gt;
+&gt;&gt;          &lt;all&gt;
+&gt;&gt;            &lt;params&gt;
+&gt;&gt;              &lt;param&gt;
+&gt;&gt;                &lt;name&gt;http.authentication.preemptive&lt;/name&gt;
+&gt;&gt;                &lt;value&gt;%b,false&lt;/value&gt;
+&gt;&gt;              &lt;/param&gt;
+&gt;&gt;            &lt;/params&gt;
+&gt;&gt;          &lt;/all&gt;
+&gt;&gt;        &lt;/httpConfiguration&gt;
+&gt;&gt;      &lt;/configuration&gt;
+&gt;&gt;      &lt;username&gt;build&lt;/username&gt;
+&gt;&gt;      &lt;password&gt;...&lt;/password&gt;
+&gt;&gt;  &lt;/server&gt;
+&gt;&gt;  ...
+&gt;&gt;
+&gt;&gt; I tried "get" instead of "all", but it still insists on preemptive auth(I'm using
+a packet sniffer to confirm).  The message I'm seeing:
+&gt;&gt; [WARNING] Failure to transfer motive.smp:db:5.0.0.0-SNAPSHOT/maven-metadata.xml from
+http://maven.motive.com/content/groups/public-snapshots was cached in the local repository,
+resolution will not be reattempted until the update interval of snapshots has elapsed or updates
+are forced. Original error: Could not transfer metadata motive.smp:db:5.0.0.0-SNAPSHOT/maven-metadata.xml
+from/to snapshots (http://maven.motive.com/content/groups/public-snapshots): Access denied
+to: http://maven.motive.com/content/groups/public-snapshots/motive/smp/db/5.0.0.0-SNAPSHOT/maven-metadata.xml,
+ReasonPhrase:Forbidden.
+&gt;&gt;
+&gt;&gt; In this case it doesn't cause the build to fail, but in case my repository is clean
+it does.  Does anyone have any clues about how to turn off preemptive auth for maven 3.0.4?
+&gt;&gt;
+&gt;&gt; The reason I'm even trying Maven 3.0.4, is in 3.0.3 I'm getting OutOfMemoryException
+on deploying large artifacts.  It seems like its reading the whole artifact into memory.
+ I was hoping with the wagon changes in 3.0.4 it might use a streaming approach instead.
+ Thanks,
+&gt;&gt; Micah
+&gt;&gt;
+&gt;&gt;
+&gt;&gt; ---------------------------------------------------------------------
+&gt;&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt;&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;&gt;
+&gt;
+&gt;
+&gt;
+&gt; --
+&gt; Olivier Lamy
+&gt; Talend: http://coders.talend.com
+&gt; http://twitter.com/olamy | http://linkedin.com/in/olamy
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201202.mbox/raw/%3cCAPLpRQJoWiYGkbAEZ_NxbHtW1+MAo7bO8+03Qi=cD+TC-aEC0A@mail.gmail.com%3e/">Unnamed text/plain</a> (inline, Quoted Printable, 4423 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201202.mbox/raw/%3cCAPLpRQJoWiYGkbAEZ_NxbHtW1+MAo7bO8+03Qi=cD+TC-aEC0A@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

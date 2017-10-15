@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Include extra dependencies without rebuild project</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201204.mbox/%3cCA+nPnMw8gWq35-YE45gNnQqdNgdxpeKEGJLpCPS1K=sXdWg2WA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201204.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201204.mbox/%3c1335434064837-5667162.post@n5.nabble.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201204.mbox/%3cCA+nPnMw8gWq35-YE45gNnQqdNgdxpeKEGJLpCPS1K=sXdWg2WA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201204.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201204.mbox/%3c1335455561249-5667993.post@n5.nabble.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201204.mbox/%3cCA+nPnMw8gWq35-YE45gNnQqdNgdxpeKEGJLpCPS1K=sXdWg2WA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201204.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201204.mbox/%3c1335434064837-5667162.post@n5.nabble.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201204.mbox/%3cCA+nPnMw8gWq35-YE45gNnQqdNgdxpeKEGJLpCPS1K=sXdWg2WA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201204.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201204.mbox/%3c1335455561249-5667993.post@n5.nabble.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Jörg Schaible &lt;Joerg.Schai...@scalaris.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Include extra dependencies without rebuild project</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Thu, 26 Apr 2012 09:47:59 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hi Connie,
+
+connie_law wrote:
+
+&gt; Hi,
+&gt; 
+&gt; I've been cracking my head to solve this for the past 2 days, hopefully
+&gt; someone with similar problems before can help me to solve it or give a
+&gt; workaround that works for them. Here's my scenario;
+&gt; 
+&gt; I have a maven project with all the dependencies and resources packaged in
+&gt; one zip file, i use assembly plugin to do this. I also include a batch
+&gt; file as a startup, which mainly just doing
+&gt; 
+&gt; java -Xms256m -Xmx350m -jar lib\myprogram-1.0.1.jar
+&gt; 
+&gt; This package will soon be released to client. If in the future, we would
+&gt; like to add a patch which will override the same file, how do we do it
+&gt; without having to rebuild the whole project? Is it possible to configure
+&gt; maven to read from a certain directory,lets say 'patches' first, then
+&gt; 'lib' where all the existing dependencies are?
+
+Actually I'd change my delivery. If you already deliver a script to start 
+the application, I'd put more intelligence in the script. Let the assembly 
+plugin collect all dependencies in ./lib and improve the script to add all 
+those jars automatically to the classpath. Once you do this for ./lib, you 
+might easily use the same technique for an existing ./patches directory. 
+That way you can deliver patches later on by simply adding such a jar to the 
+patches directory.
+
+- Jörg
+
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201204.mbox/raw/%3cjnb5kg$pvn$1@dough.gmane.org%3e/">Unnamed text/plain</a> (inline, 8-Bit, 1521 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201204.mbox/raw/%3cjnb5kg$pvn$1@dough.gmane.org%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

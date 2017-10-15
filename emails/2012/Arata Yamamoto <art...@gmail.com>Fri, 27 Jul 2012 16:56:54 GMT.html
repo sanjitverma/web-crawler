@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Unexpected and not-intentional switching of thread during a test method execution by maven-surefire-plugin</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201207.mbox/%3cFEAF7ED567A07E44A9E6399549DE187B667A51897D@BOC-EMAIL.central.mlb.org%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCALcFPWFZSCyoqjUqRx6Da-ph5XATvLVAdyMS0cgPz9SS30XE=A@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201207.mbox/%3cCAJZRQKzxJ-=gr-ZkgSJ1ZwE_EZw40x6zXin-272XgfMisKW5Yg@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCAJSLXwLE8bVvUGqPJAcak3NDxvMtFZmNxkQJpwgoOpP4aEVHeA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201207.mbox/%3cFEAF7ED567A07E44A9E6399549DE187B667A51897D@BOC-EMAIL.central.mlb.org%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCALcFPWFZSCyoqjUqRx6Da-ph5XATvLVAdyMS0cgPz9SS30XE=A@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201207.mbox/%3cCAJZRQKzxJ-=gr-ZkgSJ1ZwE_EZw40x6zXin-272XgfMisKW5Yg@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCAJSLXwLE8bVvUGqPJAcak3NDxvMtFZmNxkQJpwgoOpP4aEVHeA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Arata Yamamoto &lt;art...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Unexpected and not-intentional switching of thread during a test method execution by maven-surefire-plugin</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Fri, 27 Jul 2012 16:56:54 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Thank you for your replies and advises, Wayne and Kristian.
+
+First, I must apologize. By the further analysis of the test log, I found
+that the failure log snippet in my previous post wasn't the one of the
+failed test. And found out that it's not switching the thread unexpectedly.
+I'm really sorry.
+
+And the test failure was not repro after updating the dependency and plugin.
+
+&gt; Can you try Maven 3.0.4 and Surefire 2.12?
+It didn't repro after I updated the version of following dependency and
+plugin:
+    org.aspectj:aspectjtools:1.6.12 -&gt; 1.7.0
+    org.apache.maven.plugins:maven-compiler-plugin:2.3.2 -&gt; 2.5.1
+I also updated surefire to 2.12 from 2.11, but I encountered the test
+failure with using surefire 2.12 at first. I just used 2.11 to check
+whether this could repro when it executed as single test by using -Dtest
+command line option since surefire 2.12's bug:
+https://jira.codehaus.org/browser/SUREFIRE-827 (and SUREFIRE-760).
+
+Warm regards,
+Arata
+
+On Thu, Jul 26, 2012 at 4:21 PM, Kristian Rosenvold &lt;
+kristian.rosenvold@gmail.com&gt; wrote:
+
+&gt; The *only* way to make surefire use threads is to set the &lt;parallel&gt;
+&gt; attribute to some legal value. Use mvn help:effective-pom to see if
+&gt; this is set. I can see from your log output that this is not set, so
+&gt; this is something happening in your code/libs.
+&gt;
+&gt; I might suggest using -Dmaven.surefire.debug=true and attach a
+&gt; debugger to the tests in question to inspect the call stack/threads to
+&gt; find out WTF is going on.
+&gt;
+&gt; Kristian
+&gt;
+&gt;
+&gt; 2012/7/27 Wayne Fay &lt;waynefay@gmail.com&gt;:
+&gt; &gt;&gt; Maven version 3.0.1
+&gt; &gt;&gt; maven-surefire-plugin version 2.11
+&gt; &gt;&gt; I haven't set other than exclude and include optional parameters of
+&gt; &gt;&gt; surefire.
+&gt; &gt;&gt; JUnit 4.10
+&gt; &gt;&gt; So, I believe that surefire is using junit 4 provider.
+&gt; &gt;&gt; JRE version 1.6
+&gt; &gt;&gt; OS: Windows XP
+&gt; &gt;
+&gt; &gt; Can you try Maven 3.0.4 and Surefire 2.12? Also perhaps try specifying
+&gt; &gt; forkMode=never in Surefire. And finally check "mvn help:effective-pom"
+&gt; &gt; to be certain there is not some additional Surefire configuration
+&gt; &gt; coming in from a parent etc that you did not even realize is impacting
+&gt; &gt; your build.
+&gt; &gt;
+&gt; &gt; Hopefully Kristian will see this thread, he is the expert in these
+&gt; areas... :)
+&gt; &gt;
+&gt; &gt; Wayne
+&gt; &gt;
+&gt; &gt; ---------------------------------------------------------------------
+&gt; &gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; &gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt; &gt;
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201207.mbox/raw/%3cCAOoOKQ8BEFfi5TPYFX2+rF7fY+msvawkvj22vKOHcaKsCp7GPg@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 2646 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201207.mbox/raw/%3cCAOoOKQ8BEFfi5TPYFX2+rF7fY+msvawkvj22vKOHcaKsCp7GPg@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

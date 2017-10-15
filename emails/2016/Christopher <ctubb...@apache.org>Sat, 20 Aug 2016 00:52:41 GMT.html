@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Create test jar during build without attaching</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201608.mbox/%3ca9a7acce-be01-40f9-1c4b-dc49100d3666@orange.fr%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201608.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201608.mbox/%3c57B83A1E.4010908@schulte.it%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201608.mbox/%3ca9a7acce-be01-40f9-1c4b-dc49100d3666@orange.fr%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201608.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201608.mbox/%3cE05C2963-5FF8-4917-8859-28E76C66BB13@gmx.de%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201608.mbox/%3ca9a7acce-be01-40f9-1c4b-dc49100d3666@orange.fr%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201608.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201608.mbox/%3c57B83A1E.4010908@schulte.it%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201608.mbox/%3ca9a7acce-be01-40f9-1c4b-dc49100d3666@orange.fr%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201608.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201608.mbox/%3cE05C2963-5FF8-4917-8859-28E76C66BB13@gmx.de%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Christopher &lt;ctubb...@apache.org&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Create test jar during build without attaching</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Sat, 20 Aug 2016 00:52:41 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Thanks. That sounds perfect. Thanks, all, for your help.
+
+On Fri, Aug 19, 2016, 20:07 Guillaume Boué &lt;guillaume_boue@orange.fr&gt; wrote:
+
+&gt; Hi,
+&gt;
+&gt; It sounds like the simplest answer would be to use the
+&gt; maven-assembly-plugin and generate the JAR in the
+&gt; generate-test-resources phase. You can configure the plugin not to
+&gt; attach the artifact with &lt;attach&gt;false&lt;/false&gt;.
+&gt;
+&gt; Then, still in the generate-test-resources phase, you bind an execution
+&gt; of build-helper-maven-plugin:add-test-resource and configure it to add
+&gt; the generated JAR as a test resource:
+&gt;
+&gt; http://www.mojohaus.org/build-helper-maven-plugin/usage.html#Add_more_resource_directories_to_your_project
+&gt;
+&gt;
+&gt; Le 19/08/2016 à 23:37, Curtis Rueden a écrit :
+&gt; &gt; Generate it during generateSources using a groovy script via gmaven? Or
+&gt; in
+&gt; &gt; Java within the test code itself?
+&gt; &gt;
+&gt; &gt; On Aug 19, 2016 4:21 PM, "Christopher" &lt;ctubbsii@apache.org&gt; wrote:
+&gt; &gt;
+&gt; &gt;&gt; We're not going to add the jar to SCM.... there's many reasons, and I
+&gt; could
+&gt; &gt;&gt; go into depth about all of them (I've tried to enumerate some already),
+&gt; but
+&gt; &gt;&gt; again... that's not the question. We're not going to do that. and I've
+&gt; &gt;&gt; already stated that. I appreciate the advice... really, I do... but
+&gt; we're
+&gt; &gt;&gt; not going to do that. Responding with that suggestion does not help
+&gt; answer
+&gt; &gt;&gt; the question asked.
+&gt; &gt;&gt;
+&gt; &gt;&gt; The purpose of this thread is to figure out the best way to create a jar
+&gt; &gt;&gt; during the build without attaching. That's the requirement. That's the
+&gt; &gt;&gt; goal.
+&gt; &gt;&gt;
+&gt; &gt;&gt; On Fri, Aug 19, 2016 at 5:09 PM Curtis Rueden &lt;ctrueden@wisc.edu&gt;
+&gt; wrote:
+&gt; &gt;&gt;
+&gt; &gt;&gt;&gt; Hi Christopher,
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt; The point of this JAR is for use in a unit test, right?
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt; So if it's in src/test/resources, it will only end up lumped into the
+&gt; &gt;&gt; test
+&gt; &gt;&gt;&gt; JAR, not the main JAR. Do you guys deploy your test JAR for downstream
+&gt; &gt;&gt;&gt; consumption? If so, do you actually need all the unit tests to pass
+&gt; _when
+&gt; &gt;&gt;&gt; run from the test JAR outside the project_? Or only during the actual
+&gt; &gt;&gt; Maven
+&gt; &gt;&gt;&gt; build? Because if you don't need that, then you could just put the JAR
+&gt; &gt;&gt;&gt; resource outside of src/test/resources (in, say,
+&gt; &gt;&gt; ${basedir}/src/test/extra
+&gt; &gt;&gt;&gt; or some such) and just access it from that relative path during the
+&gt; unit
+&gt; &gt;&gt;&gt; tests. You get your unit test, your test JAR does not get bloated by
+&gt; this
+&gt; &gt;&gt;&gt; nested JAR resource, and life goes on.
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt; That said, I agree with the others that naively, it does not seem bad
+&gt; to
+&gt; &gt;&gt;&gt; have this tiny test JAR embedded in your deployed test JAR. It is a
+&gt; &gt;&gt; binary
+&gt; &gt;&gt;&gt; test resource, very similar to an image file.
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt; Regards,
+&gt; &gt;&gt;&gt; Curtis
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt; --
+&gt; &gt;&gt;&gt; Curtis Rueden
+&gt; &gt;&gt;&gt; LOCI software architect - http://loci.wisc.edu/software
+&gt; &gt;&gt;&gt; ImageJ2 lead, Fiji maintainer - http://imagej.net/User:Rueden
+&gt; &gt;&gt;&gt; Did you know ImageJ has a forum? http://forum.imagej.net/
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt; On Fri, Aug 19, 2016 at 1:46 PM, Christopher &lt;ctubbsii@apache.org&gt;
+&gt; &gt;&gt; wrote:
+&gt; &gt;&gt;&gt;&gt; We don't want to skip deployment of all the artifacts, just one jar
+&gt; &gt;&gt; built
+&gt; &gt;&gt;&gt;&gt; in one module for one test, which is not intended to be one of the
+&gt; &gt;&gt;&gt;&gt; artifact's modules. *maybe* we could move it to a separate module, and
+&gt; &gt;&gt;&gt; skip
+&gt; &gt;&gt;&gt;&gt; deploy, but we've already got a lot of module bloat, and I'd prefer
+&gt; not
+&gt; &gt;&gt;&gt; to
+&gt; &gt;&gt;&gt;&gt; make it worse.
+&gt; &gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt; On Fri, Aug 19, 2016 at 2:34 PM Gordon Cody &lt;gordon.cody@zafin.com&gt;
+&gt; &gt;&gt;&gt; wrote:
+&gt; &gt;&gt;&gt;&gt;&gt; Perhaps I don't understand what is meant by "not attaching" but
+if
+&gt; &gt;&gt; all
+&gt; &gt;&gt;&gt;&gt; you
+&gt; &gt;&gt;&gt;&gt;&gt; want to do is skip deployment, the maven-deploy-plugin has this
+&gt; &gt;&gt;&gt; feature:
+&gt; &gt;&gt;&gt;&gt;&gt;                  &lt;configuration&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;                      &lt;skip&gt;true&lt;/skip&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;                  &lt;/configuration&gt;
+&gt; &gt;&gt;&gt;&gt;&gt; which can be added to the module you do not wish to deploy. We use
+&gt; &gt;&gt; this
+&gt; &gt;&gt;&gt;&gt; in
+&gt; &gt;&gt;&gt;&gt;&gt; order to not deploy .ear files to our artifactory.
+&gt; &gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt; Regards, Gord Cody
+&gt; &gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt; On Fri, Aug 19, 2016 at 1:37 PM, Karl Heinz Marbaise &lt;
+&gt; &gt;&gt;&gt; khmarbaise@gmx.de&gt;
+&gt; &gt;&gt;&gt;&gt;&gt; wrote:
+&gt; &gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt; Hi,
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt; On 19/08/16 03:36, Christopher wrote:
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; Hi Maven Users list,
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; What's the best way to create a jar during a build without
+&gt; &gt;&gt; attaching
+&gt; &gt;&gt;&gt;&gt; it?
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; Currently, our pom is configured to use the maven-jar-plugin
+to
+&gt; &gt;&gt;&gt; create
+&gt; &gt;&gt;&gt;&gt;&gt; it,
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; but that plugin attaches an artifact, which gets deployed.
+We
+&gt; &gt;&gt; don't
+&gt; &gt;&gt;&gt;&gt; want
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; that. That doesn't seem to be configurable.
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt; Can you describe why you would like to create a jar which shouldn't
+&gt; &gt;&gt;&gt; be
+&gt; &gt;&gt;&gt;&gt;&gt;&gt; deployed ? May be we can enhance maven-jar-plugin to support
+such a
+&gt; &gt;&gt;&gt; use
+&gt; &gt;&gt;&gt;&gt;&gt;&gt; case?
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt; Kind regards
+&gt; &gt;&gt;&gt;&gt;&gt;&gt; Karl Heinz Marbaise
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt; ------------------------------------------------------------
+&gt; &gt;&gt; ---------
+&gt; &gt;&gt;&gt;&gt;&gt;&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; &gt;&gt;&gt;&gt;&gt;&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt; --
+&gt; &gt;&gt;&gt;&gt;&gt; Best Regards, Gord Cody
+&gt; &gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt; Release Manager  Zafin Labs Americas Inc.
+&gt; &gt;&gt;&gt;&gt;&gt; 179 Colonnade Road-Suite 100, Ottawa ON, Canada
+&gt; &gt;&gt;&gt;&gt;&gt; Phone: +1 (613) 216-2504  Fax: +1 (613) 688-1374  Mobile: +1
+&gt; &gt;&gt;&gt;&gt; 613-601-2734
+&gt; &gt;&gt;&gt;&gt;&gt; Web: http://zafin.com  Email: gordon.cody@zafin.com
+&gt; &gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt; --
+&gt; &gt;&gt;&gt;&gt;&gt; Zafin - Canada
+&gt; &gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt; --
+&gt; &gt;&gt;&gt;&gt;&gt; http://zafin.com
+&gt; &gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt; &lt;http://zafin.com/&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt; ------------------------------
+&gt; &gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt; Connect with us
+&gt; &gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt; &lt;http://www.youtube.com/user/ZafinGlobal&gt;
+&gt; &gt;&gt;&gt;&gt;&gt; &lt;http://www.linkedin.com/company/Zafin&gt;  &lt;http://twitter.com/Zafin&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt; News and Events
+&gt; &gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt; Zafin announces 100 person Center of Excellence in Toronto
+&gt; &gt;&gt;&gt;&gt;&gt; &lt;
+&gt; &gt;&gt;&gt;&gt;&gt; http://zafin.com/press-releases/zafin-announces-new-
+&gt; &gt;&gt;&gt;&gt; 100-person-centre-excellence-toronto/
+&gt; &gt;&gt;&gt;&gt;&gt; For the 2nd consecutive year, Zafin named to the Deloitte Fast 50
+and
+&gt; &gt;&gt;&gt;&gt; Fast
+&gt; &gt;&gt;&gt;&gt;&gt; 500 rankings
+&gt; &gt;&gt;&gt;&gt;&gt; &lt;
+&gt; &gt;&gt;&gt;&gt;&gt; http://zafin.com/press-releases/zafin-named-deloitte-
+&gt; &gt;&gt;&gt;&gt; technology-fast-50-fast-500-lists/
+&gt; &gt;&gt;&gt;&gt;&gt; &lt;
+&gt; &gt;&gt;&gt;&gt;&gt; http://zafin.com/press-releases/zafin-ranks-16th-on-
+&gt; &gt;&gt;&gt;&gt; the-2014-deloitte-technology-fast-50-list/
+&gt;
+&gt;
+&gt; ---
+&gt; L'absence de virus dans ce courrier électronique a été vérifiée par le
+&gt; logiciel antivirus Avast.
+&gt; https://www.avast.com/antivirus
+&gt;
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201608.mbox/raw/%3cCAL5zq9aLVwN_Mq93Bf+SWbWRugztQXFoxB3UBh+z6Oz9Co6_Zg@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, Quoted Printable, 6692 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201608.mbox/raw/%3cCAL5zq9aLVwN_Mq93Bf+SWbWRugztQXFoxB3UBh+z6Oz9Co6_Zg@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

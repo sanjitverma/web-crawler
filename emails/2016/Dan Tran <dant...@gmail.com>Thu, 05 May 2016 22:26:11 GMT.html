@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Hickup in multi thread build</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201605.mbox/%3c1462463921246-5867105.post@n5.nabble.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201605.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201605.mbox/%3cCAC21K-5STAvQChxu5=F0DTSuzrvR5Q2En7mY0ZBLer_aZLt1uA@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201605.mbox/%3cCAPCjjnH=J5mbPGxVd7mZY5h725_hv3jmmTcF4KuWonB6f=Ti+A@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201605.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201605.mbox/%3c1462212531318-5866812.post@n5.nabble.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201605.mbox/%3c1462463921246-5867105.post@n5.nabble.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201605.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201605.mbox/%3cCAC21K-5STAvQChxu5=F0DTSuzrvR5Q2En7mY0ZBLer_aZLt1uA@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201605.mbox/%3cCAPCjjnH=J5mbPGxVd7mZY5h725_hv3jmmTcF4KuWonB6f=Ti+A@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201605.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201605.mbox/%3c1462212531318-5866812.post@n5.nabble.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Dan Tran &lt;dant...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Hickup in multi thread build</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Thu, 05 May 2016 22:26:11 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+I am able to pinpoint an internal aggregated plugin that may trigger this
+issue.  my builds are very happy for the last couple of days
+
+Thanks
+
+-Dan
+
+On Mon, May 2, 2016 at 12:55 AM, Dan Tran &lt;dantran@gmail.com&gt; wrote:
+
+&gt; Hi Fabian,
+&gt;
+&gt; I am going inspect all the plugins
+&gt;
+&gt; Thanks for the great suggestion
+&gt;
+&gt; -Dan
+&gt;
+&gt; On Sun, May 1, 2016 at 11:55 PM, Fabian van der Veen &lt;
+&gt; F.van.der.Veen@topdesk.com&gt; wrote:
+&gt;
+&gt;&gt; Hey Dan,
+&gt;&gt;
+&gt;&gt; I think I've seen my extension still fail a few times as well, but it
+&gt;&gt; wasn't reproducible enough to debug for me. It is still a concurrency issue
+&gt;&gt; amongst the other problems; so it could simply be something I assumed
+&gt;&gt; thread-safe API actually isn't thread-safe at all. (Which opens another
+&gt;&gt; interesting dimension of problems, should that be true...)
+&gt;&gt; On the other hand, I decided to tackle the core problem in our build
+&gt;&gt; instead: removing aggregating plugin executions from anything but the root
+&gt;&gt; pom.
+&gt;&gt;
+&gt;&gt; It might be a lot of work, but given how these plugins resolve their
+&gt;&gt; dependencies, it might be for the best. (Besides the fact that, if I recall
+&gt;&gt; correctly, these kinds of plugins are described as aggregating data from
+&gt;&gt; the entire project.)
+&gt;&gt; For example, in our case the javadoc plugin (amongst others) had the
+&gt;&gt; aggregate goals declared in the root pom, but - unfortunately - these goals
+&gt;&gt; simply get inherited to all child poms as well (causing the mentioned
+&gt;&gt; problems).
+&gt;&gt;
+&gt;&gt; What we did was simply run the help:effective-pom target on the projects
+&gt;&gt; (randomly) failing in a concurrent build; and check for all the resulting
+&gt;&gt; plugin executions whether or not that goal was an aggregate goal or not.
+&gt;&gt; With the list of offending plugins ready, we removed those that were
+&gt;&gt; configured wrongly by developers. The ones left, we configured with
+&gt;&gt; "&lt;inherited&gt;false&lt;/inherited&gt;" in the plugin definition in the root pom;
+&gt;&gt; which makes the plugin only configured and run on the parent.
+&gt;&gt;
+&gt;&gt; Actually working through the poms and fixing the offenders has made our
+&gt;&gt; concurrent build 100% stable again. So while the extension does - in our
+&gt;&gt; case, at least - certainly improve stability; it's still (unfortunately)
+&gt;&gt; not a complete (easy) workaround.
+&gt;&gt;
+&gt;&gt; Hopefully this'll help you get your build stable again as well.
+&gt;&gt; Otherwise, it'll be a waiting game until the issues I mentioned are picked
+&gt;&gt; up.
+&gt;&gt;
+&gt;&gt; - Fabian
+&gt;&gt;
+&gt;&gt; On vr, 2016-04-29 at 17:04 -0700, Dan Tran wrote:
+&gt;&gt;
+&gt;&gt; I dont see much improvement. I am seeing  2-3 fail build a day
+&gt;&gt;
+&gt;&gt; -D
+&gt;&gt;
+&gt;&gt; On Wed, Apr 20, 2016 at 12:40 AM, Dan Tran &lt;dantran@gmail.com&lt;mailto:
+&gt;&gt; dantran@gmail.com&gt;&gt; wrote:
+&gt;&gt;
+&gt;&gt;
+&gt;&gt;
+&gt;&gt; Hi Fabian
+&gt;&gt;
+&gt;&gt; I will give your extension a try
+&gt;&gt;
+&gt;&gt; Thanks
+&gt;&gt;
+&gt;&gt; -Dan
+&gt;&gt;
+&gt;&gt; On Wed, Apr 20, 2016 at 12:26 AM, Fabian van der Veen &lt;
+&gt;&gt; F.van.der.Veen@topdesk.com&lt;mailto:F.van.der.Veen@topdesk.com&gt;&gt; wrote:
+&gt;&gt;
+&gt;&gt;
+&gt;&gt;
+&gt;&gt; Hey,
+&gt;&gt;
+&gt;&gt; The way you describe it; this sounds like a problem I also encountered in
+&gt;&gt; our (similar sized) project here.
+&gt;&gt; I reported this here: https://issues.apache.org/jira/browse/MNG-5960,
+&gt;&gt; which has been linked as related to
+&gt;&gt; https://issues.apache.org/jira/browse/MNG-5750.
+&gt;&gt;
+&gt;&gt; Troubleshooting boiled down to running maven in debug mode; which might
+&gt;&gt; be something you don't want to do.
+&gt;&gt; In any case, I found that plugins running aggregate goals (e.g.
+&gt;&gt; javadoc:aggregate) will resolve (compile) dependencies for _all_ projects
+&gt;&gt; in the reactor. Running such a plugin in anything else than your root pom
+&gt;&gt; might cause the random failures you have. (And having the plugin in your
+&gt;&gt; root pom might also effectively include its configuration and execution in
+&gt;&gt; child poms; which is "debuggable" using help:effective-pom.)
+&gt;&gt;
+&gt;&gt; Hopefully this helps you.
+&gt;&gt;
+&gt;&gt; - Fabian
+&gt;&gt;
+&gt;&gt; On di, 2016-04-19 at 12:08 -0700, Dan Tran wrote:
+&gt;&gt;
+&gt;&gt; Hi
+&gt;&gt;
+&gt;&gt; My 150+ modules with multi-thread build randomly error out with something
+&gt;&gt; like this
+&gt;&gt;
+&gt;&gt;   java.lang.NoClassDefFoundError: org/slf4j/LoggerFactory
+&gt;&gt;
+&gt;&gt;
+&gt;&gt; Have you encountered similar issue?  how do you troubleshoot?
+&gt;&gt;
+&gt;&gt;
+&gt;&gt; I am using maven 3.3.9 and latest compiler plugin
+&gt;&gt;
+&gt;&gt;
+&gt;&gt; Thanks
+&gt;&gt;
+&gt;&gt;
+&gt;&gt; -Dan
+&gt;&gt;
+&gt;&gt;
+&gt;&gt;
+&gt;&gt;
+&gt;&gt;
+&gt;&gt;
+&gt;&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201605.mbox/raw/%3cCAPCjjnFM++2_ORDWKuy4TVE_q5VWYDfyuZwxUYbGyRKxZPiS0w@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 4160 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201605.mbox/raw/%3cCAPCjjnFM++2_ORDWKuy4TVE_q5VWYDfyuZwxUYbGyRKxZPiS0w@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

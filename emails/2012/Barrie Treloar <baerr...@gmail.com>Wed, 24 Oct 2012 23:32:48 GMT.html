@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>site:run fails to start Jetty with error &quot;Unable to establish loopback connection&quot;</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201210.mbox/%3cCAKDUN1tG598-MA0g37CEzCynOfGXx6B8Hz3Z_aNfu8mDqS412Q@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201210.mbox/%3cCABOjBF=+Qig--CnTcNKWBb4ZQ1ZZuG-3td1AZC_SG0G8ysxHbg@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201210.mbox/%3cCADy3QzP6xwBr=PfqqJMWNnL9DR063vr-3n8qS3rbuWGm0Fzz=Q@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201210.mbox/%3cCABOjBF=+Qig--CnTcNKWBb4ZQ1ZZuG-3td1AZC_SG0G8ysxHbg@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201210.mbox/%3cCAKDUN1tG598-MA0g37CEzCynOfGXx6B8Hz3Z_aNfu8mDqS412Q@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201210.mbox/%3cCABOjBF=+Qig--CnTcNKWBb4ZQ1ZZuG-3td1AZC_SG0G8ysxHbg@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201210.mbox/%3cCADy3QzP6xwBr=PfqqJMWNnL9DR063vr-3n8qS3rbuWGm0Fzz=Q@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201210.mbox/%3cCABOjBF=+Qig--CnTcNKWBb4ZQ1ZZuG-3td1AZC_SG0G8ysxHbg@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Barrie Treloar &lt;baerr...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">site:run fails to start Jetty with error &quot;Unable to establish loopback connection&quot;</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Wed, 24 Oct 2012 23:32:48 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+When I run mvn site:run it fails to start Jetty with an error "Unable
+to establish loopback connection"
+
+Google isn't helping me locate what the problem is.
+&gt;From what I can tell there are no firewalls blocking this running locally.
+And it has worked at least once.
+
+It has been a while since I have touched this project (probably when
+we were using mvn 2.x)
+I don't think this is a mvn 3.0.4 issue.
+
+&gt;mvn -DskipLocators -DskipTemplates site:run -Dport=9999
+[INFO] --- maven-site-plugin:3.1:run
+...
+[INFO] Starting Jetty on http://localhost:9999/
+2012-10-25 09:41:55.623:INFO::jetty-6.1.25
+2012-10-25 09:41:55.732:INFO::NO JSP Support for /, did not find
+org.apache.jasper.servlet.JspServlet
+2012-10-25 09:41:56.871:WARN::failed
+org.mortbay.jetty.nio.SelectChannelConnector$1@8ff4f3:
+java.io.IOException: Unable to establish loopback connection
+2012-10-25 09:41:56.871:WARN::failed
+SelectChannelConnector@0.0.0.0:9999: java.io.IOException: Unable to
+establish loopback connection
+2012-10-25 09:41:56.871:WARN::failed Server@11a9253:
+java.io.IOException: Unable to establish loopback connection
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+
+-X gives me a strack trace
+
+Caused by: org.apache.maven.plugin.MojoExecutionException: Error
+executing Jetty: Unable to establish loopback connection
+        at org.apache.maven.plugins.site.SiteRunMojo.execute(SiteRunMojo.java:108)
+        at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:101)
+        at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:209)
+        ... 19 more
+Caused by: java.io.IOException: Unable to establish loopback connection
+        at sun.nio.ch.PipeImpl$Initializer.run(PipeImpl.java:125)
+        at sun.nio.ch.PipeImpl$Initializer.run(PipeImpl.java:69)
+        at java.security.AccessController.doPrivileged(Native Method)
+        at sun.nio.ch.PipeImpl.&lt;init&gt;(PipeImpl.java:141)
+        at sun.nio.ch.SelectorProviderImpl.openPipe(SelectorProviderImpl.java:50)
+        at java.nio.channels.Pipe.open(Pipe.java:150)
+        at sun.nio.ch.WindowsSelectorImpl.&lt;init&gt;(WindowsSelectorImpl.java:126)
+        at sun.nio.ch.WindowsSelectorProvider.openSelector(WindowsSelectorProvider.java:44)
+        at java.nio.channels.Selector.open(Selector.java:227)
+        at org.mortbay.io.nio.SelectorManager$SelectSet.&lt;init&gt;(SelectorManager.java:313)
+        at org.mortbay.io.nio.SelectorManager.doStart(SelectorManager.java:224)
+        at org.mortbay.component.AbstractLifeCycle.start(AbstractLifeCycle.java:50)
+        at org.mortbay.jetty.nio.SelectChannelConnector.doStart(SelectChannelConnector.java:314)
+        at org.mortbay.component.AbstractLifeCycle.start(AbstractLifeCycle.java:50)
+        at org.mortbay.jetty.Server.doStart(Server.java:235)
+        at org.mortbay.component.AbstractLifeCycle.start(AbstractLifeCycle.java:50)
+        at org.apache.maven.plugins.site.SiteRunMojo.execute(SiteRunMojo.java:104)
+        ... 21 more
+Caused by: java.net.ConnectException: Connection refused: connect
+        at sun.nio.ch.Net.connect0(Native Method)
+        at sun.nio.ch.Net.connect(Net.java:364)
+        at sun.nio.ch.Net.connect(Net.java:356)
+        at sun.nio.ch.SocketChannelImpl.connect(SocketChannelImpl.java:623)
+        at java.nio.channels.SocketChannel.open(SocketChannel.java:184)
+        at sun.nio.ch.PipeImpl$Initializer.run(PipeImpl.java:97)
+        ... 37 more
+
+So what else has changed, I've been on leave for a while :)
+Ahh, changed from java 1.6.0_32 to java 1.7.0_07.
+
+Re-running under java 6 and everything is fine.
+
+Now google can help me
+https://www.google.com.au/search?q="Unable+to+establish+loopback+connection"+java+7
+Top responses http://stackoverflow.com/questions/8367226/eclipse-failed-to-initialize-monitor-thread-unable-to-establish-loopback-conne
+says to add the jvm argument -Djava.net.preferIPv4Stack=true
+
+Running again with
+&gt;mvn -Djava.net.preferIPv4Stack=true -DskipLocators -DskipTemplates site:run -Dport=9999
+And it works.
+
+Will start another thread about asking to bake in preferIPv4Stack.
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201210.mbox/raw/%3cCADVp3v_80eMm7wh7PMZ-K8tk9OqzeYp_oGdac9tHzj6vt5oMeg@mail.gmail.com%3e/">Unnamed text/plain</a> (inline, None, 4324 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201210.mbox/raw/%3cCADVp3v_80eMm7wh7PMZ-K8tk9OqzeYp_oGdac9tHzj6vt5oMeg@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

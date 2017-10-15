@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Arguments for Maven vs. Gradle</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201209.mbox/%3cCADN69ykxB6=d-1oWax9VHFR9LcDX2oLoijN81KCw+MOaGebQVA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201209.mbox/%3cC765DF06-84C9-441F-91C6-4992BFEE64A2@sharp.fm%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201209.mbox/%3cCADN69ykxB6=d-1oWax9VHFR9LcDX2oLoijN81KCw+MOaGebQVA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201209.mbox/%3cC765DF06-84C9-441F-91C6-4992BFEE64A2@sharp.fm%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201209.mbox/%3cCADN69ykxB6=d-1oWax9VHFR9LcDX2oLoijN81KCw+MOaGebQVA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201209.mbox/%3cC765DF06-84C9-441F-91C6-4992BFEE64A2@sharp.fm%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201209.mbox/%3cCADN69ykxB6=d-1oWax9VHFR9LcDX2oLoijN81KCw+MOaGebQVA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201209.mbox/%3cC765DF06-84C9-441F-91C6-4992BFEE64A2@sharp.fm%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Brian Topping &lt;topp...@codehaus.org&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Arguments for Maven vs. Gradle</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Tue, 11 Sep 2012 17:44:05 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+
+On Sep 11, 2012, at 8:22 PM, Curtis Rueden &lt;ctrueden@wisc.edu&gt; wrote:
+
+&gt; I'm not advocating that junior developers not be allowed to touch the
+&gt; build—otherwise how will they learn?—but I strongly recommend code review
+&gt; of any changes a junior developer makes to a build system.
+
+Kind of roaming away from Maven v. Gradle, but a process that I've grown comfortable with
+in large groups is a) locking all the POMs for anyone who's not a "POM mentor", b) buddying
+everyone else with a mentor to submit their changes, and c) anyone starting a new subproject
+project gets full access to their own POM for the life of their project.
+
+This tends to lessen POM damage as mentors take responsibility for their mentees, causes mentees
+to think harder about whether they really need a POM change to move forward (they learn it's
+certainly more expedient if they don't!), but still allows folks entrusted to create new modules
+the freedom to roam, make mistakes with projects that are not part of the mainline build yet,
+and generally get experience with POMs that they wouldn't get with patches alone.  
+
+Other tweaks are possible, such as having mentors being required to talk to architects for
+certain classes of changes (such as dependency changes).  Note that dependency changes can
+also be managed by locking down a repository manager and disabling auto downloading.
+
+Brian
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201209.mbox/raw/%3cF348D037-2715-4B1C-830F-3774DEF195AD@codehaus.org%3e/">Unnamed text/plain</a> (inline, Quoted Printable, 1599 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201209.mbox/raw/%3cF348D037-2715-4B1C-830F-3774DEF195AD@codehaus.org%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

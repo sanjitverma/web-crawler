@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>inject dependencies programatically in maven</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201205.mbox/%3cCAD34qg=kYco1enM5qNxa5Gpe+LCOjXAcQqJdASvHmOdawy0_OA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cCALy+7U=PwHJLKBB-PJnbAxxQD-OX_89Xq=Kv+r5ca=OKaFMm3g@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201205.mbox/%3c1336244824066-5688342.post@n5.nabble.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cCALy+7U=PwHJLKBB-PJnbAxxQD-OX_89Xq=Kv+r5ca=OKaFMm3g@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201205.mbox/%3cCAD34qg=kYco1enM5qNxa5Gpe+LCOjXAcQqJdASvHmOdawy0_OA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cCALy+7U=PwHJLKBB-PJnbAxxQD-OX_89Xq=Kv+r5ca=OKaFMm3g@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201205.mbox/%3c1336244824066-5688342.post@n5.nabble.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cCALy+7U=PwHJLKBB-PJnbAxxQD-OX_89Xq=Kv+r5ca=OKaFMm3g@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Carson Black &lt;carson.r.bl...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">inject dependencies programatically in maven</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Sat, 05 May 2012 23:48:24 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Is there a way to inject dependencies programatically in a maven plugin as
+if they were declared in the POM itself?
+
+Why do I want to do this?
+
+Assume I have a fruit pom which imports a bom-pom which declares version
+numbers for fruits, vegetables and other artifacts.  Example:
+
+fruit pom:
+
+&lt;dependencyManagement&gt;
+  &lt;dependencies&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;com&lt;/groupId&gt;
+      &lt;artifactId&gt;foods&lt;/artifactId&gt;
+      &lt;version&gt;10.0-SNAPSHOT&lt;/version&gt;
+      &lt;type&gt;pom&lt;/type&gt;
+      &lt;scope&gt;import&lt;/scope&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+&lt;/dependencyManagement&gt;
+&lt;dependencies&gt;
+  &lt;dependency&gt;
+    &lt;groupid&gt;com&lt;/groupId&gt;
+    &lt;artifactId&gt;apple&lt;/artifactId&gt;
+    &lt;classifier&gt;fruit&lt;/classifier&gt;
+  &lt;/dependency&gt;
+  &lt;dependency&gt;
+    &lt;groupid&gt;com&lt;/groupId&gt;
+    &lt;artifactId&gt;orange&lt;/artifactId&gt;
+    &lt;classifier&gt;fruit&lt;/classifier&gt;
+  &lt;/dependency&gt;
+&lt;/dependencies&gt;
+
+food pom:
+
+&lt;dependencies&gt;
+  &lt;dependency&gt;
+    &lt;groupid&gt;com&lt;/groupId&gt;
+    &lt;artifactId&gt;apple&lt;/artifactId&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    &lt;classifier&gt;fruit&lt;/classifier&gt;
+  &lt;/dependency&gt;
+  &lt;dependency&gt;
+    &lt;groupid&gt;com&lt;/groupId&gt;
+    &lt;artifactId&gt;orange&lt;/artifactId&gt;
+    &lt;version&gt;2.0-SNAPSHOT&lt;/version&gt;
+    &lt;classifier&gt;fruit&lt;/classifier&gt;
+  &lt;/dependency&gt;
+  &lt;dependency&gt;
+    &lt;groupid&gt;com&lt;/groupId&gt;
+    &lt;artifactId&gt;artichoke&lt;/artifactId&gt;
+    &lt;version&gt;3.0-SNAPSHOT&lt;/version&gt;
+    &lt;classifier&gt;vegetable&lt;/classifier&gt;
+  &lt;/dependency&gt;
+  &lt;dependency&gt;
+    &lt;groupid&gt;com&lt;/groupId&gt;
+    &lt;artifactId&gt;asparagus&lt;/artifactId&gt;
+    &lt;version&gt;4.0-SNAPSHOT&lt;/version&gt;
+    &lt;classifier&gt;vegetable&lt;/classifier&gt;
+  &lt;/dependency&gt;
+&lt;/dependencies&gt;
+
+The fruit pom only needs to inject dependencies that have a classifier of
+type fruit.  The goal is to do this programatically so user's do not have
+to edit multiple pom files when adding a new dependency.
+
+The real use case is more complicated than this but I hope the above
+example gets at the heart of the question.
+
+I understand I can use the maven model api to read and write poms but that
+seems to require an intermediate step and perhaps a second instance of
+maven to be spawned in order to consume the intermediate pom.  Ideally I
+would like to avoid this step and inject dependencies programatically into
+the pom which declares the plugin-in itself.  Is this even possible or is
+the pom immutable?
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201205.mbox/raw/%3cCAE-7ubow6s8+wmv8HOM8c1PNTepchWLfiS-siArsmMuMcJV0Gw@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 2277 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201205.mbox/raw/%3cCAE-7ubow6s8+wmv8HOM8c1PNTepchWLfiS-siArsmMuMcJV0Gw@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

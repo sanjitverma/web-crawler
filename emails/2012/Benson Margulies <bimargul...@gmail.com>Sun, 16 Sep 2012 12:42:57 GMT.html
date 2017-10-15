@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Maven: Creating a new phase</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201209.mbox/%3cSNT143-W258F83485C21240904F461B1960@phx.gbl%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201209.mbox/%3cCA+nPnMxFpt8uN1ib6k+XM1ikYLK+hJmMB6XL=ffXqvSWyCX0HA@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201209.mbox/%3cCADVp3v9KeaiU74az+gbBA6LppTKUWk0E7W+2jaL6ZtHbeF7Hfw@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201209.mbox/%3cCAPRUSuG3vxnSAbg6CXYSxhY6bCsCeT8pY2+dBon5EdsphzCzSw@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201209.mbox/%3cSNT143-W258F83485C21240904F461B1960@phx.gbl%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201209.mbox/%3cCA+nPnMxFpt8uN1ib6k+XM1ikYLK+hJmMB6XL=ffXqvSWyCX0HA@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201209.mbox/%3cCADVp3v9KeaiU74az+gbBA6LppTKUWk0E7W+2jaL6ZtHbeF7Hfw@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201209.mbox/%3cCAPRUSuG3vxnSAbg6CXYSxhY6bCsCeT8pY2+dBon5EdsphzCzSw@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Benson Margulies &lt;bimargul...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Maven: Creating a new phase</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Sun, 16 Sep 2012 12:42:57 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+We happen to have an example of this in stock, recently minted.
+
+https://svn.apache.org/repos/asf/maven/plugins/trunk/maven-scm-publish-plugin
+
+That is, this is a plugin with a custom lifecycle definition and custom phases.
+
+
+
+On Sun, Sep 16, 2012 at 12:00 AM, Barrie Treloar &lt;baerrach@gmail.com&gt; wrote:
+&gt; On Sun, Sep 16, 2012 at 7:06 AM, John Riedl &lt;riedl@umn.edu&gt; wrote:
+&gt;&gt; Baptiste:
+&gt;&gt;
+&gt;&gt; Thanks for the answer.  You're certainly right about needing the
+&gt;&gt; extensions true line, and I do have that in my pom (below).  Note that
+&gt;&gt; the error message I'm getting gives a complete list of all lifecycle
+&gt;&gt; phases that are legal, and that the list does not include any of the
+&gt;&gt; phases I've tried to define.  Note also that in the pom I ask for
+&gt;&gt; packaging lenskit.  If I change that to something else, like "foo", I
+&gt;&gt; get an error that foo is an unknown lifecycle.  So: it seems that
+&gt;&gt; maven is picking up the lifecycle, but NOT changing its list of
+&gt;&gt; built-in phases.
+&gt;
+&gt; Doing this is advanced Maven stuff.
+&gt; It involves some understanding of plexus which is not well documented.
+&gt;
+&gt; I'm not sure whether the Maven books at
+&gt; http://maven.apache.org/articles.html go into that level of details.
+&gt;
+&gt; I'm sure there are examples out there of how to do this, but I can't
+&gt; think of any of the top of my head.
+&gt;
+&gt; Looking at your stack overflow page I see spaces inside the content of
+&gt; your tags, dont know if that is causing problems.
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201209.mbox/raw/%3cCALhtWkfBSTrQ+jj7Q_UaCzbJ4SDDfoKCh7uOt4uRS5EqHpqjGg@mail.gmail.com%3e/">Unnamed text/plain</a> (inline, None, 1832 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201209.mbox/raw/%3cCALhtWkfBSTrQ+jj7Q_UaCzbJ4SDDfoKCh7uOt4uRS5EqHpqjGg@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

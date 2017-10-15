@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Maven shade relocating everything not excluding</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201207.mbox/%3cCACn_-Azx9cR137rn-z113fam4fe_DqCsqmQSV7NzM1b6_qmi2w@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCALy+7Uk0ZVMfRFjwqOn_hXEXVHSxij0BJHsj1KkeiKhudoZ+Ug@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201207.mbox/%3cCACn_-Azx9cR137rn-z113fam4fe_DqCsqmQSV7NzM1b6_qmi2w@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCACn_-Ax835bg1ij1shNPG+7gjA1jzPzvn8aPmXNDNgw5ofHLVA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201207.mbox/%3cCACn_-Azx9cR137rn-z113fam4fe_DqCsqmQSV7NzM1b6_qmi2w@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCALy+7Uk0ZVMfRFjwqOn_hXEXVHSxij0BJHsj1KkeiKhudoZ+Ug@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201207.mbox/%3cCACn_-Azx9cR137rn-z113fam4fe_DqCsqmQSV7NzM1b6_qmi2w@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCACn_-Ax835bg1ij1shNPG+7gjA1jzPzvn8aPmXNDNgw5ofHLVA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Benson Margulies &lt;bimargul...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Maven shade relocating everything not excluding</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Tue, 03 Jul 2012 18:32:26 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+What version of Shade are you trying to use?
+
+On Tue, Jul 3, 2012 at 2:26 PM, Jason Rutherglen
+&lt;jason.rutherglen@gmail.com&gt; wrote:
+&gt; Debugged into SelectorUtils, it seems to be working correctly.  I
+&gt; downloaded 1.5.5, step through that source.  The matchPath methods returns
+&gt; false, however the if statement in isExcluded evaluates to true.  Must be
+&gt; looking at the wrong code?
+&gt;
+&gt; On Tue, Jul 3, 2012 at 11:46 AM, Jason Rutherglen &lt;
+&gt; jason.rutherglen@gmail.com&gt; wrote:
+&gt;
+&gt;&gt; I ran this through a debugger, this line is not behaving as expected,
+&gt;&gt; where for example 'java/lang/ThreadGroup' matches 'org/apache/solr/*'
+&gt;&gt;
+&gt;&gt; SimpleRelocator.isExcluded:
+&gt;&gt;
+&gt;&gt; if ( SelectorUtils.matchPath( exclude, path, true ) )
+&gt;&gt;
+&gt;&gt;
+&gt;&gt; On Tue, Jul 3, 2012 at 11:39 AM, Benson Margulies &lt;bimargulies@gmail.com&gt;wrote:
+&gt;&gt;
+&gt;&gt;&gt; On Tue, Jul 3, 2012 at 11:12 AM, Jason Rutherglen
+&gt;&gt;&gt; &lt;jason.rutherglen@gmail.com&gt; wrote:
+&gt;&gt;&gt; &gt; &lt;relocation&gt;
+&gt;&gt;&gt; &gt;                             &lt;!-- &lt;pattern&gt;*/*&lt;/pattern&gt; --&gt;
+&gt;&gt;&gt; &gt;
+&gt;&gt;&gt; &lt;shadedPattern&gt;com.custom.solr.&lt;/shadedPattern&gt;
+&gt;&gt;&gt; &gt;                             &lt;excludes&gt;
+&gt;&gt;&gt; &gt;                                 &lt;exclude&gt;org.apache.solr&lt;/exclude&gt;
+&gt;&gt;&gt; &gt;                                 &lt;exclude&gt;org.apache.lucene&lt;/exclude&gt;
+&gt;&gt;&gt; &gt;                             &lt;/excludes&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt; Have you tried adding * or .* to the end of the exclude patterns?
+&gt;&gt;&gt;
+&gt;&gt;&gt; ---------------------------------------------------------------------
+&gt;&gt;&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt;&gt;&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;&gt;&gt;
+&gt;&gt;&gt;
+&gt;&gt;
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201207.mbox/raw/%3cCALhtWkdJXbwnGu3Tc+FrMGGcpiC+rjKEugQOeXyCTdRNnnr_wA@mail.gmail.com%3e/">Unnamed text/plain</a> (inline, None, 1768 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201207.mbox/raw/%3cCALhtWkdJXbwnGu3Tc+FrMGGcpiC+rjKEugQOeXyCTdRNnnr_wA@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

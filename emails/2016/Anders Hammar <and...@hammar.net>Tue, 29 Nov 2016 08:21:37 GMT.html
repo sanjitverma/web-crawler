@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Use same jar (different version) in one project</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201611.mbox/%3c3B7A7BDFFD286F49A19A5B35D26E08FB01EA0ABB@srvmail2.aurenz.local%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201611.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201611.mbox/%3cCADN69ynKMwyGYpeUr_6UedscPkb=jqG1GeC-Azo3xwCHy-d+8g@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201611.mbox/%3cKL1PR01MB09825119D02F608F82FCFE77B58D0@KL1PR01MB0982.apcprd01.prod.exchangelabs.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201611.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201611.mbox/%3cCADN69ynKMwyGYpeUr_6UedscPkb=jqG1GeC-Azo3xwCHy-d+8g@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201611.mbox/%3c3B7A7BDFFD286F49A19A5B35D26E08FB01EA0ABB@srvmail2.aurenz.local%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201611.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201611.mbox/%3cCADN69ynKMwyGYpeUr_6UedscPkb=jqG1GeC-Azo3xwCHy-d+8g@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201611.mbox/%3cKL1PR01MB09825119D02F608F82FCFE77B58D0@KL1PR01MB0982.apcprd01.prod.exchangelabs.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201611.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201611.mbox/%3cCADN69ynKMwyGYpeUr_6UedscPkb=jqG1GeC-Azo3xwCHy-d+8g@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Anders Hammar &lt;and...@hammar.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Use same jar (different version) in one project</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Tue, 29 Nov 2016 08:21:37 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+You would need a multi-module project, with separate modules for the code
+that depends on the different versions av det dependency "jar" (artifact).
+You would then, typically, have one or more moduoles for the common code
+and then one module for each of the version of the dependency with
+incompatible API.
+
+/Anders
+
+On Tue, Nov 29, 2016 at 4:14 AM, big data &lt;bigdatabase@outlook.com&gt; wrote:
+
+&gt; Dear all,
+&gt;
+&gt; How to depend on the same jars with different versions in one project?
+&gt; Our project is used to deploy on different customer side, which has
+&gt; different jar version environments. The codes depends the jar, which has
+&gt; two different version 1.0 and 2.0, these two versions are not compatible
+&gt; (eash one has own unique API), so our code should support these two
+&gt; versions, and can build to different release package to support 1.0 or 2.0.
+&gt;
+&gt; how to configure pom to support this situation?
+&gt;
+&gt; Thanks.
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201611.mbox/raw/%3cCAKDUN1vEQgz8aSwe68B5cjgM_D2oTQdd=tK07rMKo6kKtsj5gQ@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 915 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201611.mbox/raw/%3cCAKDUN1vEQgz8aSwe68B5cjgM_D2oTQdd=tK07rMKo6kKtsj5gQ@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

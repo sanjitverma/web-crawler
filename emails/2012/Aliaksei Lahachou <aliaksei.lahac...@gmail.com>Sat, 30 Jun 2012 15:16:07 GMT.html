@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: problem downloading dependencies</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201206.mbox/%3cCABxnT+cpcbxasinU7gh4Ufc0fHJ2nbr9nyihgv1Cne2Pvi+jJw@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201206.mbox/%3c2073440883.01341072515050.JavaMail.benson@tinfoilhat.local%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201206.mbox/%3cCABxnT+cpcbxasinU7gh4Ufc0fHJ2nbr9nyihgv1Cne2Pvi+jJw@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201206.mbox/%3cCABxnT+cNvVKTdfuQ-4ENsWpBfPfaVvLmyFWwtXcKtwH=R8+oAw@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201206.mbox/%3cCABxnT+cpcbxasinU7gh4Ufc0fHJ2nbr9nyihgv1Cne2Pvi+jJw@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201206.mbox/%3c2073440883.01341072515050.JavaMail.benson@tinfoilhat.local%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201206.mbox/%3cCABxnT+cpcbxasinU7gh4Ufc0fHJ2nbr9nyihgv1Cne2Pvi+jJw@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201206.mbox/%3cCABxnT+cNvVKTdfuQ-4ENsWpBfPfaVvLmyFWwtXcKtwH=R8+oAw@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Aliaksei Lahachou &lt;aliaksei.lahac...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: problem downloading dependencies</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Sat, 30 Jun 2012 15:16:07 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hi,
+
+can it be that your Internet connection is unreliable and sometimes
+download is interrupted? Maven by default will not reattempt to dowload
+artifacts until the next day. You can try adding -U to force Maven to
+redownload failed artifacts and snapshots.
+
+
+Regards,
+htfv (Aliaksei Lahachou)
+
+
+On Sat, Jun 30, 2012 at 1:42 PM, sdgvdsg sdgvdsg &lt;sdgvdsg@gmail.com&gt; wrote:
+
+&gt; Hi,
+&gt;
+&gt; I followed
+&gt; http://maven.apache.org/guides/getting-started/maven-in-five-minutes.htmlin
+&gt; order to create my first Maven project.
+&gt; The installation was successful but when i try to download the dependencies
+&gt; I have some downloading activities but after a while the downlaoding stops
+&gt; and eventually there will be an error as the one below.
+&gt;
+&gt; This is my home network and I don't have proxy, also part of the
+&gt; dependencies are being downloaded so the settings should be correct.
+&gt;
+&gt; On the page
+&gt; http://maven.apache.org/guides/getting-started/maven-in-five-minutes.html
+&gt; there is a text
+&gt; *If you have just installed Maven, it may take a while on the first run.
+&gt; This is because Maven is downloading the most recent artifacts (plugin jars
+&gt; and other files) into your local repository. You may also need to execute
+&gt; the command a couple of times before it succeeds. This is because the
+&gt; remote server may time out before your downloads are complete. Don't worry,
+&gt; there are ways to fix that.
+&gt; *
+&gt; But I tried 15-20 times same thing is happening. What could be the problem,
+&gt; do I need to set up something else?
+&gt;
+&gt; I am investigating this issue couple of days but I still can't find a
+&gt; solution.
+&gt; Thank You
+&gt;
+&gt; [INFO]
+&gt; ------------------------------------------------------------------------
+&gt; [INFO] BUILD FAILURE
+&gt; [INFO]
+&gt; ------------------------------------------------------------------------
+&gt; [INFO] Total time: 30:01.055s
+&gt; [INFO] Finished at: Fri Jun 29 19:11:55 CEST 2012
+&gt; [INFO] Final Memory: 6M/107M
+&gt; [INFO]
+&gt; ------------------------------------------------------------------------
+&gt; [ERROR] Plugin org.apache.maven.plugins:maven-clean-plugin:2.4.1 or one of
+&gt; its d
+&gt; ependencies could not be resolved: Could not transfer artifact
+&gt; org.apache.maven.
+&gt; plugins:maven-clean-plugin:jar:2.4.1 from/to central (
+&gt; http://repo.maven.apache.o
+&gt; rg/maven2): GET request of:
+&gt; org/apache/maven/plugins/maven-clean-plugin/2.4.1/ma
+&gt; ven-clean-plugin-2.4.1.jar from central failed: Read timed out -&gt; [Help 1]
+&gt; [ERROR]
+&gt; [ERROR] To see the full stack trace of the errors, re-run Maven with the -e
+&gt; swit
+&gt; ch.
+&gt; [ERROR] Re-run Maven using the -X switch to enable full debug logging.
+&gt; [ERROR]
+&gt; [ERROR] For more information about the errors and possible solutions,
+&gt; please rea
+&gt; d the following articles:
+&gt; [ERROR] [Help 1]
+&gt; http://cwiki.apache.org/confluence/display/MAVEN/PluginResoluti
+&gt; onException
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201206.mbox/raw/%3cCALcFPWEmBQ6+bTeQg0usKRwOwZpq6KHSrvD3OdcGO7fHLdp2Tw@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 2813 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201206.mbox/raw/%3cCALcFPWEmBQ6+bTeQg0usKRwOwZpq6KHSrvD3OdcGO7fHLdp2Tw@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

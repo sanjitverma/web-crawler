@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: POM Model version 4.1.0 in 3.4.0-SNAPSHOTs</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201608.mbox/%3cop.ymjpatlkkdkhrr@desktop-2khsk44%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201608.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201608.mbox/%3c57B9C4F1.5010609@schulte.it%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201608.mbox/%3cop.ymjpatlkkdkhrr@desktop-2khsk44%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201608.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201608.mbox/%3c57B9C4F1.5010609@schulte.it%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201608.mbox/%3cop.ymjpatlkkdkhrr@desktop-2khsk44%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201608.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201608.mbox/%3c57B9C4F1.5010609@schulte.it%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201608.mbox/%3cop.ymjpatlkkdkhrr@desktop-2khsk44%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201608.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201608.mbox/%3c57B9C4F1.5010609@schulte.it%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Christian Schulte ...@schulte.it&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: POM Model version 4.1.0 in 3.4.0-SNAPSHOTs</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Sun, 21 Aug 2016 14:35:46 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Am 08/21/16 um 14:36 schrieb Robert Scholte:
+&gt; Hi,
+&gt; 
+&gt; Keep in mind that Maven is not the only tool/application using the pom.xml.
+
+Do they implement the import scope feature themselves?
+
+&gt; Some of them probably never check the xsd or the modelVersion, so we need  
+&gt; to be very carefull with this.
+&gt; If we introduce a new major modelVersion, that should probably result in a  
+&gt; new file including a backported to the current 4.0.0 so all tools will  
+&gt; keep working, including older versions of Maven.
+&gt; In this case 4.1.0 doesn't change the xsd but the handling of  
+&gt; dependencies. I have no idea yet about the impact of such change. The last  
+&gt; thing we want is that it'll destroy the Maven repository eco system.
+
+Situation is this. I worked on the import scope due to issues in JIRA. I
+am not the reporter of those issues. During preliminary testing users
+asked to restore backwards compatibility. The reporters of those issues
+asked to not revert the new behaviour. I proposed to update the model
+version. Someone else asked to not do that. There is no consensus on
+anything now. Leave things in 3.4.0 the way they are. No. Revert the
+changes. No. Increase the model version. No. There is no other proposal
+I can make. Current master is solving all but the don't increase the
+model version objection just fine, in my opinion. Whatever you do. No.
+Do nothing! But that's not the build tool I would want to continue using.
+
+[...]
+
+&gt; 
+&gt; Hervé and I plan to work on the consumer-pom, but that requires a good  
+&gt; roadmap.
+&gt; First of all we need to separate the build-pom with the distribution-pom.  
+
+Won't have an impact on the issues with the import scope. That is
+changing the way the effective 'dependenyManagement' is build.
+
+&gt; Next we need to think of the consumer-pom. The idea of this file is that  
+&gt; it contains only relevant transitive information.
+
+[...]
+
+&gt; Another advantage of this is that the file already contains the fully  
+&gt; resolved tree, so you don't depend on the implementation of any tool  
+&gt; anymore regarding resolution rules.
+
+Think about version ranges here. Resolving the dependency tree and
+deploying that resolution result would be ideal. Add version ranges to
+the mix and this becomes nearly impossible. Deploying the logic to get
+to that resolution result could work. You would need to invent some kind
+of artifact resolution scripting language for this. Let's just do that.
+
+&gt; 
+&gt; What is important it that we must keep a pom in the repository  
+&gt; understandable for all other tools. If somehow the Maven repository  
+&gt; becomes useless by introducing changes to the current pom we shouldn't do  
+&gt; that, but think of a new file-format being extra installed/deployed.
+
+If someone upgrades a pom from model version 4.0.0 to 4.1.0 that person
+is just opting in for the new import scope behaviour. Information in the
+pom is just interpreted differently. Someone not wanting to deploy a
+model 4.1.0 pom can use the release:prepare-with-pom goal today. Does
+not stop users from deploying 4.1.0 poms, however. There are other
+things we already released years ago justifying a new minor model
+version. So maybe there is even more we can do for that model version in
+3.4.0. I don't know yet.
+
+Regards,
+-- 
+Christian
+
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201608.mbox/raw/%3c57B9BC42.804@schulte.it%3e/">Unnamed text/plain</a> (inline, 8-Bit, 3440 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201608.mbox/raw/%3c57B9BC42.804@schulte.it%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

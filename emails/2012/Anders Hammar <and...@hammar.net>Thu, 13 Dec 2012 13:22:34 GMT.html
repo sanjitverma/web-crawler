@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: deploy plugin in offline mode</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201212.mbox/%3cCAJZRQKxDazn-b-+s8L1YXsvXcYg241J1sbOtoZAYAA-GhcEPvg@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201212.mbox/%3cCA+nPnMzKCWZWeaByg1YLhbzQ9HbwdDdNJ4xNWUYJK9vdWstxvQ@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201212.mbox/%3cCAOazyz0sYBxCvXqbY19vrk=vq+LFtHp1Zp4P2iJCgZg_9_QGeA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201212.mbox/%3cCAOazyz2QqZiwq=cazVxg1tvNNzFfqCZGZzGXmdFJKYuE73NsHQ@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201212.mbox/%3cCAJZRQKxDazn-b-+s8L1YXsvXcYg241J1sbOtoZAYAA-GhcEPvg@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201212.mbox/%3cCA+nPnMzKCWZWeaByg1YLhbzQ9HbwdDdNJ4xNWUYJK9vdWstxvQ@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201212.mbox/%3cCAOazyz0sYBxCvXqbY19vrk=vq+LFtHp1Zp4P2iJCgZg_9_QGeA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201212.mbox/%3cCAOazyz2QqZiwq=cazVxg1tvNNzFfqCZGZzGXmdFJKYuE73NsHQ@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Anders Hammar &lt;and...@hammar.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: deploy plugin in offline mode</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Thu, 13 Dec 2012 13:22:34 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Well, normally most things are simple with Maven if you have a good
+infrastructure setup, which includes a Maven repository Manager. But you
+don't, and then you run into issues when you want to do workarounds. Get a
+repo manager and you probably will not run into more issues as you continue
+on, would be my advice.
+
+/Anders
+
+
+On Thu, Dec 13, 2012 at 1:57 PM, Alon Bar-Lev &lt;alon.barlev@gmail.com&gt; wrote:
+
+&gt; On Thu, Dec 13, 2012 at 3:33 AM, Wayne Fay &lt;waynefay@gmail.com&gt; wrote:
+&gt; &gt;&gt; I do not understand your suggestion, can you elaborate?
+&gt; &gt;
+&gt; &gt; He means, install a copy of Nexus locally on your laptop, and deploy
+&gt; &gt; to it when you need to run "offline" rather than deploying to your
+&gt; &gt; "real" repo which we assume is unavailable when you are offline.
+&gt;
+&gt; Hmmm... thanks... but I don't control the build nor can I install more
+&gt; dependencies on the build machine. Modifying every project to have
+&gt; extra hierarchy just to be able to use the dependency plugin is also
+&gt; intrusive and complex.
+&gt;
+&gt; I just need to deploy artifacts in maven repository layout... I
+&gt; expected it to be simple... as the deploy plugin does exactly that...
+&gt; :(
+&gt;
+&gt; Alon.
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201212.mbox/raw/%3cCAKDUN1vjqm=iOY+azwaYKLd1frDYuQk2ma21kYwn03WVztAfPg@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 1354 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201212.mbox/raw/%3cCAKDUN1vjqm=iOY+azwaYKLd1frDYuQk2ma21kYwn03WVztAfPg@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Code coverage report for multi module maven project reports zero in some modules</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201206.mbox/%3cf2bba6594bc1c2c9ddee76c576cbbbc5.squirrel@webmail.uci.edu%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201206.mbox/%3cCAM3NecG6-GA_BNQBe6V6cWDnJBQPhiJUR6-gEPC7ZWwi549krg@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201206.mbox/%3cf2bba6594bc1c2c9ddee76c576cbbbc5.squirrel@webmail.uci.edu%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201206.mbox/%3cCAM3NecG6-GA_BNQBe6V6cWDnJBQPhiJUR6-gEPC7ZWwi549krg@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201206.mbox/%3cf2bba6594bc1c2c9ddee76c576cbbbc5.squirrel@webmail.uci.edu%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201206.mbox/%3cCAM3NecG6-GA_BNQBe6V6cWDnJBQPhiJUR6-gEPC7ZWwi549krg@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201206.mbox/%3cf2bba6594bc1c2c9ddee76c576cbbbc5.squirrel@webmail.uci.edu%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201206.mbox/%3cCAM3NecG6-GA_BNQBe6V6cWDnJBQPhiJUR6-gEPC7ZWwi549krg@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Aliaksei Lahachou &lt;aliaksei.lahac...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Code coverage report for multi module maven project reports zero in some modules</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Sat, 30 Jun 2012 07:18:13 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hi!
+
+cobertura:cobertura executes it's own lifecycle: instruments the classes,
+instrumented classes are saved to target/generated-classes/cobertura, and
+executes unit tests. Instrumented classes dump coverage data to
+target/conbertura/cobertura.ser. There are two things to understand:
+
+1. When cobertura:cobertura is executed, dependencies are not instrumented.
+You have to have enabled instrumentation, see cobertura:instrument goal.
+This will produce jars with instrumented classes, so be careful not to
+distribute them.
+2. Each module will write coverage data to it's own
+target/conbertura/cobertura.ser file. I think it's possible to configure
+instrumentation so that all jars write to the same cobertura.ser file, but
+I don't know whether it's normal, and I never tried that. When you have
+multiple cobertura.ser files, you can merge them with ant script and
+generate report from the merged file.
+
+Check build-configurator project [1], it does what you need. I used
+instructions from cobertura-maven-plugin to configure the build [2].
+
+[1] https://github.com/htfv/build-configurator
+[2]
+http://mojo.codehaus.org/cobertura-maven-plugin/instrumentingDeploymentArtifact.html
+
+
+Regards,
+htfv (Aliaksei Lahachou)
+
+
+On Sat, Jun 30, 2012 at 4:07 AM, &lt;kfmohamm@uci.edu&gt; wrote:
+
+&gt; Hi,
+&gt;
+&gt; I am trying to generate code coverage report for our multi-module maven
+&gt; project using cobertura. After I run mvn package, in one of the modules
+&gt; from where we run JUnit tests, the coverage report is correct as expected.
+&gt;
+&gt; However, coverage report generated in the other
+&gt; &lt;module-name&gt;/target/site/cobertura directories is reported as zero for
+&gt; both line and branch coverage.
+&gt;
+&gt; Am I missing something, in my parent POM, I have not made any changes to
+&gt; any of the child POMs in the &lt;module-name&gt; directories. Please let me know
+&gt; how to generate the code coverage report for a multi module maven project
+&gt; using cobertura.
+&gt;
+&gt; Here is how my parent POM looks like.
+&gt;
+&gt; &lt;plugin&gt;
+&gt;                             &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+&gt;                             &lt;artifactId&gt;cobertura-maven-plugin&lt;/artifactId&gt;
+&gt;                             &lt;version&gt;2.5.1&lt;/version&gt;
+&gt;                              &lt;configuration&gt;
+&gt;                                 &lt;formats&gt;
+&gt;                                     &lt;format&gt;html&lt;/format&gt;
+&gt;                                     &lt;format&gt;xml&lt;/format&gt;
+&gt;                                 &lt;/formats&gt;
+&gt;                              &lt;/configuration&gt;
+&gt;                              &lt;inherited&gt;true&lt;/inherited&gt;
+&gt;                              &lt;executions&gt;
+&gt;                                  &lt;execution&gt;
+&gt;                                      &lt;phase&gt;package&lt;/phase&gt;
+&gt;                                          &lt;goals&gt;
+&gt;                                              &lt;goal&gt;cobertura&lt;/goal&gt;
+&gt;                                          &lt;/goals&gt;
+&gt;                                  &lt;/execution&gt;
+&gt;                              &lt;/executions&gt;
+&gt;                         &lt;/plugin&gt;
+&gt;
+&gt; ...
+&gt; &lt;dependencies&gt;
+&gt;     &lt;dependency&gt;
+&gt;         &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+&gt;         &lt;artifactId&gt;cobertura-maven-plugin&lt;/artifactId&gt;
+&gt;         &lt;version&gt;2.5.1&lt;/version&gt;
+&gt;         &lt;type&gt;plugin&lt;/type&gt;
+&gt;         &lt;scope&gt;package&lt;/scope&gt;
+&gt;     &lt;/dependency&gt;
+&gt;     &lt;/dependencies&gt;
+&gt;
+&gt; Thanks!
+&gt;
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201206.mbox/raw/%3cCALcFPWG_TKxBcRcLEB55u+2uRHLnS2NXO07CGcHyz59PbhwO6g@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 3495 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201206.mbox/raw/%3cCALcFPWG_TKxBcRcLEB55u+2uRHLnS2NXO07CGcHyz59PbhwO6g@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

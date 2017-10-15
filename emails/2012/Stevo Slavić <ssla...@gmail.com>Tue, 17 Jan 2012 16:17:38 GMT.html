@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Disabling resolving test scoped dependencies when tests are skipped via maven.test.skip system property</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201201.mbox/%3cCAPoyBqQFjTS-AQ99C6w+PaqSQhDXfiFt85O3cXOV_8ieTMG9Eg@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201201.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201201.mbox/%3cCALhtWkdFtu4kPBC9S5puBoCY7WCEWFO9stX0hrhuL-5T5jnzBw@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201201.mbox/%3cCAPoyBqQFjTS-AQ99C6w+PaqSQhDXfiFt85O3cXOV_8ieTMG9Eg@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201201.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201201.mbox/%3cCALhtWkdFtu4kPBC9S5puBoCY7WCEWFO9stX0hrhuL-5T5jnzBw@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201201.mbox/%3cCAPoyBqQFjTS-AQ99C6w+PaqSQhDXfiFt85O3cXOV_8ieTMG9Eg@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201201.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201201.mbox/%3cCALhtWkdFtu4kPBC9S5puBoCY7WCEWFO9stX0hrhuL-5T5jnzBw@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201201.mbox/%3cCAPoyBqQFjTS-AQ99C6w+PaqSQhDXfiFt85O3cXOV_8ieTMG9Eg@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201201.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201201.mbox/%3cCALhtWkdFtu4kPBC9S5puBoCY7WCEWFO9stX0hrhuL-5T5jnzBw@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Stevo Slavić &lt;ssla...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Disabling resolving test scoped dependencies when tests are skipped via maven.test.skip system property</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Tue, 17 Jan 2012 16:17:38 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+OK, thanks for explaining! A module's tests are supposed to be run only by
+part of the team. For others not even test dependencies are accessible, so
+just disabling compiling and executing tests was not enough. Resolved this
+with a profile and putting dependencies of those tests there.
+
+Kind regards,
+Stevo.
+
+On Tue, Jan 17, 2012 at 5:06 PM, Olivier Lamy &lt;olamy@apache.org&gt; wrote:
+
+&gt; Hello,
+&gt;
+&gt; 2012/1/17 Stevo Slavić &lt;sslavic@gmail.com&gt;:
+&gt; &gt; Hello Maven community,
+&gt; &gt;
+&gt; &gt; Why does Maven (3.0.3) resolve test scoped dependencies when tests
+&gt; &gt; compilation and execution is skipped via maven.test.skip system property?
+&gt;
+&gt; That's something will happen with all maven 2.x or 3.x versions.
+&gt; Why because maven use something generic which is kind of plugin
+&gt; "metadata" which contains the dependencies "level/scope" needed.
+&gt; So at this stage when resolving dependencies for the plugin, maven
+&gt; core doesn't have any idea on any skip or other plugin parameters or
+&gt; what the plugin does.
+&gt;
+&gt; How does it work.
+&gt; See source
+&gt; http://svn.apache.org/repos/asf/maven/surefire/trunk/maven-surefire-plugin/src/main/java/org/apache/maven/plugin/surefire/SurefirePlugin.java
+&gt;
+&gt; You will see an annotation @requiresDependencyResolution test (this
+&gt; the "metadata).
+&gt; So maven core only knows he need to resolve dependencies even if the
+&gt; mojo have a skip or a shutdownMachine :-) parameter
+&gt;
+&gt; &gt;
+&gt; &gt; I'm trying to achieve this by defining a profile with all test scope
+&gt; &gt; dependencies declared in it only. Profile is activated when
+&gt; maven.test.skip
+&gt; &gt; system property is not defined. Would be more precise if I could specify
+&gt; &gt; activation to be when that property is not defined or is set to false but
+&gt; &gt; that doesn't seem to be possible (no compound expressions in single
+&gt; &gt; property, no multiple properties in single activation) or am I missing
+&gt; &gt; something?
+&gt; &gt;
+&gt; &gt; Kind regards,
+&gt; &gt; Stevo.
+&gt;
+&gt;
+&gt;
+&gt; --
+&gt; Olivier Lamy
+&gt; Talend: http://coders.talend.com
+&gt; http://twitter.com/olamy | http://linkedin.com/in/olamy
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201201.mbox/raw/%3cCAAUywg_4q_v_DWUVCg4OnuxfFQfP_XLhg6nzWUYzPmjNfBgLPw@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, Quoted Printable, 2226 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201201.mbox/raw/%3cCAAUywg_4q_v_DWUVCg4OnuxfFQfP_XLhg6nzWUYzPmjNfBgLPw@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

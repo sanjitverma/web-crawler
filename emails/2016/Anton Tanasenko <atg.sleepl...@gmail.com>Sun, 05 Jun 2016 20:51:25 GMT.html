@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Status on namespace support for POM Elements ?</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201606.mbox/%3c6257aaf5-04f5-cd5e-6780-a85b9eae9bb0@googlemail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201606.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201606.mbox/%3c20160605211141.59a7170e@copperhead.int.arc7.info%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201606.mbox/%3c0a2af03a-625d-89f4-0448-7d6e63ba1c8b@googlemail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201606.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201606.mbox/%3c3d3320e0-e7b4-cef2-3260-534d16f1b2cc@googlemail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201606.mbox/%3c6257aaf5-04f5-cd5e-6780-a85b9eae9bb0@googlemail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201606.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201606.mbox/%3c20160605211141.59a7170e@copperhead.int.arc7.info%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201606.mbox/%3c0a2af03a-625d-89f4-0448-7d6e63ba1c8b@googlemail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201606.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201606.mbox/%3c3d3320e0-e7b4-cef2-3260-534d16f1b2cc@googlemail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Anton Tanasenko &lt;atg.sleepl...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Status on namespace support for POM Elements ?</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Sun, 05 Jun 2016 20:51:25 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+With eclipse we do autocompletion for nested elements using reflection, if
+type information is available (e.g. generics are used for List and Map
+elements) in almost the same as in Maven (almost - because maven takes
+config and tries to apply each separate value, while from the editor we
+need to discover what the model is overall - this might lead to
+inconsistencies in some corner cases). Also it's worth to note that maven
+doesn't look at @Parameter annotations in nested elements, it's all
+reflection.
+
+2016-06-05 23:23 GMT+03:00 Roland Huss &lt;roland.huss@gmail.com&gt;:
+
+&gt;
+&gt; &gt; Just on a side note, eclipse m2e pom editor does have an autocomplete for
+&gt; &gt; plugin configuration based on the plugin descriptor and the classes that
+&gt; &gt; are used.
+&gt; &gt; +1 to namespace support though, since it could be used to provide
+&gt; &gt; autocomplete for parts that cannot be deduced by looking at the model
+&gt; &gt; (xpp3dom elements, maps, etc.)
+&gt;
+&gt; That's true for IDEA as well. Autocompletion works nicely on top-level
+&gt; configuration elements, however for nested structures like lists and
+&gt; maps it doesn't work so well. I.e. deducing the element name of a
+&gt; list-element it e.g. not possible by an IDE since in Maven afaik any
+&gt; name is allowed for a list-element's tag. In my case
+&gt; (docker-maven-plugin) I have configuration which is nested up to four
+&gt; levels. That's one of the reason wgy I'm looking for IDE support here
+&gt; (which as I said seems to work only on the top-level in IDEA).
+&gt;
+&gt; How is the situation in Eclipse ? Is it possible to do autocompletion on
+&gt; list elements (and their @Parameter), too ?
+&gt;
+&gt; In general I have the feeling that support for XSD based autocompletion
+&gt; is much more matured in IDEs.
+&gt;
+&gt; ... roland
+&gt;
+&gt;
+&gt; &gt; 2016-06-05 12:32 GMT+03:00 Stian Soiland-Reyes &lt;stain@apache.org&gt;:
+&gt; &gt;
+&gt; &gt;&gt; +1 to ALLOW (but not require) the second use case of &lt;configuration
+&gt; &gt;&gt; xmlns=..&gt;, this let you have autocomplete say in Eclipse's XML editor.
+&gt; &gt;&gt; However I believe a xsi schemalocation would then still be needed per
+&gt; &gt;&gt; plugin unless a catalogue is accessible out of bands, so it would still
+&gt; be
+&gt; &gt;&gt; a bit verbose.
+&gt; &gt;&gt;
+&gt; &gt;&gt; (I never understood why the default xsi schemalocation can't be the
+&gt; &gt;&gt; namespace)
+&gt; &gt;&gt; On 5 Jun 2016 8:38 a.m., "Roland Huss" &lt;roland.huss@gmail.com&gt; wrote:
+&gt; &gt;&gt;
+&gt; &gt;&gt;&gt;&gt; Do you really think introducing XML namespaces would make the handling
+&gt; &gt;&gt;&gt;&gt; of the pom better ? In particular if you have a separate namespace for
+&gt; &gt;&gt;&gt;&gt; every plugin? (At apache maven project we have 49 plugins ? This would
+&gt; &gt;&gt;&gt;&gt; mean in consequence 49 namespaces? And at mojohaus there are about
+&gt; &gt;&gt;&gt;&gt; another 50 plugins? So this means having to use the configuration
+&gt; &gt;&gt;&gt;&gt; parameters for all the plugins and on top you need to do namespace
+&gt; &gt;&gt;&gt;&gt; configuration in your pom file? I'm the opinion this would make things
+&gt; &gt;&gt;&gt;&gt; worse than better...(There are some things which are better)...
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt; I don't request to *require* the use of namespaces, but not to break if
+&gt; &gt;&gt;&gt; a namespace is used. It would be competely sufficient when Maven would
+&gt; &gt;&gt;&gt; ignore namespaces. The &lt;configuration&gt; element is specified having
+a
+&gt; &gt;&gt;&gt; &lt;xs:any&gt; content anyway.
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt; BTW, you don't have to specify the namespace on top, but can do at
+&gt; &gt;&gt;&gt; directly on the enclosing element itself.
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt; Here's my use case: I'm writing a Maven plugin which has an XSD for its
+&gt; &gt;&gt;&gt; configuration. This is useful for rich autocompletion and inline
+&gt; &gt;&gt;&gt; documentation tooltips in a decent IDE.
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt; There are two ways how you could use this xsd:
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt; * You can declare a namespace with prefix in the preamble of your
+&gt; &gt;&gt;&gt; pom.xml but then have to use the prefix for all your configuration
+&gt; &gt;&gt;&gt; options (which is quite a lot in my use case). You are not required to
+&gt; &gt;&gt;&gt; use a namespace, though (because of the &lt;xs:any&gt; type of a
+&gt; configuration)
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt; * Or, the better, more elegant way is to switch to the default
+&gt; namespace
+&gt; &gt;&gt;&gt; to your plugin int the &lt;configuration&gt; element :
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt; &lt;project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+&gt; &gt;&gt;&gt;          xmlns="http://maven.apache.org/POM/4.0.0"
+&gt; &gt;&gt;&gt;          xsi:schemaLocation="...."&gt;
+&gt; &gt;&gt;&gt; ...
+&gt; &gt;&gt;&gt;     &lt;plugin&gt;
+&gt; &gt;&gt;&gt;        ....
+&gt; &gt;&gt;&gt;        &lt;m:configuration
+&gt; &gt;&gt;&gt;             xmlns:m="http://maven.apache.org/POM/4.0.0"
+&gt; &gt;&gt;&gt;             xmlns="https://myplugin.org/v1"&gt;
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt;           &lt;myOption&gt;bla&lt;/myOption&gt;
+&gt; &gt;&gt;&gt;            ....
+&gt; &gt;&gt;&gt;        &lt;/m:configuration&gt;
+&gt; &gt;&gt;&gt;     &lt;/plugin&gt;
+&gt; &gt;&gt;&gt; ...
+&gt; &gt;&gt;&gt; &lt;/project&gt;
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt; Both usage patterns are currently broken in Maven 3.3.9
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt; In general pom changes in any way could only become part of pom model
+&gt; 5
+&gt; &gt;&gt;&gt;&gt; (Maven 4/5 in line)  cause it would break to many things...You can
+&gt; take
+&gt; &gt;&gt;&gt;&gt; a deep look into the jira for Maven 4..
+&gt; &gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;
+&gt; https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12316922&amp;version=12330198
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt; There is no change in the pom syntax required at all (i.e. the Schema
+&gt; is
+&gt; &gt;&gt;&gt; exactly the same as defined in http://maven.apache.org/POM/4.0.0), its
+&gt; &gt;&gt;&gt; only about the proper XML parsing of a pom model 4 with namespaces
+&gt; &gt;&gt;&gt; (which btw each decent XML parser is capable of).
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt; But even then, is the document
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;
+&gt; https://cwiki.apache.org/confluence/display/MAVEN/Moving+forward+with+the+POM+data+model
+&gt; &gt;&gt;&gt; obsolete /wrt to XML namespaces ? Or what is the status of namespace
+&gt; &gt;&gt;&gt; support for the next major Maven version ? (sorry, couldn't find any
+&gt; &gt;&gt;&gt; information about this).
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt; cheers ...
+&gt; &gt;&gt;&gt; ... roland
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt; Kind regards
+&gt; &gt;&gt;&gt;&gt; Karl Heinz Marbaise
+&gt; &gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt; ---------------------------------------------------------------------
+&gt; &gt;&gt;&gt;&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; &gt;&gt;&gt;&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt; &gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt; ---------------------------------------------------------------------
+&gt; &gt;&gt;&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; &gt;&gt;&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;
+&gt; &gt;
+&gt; &gt;
+&gt; &gt;
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+
+
+-- 
+Regards,
+Anton.
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201606.mbox/raw/%3cCAMYdmavUu0=LPPfUyJb0p7uV5t-vBR2J0h8THVYmTCRgF8L4ng@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 6345 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201606.mbox/raw/%3cCAMYdmavUu0=LPPfUyJb0p7uV5t-vBR2J0h8THVYmTCRgF8L4ng@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Dependency convergence errors - how to resolve?</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201611.mbox/%3cCADN69ynKMwyGYpeUr_6UedscPkb=jqG1GeC-Azo3xwCHy-d+8g@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201611.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201611.mbox/%3cB8D164BED956C5439875951895CB4B2258941F09@CAFRFD1MSGUSRJH.ITServices.sbc.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201611.mbox/%3c501da89e-8662-4a6b-576b-00f49977ba91@gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201611.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201611.mbox/%3cCAAZU44=76jWOZd+RFhTh4D2STgGKXZuOzV9_z91n=Kbz4kAn8g@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201611.mbox/%3cCADN69ynKMwyGYpeUr_6UedscPkb=jqG1GeC-Azo3xwCHy-d+8g@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201611.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201611.mbox/%3cB8D164BED956C5439875951895CB4B2258941F09@CAFRFD1MSGUSRJH.ITServices.sbc.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201611.mbox/%3c501da89e-8662-4a6b-576b-00f49977ba91@gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201611.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201611.mbox/%3cCAAZU44=76jWOZd+RFhTh4D2STgGKXZuOzV9_z91n=Kbz4kAn8g@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Curtis Rueden &lt;ctrue...@wisc.edu&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Dependency convergence errors - how to resolve?</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Tue, 29 Nov 2016 21:18:49 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hi Niranjan,
+
+&gt; We do set this because we have been burned many times where wrong
+&gt; classes from older jar files were getting loaded.
+...
+&gt; This caused all sort of interesting crashes at runtime.
+
+Runtime... of your application? That would be caused by your deployment
+mechanism, which is past where Maven is involved. How do you generate your
+final application? How is it decided what gets included on your classpath?
+
+Or do you mean that the wrong dependency JAR(s) are selected at compile
+time by Maven?
+
+Personally, I do not see the value in enforcing dependency convergence. In
+practice you are going to continually run into problems where you depend on
+components A and B and they each depend on a different version of C... and
+then what? Lots of exclusions? Much easier if you can just let Maven pick
+the newest.
+
+My strong suggestion would be to understand exactly the root cause of your
+previous issue, and find out how to solve it without using this enforcer
+rule.
+
+Or maybe someone else who uses this rule can comment further on its
+intended use, and a way to achieve what you want.
+
+Regards,
+Curtis
+
+--
+Curtis Rueden
+LOCI software architect - http://loci.wisc.edu/software
+
+
+On Wed, Nov 23, 2016 at 6:25 PM, Niranjan Rao &lt;nhrdls@gmail.com&gt; wrote:
+
+&gt; Hi Curtis,
+&gt;
+&gt; Sorry for the late reply.
+&gt;
+&gt; We do set this because we have been burned many times where wrong classes
+&gt; from older jar files were getting loaded. For most part this is ok, but if
+&gt; memory serves right, we faced few problems with spring/hibernate where it's
+&gt; internal dependencies conflicted with some other dependencies. This caused
+&gt; all sort of interesting crashes at runtime.
+&gt;
+&gt; I am not sure and it was long time (couple of years) back, but I think
+&gt; root cause was wrong type of proxy class getting created and dependencies
+&gt; not getting injected correctly.
+&gt;
+&gt; Regards,
+&gt;
+&gt; Niranjan
+&gt;
+&gt; On 11/19/2016 01:09 PM, Curtis Rueden wrote:
+&gt;
+&gt;&gt; Hi Niranjan,
+&gt;&gt;
+&gt;&gt; I have set maven enforcer plugin with dependency convergence.
+&gt;&gt;&gt;
+&gt;&gt; Naive question: why do this? One of the (IMHO) great things about Maven is
+&gt;&gt; that it resolves conflicting dependency versions in a generally desirable
+&gt;&gt; way. As long as the newer version of the dependency is backwards
+&gt;&gt; compatible
+&gt;&gt; with the old at runtime, there should be no problem. The only issue is
+&gt;&gt; when
+&gt;&gt; there are backwards incompatibilities, no? But in the case of
+&gt;&gt; websocket-client 9.2.18 vs. 9.2.15, I am assuming that is a SemVer
+&gt;&gt; version,
+&gt;&gt; which means it should be backwards compatible, right?
+&gt;&gt;
+&gt;&gt; Regards,
+&gt;&gt; Curtis
+&gt;&gt;
+&gt;&gt; --
+&gt;&gt; Curtis Rueden
+&gt;&gt; LOCI software architect - http://loci.wisc.edu/software
+&gt;&gt; ImageJ2 lead, Fiji maintainer - http://imagej.net/User:Rueden
+&gt;&gt;
+&gt;&gt;
+&gt;&gt; On Fri, Nov 18, 2016 at 12:32 PM, Niranjan Rao &lt;nhrdls@gmail.com&gt; wrote:
+&gt;&gt;
+&gt;&gt; Greetings,
+&gt;&gt;&gt;
+&gt;&gt;&gt; I have set maven enforcer plugin with dependency convergence. Usually I
+&gt;&gt;&gt; solve these errors with exclusion entries.
+&gt;&gt;&gt;
+&gt;&gt;&gt; With recent upgrade to selenium 3.0.1 I am getting dependency convergence
+&gt;&gt;&gt; error that I am not sure how to resolve. It's selenium-java that has two
+&gt;&gt;&gt; conflicting dependencies. If I add exclusion entry, I'll have most
+&gt;&gt;&gt; probably
+&gt;&gt;&gt; will have to add the required dependencies myself and might break future
+&gt;&gt;&gt; upgrades and/or increase maintenance work.
+&gt;&gt;&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt; Dependency convergence error for org.eclipse.jetty.websocket:we
+&gt;&gt;&gt; bsocket-client:9.2.18.v20160721 paths to dependency are:
+&gt;&gt;&gt; +-mygroupId:artifact:4.0-SNAPSHOT
+&gt;&gt;&gt;    +-org.seleniumhq.selenium:selenium-java:3.0.1
+&gt;&gt;&gt;      +-net.sourceforge.htmlunit:htmlunit:2.23
+&gt;&gt;&gt; +-org.eclipse.jetty.websocket:websocket-client:9.2.18.v20160721
+&gt;&gt;&gt; and
+&gt;&gt;&gt; +-mygroupId:artifact:4.0-SNAPSHOT
+&gt;&gt;&gt;    +-org.seleniumhq.selenium:selenium-java:3.0.1
+&gt;&gt;&gt; +-org.eclipse.jetty.websocket:websocket-client:9.2.15.v20160210
+&gt;&gt;&gt;
+&gt;&gt;&gt; Regards,
+&gt;&gt;&gt;
+&gt;&gt;&gt; Niranjan
+&gt;&gt;&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt; ---------------------------------------------------------------------
+&gt;&gt;&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt;&gt;&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;&gt;&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt;
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201611.mbox/raw/%3cCADN69y=iXiJvBCR2QLnf-91wTt7YJm5os3ps-eE_MqvsHDF1nw@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 4272 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201611.mbox/raw/%3cCADN69y=iXiJvBCR2QLnf-91wTt7YJm5os3ps-eE_MqvsHDF1nw@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

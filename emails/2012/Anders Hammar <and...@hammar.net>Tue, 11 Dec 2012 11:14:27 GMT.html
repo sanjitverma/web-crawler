@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: strange with repository element in pom</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201212.mbox/%3c1355223325789-5737226.post@n5.nabble.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201212.mbox/%3cCA+nPnMxAkKyPbyEaB5J8AsP=8+OWhSE3j9L-PDQCiMU4Z3-F8w@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201212.mbox/%3c1355220795.73876.YahooMailNeo@web193602.mail.sg3.yahoo.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201212.mbox/%3cCACX-kJ3=YuLN3N6JOM-_4Of=kDos6r3-L4sh1KuqXh7Dr_F_qQ@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201212.mbox/%3c1355223325789-5737226.post@n5.nabble.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201212.mbox/%3cCA+nPnMxAkKyPbyEaB5J8AsP=8+OWhSE3j9L-PDQCiMU4Z3-F8w@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201212.mbox/%3c1355220795.73876.YahooMailNeo@web193602.mail.sg3.yahoo.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201212.mbox/%3cCACX-kJ3=YuLN3N6JOM-_4Of=kDos6r3-L4sh1KuqXh7Dr_F_qQ@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Anders Hammar &lt;and...@hammar.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: strange with repository element in pom</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Tue, 11 Dec 2012 11:14:27 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+I'm guessing there was something in your local repo initially that made
+this not work. Then you remove that and it now works. Very hard to tell
+without detailed info.
+The hamcrest artifacts are in central so you do not need the jboss repo for
+that.
+
+/Anders
+
+
+On Tue, Dec 11, 2012 at 11:13 AM, tong123123 &lt;tong123123@yahoo.com.hk&gt;wrote:
+
+&gt; at first, my pom has not the following repository
+&gt; &lt;repositories&gt;
+&gt;         &lt;repository&gt;
+&gt;           &lt;id&gt;jboss-public-repository-group&lt;/id&gt;
+&gt;           &lt;name&gt;JBoss Public Maven Repository Group&lt;/name&gt;
+&gt;           &lt;url&gt;
+&gt; https://repository.jboss.org/nexus/content/groups/public-jboss/&lt;/url&gt;
+&gt;           &lt;layout&gt;default&lt;/layout&gt;
+&gt;           &lt;releases&gt;
+&gt;             &lt;enabled&gt;true&lt;/enabled&gt;
+&gt;             &lt;updatePolicy&gt;never&lt;/updatePolicy&gt;
+&gt;           &lt;/releases&gt;
+&gt;           &lt;snapshots&gt;
+&gt;             &lt;enabled&gt;true&lt;/enabled&gt;
+&gt;             &lt;updatePolicy&gt;never&lt;/updatePolicy&gt;
+&gt;           &lt;/snapshots&gt;
+&gt;         &lt;/repository&gt;
+&gt;
+&gt; and the project has error that it cannot download hamcrest from
+&gt; http://repo.maven.apache.org/maven2,
+&gt; then I add the above JBoss repository to pom, delete the correponding
+&gt; folder in local repository and select the project &gt; maven &gt; update project,
+&gt; the
+&gt;
+&gt; hamcrest jar can download successfully.
+&gt; Then I delete the latest downloaded hamcrest jar file in local repository
+&gt; and remove the JBoss repository element in the pom.
+&gt; I expect the previous error will error, but out of my expectation, the
+&gt; hamcrest jar file can be downloaded even I already remove the JBoss
+&gt; repository element from the pom
+&gt;
+&gt; and delete the hamcrest jar file from local repository, why the hamcrest
+&gt; jar file can still be downloaded?
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201212.mbox/raw/%3cCAKDUN1t7Cy-ngr_u0NeEPGdjK-h6vjWhq1Ev__5U-ffyDsQz=g@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 1693 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201212.mbox/raw/%3cCAKDUN1t7Cy-ngr_u0NeEPGdjK-h6vjWhq1Ev__5U-ffyDsQz=g@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

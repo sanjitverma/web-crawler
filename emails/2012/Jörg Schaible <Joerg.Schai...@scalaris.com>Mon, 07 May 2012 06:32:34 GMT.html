@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Inject maven dependencies programatically through plug-in</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201205.mbox/%3cjo7p5j$19s$1@dough.gmane.org%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cjo7rol$ib5$1@dough.gmane.org%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201205.mbox/%3c1336244824066-5688342.post@n5.nabble.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cjo7rol$ib5$1@dough.gmane.org%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201205.mbox/%3cjo7p5j$19s$1@dough.gmane.org%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cjo7rol$ib5$1@dough.gmane.org%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201205.mbox/%3c1336244824066-5688342.post@n5.nabble.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cjo7rol$ib5$1@dough.gmane.org%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Jörg Schaible &lt;Joerg.Schai...@scalaris.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Inject maven dependencies programatically through plug-in</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Mon, 07 May 2012 06:32:34 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hi
+
+gevaudan wrote:
+
+&gt; Is there a way to inject dependencies programatically in a maven plugin as
+&gt; if
+&gt; they were declared in the POM itself?  I only found one post discussing
+&gt; this and it did not help.
+&gt; 
+&gt; Why do I want to do this?
+&gt; 
+&gt; Assume I have a fruit pom which imports a bom-pom which declares version
+&gt; numbers for fruits, vegetables and other artifacts.  Example:
+&gt; 
+&gt; fruit pom:
+&gt; 
+&gt; &lt;dependencyManagement&gt;
+&gt;   &lt;dependencies&gt;
+&gt;     &lt;dependency&gt;
+&gt;       &lt;groupId&gt;com&lt;/groupId&gt;
+&gt;       &lt;artifactId&gt;foods&lt;/artifactId&gt;
+&gt;       &lt;version&gt;10.0-SNAPSHOT&lt;/version&gt;
+&gt;       &lt;type&gt;pom&lt;/type&gt;
+&gt;       &lt;scope&gt;import&lt;/scope&gt;
+&gt;     &lt;/dependency&gt;
+&gt;   &lt;/dependencies&gt;
+&gt; &lt;/dependencyManagement&gt;
+&gt; &lt;dependencies&gt;
+&gt;   &lt;dependency&gt;
+&gt;     &lt;groupid&gt;com&lt;/groupId&gt;
+&gt;     &lt;artifactId&gt;apple&lt;/artifactId&gt;
+&gt;     &lt;classifier&gt;fruit&lt;/classifier&gt;
+&gt;   &lt;/dependency&gt;
+&gt;   &lt;dependency&gt;
+&gt;     &lt;groupid&gt;com&lt;/groupId&gt;
+&gt;     &lt;artifactId&gt;orange&lt;/artifactId&gt;
+&gt;     &lt;classifier&gt;fruit&lt;/classifier&gt;
+&gt;   &lt;/dependency&gt;
+&gt; &lt;/dependencies&gt;
+&gt; 
+&gt; food pom:
+&gt; 
+&gt; &lt;dependencies&gt;
+&gt;   &lt;dependency&gt;
+&gt;     &lt;groupid&gt;com&lt;/groupId&gt;
+&gt;     &lt;artifactId&gt;apple&lt;/artifactId&gt;
+&gt;     &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+&gt;     &lt;classifier&gt;fruit&lt;/classifier&gt;
+&gt;   &lt;/dependency&gt;
+&gt;   &lt;dependency&gt;
+&gt;     &lt;groupid&gt;com&lt;/groupId&gt;
+&gt;     &lt;artifactId&gt;orange&lt;/artifactId&gt;
+&gt;     &lt;version&gt;2.0-SNAPSHOT&lt;/version&gt;
+&gt;     &lt;classifier&gt;fruit&lt;/classifier&gt;
+&gt;   &lt;/dependency&gt;
+&gt;   &lt;dependency&gt;
+&gt;     &lt;groupid&gt;com&lt;/groupId&gt;
+&gt;     &lt;artifactId&gt;artichoke&lt;/artifactId&gt;
+&gt;     &lt;version&gt;3.0-SNAPSHOT&lt;/version&gt;
+&gt;     &lt;classifier&gt;vegetable&lt;/classifier&gt;
+&gt;   &lt;/dependency&gt;
+&gt;   &lt;dependency&gt;
+&gt;     &lt;groupid&gt;com&lt;/groupId&gt;
+&gt;     &lt;artifactId&gt;asparagus&lt;/artifactId&gt;
+&gt;     &lt;version&gt;4.0-SNAPSHOT&lt;/version&gt;
+&gt;     &lt;classifier&gt;vegetable&lt;/classifier&gt;
+&gt;   &lt;/dependency&gt;
+&gt; &lt;/dependencies&gt;
+&gt; 
+&gt; The fruit pom only needs to inject dependencies that have a classifier of
+&gt; type fruit.  The goal is to do this programatically so user's do not have
+&gt; to edit multiple pom files when adding a new dependency.
+&gt; 
+&gt; The real use case is more complicated than this but I hope the above
+&gt; example gets at the heart of the question.
+&gt; 
+&gt; I understand I can use the maven model api to read and write poms but that
+&gt; seems to require an intermediate step and perhaps a second instance of
+&gt; maven
+&gt; to be spawned in order to consume the intermediate pom.  Ideally I would
+&gt; like to avoid this step and inject dependencies programatically into the
+&gt; pom
+&gt; which declares the plugin-in itself.  Is this even possible or is the pom
+&gt; immutable?
+
+Look at the following code snippet, it should give you the idea:
+
+================== %&lt; =================
+/**
+ * The maven project.
+ *
+ * @parameter   expression="${project}"
+ * @required
+ * @readonly
+ * @description "the maven project to use"
+ */
+private MavenProject project;
+
+/**
+ * Used to look up Artifacts in the remote repository.
+ *
+ * @component role="org.apache.maven.artifact.factory.ArtifactFactory"
+ * @required
+ * @readonly
+ */
+protected ArtifactFactory factory;
+
+/**
+ * Used to look up Artifacts in the remote repository.
+ *
+ * @component role="org.apache.maven.artifact.resolver.ArtifactResolver"
+ * @required
+ * @readonly
+ */
+protected ArtifactResolver resolver;
+
+/**
+ * Location of the local repository.
+ *
+ * @parameter expression="${localRepository}"
+ * @readonly
+ * @required
+ */
+protected ArtifactRepository local;
+
+/**
+ * List of Remote Repositories used by the resolver
+ *
+ * @parameter expression="${project.remoteArtifactRepositories}"
+ * @readonly
+ * @required
+ */
+protected List&lt;?&gt; remoteRepos;
+
+
+public void execute() throws MojoExecutionException, MojoFailureException
+{
+  List&lt;Artifact&gt; vegetables = new ArrayList&lt;Artifact&gt;();
+  @SuppressWarnings("unchecked")
+  final Set&lt;Artifact&gt; dependencies = project.getArtifacts();
+  if (dependencies != null &amp;&amp; !dependencies.isEmpty()) {
+    for (final Artifact artifact : dependencies) {
+      if (artifact.getClassifier().equals("vegetable") {
+        vegetables.add(artifact);
+        break;
+      }
+    }
+  }
+  if (vegetables.isEmpty()) {
+    throw new MojoFailureException("There is no vegetable dependency");
+  }
+  for(final Artifact vegetable : vegetables) {
+    final File vegetable = serviceEjb.getFile();
+    final Artifact descriptors = 
+      factory.createArtifactWithClassifier(
+        vegetable.getGroupId(), vegetable.getArtifactId(),
+        vegetable.getVersion(), "jar", "fruit");
+    descriptors.setScope(Artifact.SCOPE_PROVIDED);
+    final String descriptorFileName = 
+      vegetable.getName().substring(0, vegetable.getName().length()
+        - vegetable.getArtifactHandler().getExtension().length() - 1)
+      + "-fruit." + descriptors.getArtifactHandler().getExtension();
+    final File descriptorsFile = new File(vegetable.getParentFile(),
+      descriptorFileName);
+    if (descriptorsFile.isFile()) { // file in current build ?
+      descriptors.setFile(descriptorsFile);
+      descriptors.setResolved(true);
+    } else {
+      try {
+        resolver.resolve(descriptors, remoteRepos, local);
+      } catch (final ArtifactResolutionException e) {
+        throw new MojoExecutionException("Unable to resolve artifact.", e);
+      } catch (final ArtifactNotFoundException e) {
+        throw new MojoExecutionException("Unable to find artifact.", e);
+      }
+    }
+
+    final File file = descriptors.getFile();
+    if (!file.isFile()) {
+      throw new MojoFailureException("Fruit is missing: "
+        + file.getAbsolutePath());
+    }
+    // do what you have to do
+  }
+}
+================== %&lt; =================
+
+Hope this helps,
+Jörg
+
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201205.mbox/raw/%3cjo7qa2$84r$1@dough.gmane.org%3e/">Unnamed text/plain</a> (inline, 8-Bit, 5745 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201205.mbox/raw/%3cjo7qa2$84r$1@dough.gmane.org%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

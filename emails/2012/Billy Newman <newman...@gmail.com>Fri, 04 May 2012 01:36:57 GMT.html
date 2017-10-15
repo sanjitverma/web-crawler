@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>using maven modules</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201205.mbox/%3cCAO+CkK7M9p3mpu8fXYML-W02_52i9y5QY-hcK8G+Qj3rL=yRnA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cCACpkv-yrJTws67dEiEVjQd_M7w=fh6wfnW1r42drXLWDPaoTRw@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201205.mbox/%3cCAO+CkK7M9p3mpu8fXYML-W02_52i9y5QY-hcK8G+Qj3rL=yRnA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cCACpkv-yrJTws67dEiEVjQd_M7w=fh6wfnW1r42drXLWDPaoTRw@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201205.mbox/%3cCAO+CkK7M9p3mpu8fXYML-W02_52i9y5QY-hcK8G+Qj3rL=yRnA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cCACpkv-yrJTws67dEiEVjQd_M7w=fh6wfnW1r42drXLWDPaoTRw@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201205.mbox/%3cCAO+CkK7M9p3mpu8fXYML-W02_52i9y5QY-hcK8G+Qj3rL=yRnA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cCACpkv-yrJTws67dEiEVjQd_M7w=fh6wfnW1r42drXLWDPaoTRw@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Billy Newman &lt;newman...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">using maven modules</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Fri, 04 May 2012 01:36:57 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+A while back I had some questions about building some jars that only differ
+in the properties files stored in the jar.  I was going to use classifiers
+to differentiate the jars but was advised against it.
+
+My company has many, many different deployments and for these jars they
+want to keep the properties file packaged with the jars.
+
+I was think about maybe having a parent project that contains the java
+source (since the code is the same for each jar).  Then maybe child modules
+that have the properties files in the resources directory.  Then each child
+module can build the java code and throw in the properties file ( i dont
+really care that if I build the same byte code many time as the build is
+very fast).  This idea came to mind because I have unit tests for the jar
+files that test the code against the different properties files.  I.E. when
+I build the source and throw in the properties the unit test will run).  So
+each module will run the unit tests against its property file.
+
+Unfortunately my idea only really works in my head.  My problem is that the
+parent module cannot contain the java source code as the parent module
+needs to be a pom.
+
+Any one have any ideas on how I can setup my maven project hierarchy such
+that the code lives in one place and the resources live in another (maybe a
+child module).  Such that when I build I build from the same source each
+time but insert a different properties file, then test each one.
+
+I think they can all live in one group, but have different artifactids:
+ie. group - com.test.module
+artifacts - module-type1.jar, module-type2.jar, module-type3.jar
+
+Thanks in advance for any ideas.
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201205.mbox/raw/%3cCAD34qgnG-B+MPEAvGpk-mzG3fpRsUvdNc97OVnJVV+hJs-bSyQ@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 1651 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201205.mbox/raw/%3cCAD34qgnG-B+MPEAvGpk-mzG3fpRsUvdNc97OVnJVV+hJs-bSyQ@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

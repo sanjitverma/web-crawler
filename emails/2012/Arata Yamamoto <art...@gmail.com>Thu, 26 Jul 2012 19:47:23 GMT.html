@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Unexpected and not-intentional switching of thread during a test method execution by maven-surefire-plugin</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201207.mbox/%3c00aa01cd6b57$58865da0$099318e0$@eu%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCALy+7Unoj7r41A5M37C99AZZFe2r_sca9WO-yXiZs-UfzCLRXg@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201207.mbox/%3c81d7ad05-1041-4372-88a5-ba37f87472df@husmusen%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCALy+7Uk2dGXhNERf6D=zMnoZ19kV1btwJ9eBY+LXy+H+WoLFmw@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201207.mbox/%3c00aa01cd6b57$58865da0$099318e0$@eu%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCALy+7Unoj7r41A5M37C99AZZFe2r_sca9WO-yXiZs-UfzCLRXg@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201207.mbox/%3c81d7ad05-1041-4372-88a5-ba37f87472df@husmusen%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCALy+7Uk2dGXhNERf6D=zMnoZ19kV1btwJ9eBY+LXy+H+WoLFmw@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Arata Yamamoto &lt;art...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Unexpected and not-intentional switching of thread during a test method execution by maven-surefire-plugin</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Thu, 26 Jul 2012 19:47:23 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Dear group,
+
+I would like to know whether the maven-surefire-plugin has been designed to
+use multi threads automatically if possible during a test method execution?
+(Please allow me to remind that I'm using default setting of
+maven-surefire-plugin other than include and exclude optional parameters.)
+If so, then how to disable it?
+
+I'm facing the test failure caused by unexpected and not-my-intentional
+switching of thread during a test method execution by surefire.
+
+- Regarding the cause of the test failure:
+The module under test is the event manager (utilizing AspectJ) that has one
+of the features to decide whether handing over the event to object only
+when the object has been instantiated in the same thread what yields the
+event.
+And the test failed because, in the middle of the test method execution,
+other thread takes over the execution; I didn't expect this. Hence, the
+event wasn't handed over to the object and ended as the test failure.
+Please also take a look at the test method code and the test method log
+snippet sections below for more info.
+
+- Regarding reproduce-ability:
+It always seems repro (when that test method is executed as a part of whole
+test set).
+This symptom causing the failure seems not to occur when I make the
+surefire run only that test class or method but the rest of tests by using
+-Dtest command line option.
+Also, I didn't encounter this failure with the Eclipse's JUnit runner.
+
+- Regarding configuration:
+Maven version 3.0.1
+maven-surefire-plugin version 2.11
+I haven't set other than exclude and include optional parameters of
+surefire.
+JUnit 4.10
+So, I believe that surefire is using junit 4 provider.
+JRE version 1.6
+OS: Windows XP
+
+- Test method code snippet
+// Test for field event from inherited field
+--------------------------------------------------
+@Test
+public void testFieldEventFromChildEventProducer1() throws Throwable {
+    // Instantiate EventRecipient object
+------------------------------------------------------
+    Object eventRecipientObj
+    = EventManagerTestUtils.eventRecipientFactory(
+childDelegationClassLoader);
+    //
+----------------------------------------------------------------------------------------
+    // Instantiate EventRecipientChild object
+-------------------------------------------------
+// !!! According to test log, the thread was switched at here unexpectedly
+!!!
+    Object eventRecipientChildObj
+    = EventManagerTestUtils.eventRecipientChildFactory(
+childDelegationClassLoader);
+    //
+----------------------------------------------------------------------------------------
+    // Instantiate EventRecipientGrandChild object
+--------------------------------------------
+    Object eventRecipientGrandChildObj
+    = EventManagerTestUtils.eventRecipientGrandChildFactory(
+childDelegationClassLoader);
+    //
+----------------------------------------------------------------------------------------
+
+    // Execute EventProducer.setPrice method
+-------------------------------------------------
+    Object childEventProducer1Obj
+    = EventManagerTestUtils.childEventProducer1Factory(
+childDelegationClassLoader);
+    Method setPriceMethod
+    = EventManagerTestUtils.getEventProducerSetPriceMethod(
+            EventManagerTestUtils.getEventProducerClass(
+childDelegationClassLoader)
+            );
+    int priceValue = 88;
+    setPriceMethod.invoke( childEventProducer1Obj, priceValue);
+    //
+----------------------------------------------------------------------------------------
+
+    // Verifying methods executed
+-------------------------------------------------------------
+    Assert.assertEquals(
+            EventManagerTestUtils.getEventTraceListDump( eventTraceList) +
+"\n",
+            4,
+            eventTraceList.size()
+            );
+    ...
+
+
+- Test method log snippet when it's failed
+21:15:11.250 [main] DEBUG c.n.a.eventmanager.EventHandler -
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipient.&lt;clinit&gt;
+has been picked up (by AspectJ's staticinitialization) as annotated with
+@EventListener
+21:15:11.343 [main] DEBUG c.n.a.eventmanager.EventHandler - added void
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipient.onCalculationCompletion(com.newmainsoftech.aspectjutil.eventmanager.EventInfo)
+method to list of methods annotated with @OnEvent for [class
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$CalculationEvent]
+event(s)
+21:15:11.343 [main] DEBUG c.n.a.eventmanager.EventHandler - added protected
+static void
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipient.staticListenerOfCalculationCompletion(com.newmainsoftech.aspectjutil.eventmanager.EventInfo)
+static method to list of methods annotated with @OnEvent for [class
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$CalculationEvent]
+event(s)
+21:15:11.343 [main] DEBUG c.n.a.eventmanager.EventHandler - added protected
+static void
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipient.staticListenerOfPriceChange(com.newmainsoftech.aspectjutil.eventmanager.EventInfo)
+static method to list of methods annotated with @OnEvent for [class
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$PriceChange]
+event(s)
+21:15:11.359 [main] DEBUG c.n.a.eventmanager.EventHandler - added void
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipient.onPriceChange(com.newmainsoftech.aspectjutil.eventmanager.EventInfo)
+method to list of methods annotated with @OnEvent for [class
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$PriceChange]
+event(s)
+
+/* !!! Here it changed thread unexpectedly from main thread to Thread-1
+thread !!! */
+
+21:15:11.375 [Thread-1] DEBUG c.n.a.eventmanager.EventHandler -
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipientChild.&lt;clinit&gt;
+has been picked up (by AspectJ's staticinitialization) as annotated with
+@EventListener
+21:15:11.375 [Thread-1] DEBUG c.n.a.eventmanager.EventHandler - added
+public static void
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipientChild.staticListenerOfCalculationCompletion(com.newmainsoftech.aspectjutil.eventmanager.EventInfo)
+static method to list of methods annotated with @OnEvent for [class
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$CalculationEvent]
+event(s)
+21:15:11.375 [Thread-1] DEBUG c.n.a.eventmanager.EventHandler - added void
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipientChild.onCalculationCompletion(com.newmainsoftech.aspectjutil.eventmanager.EventInfo)
+method to list of methods annotated with @OnEvent for [class
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$CalculationEvent]
+event(s)
+21:15:11.390 [Thread-1] DEBUG c.n.a.eventmanager.EventHandler - added
+protected static void
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipient.staticListenerOfCalculationCompletion(com.newmainsoftech.aspectjutil.eventmanager.EventInfo)
+static method to list of methods annotated with @OnEvent for [class
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$CalculationEvent]
+event(s)
+21:15:11.390 [Thread-1] DEBUG c.n.a.eventmanager.EventHandler - added
+protected static void
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipient.staticListenerOfPriceChange(com.newmainsoftech.aspectjutil.eventmanager.EventInfo)
+static method to list of methods annotated with @OnEvent for [class
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$PriceChange]
+event(s)
+21:15:11.390 [Thread-1] DEBUG c.n.a.eventmanager.EventHandler -
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipientGrandChild.&lt;clinit&gt;
+has been picked up (by AspectJ's staticinitialization) as annotated with
+@EventListener
+21:15:11.390 [Thread-1] DEBUG c.n.a.eventmanager.EventHandler - added
+public void
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipientGrandChild.onCalculationCompletion(com.newmainsoftech.aspectjutil.eventmanager.EventInfo)
+method to list of methods annotated with @OnEvent for [] event(s)
+21:15:11.390 [Thread-1] DEBUG c.n.a.eventmanager.EventHandler - added
+public void
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipientGrandChild.onPriceChange(com.newmainsoftech.aspectjutil.eventmanager.EventInfo)
+method to list of methods annotated with @OnEvent for [class
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$PriceChange]
+event(s)
+21:15:11.390 [Thread-1] DEBUG c.n.a.eventmanager.EventHandler - added
+protected static void
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipientGrandChild.staticListenerOfBothEvents(com.newmainsoftech.aspectjutil.eventmanager.EventInfo)
+static method to list of methods annotated with @OnEvent for [class
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$CalculationEvent,
+class
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$PriceChange]
+event(s)
+21:15:11.390 [Thread-1] DEBUG c.n.a.eventmanager.EventHandler - added
+public static void
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipientChild.staticListenerOfCalculationCompletion(com.newmainsoftech.aspectjutil.eventmanager.EventInfo)
+static method to list of methods annotated with @OnEvent for [class
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$CalculationEvent]
+event(s)
+21:15:11.406 [Thread-1] DEBUG c.n.a.eventmanager.EventHandler - added
+protected static void
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipient.staticListenerOfCalculationCompletion(com.newmainsoftech.aspectjutil.eventmanager.EventInfo)
+static method to list of methods annotated with @OnEvent for [class
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$CalculationEvent]
+event(s)
+21:15:11.406 [Thread-1] DEBUG c.n.a.eventmanager.EventHandler - added
+protected static void
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipient.staticListenerOfPriceChange(com.newmainsoftech.aspectjutil.eventmanager.EventInfo)
+static method to list of methods annotated with @OnEvent for [class
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$PriceChange]
+event(s)
+21:15:11.437 [Thread-1] DEBUG c.n.a.e.t.EventProducerByStaticField -
+Executing
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventProducerByStaticField.setPrice(EventProducerByStaticField.java:17)
+21:15:11.453 [Thread-1] DEBUG c.n.a.eventmanager.EventHandler - Going to
+execute @PreEvent type event listener method(s) for
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$PriceChange
+event prior to setting value to the field below:
+Type: no type info
+Signature: int
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventProducerByStaticField.price
+Arguments: ( 88 )
+Called from:
+
+21:15:11.484 [Thread-1] DEBUG c.n.a.eventmanager.EventHandler - No
+@PreEvent type listener for
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$PriceChange
+event
+21:15:11.484 [Thread-1] DEBUG c.n.a.eventmanager.EventHandler - Going to
+execute @OnEvent type event listener method(s) for
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$PriceChange
+event triggered from setting value to the field below:
+Type: no type info
+Signature: int
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventProducerByStaticField.price
+Arguments: ( 88 )
+Called from:
+
+21:15:11.484 [Thread-1] DEBUG c.n.a.eventmanager.EventHandler - Invoked
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipientGrandChild.staticListenerOfBothEvents
+event-listener static method (annotated with @OnEvent) at
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$PriceChange
+event
+21:15:11.500 [Thread-1] DEBUG c.n.a.e.EventListenerInstanceTracker -
+Listers of event:
+{com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipient@8c1dd9
+=1}
+21:15:11.500 [Thread-1] INFO  c.n.a.eventmanager.EventHandler -
+amongInstancesInThread attribute setting of @OnEvent annotation is ignored
+as
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipient.staticListenerOfPriceChange
+is static method.
+21:15:11.500 [Thread-1] DEBUG c.n.a.eventmanager.EventHandler - Invoked
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipient.staticListenerOfPriceChange
+event-listener static method (annotated with @OnEvent) at
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$PriceChange
+event
+21:15:11.500 [Thread-1] DEBUG c.n.a.e.EventListenerInstanceTracker -
+Listers of event:
+{com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipientGrandChild@1d64c37
+=9}
+21:15:11.500 [Thread-1] DEBUG c.n.a.eventmanager.EventHandler - Invoked
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipientGrandChild.onPriceChange
+event-listener method (annotated with @OnEvent) of
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipientGrandChild@1d64c37instance
+at
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$PriceChange
+event
+
+Tests run: 5, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 2.5 sec &lt;&lt;&lt;
+FAILURE!
+...
+Results :
+
+Failed tests:
+testFieldEventFromChildEventProducer1(com.newmainsoftech.aspectjutil.eventmanager.EventHandlerTestWithEventRecipientGrandChild):
+Executed listen(..)
+
+Tests run: 14, Failures: 1, Errors: 0, Skipped: 0
+
+
+- Test method log snippet when the test method succeeds at having executed
+as single individual test by specifying that test method with -Dtest
+command line option
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running
+com.newmainsoftech.aspectjutil.eventmanager.EventHandlerTestWithEventRecipientGrandChild
+08:15:43.109 [main] DEBUG c.n.a.eventmanager.EventHandler -
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipient.&lt;clinit&gt;
+has been picked up (by AspectJ's staticinitialization) as annotated with
+@EventListener
+08:15:44.203 [main] DEBUG c.n.a.eventmanager.EventHandler - added void
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipient.onCalculationCompletion(com.newmainsoftech.aspectjutil.eventmanager.EventInfo)
+method to list of methods annotated with @OnEvent for [class
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$CalculationEvent]
+event(s)
+08:15:44.218 [main] DEBUG c.n.a.eventmanager.EventHandler - added protected
+static void
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipient.staticListenerOfCalculationCompletion(com.newmainsoftech.aspectjutil.eventmanager.EventInfo)
+static method to list of methods annotated with @OnEvent for [class
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$CalculationEvent]
+event(s)
+08:15:44.218 [main] DEBUG c.n.a.eventmanager.EventHandler - added protected
+static void
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipient.staticListenerOfPriceChange(com.newmainsoftech.aspectjutil.eventmanager.EventInfo)
+static method to list of methods annotated with @OnEvent for [class
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$PriceChange]
+event(s)
+08:15:44.218 [main] DEBUG c.n.a.eventmanager.EventHandler - added void
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipient.onPriceChange(com.newmainsoftech.aspectjutil.eventmanager.EventInfo)
+method to list of methods annotated with @OnEvent for [class
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$PriceChange]
+event(s)
+
+/* !!! No switching thread from main thread !!! */
+
+08:15:44.281 [main] DEBUG c.n.a.eventmanager.EventHandler -
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipientChild.&lt;clinit&gt;
+has been picked up (by AspectJ's staticinitialization) as annotated with
+@EventListener
+08:15:44.281 [main] DEBUG c.n.a.eventmanager.EventHandler - added public
+static void
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipientChild.staticListenerOfCalculationCompletion(com.newmainsoftech.aspectjutil.eventmanager.EventInfo)
+static method to list of methods annotated with @OnEvent for [class
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$CalculationEvent]
+event(s)
+08:15:44.281 [main] DEBUG c.n.a.eventmanager.EventHandler - added void
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipientChild.onCalculationCompletion(com.newmainsoftech.aspectjutil.eventmanager.EventInfo)
+method to list of methods annotated with @OnEvent for [class
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$CalculationEvent]
+event(s)
+08:15:44.296 [main] DEBUG c.n.a.eventmanager.EventHandler - added protected
+static void
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipient.staticListenerOfCalculationCompletion(com.newmainsoftech.aspectjutil.eventmanager.EventInfo)
+static method to list of methods annotated with @OnEvent for [class
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$CalculationEvent]
+event(s)
+08:15:44.296 [main] DEBUG c.n.a.eventmanager.EventHandler - added protected
+static void
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipient.staticListenerOfPriceChange(com.newmainsoftech.aspectjutil.eventmanager.EventInfo)
+static method to list of methods annotated with @OnEvent for [class
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$PriceChange]
+event(s)
+08:15:44.312 [main] DEBUG c.n.a.eventmanager.EventHandler -
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipientGrandChild.&lt;clinit&gt;
+has been picked up (by AspectJ's staticinitialization) as annotated with
+@EventListener
+08:15:44.312 [main] DEBUG c.n.a.eventmanager.EventHandler - added public
+void
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipientGrandChild.onCalculationCompletion(com.newmainsoftech.aspectjutil.eventmanager.EventInfo)
+method to list of methods annotated with @OnEvent for [] event(s)
+08:15:44.312 [main] DEBUG c.n.a.eventmanager.EventHandler - added public
+void
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipientGrandChild.onPriceChange(com.newmainsoftech.aspectjutil.eventmanager.EventInfo)
+method to list of methods annotated with @OnEvent for [class
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$PriceChange]
+event(s)
+08:15:44.312 [main] DEBUG c.n.a.eventmanager.EventHandler - added protected
+static void
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipientGrandChild.staticListenerOfBothEvents(com.newmainsoftech.aspectjutil.eventmanager.EventInfo)
+static method to list of methods annotated with @OnEvent for [class
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$CalculationEvent,
+class
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$PriceChange]
+event(s)
+08:15:44.328 [main] DEBUG c.n.a.eventmanager.EventHandler - added public
+static void
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipientChild.staticListenerOfCalculationCompletion(com.newmainsoftech.aspectjutil.eventmanager.EventInfo)
+static method to list of methods annotated with @OnEvent for [class
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$CalculationEvent]
+event(s)
+08:15:44.328 [main] DEBUG c.n.a.eventmanager.EventHandler - added protected
+static void
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipient.staticListenerOfCalculationCompletion(com.newmainsoftech.aspectjutil.eventmanager.EventInfo)
+static method to list of methods annotated with @OnEvent for [class
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$CalculationEvent]
+event(s)
+08:15:44.359 [main] DEBUG c.n.a.eventmanager.EventHandler - added protected
+static void
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipient.staticListenerOfPriceChange(com.newmainsoftech.aspectjutil.eventmanager.EventInfo)
+static method to list of methods annotated with @OnEvent for [class
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$PriceChange]
+event(s)
+08:15:44.421 [main] DEBUG c.n.a.e.testmodels.EventProducer - Executing
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventProducer.setPrice(EventProducer.java:20)
+
+08:15:44.468 [main] DEBUG c.n.a.eventmanager.EventHandler - Going to
+execute @PreEvent type event listener method(s) for
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$PriceChange
+event prior to setting value to the field below:
+Type:
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.ChildEventProducer1
+Signature: int
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventProducer.price
+Arguments: ( 88 )
+Called from:
+
+08:15:44.484 [main] DEBUG c.n.a.eventmanager.EventHandler - No @PreEvent
+type listener for
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$PriceChange
+event
+08:15:44.500 [main] DEBUG c.n.a.eventmanager.EventHandler - Going to
+execute @OnEvent type event listener method(s) for
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$PriceChange
+event triggered from setting value to the field below:
+Type:
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.ChildEventProducer1
+Signature: int
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventProducer.price
+Arguments: ( 88 )
+Called from:
+
+08:15:44.500 [main] DEBUG c.n.a.eventmanager.EventHandler - Invoked
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipientGrandChild.staticListenerOfBothEvents
+event-listener static method (annotated with @OnEvent) at
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$PriceChange
+event
+08:15:44.531 [main] DEBUG c.n.a.e.EventListenerInstanceTracker - Listers of
+event:
+{com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipient@1617189
+=1}
+08:15:44.531 [main] DEBUG c.n.a.eventmanager.EventHandler - Invoked
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipient.onPriceChange
+event-listener method (annotated with @OnEvent) of
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipient@1617189instance
+at
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$PriceChange
+event
+08:15:44.546 [main] INFO  c.n.a.eventmanager.EventHandler -
+amongInstancesInThread attribute setting of @OnEvent annotation is ignored
+as
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipient.staticListenerOfPriceChange
+is static method.
+08:15:44.546 [main] DEBUG c.n.a.eventmanager.EventHandler - Invoked
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipient.staticListenerOfPriceChange
+event-listener static method (annotated with @OnEvent) at
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$PriceChange
+event
+08:15:44.546 [main] DEBUG c.n.a.e.EventListenerInstanceTracker - Listers of
+event:
+{com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipientGrandChild@95c083
+=1}
+08:15:44.546 [main] DEBUG c.n.a.eventmanager.EventHandler - Invoked
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipientGrandChild.onPriceChange
+event-listener method (annotated with @OnEvent) of
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.EventRecipientGrandChild@95c083instance
+at
+com.newmainsoftech.aspectjutil.eventmanager.testmodels.SampleEventClass$PriceChange
+event
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.328 sec
+
+Results :
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+
+Regards,
+Arata
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201207.mbox/raw/%3cCAOoOKQ-vu829GMyOQa9QR3o6L-SALn8Qor=DopL7zFc-0mS78g@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 23655 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201207.mbox/raw/%3cCAOoOKQ-vu829GMyOQa9QR3o6L-SALn8Qor=DopL7zFc-0mS78g@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: convert Ant script to Maven</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201205.mbox/%3c1336652327013-5700048.post@n5.nabble.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cCAH9u10mji=pQfAcaXD674sEFEA+TsCcT0e3JUdgiVNVFNGDoPg@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201205.mbox/%3c1336652327013-5700048.post@n5.nabble.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cCAH9u10mji=pQfAcaXD674sEFEA+TsCcT0e3JUdgiVNVFNGDoPg@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201205.mbox/%3c1336652327013-5700048.post@n5.nabble.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cCAH9u10mji=pQfAcaXD674sEFEA+TsCcT0e3JUdgiVNVFNGDoPg@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201205.mbox/%3c1336652327013-5700048.post@n5.nabble.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cCAH9u10mji=pQfAcaXD674sEFEA+TsCcT0e3JUdgiVNVFNGDoPg@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Antonio Petrelli &lt;antonio.petre...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: convert Ant script to Maven</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Thu, 10 May 2012 12:29:07 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+2012/5/10 chavanmukeshp &lt;mukesh.chavan@igate.com&gt;
+
+&gt; Hello Friends,
+&gt;
+&gt; Can you please suggest me how to convert below ant target into maven,
+&gt;
+&gt; &lt;target name="InitialiseContext"&gt;
+&gt;
+&gt;              &lt;java classname=&amp;quot;com.exceptions.ExceptionHandler&amp;quot;
+&gt;
+&gt;              &amp;lt;arg value=”initializeContext”&amp;lt;/&gt;
+&gt;
+&gt; &lt;arg value=${bldReqPath}/&gt;
+&gt;
+&gt; &lt;/java&gt;
+&gt;
+&gt;  &lt;/target&gt;
+&gt;
+
+No straight conversion, but I suppose you need the Exec Maven plugin:
+http://mojo.codehaus.org/exec-maven-plugin/
+
+Antonio
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201205.mbox/raw/%3cCAHTRneyRKfqXxXzeHCU2GUQDBcgiTH8dpg-Hc6n2uAfrNyAwxQ@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, Quoted Printable, 513 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201205.mbox/raw/%3cCAHTRneyRKfqXxXzeHCU2GUQDBcgiTH8dpg-Hc6n2uAfrNyAwxQ@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

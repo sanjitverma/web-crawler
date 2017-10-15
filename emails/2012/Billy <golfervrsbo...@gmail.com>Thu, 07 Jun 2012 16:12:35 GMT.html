@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>forkMode always ignores groups?</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201206.mbox/%3c4FD0D02B.8090100@artifact-software.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201206.mbox/%3cCALhtWkeaGgE0EHegcWoJjy8NX-tGH75RqqhBqEjUos5YpVxhyA@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201206.mbox/%3cCAGZ5p6+SmBGu1tKXK2=Gygmmsw7eJEmpLijQFEr1gnpt5ejTHw@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201206.mbox/%3cCALcFPWF4jnzTQe+PX4HDn+XuzFnqmoX2Jr0pYCKx4d=vT2Y61w@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201206.mbox/%3c4FD0D02B.8090100@artifact-software.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201206.mbox/%3cCALhtWkeaGgE0EHegcWoJjy8NX-tGH75RqqhBqEjUos5YpVxhyA@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201206.mbox/%3cCAGZ5p6+SmBGu1tKXK2=Gygmmsw7eJEmpLijQFEr1gnpt5ejTHw@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201206.mbox/%3cCALcFPWF4jnzTQe+PX4HDn+XuzFnqmoX2Jr0pYCKx4d=vT2Y61w@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Billy &lt;golfervrsbo...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">forkMode always ignores groups?</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Thu, 07 Jun 2012 16:12:35 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+I am trying to separate my unit and integration tests into testng groups. I
+have them separated into different executions the maven-surefire-plugin
+section of the pom (included at the bottom of this message).
+
+When forkMode is set to never, the grouping is obeyed however in the tests
+the @Before* methods are never executed.
+
+When forkMode is set to always the @Before* methods are executed exactly as
+expected, but the grouping is not obeyed (it runs the integration and unit
+groups as part of the default execution).
+
+This seems to be the way the plugin wants to behave since I cannot find
+anything to tweak that will make it work. My question is, how can I get the
+@Before* methods to work AND have it obey the groupings.
+
+Versions:
+maven 2.2.1
+testng 5.11
+surefire-plugin 2.7.1
+
+and finally, the plugin configuration:
+&lt;plugin&gt;
+	&lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+	&lt;version&gt;2.7.1&lt;/version&gt;
+	&lt;configuration&gt;
+		&lt;groups&gt;unit&lt;/groups&gt;
+		&lt;forkMode&gt;always&lt;/forkMode&gt;
+		&lt;excludeGroups&gt;integration&lt;/excludeGroups&gt;
+	&lt;/configuration&gt;
+	&lt;executions&gt;
+		&lt;execution&gt;
+		&lt;id&gt;integration-test&lt;/id&gt;
+		&lt;phase&gt;integration-test&lt;/phase&gt;
+		&lt;goals&gt;
+			&lt;goal&gt;test&lt;/goal&gt;
+		&lt;/goals&gt;
+			&lt;configuration&gt;
+				&lt;groups&gt;integration&lt;/groups&gt;
+			&lt;/configuration&gt;
+		&lt;/execution&gt;
+	&lt;/executions&gt;
+&lt;/plugin&gt;
+
+
+--
+View this message in context: http://maven.40175.n5.nabble.com/forkMode-always-ignores-groups-tp5710956.html
+Sent from the Maven - Users mailing list archive at Nabble.com.
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201206.mbox/raw/%3c1339085555053-5710956.post@n5.nabble.com%3e/">Unnamed text/plain</a> (inline, 7-Bit, 1655 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201206.mbox/raw/%3c1339085555053-5710956.post@n5.nabble.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

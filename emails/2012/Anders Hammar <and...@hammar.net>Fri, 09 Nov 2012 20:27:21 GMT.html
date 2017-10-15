@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Maven 3.0.4 and maven-release-plugin 2.3.2</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201211.mbox/%3cCALy+7UkOwJVe8LLJGJSXQz08vnTTftOT3EZK1Gwo7qeOjbwpEg@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201211.mbox/%3c045C0444B9B4C044BA5864D0AF9BA8E6057DC4465B@casenet5.cninc.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201211.mbox/%3cCOL002-W113D81FCF380CEEC7EEA6DFBA680@phx.gbl%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201211.mbox/%3c5513E4AFB64FD641A093B3C629EC5A1A0239F5@MX104CL02.corp.emc.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201211.mbox/%3cCALy+7UkOwJVe8LLJGJSXQz08vnTTftOT3EZK1Gwo7qeOjbwpEg@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201211.mbox/%3c045C0444B9B4C044BA5864D0AF9BA8E6057DC4465B@casenet5.cninc.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201211.mbox/%3cCOL002-W113D81FCF380CEEC7EEA6DFBA680@phx.gbl%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201211.mbox/%3c5513E4AFB64FD641A093B3C629EC5A1A0239F5@MX104CL02.corp.emc.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Anders Hammar &lt;and...@hammar.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Maven 3.0.4 and maven-release-plugin 2.3.2</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Fri, 09 Nov 2012 20:27:21 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+I don't have the in-depth knowledge of the release-plugin, but I think that
+the problem might be that you don't have an aggregate build. So the
+dependency to commons in bizcore is actually referencing a SNAPSHOT version
+(the value of project.version). I would even go as far as if you don't have
+a multi-module build (an aggregating build), using the current project
+version number in the GAV of a dependency is weird.
+
+/Anders
+
+
+On Fri, Nov 9, 2012 at 4:19 PM, S I &lt;srexi@hotmail.com&gt; wrote:
+
+&gt;     I've recently upgraded to maven 3.0.4.  Things went smoothly, but to
+&gt; complete the upgrade I wanted to see how my release process worked on top
+&gt; of the latest maven edition.
+&gt;     I've run into some problems, and I'm in need of some advice.  I'm
+&gt; using maven 3.0.4 with maven-release-plugin 2.3.2.
+&gt;     My release process uses the maven release plugin in batch mode.  I
+&gt; supply command line arguments concerning the tag version and the next
+&gt; snapshot version.  I start the release with my base module (the project
+&gt; that all others depend on 'commons').  That release works great, scm is
+&gt; handled as expected.  When I move on to the next project ('bizcore')
+&gt; that is to be released, its dependency on 'commons' has become an issue.
+&gt; The second phase of release:prepare checks to make sure that there are no
+&gt; SNAPSHOT dependencies. The way I've referenced the dependency to 'commons'
+&gt; in 'bizcore' looks like this:
+&gt;
+&gt;     &lt;dependency&gt;
+&gt;         &lt;groupId&gt;com.mybiz&lt;/groupId&gt;
+&gt;         &lt;artifactId&gt;commons&lt;/artifactId&gt;
+&gt;         &lt;version&gt;${project.version}&lt;/version&gt;
+&gt;     &lt;/dependency&gt;
+&gt;
+&gt;     The expression ${project.version} is a change I made due to the upgrade
+&gt; to maven 3x.  It used to say ${version} (referecing the projet &lt;version/&gt;
+&gt; element), which I was warned about the first time I built the project.
+&gt; Maven suggested I make the above change so I complied.  I understand that
+&gt; ${project.version} property is going to eveluate to the current project
+&gt; version, which for 'bizcore' at the time of release is a SNAPSHOT version.
+&gt; This is where 'release:prepare' fails with:
+&gt;
+&gt; 'Can't release project due to non released dependencies'
+&gt;
+&gt;     This makes sense to me.  I understand why it's failing, but I'm not
+&gt; sure what I need to do to convince the release plugin to bump up the
+&gt; dependency version to the latest tag version of 'commons'.
+&gt;
+&gt;     I have been looking at the versions plugin, but that would suggest
+&gt; that I release my first project with the release plugin, move on to the
+&gt; next project where I would run the versions plugin to update dependencies,
+&gt; check those changes into SCM and then start to release my second project.
+&gt;
+&gt;     Is that the way I need to release now?  With maven 2.2.1 I could just
+&gt; roll through my projects with the release plugin in the correct order
+&gt; to release my project suite.  I feel like I'm missing something obvious,
+&gt; because I don't think that maven would change a process to involve another
+&gt; plugin.  Any advice would be appreciated.
+&gt;
+&gt; Thank you,
+&gt; srexi
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201211.mbox/raw/%3cCAKDUN1tX+u+hf__+-D3g0CiYep3=MXEMZGi82V+onMm5_J1viA@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 3041 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201211.mbox/raw/%3cCAKDUN1tX+u+hf__+-D3g0CiYep3=MXEMZGi82V+onMm5_J1viA@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

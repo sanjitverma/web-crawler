@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>RE: Comparing specifying repositories in pom vs. settings.xml?</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201610.mbox/%3cCAMBJEmW57UkgNDqn0trRv40JvEiaU63853eyos5zuSbRhta5Gw@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201610.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201610.mbox/%3c58062c01.c6212e0a.a96c8.17cc@mx.google.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201610.mbox/%3cCAMBJEmUnQQghvRdSB_hqx9rLd3REHfUO9XA6j=5vZ6=R11y1Sg@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201610.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201610.mbox/%3cCAFd2cZUOOW7NEFCrQmCCxYOqCY1ew0goXjmd6jkpwVpZTCNoHw@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201610.mbox/%3cCAMBJEmW57UkgNDqn0trRv40JvEiaU63853eyos5zuSbRhta5Gw@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201610.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201610.mbox/%3c58062c01.c6212e0a.a96c8.17cc@mx.google.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201610.mbox/%3cCAMBJEmUnQQghvRdSB_hqx9rLd3REHfUO9XA6j=5vZ6=R11y1Sg@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201610.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201610.mbox/%3cCAFd2cZUOOW7NEFCrQmCCxYOqCY1ew0goXjmd6jkpwVpZTCNoHw@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">&quot;Gopalakrishnan, Gopal (CORP)&quot; &lt;Gopal.Gopalakrish...@ADP.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">RE: Comparing specifying repositories in pom vs. settings.xml?</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Tue, 18 Oct 2016 14:04:04 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Is this similar to what I am experiencing? Perhaps not.
+
+My build fails when I change to jdk1.8. Works perfectly in jdk1.7 ... With no changes other
+than the change to the jdk ...
+
+Build fails ... cannot resolve dependency ...
+
+Any suggestions?
+
+-----Original Message-----
+From: Stian Soiland-Reyes [mailto:stain@apache.org] 
+Sent: Tuesday, October 18, 2016 8:00 AM
+To: Maven Users List
+Subject: Re: Comparing specifying repositories in pom vs. settings.xml?
+
+Yes, some years ago we did exactly this; most academic open source projects then didn't bother
+with Maven Central and we relied on 8 different open repositories around the world, often
+with dubious hostnames like
+rpc268.cs.example.edu:8080 -- this meant that although the build was reproducible for everyone
+at the time; often just one year down the line those repositories might have gone offline
+and caused long timeouts - or worse, serve a generic HTML page no matter what you request,
+giving checksum errors.
+
+So now the build of the old tag would fail, but worse, released modules that ultimately had
+that project pom as parent also started failing as dependency in newer code because those
+&lt;repositories&gt; are also consulted for transitive dependencies. (Even if that particular
+repo was not needed, Maven does not generally know which repo for which deps and consults
+all)
+
+So I would say, only add stable long-term repos to the parent pom, e.g.
+springsource or bintray repositories, while repo-of-the-day should be handled through a proxy
+Artifactory or Nexus server configured in .settings
+(enterprise) or top level pom (business open source), the proxy would then keep caches for
+a rainy day. Anything released open source should be pushed to Central (or at least a single
+place), even if it was made by someone who didn't bother themselves.
+
+On 18 Oct 2016 2:14 pm, "Curtis Rueden" &lt;ctrueden@wisc.edu&gt; wrote:
+
+&gt; &gt; I'm trying, without success, to imagine why you do not simply 
+&gt; &gt; accumulate &lt;server&gt; elements as required.
+&gt;
+&gt; Wouldn't that cause Maven to ping every server sequentially for every 
+&gt; needed artifact?
+&gt;
+&gt; Better to set up a Maven repository manager (Nexus, Artifactory, etc.) 
+&gt; and proxy all the needed sources, no? Then your settings.xml is always 
+&gt; constant, pointing at your master Nexus, which groups all your needed 
+&gt; repositories. Your build is reproducible and remains resilient to 
+&gt; otherwise disruptive remote repository changes -- as long as your 
+&gt; master Nexus does not change.
+&gt;
+&gt;
+&gt; On Tue, Oct 18, 2016 at 8:03 AM, Mark H. Wood &lt;mwood@iupui.edu&gt; wrote:
+&gt;
+&gt; &gt; On Mon, Oct 17, 2016 at 08:03:03PM +0000, KARR, DAVID wrote:
+&gt; &gt; &gt; One thing I run into when jumping between different projects is
+&gt; &gt; different expectations for what maven repos I need to be using.  In 
+&gt; &gt; the past, I had to have multiple copies of "~/.m2/settings.xml" 
+&gt; &gt; lying around, and I would hack the specified repos when I needed to.
+&gt; &gt;
+&gt; &gt; I'm trying, without success, to imagine why you do not simply 
+&gt; &gt; accumulate &lt;server&gt; elements as required.  Before long you should 
+&gt; &gt; reach a state in which new additions are extremely rare.
+&gt; &gt;
+&gt; &gt; --
+&gt; &gt; Mark H. Wood
+&gt; &gt; Lead Technology Analyst
+&gt; &gt;
+&gt; &gt; University Library
+&gt; &gt; Indiana University - Purdue University Indianapolis
+&gt; &gt; 755 W. Michigan Street
+&gt; &gt; Indianapolis, IN 46202
+&gt; &gt; 317-274-0749
+&gt; &gt; www.ulib.iupui.edu
+&gt; &gt;
+&gt;
+
+----------------------------------------------------------------------
+This message and any attachments are intended only for the use of the addressee and may contain
+information that is privileged and confidential. If the reader of the message is not the intended
+recipient or an authorized representative of the intended recipient, you are hereby notified
+that any dissemination of this communication is strictly prohibited. If you have received
+this communication in error, notify the sender immediately by return email and delete the
+message and any attachments from your system.
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201610.mbox/raw/%3c25C93AFF7E7B6041879AF0B358ED84F38B91CF@DC2PRMBX04A.ES.AD.ADP.com%3e/">Unnamed text/plain</a> (inline, Base64, 5668 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201610.mbox/raw/%3c25C93AFF7E7B6041879AF0B358ED84F38B91CF@DC2PRMBX04A.ES.AD.ADP.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

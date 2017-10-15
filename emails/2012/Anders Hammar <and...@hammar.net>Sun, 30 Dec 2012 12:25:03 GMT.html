@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Setting a plugins configruation parameter</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201212.mbox/%3cCAMKsNU+umhchG3zHrmjbnmcZuOZuLtcGDDoBOEJ8z8X=dtAFmQ@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201212.mbox/%3cCAHNdxu=Thg70hYPVgv8an3uY0yMXwKBkQzuxPhGZSSFR5MvaAQ@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201212.mbox/%3cCALhtWke9yg2J2Lw1d6XX+LAZcDwvw7HJi9qoNm2wwiPDO5zfhQ@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201212.mbox/%3cCAKyLS_wLqHFmzo2WjRr_UdkX-VYjR2UrgCKNjF7LVaLRS-MEAA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201212.mbox/%3cCAMKsNU+umhchG3zHrmjbnmcZuOZuLtcGDDoBOEJ8z8X=dtAFmQ@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201212.mbox/%3cCAHNdxu=Thg70hYPVgv8an3uY0yMXwKBkQzuxPhGZSSFR5MvaAQ@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201212.mbox/%3cCALhtWke9yg2J2Lw1d6XX+LAZcDwvw7HJi9qoNm2wwiPDO5zfhQ@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201212.mbox/%3cCAKyLS_wLqHFmzo2WjRr_UdkX-VYjR2UrgCKNjF7LVaLRS-MEAA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Anders Hammar &lt;and...@hammar.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Setting a plugins configruation parameter</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Sun, 30 Dec 2012 12:25:03 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+One other aspect, why two separate plugins? As they seem to be tightly
+coupled I would argue for one plugin with two goals. It makes more sense
+having this tight coupling between two goals than between two plugins.
+You should then have a look at some plugins that does similar things (one
+goal preparing something for another goal). I *think* it is often solved by
+storing it in a file as Benson points out, but I also *think* I've seen
+plugins putting info in system properties for the next goal to consume. One
+plugin doing the latter is Mojo's RPM plugin. One plugin doing the former
+is the Maven Release plugin (prepare and perform goals).
+
+/Anders
+
+
+On Sun, Dec 30, 2012 at 3:33 AM, Benson Margulies &lt;bimargulies@gmail.com&gt;wrote:
+
+&gt; On Sat, Dec 29, 2012 at 8:25 PM, Henrik Eriksson
+&gt; &lt;henrikeriksson75@gmail.com&gt; wrote:
+&gt; &gt; I'm writing a plugin for bridging propertiary software with maven. So
+&gt; &gt; making a portable project is not an option here. The project will only be
+&gt; &gt; used in our own development. So the problem I have. I have one plugin
+&gt; &gt; setting up a property for the other plugin. They are in the same pom. And
+&gt; &gt; looks something like this.
+&gt; &gt;
+&gt; &gt; &lt;build&gt;
+&gt; &gt; ...
+&gt; &gt; &lt;plugin&gt;
+&gt; &gt; &lt;groupId&gt;com.acme&lt;/groupId&gt;
+&gt; &gt; &lt;artifactId&gt;myplugin-maven-plugin&lt;artifactId&gt;
+&gt; &gt; &lt;version&gt;1.0&lt;/version&gt;
+&gt; &gt; ...
+&gt; &gt; &lt;phase&gt;package&lt;/phase&gt;
+&gt; &gt; &lt;plugin&gt;
+&gt; &gt; &lt;plugin&gt;
+&gt; &gt; &lt;groupId&gt;com.somecomp&lt;/groupId&gt;
+&gt; &gt; &lt;artifactId&gt;somcomp-maven-plugin&lt;artifactId&gt;
+&gt; &gt; &lt;version&gt;1.1&lt;/version&gt;
+&gt; &gt; &lt;executions&gt;
+&gt; &gt; &lt;execution&gt;
+&gt; &gt; &lt;phase&gt;package&lt;/phase&gt;
+&gt; &gt; &lt;configuration&gt;
+&gt; &gt; &lt;importantConfiguration&gt;this is the one I want to set with
+&gt; &gt; myplugin-maven-plugin&lt;/importantConfiguration&gt;
+&gt; &gt; ...
+&gt; &gt; &lt;/configration&gt;
+&gt; &gt; ...
+&gt; &gt; &lt;/execution&gt;
+&gt; &gt; &lt;/executions&gt;
+&gt; &gt; &lt;/plugin&gt;
+&gt; &gt; ...
+&gt; &gt; &lt;/build&gt;
+&gt; &gt;
+&gt; &gt; I've tried with setting
+&gt; &gt; &lt;importantConfiguration&gt;${someproperty}&lt;/importantConfiguration&gt;
+&gt; &gt; I've tried various things but no success. Perhaps setting it before the
+&gt; &gt; project is being built may solve setting it but makes the project alot
+&gt; more
+&gt; &gt; complex. The thing is that somcomp-maven-plugin does a lot of wierd
+&gt; stuff,
+&gt; &gt; ie not mavenish but I believe its trying to isolate things from the
+&gt; &gt; "normal" maven flow. Though our deployment/development environment has a
+&gt; &gt; lot of legacy and presents various issues by not doing this.
+&gt; &gt;
+&gt; &gt; TIA
+&gt;
+&gt; I can't make sense of this. What is happening? What don't you like
+&gt; about what's happening? What do you want to have happen instead? Is
+&gt; the bottom line that you want some information to flow from plugin (1)
+&gt; to plugin (2)? In that case, you might have to write out a file in
+&gt; (1), attach it to the build, and consume it in (2).
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201212.mbox/raw/%3cCAKDUN1uXM_2OXL0OU1QeWOb8eXWrdBQ6Ao-jwemr9kbvp3hchg@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 2885 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201212.mbox/raw/%3cCAKDUN1uXM_2OXL0OU1QeWOb8eXWrdBQ6Ao-jwemr9kbvp3hchg@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

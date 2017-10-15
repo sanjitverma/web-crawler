@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>RE: maven release plugin uses &quot;git add&quot; instead of svn commit</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201207.mbox/%3cABB151421EA480408FE016CFB8E1AAF03AB3C1016F@exchange1.exchange.themis.ag.gov.bc.ca%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCABkho9AHBuX8T_dg7eBp9Ft972Q0LOF1imz-wgf8_EkX5S3vDA@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201207.mbox/%3c1341950504008-5713686.post@n5.nabble.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCABkho9AHBuX8T_dg7eBp9Ft972Q0LOF1imz-wgf8_EkX5S3vDA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201207.mbox/%3cABB151421EA480408FE016CFB8E1AAF03AB3C1016F@exchange1.exchange.themis.ag.gov.bc.ca%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCABkho9AHBuX8T_dg7eBp9Ft972Q0LOF1imz-wgf8_EkX5S3vDA@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201207.mbox/%3c1341950504008-5713686.post@n5.nabble.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCABkho9AHBuX8T_dg7eBp9Ft972Q0LOF1imz-wgf8_EkX5S3vDA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Amir Gheibi &lt;aghe...@fmep.ag.gov.bc.ca&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">RE: maven release plugin uses &quot;git add&quot; instead of svn commit</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Tue, 10 Jul 2012 21:25:10 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+I guess Maven "conventionally" uses Git.
+
+This is what I have in my parent POM. Change connections to point to your SVN's trunk or release
+branch.
+
+&lt;project&gt;
+        &lt;scm&gt;
+                &lt;connection&gt;scm:git:ssh://git@xxxxx/usr/local/git_repos/projectXYZ.git&lt;/connection&gt;
+                &lt;developerConnection&gt;scm:git:ssh://git@xxxxx/usr/local/git_repos/projectXYZ.git&lt;/developerConnection&gt;
+                &lt;tag&gt;HEAD&lt;/tag&gt;
+        &lt;/scm&gt;
+&lt;/project&gt;
+
+
+
+
+-----Original Message-----
+From: nivea
+Sent: July-10-12 1:02 PM
+        Subject: maven release plugin uses "git add" instead of svn commit
+
+In the parent pom.xml I have specified the scm url that points to the svn location. How do
+I force release plugin to use svn as the scm and not git.
+
+My configuration for release plugin:
+
+&lt;plugin&gt;
+        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-release-plugin&lt;/artifactId&gt;
+        &lt;version&gt;2.3.2&lt;/version&gt;
+        &lt;configuration&gt;
+                &lt;mavenExecutorId&gt;forked-path&lt;/mavenExecutorId&gt;
+                &lt;arguments&gt;-Prelease&lt;/arguments&gt;
+                &lt;pushChanges&gt;false&lt;/pushChanges&gt;
+                &lt;providerImplementations&gt;
+            &lt;svn&gt;javasvn&lt;/svn&gt;
+        &lt;/providerImplementations&gt;
+        &lt;/configuration&gt;
+        &lt;dependencies&gt;
+                &lt;dependency&gt;
+                        &lt;groupId&gt;com.google.code.maven-scm-provider-svnjava&lt;/groupId&gt;
+                        &lt;artifactId&gt;maven-scm-provider-svnjava&lt;/artifactId&gt;
+                        &lt;version&gt;2.0.3&lt;/version&gt;
+                &lt;/dependency&gt;
+        &lt;/dependencies&gt;
+&lt;/plugin&gt;
+
+
+--
+View this message in context: http://maven.40175.n5.nabble.com/maven-release-plugin-uses-git-add-instead-of-svn-commit-tp5713686.html
+Sent from the Maven - Users mailing list archive at Nabble.com.
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201207.mbox/raw/%3cABB151421EA480408FE016CFB8E1AAF03AB3C10172@exchange1.exchange.themis.ag.gov.bc.ca%3e/">Unnamed text/plain</a> (inline, Quoted Printable, 2172 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201207.mbox/raw/%3cABB151421EA480408FE016CFB8E1AAF03AB3C10172@exchange1.exchange.themis.ag.gov.bc.ca%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: [Q] v3.0.3 exec-maven-plugin hanging</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201208.mbox/%3cCAGFKA-1HSCVjMnXS9Jz7HNCycxEY9pbiVQ0SVTw0Hrq2YvnX5w@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201208.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201208.mbox/%3cCAG2rwuNXck5YOHBB+3iDXosk0Rgc1X0GRktd7kmXS9fn4iqVXg@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201208.mbox/%3c8EC387A08D28774D834D22DC607E634564B28E00@c3pimsmbx1%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201208.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201208.mbox/%3c8EC387A08D28774D834D22DC607E634564B29115@c3pimsmbx1%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201208.mbox/%3cCAGFKA-1HSCVjMnXS9Jz7HNCycxEY9pbiVQ0SVTw0Hrq2YvnX5w@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201208.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201208.mbox/%3cCAG2rwuNXck5YOHBB+3iDXosk0Rgc1X0GRktd7kmXS9fn4iqVXg@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201208.mbox/%3c8EC387A08D28774D834D22DC607E634564B28E00@c3pimsmbx1%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201208.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201208.mbox/%3c8EC387A08D28774D834D22DC607E634564B29115@c3pimsmbx1%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Curtis Rueden &lt;ctrue...@wisc.edu&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: [Q] v3.0.3 exec-maven-plugin hanging</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Wed, 29 Aug 2012 20:08:16 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hi Ken,
+
+&gt; Does anyone have any ideas?
+
+Just one: did you try hitting Ctrl+backslash (Ctrl+break on Windows) from
+the console after it hangs to get a full stack trace? If might be helpful
+when combined with a little digging in the Maven source code.
+
+Regards,
+-Curtis
+
+
+On Wed, Aug 29, 2012 at 12:59 PM, Hoying, Ken &lt;Ken_Hoying@premierinc.com&gt;wrote:
+
+&gt; I am hoping someone can assist me with a very strange problem that I am
+&gt; having trouble with.
+&gt;
+&gt; I have project with various modules that is  structure, as follows:
+&gt;
+&gt; |--- project
+&gt;                 |--- pom.xml
+&gt;                 |--- ear
+&gt;                                 |--- pom.xml
+&gt;                 |--- services
+&gt;                                 |--- pom.xml
+&gt;                 |--- web
+&gt;                                 |--- pom.xml
+&gt;
+&gt;
+&gt; The pom file under the web directory uses exec-maven-plugin and the exec
+&gt; goal to run a java program that compiles Dojo for me.  When I install on
+&gt; this pom under the web directory, everything works perfectly.
+&gt;
+&gt; However when I install from the pom under the project directory, the java
+&gt; program is executed and appears to finish correctly but maven appears to
+&gt; hang or to still be waiting on it.  I do not see any issues when run under
+&gt; debug that would help me.
+&gt;
+&gt; Does anyone have any ideas?  I would greatly appreciate any assistance
+&gt; that you could provide.
+&gt;
+&gt; Thank you!
+&gt;
+&gt;
+&gt;
+&gt;
+&gt;
+&gt; -----------------------------------------
+&gt; ***Note:The information contained in this message may be privileged and
+&gt; confidential and protected from disclosure. If the reader of this message
+&gt; is not the intended recipient, or an employee or agent responsible for
+&gt; delivering this message to the intended recipient, you are hereby notified
+&gt; that any dissemination, distribution or copying of this communication is
+&gt; strictly prohibited.  If you have received this communication in error,
+&gt; please notify the Sender immediately by replying to the message and
+&gt; deleting it from your computer.  Thank you.  Premier Inc.
+&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201208.mbox/raw/%3cCADN69yncUhwO1EWXg64b4b1NXYGsJq2sR7ataD82JnSwp9SwtQ@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 2025 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201208.mbox/raw/%3cCADN69yncUhwO1EWXg64b4b1NXYGsJq2sR7ataD82JnSwp9SwtQ@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

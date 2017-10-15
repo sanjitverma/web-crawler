@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Single Git repo,multiple independent releasable folders using release plugin??</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201606.mbox/%3c7fc6f237-45a3-1d03-acc3-aba30c166bae@gmx.de%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201606.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201606.mbox/%3cCALhtWkc8NEV_-1Vq3AOYnMWE-cYGZmgTNYf3Dpyjurn6fgTg7Q@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201606.mbox/%3cCAPCjjnE2tAdtMdy=v2z2GgC=0z3_kY96rj+G-14G5kd0DVSb1Q@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201606.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201606.mbox/%3cCAPCjjnEvPB0zCvsAYYS_JZZ7pc8XEeBoy2r9bHNUwGMfX=6UQA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201606.mbox/%3c7fc6f237-45a3-1d03-acc3-aba30c166bae@gmx.de%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201606.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201606.mbox/%3cCALhtWkc8NEV_-1Vq3AOYnMWE-cYGZmgTNYf3Dpyjurn6fgTg7Q@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201606.mbox/%3cCAPCjjnE2tAdtMdy=v2z2GgC=0z3_kY96rj+G-14G5kd0DVSb1Q@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201606.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201606.mbox/%3cCAPCjjnEvPB0zCvsAYYS_JZZ7pc8XEeBoy2r9bHNUwGMfX=6UQA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Benson Margulies &lt;bimargul...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Single Git repo,multiple independent releasable folders using release plugin??</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Sun, 26 Jun 2016 21:48:41 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+On Sat, Jun 25, 2016 at 6:06 PM, Dan Tran &lt;dantran@gmail.com&gt; wrote:
+&gt; Hi Benson,
+&gt;
+&gt; Could you please elaborate more details?
+&gt;
+&gt; Sounds like you have this working which is a good news.  I very prefer one
+&gt; single repo
+
+Dan, it's all in the doc, and I'm not claiming that it's always a
+great idea. But if you add
+
+ &lt;pomFileName&gt;subdir/pom.xml&lt;/pomFileName&gt;
+
+to the m-r-p configuration, it works. I don't have a working example
+in a useful place, but there are IT's for it in the m-r-p.
+
+
+
+
+&gt;
+&gt; Thanks
+&gt;
+&gt; -Dan
+&gt;
+&gt; On Sun, Jun 19, 2016 at 4:14 AM, Benson Margulies &lt;bimargulies@gmail.com&gt;
+&gt; wrote:
+&gt;
+&gt;&gt; You don't put it in the URL.
+&gt;&gt;
+&gt;&gt; &lt;pomFileName&gt;subdir/pom.xml&lt;/pomFileName&gt;
+&gt;&gt;
+&gt;&gt;
+&gt;&gt;
+&gt;&gt; On Fri, Jun 17, 2016 at 10:21 PM, Dan Tran &lt;dantran@gmail.com&gt; wrote:
+&gt;&gt; &gt; Hi
+&gt;&gt; &gt;
+&gt;&gt; &gt; I would like to host multiple multi-module maven projects, each project
+&gt;&gt; has
+&gt;&gt; &gt; its own top level folder
+&gt;&gt; &gt; under same GIT repository
+&gt;&gt; &gt;
+&gt;&gt; &gt; is it possible to release each project using maven release plugin?, if
+&gt;&gt; so,
+&gt;&gt; &gt; what would be SCM URL for each folder?
+&gt;&gt; &gt;
+&gt;&gt; &gt; Advice are greatly appreciated.
+&gt;&gt; &gt;
+&gt;&gt; &gt; -Dan
+&gt;&gt;
+&gt;&gt; ---------------------------------------------------------------------
+&gt;&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt;&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;&gt;
+&gt;&gt;
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201606.mbox/raw/%3cCALhtWkftq_8U5c-gbhaWd0K4mKWXXvHp14g-Y1dcEXwCdfLnAA@mail.gmail.com%3e/">Unnamed text/plain</a> (inline, None, 1510 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201606.mbox/raw/%3cCALhtWkftq_8U5c-gbhaWd0K4mKWXXvHp14g-Y1dcEXwCdfLnAA@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

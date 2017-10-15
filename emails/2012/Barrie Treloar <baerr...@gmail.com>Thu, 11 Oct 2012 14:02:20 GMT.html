@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: How to optimize maven dependencies to get better performance?</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201210.mbox/%3c20121011110112.29900be9@linux-du93.site%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201210.mbox/%3c58EAA08AF8232344ADDB2E31D4996BFD081CF3@SMAPEXCHIDAG3.prod.ad.merc.chicago.cme.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201210.mbox/%3c255343FA5EEE4D4599D4588EE379349B23A6E8BE@RHV-EXRDA-S21.corp.ebay.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201210.mbox/%3c58EAA08AF8232344ADDB2E31D4996BFD081D11@SMAPEXCHIDAG3.prod.ad.merc.chicago.cme.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201210.mbox/%3c20121011110112.29900be9@linux-du93.site%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201210.mbox/%3c58EAA08AF8232344ADDB2E31D4996BFD081CF3@SMAPEXCHIDAG3.prod.ad.merc.chicago.cme.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201210.mbox/%3c255343FA5EEE4D4599D4588EE379349B23A6E8BE@RHV-EXRDA-S21.corp.ebay.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201210.mbox/%3c58EAA08AF8232344ADDB2E31D4996BFD081D11@SMAPEXCHIDAG3.prod.ad.merc.chicago.cme.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Barrie Treloar &lt;baerr...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: How to optimize maven dependencies to get better performance?</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Thu, 11 Oct 2012 14:02:20 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+On Thu, Oct 11, 2012 at 6:57 PM, Wang, Simon &lt;Yunfeng.Wang@ebay.com&gt; wrote:
+&gt; Hi, Barrie,
+&gt;    Ask a stupid question about enforcer plugin.
+&gt; I added enforcer plugin into project pom like this:
+&gt;                         &lt;plugin&gt;
+&gt;                                         &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+&gt;                                         &lt;artifactId&gt;maven-enforcer-plugin&lt;/artifactId&gt;
+&gt;                                         &lt;version&gt;1.1.1&lt;/version&gt;
+&gt;                                         &lt;executions&gt;
+&gt;                                           &lt;execution&gt;
+&gt;                                                 &lt;id&gt;enforce&lt;/id&gt;
+&gt;                                                 &lt;configuration&gt;
+&gt;                                                         &lt;rules&gt;
+&gt;                                                                 &lt;DependencyConvergence/&gt;
+&gt;                                                         &lt;/rules&gt;
+&gt;                                                 &lt;/configuration&gt;
+&gt;                                                 &lt;goals&gt;
+&gt;                                                   &lt;goal&gt;enforce&lt;/goal&gt;
+&gt;                                                 &lt;/goals&gt;
+&gt;                                           &lt;/execution&gt;
+&gt;                                         &lt;/executions&gt;
+&gt;                         &lt;/plugin&gt;
+
+I'm not sure, your example is a copy-and-paste of
+http://maven.apache.org/enforcer/enforcer-rules/dependencyConvergence.html
+
+However I would normally expect things to be case sensitive and the
+rule index (http://maven.apache.org/enforcer/enforcer-rules/index.html)
+uses "dependencyConvergence"
+
+You could try that instead.
+If it does work, I'd file a bug against the enforcer documentation.
+
+Also, I dont expect dependencyConvergence to actually help you with performance.
+Try running maven with -X and then scouring the copious amount of
+output to see what it is doing and where it is spending its time.
+Always measure before you optimize.
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201210.mbox/raw/%3cCADVp3v_Yn7Nrj1WbeBaWNQUtcCozQLMHkyqwW_FYYizcY_OV=w@mail.gmail.com%3e/">Unnamed text/plain</a> (inline, None, 2181 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201210.mbox/raw/%3cCADVp3v_Yn7Nrj1WbeBaWNQUtcCozQLMHkyqwW_FYYizcY_OV=w@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

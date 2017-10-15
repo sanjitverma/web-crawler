@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: noob confusion about dependencies and repositories</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201210.mbox/%3c00a901cda40b$6732cb30$35986190$@gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201210.mbox/%3c00ab01cda416$e9baed70$bd30c850$@gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201210.mbox/%3c00a901cda40b$6732cb30$35986190$@gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201210.mbox/%3c00ab01cda416$e9baed70$bd30c850$@gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201210.mbox/%3c00a901cda40b$6732cb30$35986190$@gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201210.mbox/%3c00ab01cda416$e9baed70$bd30c850$@gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201210.mbox/%3c00a901cda40b$6732cb30$35986190$@gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201210.mbox/%3c00ab01cda416$e9baed70$bd30c850$@gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Barrie Treloar &lt;baerr...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: noob confusion about dependencies and repositories</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Sat, 06 Oct 2012 23:00:09 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+On Sun, Oct 7, 2012 at 7:57 AM, Wayne Fay &lt;waynefay@gmail.com&gt; wrote:
+&gt;&gt;&gt; &gt; Instead of a local repository, have a public repository at
+&gt;&gt;&gt; &gt; http://callistosheart.org/maven or something.
+&gt;&gt;&gt;
+&gt;&gt;&gt; If that is an option for you, then I'm sure it will be a good thing.
+&gt;&gt;&gt; I have only ever been allowed to set up an intranet repository...:-)
+&gt;&gt;&gt;
+&gt;&gt;&gt; You can add that repository in your top pom.
+&gt;&gt;
+&gt;&gt; So, how does this work?  What does the site file structure look like?
+&gt;
+&gt; Most people here run an MRM like Nexus, Artifactory, or Archiva. You
+&gt; can find lots of information about these systems at their respective
+&gt; sites.
+
+Do not add a repository section to you pom.
+That will cause everyone else who uses your artifacts pain.
+
+As Wayne says you want to set up a MRM and then in your
+~/.m2/settings.xml you activate a profile that points to your MRM.
+
+Again, if you read the books at http://maven.apache.org/articles.html,
+specifically :
+* Maven: The Definitive Guide
+* Better Builds with Maven
+
+You will gain the understanding you need to answer your own questions
+that you have posed on the list.
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201210.mbox/raw/%3cCADVp3v8oyvQea-RwgTwsDMwCYbDio+acf7GpAj_beXCfZ0FS0A@mail.gmail.com%3e/">Unnamed text/plain</a> (inline, None, 1289 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201210.mbox/raw/%3cCADVp3v8oyvQea-RwgTwsDMwCYbDio+acf7GpAj_beXCfZ0FS0A@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

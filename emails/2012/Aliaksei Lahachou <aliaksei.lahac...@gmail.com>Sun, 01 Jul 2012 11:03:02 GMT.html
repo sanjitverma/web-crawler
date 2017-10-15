@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Code coverage report for multi module maven project reports zero in some modules</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201207.mbox/%3c1341134569983-5712672.post@n5.nabble.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCAF_-hNB=9N6FU1F-QuphoKqmV1z_fkYCJP8gLVjckg2F22jhUQ@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201207.mbox/%3c75F3A2D98EDE2545BDC06B5B6C1CEC5149D13114@ESESSMW1739.eemea.ericsson.se%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCACpkv-ymrK8FkfwDsL17U5BrNXQ0rTYZO7JT1FjHxrN=qpFU=A@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201207.mbox/%3c1341134569983-5712672.post@n5.nabble.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCAF_-hNB=9N6FU1F-QuphoKqmV1z_fkYCJP8gLVjckg2F22jhUQ@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201207.mbox/%3c75F3A2D98EDE2545BDC06B5B6C1CEC5149D13114@ESESSMW1739.eemea.ericsson.se%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCACpkv-ymrK8FkfwDsL17U5BrNXQ0rTYZO7JT1FjHxrN=qpFU=A@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Aliaksei Lahachou &lt;aliaksei.lahac...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Code coverage report for multi module maven project reports zero in some modules</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Sun, 01 Jul 2012 11:03:02 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+I also use jenkins cobertura plugin and it does nothing special. It is
+invoked after the build and only generates aggregated report from single
+coverage.xml files.
+
+
+On Sun, Jul 1, 2012 at 9:00 AM, Tim Wu T &lt;tim.t.wu@ericsson.com&gt; wrote:
+
+&gt; Hi,
+&gt;
+&gt; I met the same problem with you, now, I use jenkins cobuertural plugin,
+&gt; which will help me generate a whole report, not only include some packages
+&gt; :)
+&gt;
+&gt; Br,
+&gt; Tim
+&gt;
+&gt; -----Original Message-----
+&gt; From: kfmohamm@uci.edu [mailto:kfmohamm@uci.edu]
+&gt; Sent: Sunday, July 01, 2012 9:51 AM
+&gt; To: Maven Users List
+&gt; Subject: Re: Code coverage report for multi module maven project reports
+&gt; zero in some modules
+&gt;
+&gt; Yes, I have moduleA, moduleB, moduleC, moduleD, moduleE and module F. I
+&gt; run JUnit tests from module F.
+&gt;
+&gt; The report in the moduleF/target... directory has the required coverage
+&gt; information. However, the coverage report in the other modules reports
+&gt; line and code coverage as zero.
+&gt;
+&gt; I did try to use the aggregate option with setting it to true, to see an
+&gt; aggregate coverage report for all modules, it gives the aggregate report,
+&gt; but again only for packages in moduleF(from where we run JUnit tests) and
+&gt; reports as zero for all other modules.
+&gt;
+&gt; I am trying what was suggested in the first response to this question.
+&gt;
+&gt; Is there a way that we generate the code coverage report for all modules,
+&gt; with out using ant and only with use of cobertura ?
+&gt;
+&gt; Thanks
+&gt;
+&gt; &gt; Aggregated cobertura report will execute cobertura on each module and
+&gt; then
+&gt; &gt; merge the single reports. It will not help if, for example, you have
+&gt; tests
+&gt; &gt; in module A and want to have coverage of module B.
+&gt; &gt;
+&gt; &gt;
+&gt; &gt; On Sat, Jun 30, 2012 at 10:46 AM, Patrick Mohr &lt;kc7zzv@gmail.com&gt; wrote:
+&gt; &gt;
+&gt; &gt;&gt; On Sat, Jun 30, 2012 at 12:18 AM, Aliaksei Lahachou &lt;
+&gt; &gt;&gt; aliaksei.lahachou@gmail.com&gt; wrote:
+&gt; &gt;&gt;
+&gt; &gt;&gt; &gt; Hi!
+&gt; &gt;&gt; &gt;
+&gt; &gt;&gt; &gt; cobertura:cobertura executes it's own lifecycle: instruments the
+&gt; &gt;&gt; classes,
+&gt; &gt;&gt; &gt; instrumented classes are saved to target/generated-classes/cobertura,
+&gt; &gt;&gt; and
+&gt; &gt;&gt; &gt; executes unit tests. Instrumented classes dump coverage data to
+&gt; &gt;&gt; &gt; target/conbertura/cobertura.ser. There are two things to understand:
+&gt; &gt;&gt; &gt;
+&gt; &gt;&gt; &gt; 1. When cobertura:cobertura is executed, dependencies are not
+&gt; &gt;&gt; instrumented.
+&gt; &gt;&gt; &gt; You have to have enabled instrumentation, see cobertura:instrument
+&gt; &gt;&gt; goal.
+&gt; &gt;&gt; &gt; This will produce jars with instrumented classes, so be careful not to
+&gt; &gt;&gt; &gt; distribute them.
+&gt; &gt;&gt; &gt; 2. Each module will write coverage data to it's own
+&gt; &gt;&gt; &gt; target/conbertura/cobertura.ser file. I think it's possible to
+&gt; &gt;&gt; configure
+&gt; &gt;&gt; &gt; instrumentation so that all jars write to the same cobertura.ser file,
+&gt; &gt;&gt; but
+&gt; &gt;&gt; &gt; I don't know whether it's normal, and I never tried that.
+&gt; &gt;&gt; &gt;
+&gt; &gt;&gt; &gt;
+&gt; &gt;&gt; I want to say that there's a cobertura target.  Something like
+&gt; &gt;&gt; cobertura:aggregate that will combine the results off all the unit
+&gt; &gt;&gt; tests,
+&gt; &gt;&gt; for the module that's being tested.  That probably won't be what you
+&gt; &gt;&gt; want,
+&gt; &gt;&gt; but I think it would be a lot closer.  This is all from memory though,
+&gt; &gt;&gt; so
+&gt; &gt;&gt; make sure to check it's actually what you want.
+&gt; &gt;&gt;
+&gt; &gt;
+&gt;
+&gt;
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201207.mbox/raw/%3cCALcFPWGb=tY_rkM8iLMTnNgdFv3c--__47KBS5hp=qTdogf9DQ@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 3570 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201207.mbox/raw/%3cCALcFPWGb=tY_rkM8iLMTnNgdFv3c--__47KBS5hp=qTdogf9DQ@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

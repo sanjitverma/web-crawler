@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Maven site can not find parent</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201211.mbox/%3cCAD34qgnZ__hf1LSQLdXg_uBkE03cNEjOpXSRLU5cyZaPyPbMgA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201211.mbox/%3cCAKDUN1utgqYZO7+Rwc3q_R93FyeVXjE=vbUHoLr+Bb795zQWGA@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201211.mbox/%3cCAD34qgnZ__hf1LSQLdXg_uBkE03cNEjOpXSRLU5cyZaPyPbMgA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201211.mbox/%3c1352581839204-5730240.post@n5.nabble.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201211.mbox/%3cCAD34qgnZ__hf1LSQLdXg_uBkE03cNEjOpXSRLU5cyZaPyPbMgA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201211.mbox/%3cCAKDUN1utgqYZO7+Rwc3q_R93FyeVXjE=vbUHoLr+Bb795zQWGA@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201211.mbox/%3cCAD34qgnZ__hf1LSQLdXg_uBkE03cNEjOpXSRLU5cyZaPyPbMgA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201211.mbox/%3c1352581839204-5730240.post@n5.nabble.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Andre Gomes &lt;andrefgo...@hotmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Maven site can not find parent</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Thu, 01 Nov 2012 22:10:04 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+
+I am using the maven-site-plugin version 3.2 in a multi-module project that has a parent project.
+This parent project is a release and it is in a release repository and it is in this project
+that is defined the repositories (that is also defined in the settings.xml file). The multi-module
+project is a snapshot and when I run mvn site on the multi-module project I am getting the
+error below saying that can not find the parent project, however the parent project is download.
+When I change the parent project version to a snapshot version the error disappear, also when
+I run mvn install in the parent project the error disappear. What I want to know is why I
+am getting this error and how can I solved without changing the parent version and running
+mvn install in the parent. 
+Note: In the pom files the relative path is set as empty. And all project have the same groupId
+
+Thanks, André Gomes
+
+[INFO] Parent project loaded from repository:groupId:parent:pom:1.0.3[DEBUG] Parent project
+loaded ...[DEBUG] Skipped site descriptor for locale en[DEBUG] Skipped remote site descriptor
+check[WARNING] Unable to find a URL to the parent project. The parent menuwill NOT be added.[DEBUG]
+Attempting to load module information from local filesystem[DEBUG] Verifying availabilityof
+/home/agomes/.m2/repository/groupId/parent/1.0.3/parent-1.0.3.pom from [central (http://repo1.maven.org/maven2,
+releases)][DEBUG] Skipped remote update check forgroupId:parent:pom:1.0.3, locally cached
+artifactup-to-date.[DEBUG] Using connector WagonRepositoryConnector with priority 0 forhttp://repo1.maven.org/maven2Downloading:http://repo1.maven.org/maven2/groupId/parent/1.0.3/parent-1.0.3.pom[DEBUG]
+Reading resolution trackingfile /home/agomes/.m2/repository/groupId/parent/1.0.3/parent-1.0.3.pom.lastUpdated[DEBUG]
+Writing resolution trackingfile /home/agomes/.m2/repository/groupId/parent/1.0.3/parent-1.0.3.pom.lastUpdated[INFO]------------------------------------------------------------------------[INFO]
+Reactor Summary:[INFO] [INFO] projectName .............................................. FAILURE[12.552s][INFO]
+moduleA ........................................ SKIPPED[INFO] moduleB  .......................................
+SKIPPED[INFO] moduleC ................................ SKIPPED[INFO] moduleD ...........................
+SKIPPED[INFO] moduleE .......................................... SKIPPED[INFO] moduleF ...................................
+SKIPPED[INFO]------------------------------------------------------------------------[INFO]
+BUILD FAILURE[INFO]------------------------------------------------------------------------[INFO]
+Total time: 13.045s[INFO] Finished at: Tue Oct 30 18:39:43 WET 2012[INFO] Final Memory: 26M/247M[INFO]------------------------------------------------------------------------[ERROR]
+Failed to execute goalorg.apache.maven.plugins:maven-site-plugin:3.1:site (default-site) onproject
+projectName: SiteToolException: Unable to read local module-POM: 1problem was encountered
+while building the effective model forgroupId:moduleA:1.1.5-SNAPSHOT[ERROR] [FATAL] Non-resolvable
+parent POM forgroupId:projectName:1.1.5-SNAPSHOT: Could not find artifactgroupId:parent:pom:1.0.3
+in central(http://repo1.maven.org/maven2) @groupId:projectName:1.1.5-SNAPSHOT, /home/agomes/workspace/projectName/pom.xml,line
+9, column 10[ERROR] for project groupId:moduleA:1.1.5-SNAPSHOTat /home/agomes/workspace/projectName/moduleA/pom.xml
+for projectgroupId:moduleA:1.1.5-SNAPSHOTat /home/agomes/workspace/projectName/moduleA/pom.xml[ERROR]
+-&gt; [Help 1]org.apache.maven.lifecycle.LifecycleExecutionException: Failed toexecute goal
+org.apache.maven.plugins:maven-site-plugin:3.1:site(default-site) on project projectName:
+SiteToolException: Unable to read localmodule-POMatorg.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:217)atorg.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:153)atorg.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:145)atorg.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:84)atorg.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:59)atorg.apache.maven.lifecycle.internal.LifecycleStarter.singleThreadedBuild(LifecycleStarter.java:183)atorg.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:161)at
+org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:319)at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:156)at
+org.apache.maven.cli.MavenCli.execute(MavenCli.java:537)at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:196)at
+org.apache.maven.cli.MavenCli.main(MavenCli.java:141)at sun.reflect.NativeMethodAccessorImpl.invoke0(Native
+Method)atsun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)atsun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)at
+java.lang.reflect.Method.invoke(Method.java:616)atorg.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:290)atorg.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:230)atorg.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:409)atorg.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:352)Caused
+by: org.apache.maven.plugin.MojoExecutionException:SiteToolException: Unable to read local
+module-POMatorg.apache.maven.plugins.site.AbstractSiteRenderingMojo.createSiteRenderingContext(AbstractSiteRenderingMojo.java:300)atorg.apache.maven.plugins.site.SiteMojo.renderLocale(SiteMojo.java:154)at
+org.apache.maven.plugins.site.SiteMojo.execute(SiteMojo.java:138)atorg.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:101)atorg.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:209)...
+19 moreCaused by: org.apache.maven.doxia.tools.SiteToolException: Unable toread local module-POMatorg.apache.maven.doxia.tools.DefaultSiteTool.populateModulesMenu(DefaultSiteTool.java:892)atorg.apache.maven.doxia.tools.DefaultSiteTool.getDecorationModel(DefaultSiteTool.java:488)atorg.apache.maven.plugins.site.AbstractSiteRenderingMojo.createSiteRenderingContext(AbstractSiteRenderingMojo.java:293)...
+23 moreCaused by: org.apache.maven.project.InvalidProjectModelException: 1problem was encountered
+while building the effective model forgroupId:moduleA:1.1.5-SNAPSHOT[FATAL] Non-resolvable
+parent POM forgroupId:projectName:1.1.5-SNAPSHOT: Could not find artifactgroupId:parent:pom:1.0.3
+in central(http://repo1.maven.org/maven2) @groupId:projectName:1.1.5-SNAPSHOT, /home/agomes/workspace/projectName/pom.xml,line
+9, column 10for project groupId:moduleA:1.1.5-SNAPSHOTat /home/agomes/workspace/projectName/moduleA/pom.xml
+for projectgroupId:moduleA:1.1.5-SNAPSHOTat /home/agomes/workspace/projectName/moduleA/pom.xmlatorg.apache.maven.project.DefaultMavenProjectBuilder.transformError(DefaultMavenProjectBuilder.java:194)atorg.apache.maven.project.DefaultMavenProjectBuilder.build(DefaultMavenProjectBuilder.java:211)atorg.apache.maven.project.DefaultMavenProjectBuilder.build(DefaultMavenProjectBuilder.java:223)atorg.apache.maven.doxia.tools.DefaultSiteTool.populateModulesMenu(DefaultSiteTool.java:888)...
+25 more
+
+
+
+ 		 	   		  
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201211.mbox/raw/%3cDUB104-W20C0148497A79BC339A494A6600@phx.gbl%3e/1">Unnamed text/plain</a> (inline, Quoted Printable, 7532 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201211.mbox/raw/%3cDUB104-W20C0148497A79BC339A494A6600@phx.gbl%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

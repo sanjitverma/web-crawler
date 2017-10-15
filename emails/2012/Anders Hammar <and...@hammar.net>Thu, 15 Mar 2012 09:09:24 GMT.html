@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Which is the BEST Approach to define Global POM.XML</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201203.mbox/%3c4F617C31.9020000@ericsson.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201203.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201203.mbox/%3c4F61BEA5.4000303@talios.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201203.mbox/%3cABB151421EA480408FE016CFB8E1AAF039807E1F41@exchange1.exchange.themis.ag.gov.bc.ca%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201203.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201203.mbox/%3c4F61BEA5.4000303@talios.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201203.mbox/%3c4F617C31.9020000@ericsson.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201203.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201203.mbox/%3c4F61BEA5.4000303@talios.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201203.mbox/%3cABB151421EA480408FE016CFB8E1AAF039807E1F41@exchange1.exchange.themis.ag.gov.bc.ca%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201203.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201203.mbox/%3c4F61BEA5.4000303@talios.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Anders Hammar &lt;and...@hammar.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Which is the BEST Approach to define Global POM.XML</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Thu, 15 Mar 2012 09:09:24 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+You should NOT declare repositories (or plugin repositories) in a
+corporate pom. That should be handled in settings.xml.
+
+/Anders
+
+On Wed, Mar 14, 2012 at 22:22, Eric Kolotyluk &lt;eric.kolotyluk@gmail.com&gt; wrote:
+&gt; What I do is have a top-level POM like (see below), and then I have my top
+&gt; level project POMs reference that (see further below). This may not be the
+&gt; best example, as I am still in the process of building the infrastructure,
+&gt; but
+&gt;
+&gt; 1. I put the Parent POM in its own place in source control and I
+&gt;   manually deploy it with Maven when I make changes.
+&gt; 2. You need to do this before creating any Project POMs that reference
+&gt;   it because they should reference it via Maven and not the file
+&gt;   system - if you work in a large company you will soon discover why.
+&gt; 3. There is of course a bootstrapping issue because now the project
+&gt;   POMs need to know how to find your Repository Manager, which is why
+&gt;   I include that information in the top level (Corporate) POM so
+&gt;   people can use it as a reference.
+&gt; 4. As you may gather I am using Sonatype's Nexus as a Repository Manager.
+&gt; 5. We are still developing our corporate repository infrastructure so
+&gt;   the content of the Corporate POM will evolve over time as our
+&gt;   corporate governance and policies are better codified.
+&gt;
+&gt; Does that help?
+&gt;
+&gt; &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&gt; &lt;project xmlns="http://maven.apache.org/POM/4.0.0"
+&gt; xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+&gt; xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+&gt; http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+&gt; &lt;!--
+&gt;       Copyright © My Company 2012
+&gt;
+&gt;       Proprietary &amp; Confidential
+&gt;
+&gt;       This is the top level POM for My Company Maven projects. It contains
+&gt; rules and standards common to all projects.
+&gt;
+&gt;       Changes:
+&gt;
+&gt;       2011-09-23 0.0.1-SNAPSHOT Eric Kolotyluk
+&gt;         Created initial version for check-in into source control.
+&gt;
+&gt;       2012-02-27 0.0.1-SNAPSHOT Eric Kolotyluk
+&gt;         Reconfigured for Nexus 2.0 on sonatype.
+&gt;   --&gt;
+&gt; &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+&gt; &lt;groupId&gt;com&lt;/groupId&gt;
+&gt; &lt;artifactId&gt;my-company&lt;/artifactId&gt;
+&gt; &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
+&gt; &lt;packaging&gt;pom&lt;/packaging&gt;
+&gt; &lt;name&gt;My Company Corporate POM&lt;/name&gt;
+&gt; &lt;description&gt;Corporate Project Object Module for standard conventions and
+&gt; rules.&lt;/description&gt;
+&gt; &lt;developers&gt;
+&gt; &lt;developer&gt;
+&gt; &lt;id&gt;10069959&lt;/id&gt;
+&gt; &lt;name&gt;Eric Kolotyluk&lt;/name&gt;
+&gt; &lt;email&gt;eric.kolotyluk@gmail.com&lt;/email&gt;
+&gt; &lt;organization&gt;My Company Ltd.&lt;/organization&gt;
+&gt; &lt;timezone&gt;Vancouver PDT&lt;/timezone&gt;
+&gt; &lt;roles&gt;
+&gt; &lt;role&gt;Software Architect&lt;/role&gt;
+&gt; &lt;role&gt;Software Developer&lt;/role&gt;
+&gt; &lt;/roles&gt;
+&gt; &lt;/developer&gt;
+&gt; &lt;/developers&gt;
+&gt; &lt;organization&gt;
+&gt; &lt;name&gt;My Company&lt;/name&gt;
+&gt; &lt;/organization&gt;
+&gt; &lt;distributionManagement&gt;
+&gt; &lt;downloadUrl&gt;http://sonatype:8081/nexus/content/groups/public&lt;/downloadUrl&gt;
+&gt; &lt;repository&gt;
+&gt; &lt;uniqueVersion&gt;false&lt;/uniqueVersion&gt;
+&gt; &lt;id&gt;nexus&lt;/id&gt;
+&gt; &lt;name&gt;My Company Release Repository&lt;/name&gt;
+&gt; &lt;url&gt;http://sonatype:8081/nexus/content/repositories/releases&lt;/url&gt;
+&gt; &lt;layout&gt;default&lt;/layout&gt;
+&gt; &lt;/repository&gt;
+&gt; &lt;snapshotRepository&gt;
+&gt; &lt;id&gt;nexus&lt;/id&gt;
+&gt; &lt;name&gt;My Company Snapshot Repository&lt;/name&gt;
+&gt; &lt;url&gt;http://sonatype:8081/nexus/content/repositories/snapshots&lt;/url&gt;
+&gt; &lt;layout&gt;default&lt;/layout&gt;
+&gt; &lt;/snapshotRepository&gt;
+&gt; &lt;/distributionManagement&gt;
+&gt; &lt;build&gt;
+&gt; &lt;/build&gt;
+&gt; &lt;repositories&gt;
+&gt; &lt;repository&gt;
+&gt; &lt;releases&gt;
+&gt; &lt;updatePolicy&gt;always&lt;/updatePolicy&gt;
+&gt; &lt;/releases&gt;
+&gt; &lt;id&gt;info.collide.mvn&lt;/id&gt;
+&gt; &lt;name&gt;Collide&lt;/name&gt;
+&gt; &lt;url&gt;http://sonatype:8081/nexus/content/repositories/info.collide.mvn/&lt;/url&gt;
+&gt; &lt;/repository&gt;
+&gt; &lt;repository&gt;
+&gt; &lt;id&gt;thirdparty&lt;/id&gt;
+&gt; &lt;name&gt;3rd party&lt;/name&gt;
+&gt; &lt;url&gt;http://sonatype:8081/nexus/content/repositories/thirdparty/&lt;/url&gt;
+&gt; &lt;/repository&gt;
+&gt; &lt;/repositories&gt;
+&gt; &lt;dependencies&gt;
+&gt; &lt;/dependencies&gt;
+&gt; &lt;reporting&gt;
+&gt; &lt;plugins&gt;
+&gt; &lt;/plugins&gt;
+&gt; &lt;/reporting&gt;
+&gt; &lt;dependencyManagement&gt;
+&gt; &lt;/dependencyManagement&gt;
+&gt; &lt;properties&gt;
+&gt; &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+&gt; &lt;/properties&gt;
+&gt; &lt;/project&gt;
+&gt;
+&gt; - - - - - - -
+&gt;
+&gt; &lt;project xmlns="http://maven.apache.org/POM/4.0.0"
+&gt; xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+&gt; xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+&gt; http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+&gt; &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+&gt; &lt;parent&gt;
+&gt; &lt;groupId&gt;com&lt;/groupId&gt;
+&gt; &lt;artifactId&gt;my-company&lt;/artifactId&gt;
+&gt; &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
+&gt; &lt;/parent&gt;
+&gt; &lt;groupId&gt;com.my-company&lt;/groupId&gt;
+&gt; &lt;artifactId&gt;intersystem&lt;/artifactId&gt;
+&gt; &lt;version&gt;0.0.2-SNAPSHOT&lt;/version&gt;
+&gt; &lt;packaging&gt;pom&lt;/packaging&gt;
+&gt; &lt;name&gt;My Company Intersystem&lt;/name&gt;
+&gt; &lt;description&gt;Service layer for collaborative, distributed applications and
+&gt; services&lt;/description&gt;
+&gt; &lt;licenses&gt;
+&gt; &lt;license&gt;
+&gt; &lt;name&gt;My Company Intersystem&lt;/name&gt;
+&gt; &lt;url&gt;https://collaborate.my-company.com/sites/SoftwareStandardsAndGuidelines/Intersystem/default.aspx&lt;/url&gt;
+&gt; &lt;distribution&gt;repo&lt;/distribution&gt;
+&gt; &lt;/license&gt;
+&gt; &lt;/licenses&gt;
+&gt; &lt;developers&gt;
+&gt; &lt;developer&gt;
+&gt; &lt;id&gt;10069959&lt;/id&gt;
+&gt; &lt;name&gt;Eric Kolotyluk&lt;/name&gt;
+&gt; &lt;email&gt;eric.kolotyluk@gmail.com&lt;/email&gt;
+&gt; &lt;organization&gt;My Company&lt;/organization&gt;
+&gt; &lt;timezone&gt;Vancouver PDT&lt;/timezone&gt;
+&gt; &lt;roles&gt;
+&gt; &lt;role&gt;Software Architect&lt;/role&gt;
+&gt; &lt;role&gt;Software Developer&lt;/role&gt;
+&gt; &lt;role&gt;Intersystem Architect&lt;/role&gt;
+&gt; &lt;/roles&gt;
+&gt; &lt;/developer&gt;
+&gt; &lt;/developers&gt;
+&gt; &lt;organization&gt;
+&gt; &lt;name&gt;My Company&lt;/name&gt;
+&gt; &lt;/organization&gt;
+&gt; &lt;distributionManagement&gt;
+&gt; &lt;downloadUrl&gt;http://sonatype:8081/nexus/content/groups/public&lt;/downloadUrl&gt;
+&gt; &lt;repository&gt;
+&gt; &lt;uniqueVersion&gt;false&lt;/uniqueVersion&gt;
+&gt; &lt;id&gt;nexus&lt;/id&gt;
+&gt; &lt;name&gt;My Company Release Repository&lt;/name&gt;
+&gt; &lt;url&gt;http://sonatype:8081/nexus/content/repositories/releases&lt;/url&gt;
+&gt; &lt;layout&gt;default&lt;/layout&gt;
+&gt; &lt;/repository&gt;
+&gt; &lt;snapshotRepository&gt;
+&gt; &lt;id&gt;nexus&lt;/id&gt;
+&gt; &lt;name&gt;My Company Snapshot Repository&lt;/name&gt;
+&gt; &lt;url&gt;http://sonatype:8081/nexus/content/repositories/snapshots&lt;/url&gt;
+&gt; &lt;layout&gt;default&lt;/layout&gt;
+&gt; &lt;/snapshotRepository&gt;
+&gt; &lt;/distributionManagement&gt;
+&gt; &lt;build&gt;
+&gt; &lt;/build&gt;
+&gt; &lt;repositories&gt;
+&gt; &lt;repository&gt;
+&gt; &lt;releases&gt;
+&gt; &lt;updatePolicy&gt;always&lt;/updatePolicy&gt;
+&gt; &lt;/releases&gt;
+&gt; &lt;id&gt;info.collide.mvn&lt;/id&gt;
+&gt; &lt;name&gt;Collide&lt;/name&gt;
+&gt; &lt;url&gt;http://sonatype:8081/nexus/content/repositories/info.collide.mvn/&lt;/url&gt;
+&gt; &lt;/repository&gt;
+&gt; &lt;repository&gt;
+&gt; &lt;id&gt;thirdparty&lt;/id&gt;
+&gt; &lt;name&gt;3rd party&lt;/name&gt;
+&gt; &lt;url&gt;http://sonatype:8081/nexus/content/repositories/thirdparty/&lt;/url&gt;
+&gt; &lt;/repository&gt;
+&gt; &lt;/repositories&gt;
+&gt; &lt;dependencies&gt;
+&gt; &lt;/dependencies&gt;
+&gt; &lt;reporting&gt;
+&gt; &lt;plugins&gt;
+&gt; &lt;/plugins&gt;
+&gt; &lt;/reporting&gt;
+&gt; &lt;dependencyManagement&gt;
+&gt; &lt;/dependencyManagement&gt;
+&gt; &lt;properties&gt;
+&gt; &lt;net.sf.jni4net.version&gt;0.8.6.0&lt;/net.sf.jni4net.version&gt;
+&gt; &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+&gt; &lt;/properties&gt;
+&gt; &lt;modules&gt;
+&gt; &lt;module&gt;platform.Java&lt;/module&gt;
+&gt; &lt;module&gt;platform.NET&lt;/module&gt;
+&gt; &lt;/modules&gt;
+&gt; &lt;/project&gt;
+&gt;
+&gt;
+&gt; On 2012-03-14 1:29 PM, Daivish Shah wrote:
+&gt;&gt;
+&gt;&gt; Hi Maven Team,
+&gt;&gt;
+&gt;&gt; I am trying to find out what is the best way to define company specific
+&gt;&gt; GLOBAL POM.XML. Which each team can inherit it in EACH Projects.
+&gt;&gt;
+&gt;&gt; Can some one provide me guideline on that ? Is that going to be profile or
+&gt;&gt; just simple POM.XML ? And how to inherit that. Please provide me guideline
+&gt;&gt; to implement it. As this is very critical before we implement all projects
+&gt;&gt; with MAVEN.
+&gt;&gt;
+&gt;&gt; Thanks,
+&gt;&gt; Daivish.
+&gt;&gt;
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201203.mbox/raw/%3cCAKDUN1sjL9nrNGpbYJZN=55d25AXLGCE_dvRu=cEkzkvb_8zCA@mail.gmail.com%3e/">Unnamed text/plain</a> (inline, Quoted Printable, 7715 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201203.mbox/raw/%3cCAKDUN1sjL9nrNGpbYJZN=55d25AXLGCE_dvRu=cEkzkvb_8zCA@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

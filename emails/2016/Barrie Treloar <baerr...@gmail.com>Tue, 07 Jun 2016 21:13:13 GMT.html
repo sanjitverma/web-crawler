@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Maven and Eclipse</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201606.mbox/%3cC718226F-DE83-4BE6-B51D-ACD54168FD96@gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201606.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201606.mbox/%3c50f22c90-cd28-4a83-b889-57d9442e97e8.maildroid@localhost%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201606.mbox/%3c66E4D465B7148341A329FEB0ACD5BA1A011353D8@006FCH1MPN2-003.006f.mgd2.msft.net%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201606.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201606.mbox/%3c66E4D465B7148341A329FEB0ACD5BA1A01135505@006FCH1MPN2-003.006f.mgd2.msft.net%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201606.mbox/%3cC718226F-DE83-4BE6-B51D-ACD54168FD96@gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201606.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201606.mbox/%3c50f22c90-cd28-4a83-b889-57d9442e97e8.maildroid@localhost%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201606.mbox/%3c66E4D465B7148341A329FEB0ACD5BA1A011353D8@006FCH1MPN2-003.006f.mgd2.msft.net%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201606.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201606.mbox/%3c66E4D465B7148341A329FEB0ACD5BA1A01135505@006FCH1MPN2-003.006f.mgd2.msft.net%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Barrie Treloar &lt;baerr...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Maven and Eclipse</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Tue, 07 Jun 2016 21:13:13 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+On 8 June 2016 at 01:33, &lt;Michael.CTR.Tarullo@faa.gov&gt; wrote:
+
+&gt; I have recently been doing Maven builds from Eclipse Luna with no problems.
+&gt;
+&gt; Recently I upgraded Eclipse to Mars 2 and Maven builds that worked in the
+&gt; past no longer work.  I have posted the error I'm getting at the end of
+&gt; this email.  In addition, it appears that the Maven -&gt; Update project....
+&gt; Feature is no longer working.  When I do this from Eclipse Mars 2 on an
+&gt; empty local repo, the local repo is populated from my remote repo fine, but
+&gt; the Java Build Path Libraries are not populated, when I start with both an
+&gt; empty local repo and no libraries other than the JDK.
+&gt;
+&gt; I am using the m2e-workspace v0.3.1.  Does this need to be changed as a
+&gt; result of my upgrade from Luna to Mars 2?
+&gt;
+&gt; [ERROR] Failed to execute goal
+&gt; org.apache.maven.plugins:maven-compiler-plugin:2.5.1:compile
+&gt; (default-compile) on project queue.producer:
+&gt;         Execution default-compile of goal
+&gt; org.apache.maven.plugins:maven-compiler-plugin:2.5.1:compile failed:
+&gt;         Plugin org.apache.maven.plugins:maven-compiler-plugin:2.5.1 or one
+&gt; of its dependencies could not be resolved:
+&gt;         Failure to find org.apache.maven:maven-plugin-api:jar:2.0.9 in
+&gt; https://swimrepo.faa.gov/nexus/content/repositories/Repo-jboss-fuse-06-02-01-Releases
+&gt;         was cached in the local repository, resolution will not be
+&gt; reattempted until the update interval of SwimRepo
+&gt;         has elapsed or updates are forced -&gt; [Help 1]
+
+
+Does this work on the command line ?
+If yes, then you need to email the m2e mailing list to troubleshoot further.
+https://dev.eclipse.org/mailman/listinfo/m2e-users
+
+This error doesn't look like a problem with maven or m2e.
+This looks like org.apache.maven:maven-plugin-api:jar:2.0.9 is not in your
+organisations nexus proxy.
+
+&gt;From the path in the url to the nexus repo it looks like a jboss fuse cache.
+My last recollection of the jboss caches were they were bastardized copies
+of central to work with jboss.
+I'd recommend making that cache the last thing the nexus proxy attempts to
+check.
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201606.mbox/raw/%3cCADVp3v_z-dQQaGBDsmL3bCnt-0gAPSpSRCET4LWP2kHLdWzHkw@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 2090 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201606.mbox/raw/%3cCADVp3v_z-dQQaGBDsmL3bCnt-0gAPSpSRCET4LWP2kHLdWzHkw@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

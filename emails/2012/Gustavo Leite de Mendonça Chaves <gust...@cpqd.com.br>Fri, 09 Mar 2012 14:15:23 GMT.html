@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Is it possible to tie current git branch to project version?</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201203.mbox/%3cCAPLpRQLvmG6QUHp=gU2MxtQAt54b9iOgqNfaf27AT8QfbsmrVA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201203.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201203.mbox/%3cOF10C790E5.4805F7B9-ONC12579BC.0066DC5C-C12579BC.0066DC5C@bnpparibas.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201203.mbox/%3cCAKPrmVUUe80M-JQOnX01XE6ZFM8LDxrnhuu-2ZfYXG9MFNJLEw@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201203.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201203.mbox/%3cCABCm3TV66hmFZL3c8V161b47CNoj7yk_rfNfYX3HmTYi-9c36w@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201203.mbox/%3cCAPLpRQLvmG6QUHp=gU2MxtQAt54b9iOgqNfaf27AT8QfbsmrVA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201203.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201203.mbox/%3cOF10C790E5.4805F7B9-ONC12579BC.0066DC5C-C12579BC.0066DC5C@bnpparibas.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201203.mbox/%3cCAKPrmVUUe80M-JQOnX01XE6ZFM8LDxrnhuu-2ZfYXG9MFNJLEw@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201203.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201203.mbox/%3cCABCm3TV66hmFZL3c8V161b47CNoj7yk_rfNfYX3HmTYi-9c36w@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Gustavo Leite de Mendonça Chaves &lt;gust...@cpqd.com.br&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Is it possible to tie current git branch to project version?</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Fri, 09 Mar 2012 14:15:23 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+2012/3/8 Seth Call &lt;sethcall@gmail.com&gt;
+&gt;
+&gt; Hi Gustavo,
+&gt;
+&gt; Wow, the tagging idea is dead on.
+
+I'm glad that you liked it.
+
+&gt; However, I like what you suggestion a great deal, because it allows this flow:
+
+Which seems very reasonable to me. Even more so because you wouldn't
+have to deal with POM editing and spurious merge conflicts anymore!
+Smooth and simple...
+
+&gt; Previous to your post, I just thought of a tag helping one track/correlate
+&gt; what you released.  But your tag workflow encourages one to tag up front
+&gt; and *then* build, ensuring that the act of tagging occurred; and it also
+&gt; encourages a tag scheme that makes sense for your 'external' versioning
+&gt; scheme.  Also, I like that changes to the SCM *have* to occur *before*
+&gt; hand-offs to the next phase. Developer has to commit; a publisher has to
+&gt; tag.  Consistent.  You have to actually express your intent into the SCM
+&gt; before you get what you want.
+
+Good points.
+
+They don't preclude the automatization of the release process by a
+simpler Maven Release plugin, though. I mean, we still can have a
+plugin to grok the next release version and to perform the tag
+automatically. Dist::Zilla::Plugin::Git::NextVersion
+[http://search.cpan.org/perldoc?Dist::Zilla::Plugin::Git::NextVersion]
+does exactly that when I run "dzil release". It groks all tags
+matching a regex (/^v(.+)$/ by default, order them, takes the most
+recent one, and create a new tag incrementing it by one. (The new tag
+can be specified by the user in case you want to bump the minor or the
+major version, but most of the time it does the right thing, much like
+the actual Maven Release plugin.) It would be simpler because there
+would be no need to edit POMs.
+
+&gt; This particular 'scm as versioning truth' scheme, coupled with a build
+&gt; server,  allows a very natural hand-off between developer/qa/ops, and all
+&gt; teams communicate what actually happened with one technology; the SCM.
+&gt; The SCM conveys what happened throughout the entire lifecycle, and the
+&gt; versioning of everything built is also tightly coupled to the SCM.  (well,
+&gt; one gap; I would like to shoe-horn the git hash next to the build number
+&gt; for build-server artifacts, but only if it doesn't affect all my other goals).
+
+Yes. The core principle here is DRY. Use the SCM to manage versions
+and let maven figure out the current version from the SCM context,
+avoiding the need to manually keep the SCM versions and the POM
+versions in sync.
+
+&gt; But the critical question you ask... is maven OK with this versioning.  I
+&gt; also have seen that maven seems OK with this versioning in my tests. But I
+&gt; fear my simple tests haven't found a big 'oh no'.  I hope someone else
+&gt; could weigh in who has a deep understanding of maven internally.
+
+So do I.
+
+&gt; And still, the fact we have to use the command-line to achieve this
+&gt; versioning scheme is not OK. On a build server? Sure.  But for developer
+&gt; usage, not OK.  I still strongly hope Maven could resolve this by allowing
+&gt; variables in &lt;version&gt; that were set *very* early in the maven process.
+&gt; This should be possible with a plugin!
+
+So far this seems to be the major roadblock to this. The risk is to
+let developers do builds without specifying the version and have them
+deployed with version "${scm.version}" instead. But, perhaps, we could
+at least detect it by implementing a plugin to validate the artifact
+version in the validate phase of the default lifecycle. It could abort
+the build early on if the artifact version contains an unexpanded
+property, for instance.
+
+&gt; Thanks for weighing in.  I was wondering if we were alone/rare in our
+&gt; desired workflow... hopefully not!
+
+Let's hope.
+
+During my googling in the last days I found lots of discussions around
+the messiness which is the housekeeping of artifact versions in POMs.
+So far as I can tell, the main issues plaguing almost everybody are
+these:
+
+* There isn't a standard method to differentiate versions in feature
+branches. Some people simply don't bother and run the risk of
+deployment collisions. Some people manually change the artifact's
+groupid, putting the branch name in it. Others tend to insert the
+branch name in the version classifier. I couldn't find anyone (except
+you) thinking about using the branch name as the version.
+
+* Merges carry on the version editions performed in the POMs. These
+changes must be carefully screened out manually, which is error prone
+and potentially disastrous.
+
+By having maven infer the version from the SCM seems to simplify very
+much the whole process.
+
+Gustavo.
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201203.mbox/raw/%3cCABCm3TXvjh4NxgQ-dK7KeH4A0bSpvo5MkxosE8i9xTv9R7_eKw@mail.gmail.com%3e/">Unnamed text/plain</a> (inline, Quoted Printable, 4806 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201203.mbox/raw/%3cCABCm3TXvjh4NxgQ-dK7KeH4A0bSpvo5MkxosE8i9xTv9R7_eKw@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

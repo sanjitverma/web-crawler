@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Additional settings.xml file</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201209.mbox/%3cCANyrOm58wpt7=dqb6T-eGkP+MhMQhUm-3tUZEOQ2bZOrsJ5TpA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201209.mbox/%3c50520A0E.2080506@redhat.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201209.mbox/%3cCANyrOm58wpt7=dqb6T-eGkP+MhMQhUm-3tUZEOQ2bZOrsJ5TpA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201209.mbox/%3cCAPCjjnEWQ+YzS7s6jpXcAsM61yry-559C0GtBj7+pmWz5-WT0g@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201209.mbox/%3cCANyrOm58wpt7=dqb6T-eGkP+MhMQhUm-3tUZEOQ2bZOrsJ5TpA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201209.mbox/%3c50520A0E.2080506@redhat.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201209.mbox/%3cCANyrOm58wpt7=dqb6T-eGkP+MhMQhUm-3tUZEOQ2bZOrsJ5TpA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201209.mbox/%3cCAPCjjnEWQ+YzS7s6jpXcAsM61yry-559C0GtBj7+pmWz5-WT0g@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Baptiste MATHUS ...@batmat.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Additional settings.xml file</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Thu, 13 Sep 2012 16:19:42 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hi,
+
+If I understand correctly, what you need makes me think about the
+inheritance relationship between the user settings.xml file and the global
+one.
+I just checked checkly using mvn help:effective-settings, and it seems to
+be cool (global ids also defined in the user are seen as redefinition,
+might be useful for what you say?).
+
+So, in your case, maybe you could use the remote settings.xml as if if was
+your global one, and then define the user one with yours.
+
+What do you think? Could this work for you?
+
+Cheers
+
+2012/9/13 Mickael Istria &lt;mistria@redhat.com&gt;
+
+&gt; Hi all,
+&gt;
+&gt; I'd like to know if it is possible to pass an additional settings.xml file
+&gt; to Maven.
+&gt;
+&gt; Here is the use case:
+&gt; We have a project, and CI is built on Jenkins. On Jenkins, it is allowed
+&gt; to deploy stuff onto Nexus. So the settings.xml for Jenkins specifies the
+&gt; necessary credentials in order to push to Nexus. We do not own the
+&gt; settings.xml file, so we can't simply modify it. Also, it changes often, so
+&gt; I can't simply copy it for my project and add what I want to it: it would
+&gt; get out of sync pretty fastly, and a lot of stuff -such as deployent- won't
+&gt; work any longer.
+&gt; For our projects, we would like to use some mirrors, that are specific to
+&gt; our project, and that may change often. Then it wouldn't make sense to put
+&gt; them in the global settings.xml (that we can't change as we want). So I
+&gt; want to have mirrors but can't edit nor replace the current settings.xml. I
+&gt; thought maybe there is a way to "append" another settings.xml file through
+&gt; command-line, for project-specific settings.
+&gt; Does anyone how to achieve that? Or have a workaround for my use-case?
+&gt;
+&gt; Thanks in advance for your insights.
+&gt; --
+&gt; Mickael Istria
+&gt; Eclipse developer at JBoss, by Red Hat &lt;http://www.jboss.org/tools&gt;
+&gt; My blog &lt;http://mickaelistria.**wordpress.com&lt;http://mickaelistria.wordpress.com&gt;&gt;
+&gt; - My Tweets &lt;http://twitter.com/**mickaelistria&lt;http://twitter.com/mickaelistria&gt;
+&gt; &gt;
+&gt;
+&gt; --
+&gt; Baptiste &lt;Batmat&gt; MATHUS - http://batmat.net
+&gt; Sauvez un arbre,
+&gt; Mangez un castor !
+&gt; nbsp;!
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201209.mbox/raw/%3cCANWgJS4uCXq0vjCnJdvhKPaYz-vZdjEq3nOsgQyno2h-e+NYMA@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 2079 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201209.mbox/raw/%3cCANWgJS4uCXq0vjCnJdvhKPaYz-vZdjEq3nOsgQyno2h-e+NYMA@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

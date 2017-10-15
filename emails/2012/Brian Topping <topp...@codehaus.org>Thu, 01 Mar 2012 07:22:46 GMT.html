@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Is Maven the answer?</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201203.mbox/%3cCAApMPgzfqGoyDKwb4ia=hzZz331cqEB-fdcGuSHLUsZQ9ggygQ@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201203.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201203.mbox/%3c2390812.pCxyXCSeHJ@gaia%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201203.mbox/%3cCALyLaQKzMR7v-ZOR6hxAuthwhsmZsAuQ60r7=GE7riDgkoRtZQ@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201203.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201203.mbox/%3c2390812.pCxyXCSeHJ@gaia%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201203.mbox/%3cCAApMPgzfqGoyDKwb4ia=hzZz331cqEB-fdcGuSHLUsZQ9ggygQ@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201203.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201203.mbox/%3c2390812.pCxyXCSeHJ@gaia%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201203.mbox/%3cCALyLaQKzMR7v-ZOR6hxAuthwhsmZsAuQ60r7=GE7riDgkoRtZQ@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201203.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201203.mbox/%3c2390812.pCxyXCSeHJ@gaia%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Brian Topping &lt;topp...@codehaus.org&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Is Maven the answer?</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Thu, 01 Mar 2012 07:22:46 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Adding to the valid observations of others, I'd first consider the size of the project, number
+of people that are going to be using it and their experience with Maven.  
+
+If you want do to such a build cleanly with Maven, the best way to do it is by creating or
+obtaining plugins for the various tasks.  There actually is a PHP plugin, for instance, and
+others would be simple to make.  But if it's just a few people that know Maven and hoards
+of others that complain about it being there or JVM languages being a part of the build, it's
+just asking for problems.  For instance, you will probably find the team assigning any and
+all issues with the build to you.
+
+OTOH, if you have a large organization that is going to use the build and a majority knows
+Maven already, plugins and lifecycle are still quite applicable and might be more enjoyable.
+
+Maven can solve this problem just fine, but since dependency resolution and artifact versioning
+/ releases may not be primary requirements for you, the non-technical issues Maven creates
+may outnumber the issues that it resolves.
+
+$0.02... Brian
+
+
+On Mar 1, 2012, at 12:13 AM, Néstor Boscán wrote:
+
+&gt; Although I really like maven, and use it in all my projects, maven is
+&gt; tightly integrated with the project lifecycle (clean, compile, package,
+&gt; install, deploy ,etc) so ant looks like a better fit for what you're
+&gt; looking for.
+&gt; 
+&gt; Néstor
+&gt; 
+&gt; On Wed, Feb 29, 2012 at 11:51 PM, Ron Wheeler &lt;
+&gt; rwheeler@artifact-software.com&gt; wrote:
+&gt; 
+&gt;&gt; I would have suggested Ant since it is easy to use, widely supported with
+&gt;&gt; documentation, books and examples.
+&gt;&gt; It can do damn near anything.
+&gt;&gt; 
+&gt;&gt; make seems awfully obscure but it is used a lot for installation.
+&gt;&gt; 
+&gt;&gt; maven does not seem like a good fit.
+&gt;&gt; 
+&gt;&gt; Ron
+&gt;&gt; 
+&gt;&gt; 
+&gt;&gt; On 29/02/2012 10:20 PM, Yuen-Chi Lian wrote:
+&gt;&gt; 
+&gt;&gt;&gt; For such scripting with phases, I find rake (or make) to be more suitable
+&gt;&gt;&gt; than ant or Maven. Or try BuildR.
+&gt;&gt;&gt; 
+&gt;&gt;&gt; Yuen-Chi Lian | www.yclian.com
+&gt;&gt;&gt; "I do not seek; I find." - Pablo Picasso
+&gt;&gt;&gt; 
+&gt;&gt;&gt; 2012/3/1 Terence Stephens&lt;terence.stephens@**gmail.com&lt;terence.stephens@gmail.com&gt;
+&gt;&gt;&gt;&gt; 
+&gt;&gt;&gt; 
+&gt;&gt;&gt; I'm looking for a tool that will help me:
+&gt;&gt;&gt;&gt; Build Java Code
+&gt;&gt;&gt;&gt; Move Php code to a different location on my computer
+&gt;&gt;&gt;&gt; Create New Directories on the server and upload content to them (via
+&gt;&gt;&gt;&gt; FTP over SSL or maybe SSH)
+&gt;&gt;&gt;&gt; Download whole directories and then zip of the contents
+&gt;&gt;&gt;&gt; 
+&gt;&gt;&gt;&gt; 
+&gt;&gt;&gt;&gt; I know I could do this in a shell script, but I think I would have
+&gt;&gt;&gt;&gt; better luck with a Java based tool.  This is outside the scope of
+&gt;&gt;&gt;&gt; Maven's uses.  For my needs, should I look into using Maven or find a
+&gt;&gt;&gt;&gt; different tool?
+&gt;&gt;&gt;&gt; 
+&gt;&gt;&gt;&gt; thanks.
+&gt;&gt;&gt;&gt; 
+&gt;&gt;&gt;&gt; ------------------------------**------------------------------**
+&gt;&gt;&gt;&gt; ---------
+&gt;&gt;&gt;&gt; To unsubscribe, e-mail: users-unsubscribe@maven.**apache.org&lt;users-unsubscribe@maven.apache.org&gt;
+&gt;&gt;&gt;&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;&gt;&gt;&gt; 
+&gt;&gt;&gt;&gt; 
+&gt;&gt;&gt;&gt; 
+&gt;&gt; 
+&gt;&gt; --
+&gt;&gt; Ron Wheeler
+&gt;&gt; President
+&gt;&gt; Artifact Software Inc
+&gt;&gt; email: rwheeler@artifact-software.com
+&gt;&gt; skype: ronaldmwheeler
+&gt;&gt; phone: 866-970-2435, ext 102
+&gt;&gt; 
+&gt;&gt; 
+&gt;&gt; 
+&gt;&gt; 
+&gt;&gt; ---------------------------------------------------------------------
+&gt;&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt;&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;&gt; 
+
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201203.mbox/raw/%3c04E12877-3B85-49F2-B731-D3D2C5D6B458@codehaus.org%3e/">Unnamed text/plain</a> (inline, Quoted Printable, 3644 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201203.mbox/raw/%3c04E12877-3B85-49F2-B731-D3D2C5D6B458@codehaus.org%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: (Re-)Deploy artifacts to (different) repositories</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201203.mbox/%3c20120308144038.15050@gmx.net%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201203.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201203.mbox/%3c4F58C85E.6070905@artifact-software.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201203.mbox/%3c20120308144038.15050@gmx.net%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201203.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201203.mbox/%3c4F58C85E.6070905@artifact-software.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201203.mbox/%3c20120308144038.15050@gmx.net%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201203.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201203.mbox/%3c4F58C85E.6070905@artifact-software.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201203.mbox/%3c20120308144038.15050@gmx.net%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201203.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201203.mbox/%3c4F58C85E.6070905@artifact-software.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Anders Hammar &lt;and...@hammar.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: (Re-)Deploy artifacts to (different) repositories</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Thu, 08 Mar 2012 14:51:52 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+As a starter you need to deploy your artifacts to a remote repository,
+preferably managed by a repo manager. A local repo is merely a local
+cache for one developer on one computer.
+
+Then the dev shops would either access your repo directly or have
+their own repo managers proxying your repo. Also, some repo managers
+could have specific features to handle syncing repos between different
+locations. Have a look at the available repo managers and see what
+they offer!
+
+/Anders
+
+On Thu, Mar 8, 2012 at 15:25, Lyons, Roy &lt;Roy.Lyons@cmegroup.com&gt; wrote:
+&gt; Most distributed teams would use nexus for that.  deploy once, propagate many.
+&gt;
+&gt; -----Original Message-----
+&gt; From: M. Richey [mailto:mrichey@gmx.de]
+&gt; Sent: Thursday, March 08, 2012 8:14 AM
+&gt; To: Maven Users List
+&gt; Subject: (Re-)Deploy artifacts to (different) repositories
+&gt;
+&gt;
+&gt; Hi everyone,
+&gt;
+&gt; we would like to make our artifacts available for our teams being spread across different
+locations.
+&gt;
+&gt; So what would be the best way to do that?
+&gt;
+&gt; We did a mvn install before. So all projects are build already. Therefore it would be
+great if we could use the projects artifacts (or the ones from the local repository) and deploy
+it to the different repositories. But executing mvn deploy more than once, will cause maven
+to reassemble all the artifacts which is just wasting time. And afaik the is no way to deploy
+to different repositories in one go.
+&gt;
+&gt; Is there a way to do it like that? Can you use the local repository to deploy from there?
+Any other ideas on how to get this done?
+&gt;
+&gt; Thanks in advance!
+&gt;
+&gt; Kind regards,
+&gt;
+&gt; Maik
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201203.mbox/raw/%3cCAKDUN1u4ghs8hqHh2uTGPWx72aM5NFpe8L_=XJmVi7_TuqBQpw@mail.gmail.com%3e/">Unnamed text/plain</a> (inline, Quoted Printable, 2202 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201203.mbox/raw/%3cCAKDUN1u4ghs8hqHh2uTGPWx72aM5NFpe8L_=XJmVi7_TuqBQpw@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

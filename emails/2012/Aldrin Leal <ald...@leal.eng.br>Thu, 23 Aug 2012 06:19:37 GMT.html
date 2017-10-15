@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: git scm and site:deploy</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201208.mbox/%3c5035C6A4.3010209@uni-jena.de%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201208.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201208.mbox/%3c20120823081641.292360@gmx.net%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201208.mbox/%3cCAPoyBqSD5Wg34wGhfMoeP=ZiDumQ=h+DE_C3GBHWXZwGyP=1gQ@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201208.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201208.mbox/%3cCA+nPnMy651AoFe-yKMSxcNYoZtkHzqdZHhdhcOLx3Sqqs=ynRA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201208.mbox/%3c5035C6A4.3010209@uni-jena.de%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201208.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201208.mbox/%3c20120823081641.292360@gmx.net%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201208.mbox/%3cCAPoyBqSD5Wg34wGhfMoeP=ZiDumQ=h+DE_C3GBHWXZwGyP=1gQ@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201208.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201208.mbox/%3cCA+nPnMy651AoFe-yKMSxcNYoZtkHzqdZHhdhcOLx3Sqqs=ynRA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Aldrin Leal &lt;ald...@leal.eng.br&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: git scm and site:deploy</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Thu, 23 Aug 2012 06:19:37 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Github does have a plugin for this as well
+
+https://github.com/github/maven-plugins
+
+Easy to use, I think:
+
+					&lt;plugin&gt;
+						&lt;groupId&gt;com.github.github&lt;/groupId&gt;
+						&lt;artifactId&gt;site-maven-plugin&lt;/artifactId&gt;
+						&lt;version&gt;0.7&lt;/version&gt;
+						&lt;configuration&gt;
+							&lt;message&gt;Site Update&lt;/message&gt;
+						&lt;/configuration&gt;
+						&lt;executions&gt;
+							&lt;execution&gt;
+								&lt;goals&gt;
+									&lt;goal&gt;site&lt;/goal&gt;
+								&lt;/goals&gt;
+								&lt;phase&gt;site&lt;/phase&gt;
+							&lt;/execution&gt;
+						&lt;/executions&gt;
+					&lt;/plugin&gt;
+
+If you define &lt;scm/&gt; correctly, it will push into github pages as a
+branch, just like the specs say
+
+--
+-- Aldrin Leal, &lt;aldrin@leal.eng.br&gt; / http://meadiciona.com/aldrinleal
+
+
+On Wed, Aug 22, 2012 at 7:00 AM, Thomas Scheffler
+&lt;thomas.scheffler@uni-jena.de&gt; wrote:
+&gt; Hi,
+&gt;
+&gt; I have a project and I want to deploy the site to github. Luckily there
+&gt; is documentation about how to do this:
+&gt;
+&gt; http://maven.apache.org/wagon/wagon-providers/wagon-scm/usage.html
+&gt;
+&gt; But neither with the config there not with newer version I achieve success:
+&gt;
+&gt;  Transfer error:
+&gt; org.apache.maven.scm.manager.NoSuchScmProviderException: No such
+&gt; provider: 'git'.
+&gt;
+&gt; my pom looks like this:
+&gt;
+&gt;  &lt;build&gt;
+&gt;     &lt;extensions&gt;
+&gt;       &lt;extension&gt;
+&gt;         &lt;groupId&gt;org.apache.maven.wagon&lt;/groupId&gt;
+&gt;         &lt;artifactId&gt;wagon-scm&lt;/artifactId&gt;
+&gt;         &lt;version&gt;2.2&lt;/version&gt;
+&gt;       &lt;/extension&gt;
+&gt;       &lt;extension&gt;
+&gt;         &lt;groupId&gt;org.apache.maven.scm&lt;/groupId&gt;
+&gt;         &lt;artifactId&gt;maven-scm-manager-plexus&lt;/artifactId&gt;
+&gt;         &lt;version&gt;1.7&lt;/version&gt;
+&gt;       &lt;/extension&gt;
+&gt;       &lt;extension&gt;
+&gt;         &lt;groupId&gt;org.apache.maven.scm&lt;/groupId&gt;
+&gt;         &lt;artifactId&gt;maven-scm-provider-gitexe&lt;/artifactId&gt;
+&gt;         &lt;version&gt;1.7&lt;/version&gt;
+&gt;       &lt;/extension&gt;
+&gt;     &lt;/extensions&gt;
+&gt; [...]
+&gt;  &lt;/build&gt;
+&gt;
+&gt; So there seems no problem with the scm URL in general, as "mvn
+&gt; scm:validate" is successful for "&lt;scm&gt;" configuration just site:deploy
+&gt; does not know about the git scm provider.
+&gt;
+&gt; How can I achieve to commit the site to github?
+&gt;
+&gt; regards,
+&gt;
+&gt; Thomas
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201208.mbox/raw/%3cCALpo8NtqZTTM+4yLg-icBtRxTfuLyuqVCsS4OHxRRZVEtPH29w@mail.gmail.com%3e/">Unnamed text/plain</a> (inline, None, 2448 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201208.mbox/raw/%3cCALpo8NtqZTTM+4yLg-icBtRxTfuLyuqVCsS4OHxRRZVEtPH29w@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

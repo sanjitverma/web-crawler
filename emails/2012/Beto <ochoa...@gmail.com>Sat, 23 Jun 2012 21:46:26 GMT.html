@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Custom plugin will not resolve on first try</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201206.mbox/%3cBLU142-W24E70FD4DF776FA9D00DFEAEE30@phx.gbl%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201206.mbox/%3cCAPCjjnEgJpNo-H1Zz78j3L0qMs2P0haJhfi+iQgvgiQYvSA6aA@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201206.mbox/%3c1340416211562-5711857.post@n5.nabble.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201206.mbox/%3cC318061356872B4D892533A28BD08819ED91CA@quipsy1%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201206.mbox/%3cBLU142-W24E70FD4DF776FA9D00DFEAEE30@phx.gbl%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201206.mbox/%3cCAPCjjnEgJpNo-H1Zz78j3L0qMs2P0haJhfi+iQgvgiQYvSA6aA@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201206.mbox/%3c1340416211562-5711857.post@n5.nabble.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201206.mbox/%3cC318061356872B4D892533A28BD08819ED91CA@quipsy1%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Beto &lt;ochoa...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Custom plugin will not resolve on first try</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Sat, 23 Jun 2012 21:46:26 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+I created a maven plugin and tested it locally and it worked fine.  So I
+placed it on a local repository where we have other maven artifacts and
+attempted to use this plugin on a second machine.  On this second machine, I
+did the following:
+
+ - added the plugin repository info to the settings.xml file
+ - on the target project's pom, I added the plugin under the
+&lt;build&gt;/&lt;plugins&gt; node
+ - on the target project's pom, I added the the artifact under the
+&lt;dependencies&gt; node 
+
+
+I proceeded to compile the project and use my plugin: 
+
+mvn clean install -U
+mvn myPrefix:goal 
+
+
+Maven concluded that it could not resolve some dependency for my project. 
+So I tinkered a lot with it.  And this is where I'm at now (all below is on
+the machine that wants to use this plugin): 
+
+ - I created a new version of my plugin, which I confirmed is identical to
+the original, except in version value.  My original is 1.0.  The new version
+is 1.1.  
+- I updated the project's POM to use myPlugin version 1.1
+- re-executed the maven commands above and everything worked great.
+- to test it out on a new install, i deleted myPlugin from the
+.m2/repository
+- i re-run the mvn commands hoping everything will resolve-- it doesn't
+- I update the POM file to go back to plugin version 1.0.  
+- I rerun the mvn commands, and everything works again
+- if I delete the 1.0 plugin from the repository, and rerun the mvn command,
+all will fail.
+- I have to update the POM again to use 1.1 in order to get it to work
+
+In short, I'm stuck in a vicious cycle.  Why do I need to update the POM of
+a project in order to get my plugin to be recognized?  This is my first
+plugin so maybe there's something I'm missing.  Is there an initializer or
+something I'm missing?  Maybe a flag I need to pass to Maven?  
+
+I've been stuck on this one for a few hours...any help would be greatly
+appreciated.  
+
+Oh, and for kicks, I created a third version, 1.2, to see if there was a
+dependency between 1.0 and 1.1.  Nope...it appears that the only thing I
+need is to see an updated in the projects pom.xml file.
+
+
+
+--
+View this message in context: http://maven.40175.n5.nabble.com/Custom-plugin-will-not-resolve-on-first-try-tp5711894.html
+Sent from the Maven - Users mailing list archive at Nabble.com.
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201206.mbox/raw/%3c1340487986310-5711894.post@n5.nabble.com%3e/">Unnamed text/plain</a> (inline, 7-Bit, 2452 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201206.mbox/raw/%3c1340487986310-5711894.post@n5.nabble.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

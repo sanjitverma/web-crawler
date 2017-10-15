@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Is it a bug? (install plugin deploys poms with variables in artifact.version and parent.version)</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201210.mbox/%3cCA+nPnMzNGXy6KzXcSMUmw--h76JThTUKrF6CQk5SF1xkEugXKQ@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201210.mbox/%3cCA+nPnMwphajs1-mr=EC24j7PZHxfmZO5ysnGPfd5Owr2fWdVHg@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201210.mbox/%3c3229.4.3-15862-761216971-1350370048@seznam.cz%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201210.mbox/%3c0754265D8F827542923756047FF9151D04996F50F8@prod06.jb-it.local%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201210.mbox/%3cCA+nPnMzNGXy6KzXcSMUmw--h76JThTUKrF6CQk5SF1xkEugXKQ@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201210.mbox/%3cCA+nPnMwphajs1-mr=EC24j7PZHxfmZO5ysnGPfd5Owr2fWdVHg@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201210.mbox/%3c3229.4.3-15862-761216971-1350370048@seznam.cz%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201210.mbox/%3c0754265D8F827542923756047FF9151D04996F50F8@prod06.jb-it.local%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Baptiste MATHUS ...@batmat.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Is it a bug? (install plugin deploys poms with variables in artifact.version and parent.version)</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Tue, 16 Oct 2012 08:14:40 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Moving onto user-list.
+
+Thanks
+
+2012/10/15 christofer.dutz@c-ware.de &lt;christofer.dutz@c-ware.de&gt;
+
+&gt; Just did a little digging ... so assuming I have only two projects ... one
+&gt; master and one module.
+&gt; If I define two properties in my master pom: "my.cool.master.version" and
+&gt; "my.cool.alternate.master.version"  and set both to the same value of
+&gt; "1.2-SNAPSHOT".
+&gt;
+&gt; In szenario 1: I ´hard code the version of the master to "1.2-SNAPSHOT"
+&gt; but use the property to reference the parent from the moule ... when
+&gt; running a build, maven tries to download
+&gt; "de/mycompany/test/${my.cool.master.version}/mycoolmaster-${my.cool.master.version}.pom"
+&gt; --&gt; Failure
+&gt;
+&gt; In szenario 2: I use the same variable for defining the masters version.
+&gt; This time the maven build runs fine and the parent version is correctly
+&gt; resolved.
+&gt;
+&gt; In szenario 3: I use the first property to define the version of the
+&gt; master and the second one for referncing the parent from the module ...
+&gt; when running a build, maven tries to download
+&gt; "de/mycompany/test/${my.cool.alternate.master.version}/mycoolmaster-${my.cool.alternate.master.version}.pom"
+&gt; --&gt; Failure
+&gt;
+&gt; So to me it looks as if there was some sort of intention behind
+&gt; everything. To mee it looks like one teeniewienie loophole allowing
+&gt; properies in versions while closing the usage range so much that possible
+&gt; harm is reduced to it's absolute minimum, while allowing that one usecase I
+&gt; was intending to use it for. After all ... this is a problem users are
+&gt; begging for maven to provide a solution since maven 2.0 (When looking at
+&gt; the forums).
+&gt;
+&gt; Chris
+&gt;
+&gt;
+&gt;
+&gt;
+&gt; ________________________________________
+&gt; Von: Stephen Connolly [stephen.alan.connolly@gmail.com]
+&gt; Gesendet: Montag, 15. Oktober 2012 17:35
+&gt; An: Maven Developers List
+&gt; Betreff: Re: Is it a bug? (install plugin deploys poms with variables in
+&gt; artifact.version and parent.version)
+&gt;
+&gt; Those are edge cases where things unintentionally work, probably falling
+&gt; out of the way the model is built in memory.
+&gt;
+&gt; e.g.
+&gt;
+&gt; /project/version has an effective default value of
+&gt; ${project.parent.version}
+&gt; /project/groupId has an effective default value of
+&gt; ${project.parent.groupId}
+&gt;
+&gt; I say "effective" as the actual handling is IIRC a straight copy.
+&gt;
+&gt; Also if you are using System properties, there may be some unintended
+&gt; expansion of those in /project/parent
+&gt;
+&gt; BUT I REPEAT... STOP!
+&gt;
+&gt; Don't do it.
+&gt;
+&gt; Many kittens will be killed if you persist in trying to square this circle
+&gt;
+&gt; On 15 October 2012 16:18, christofer.dutz@c-ware.de &lt;
+&gt; christofer.dutz@c-ware.de&gt; wrote:
+&gt;
+&gt; &gt; I know that property substitution in those places seems to be
+&gt; unavailable.
+&gt; &gt;
+&gt; &gt; But there seems to be one case where it's seems to be explicitly allowed:
+&gt; &gt; If the parent artifacts version is defined by the same variable used to
+&gt; &gt; reference the parent pom, maven doesn't complain about anything (So I
+&gt; guess
+&gt; &gt; this case is explicitly allowed). The artifacts are built, named and
+&gt; &gt; deployed at the absolutely correct place. If I define the version of the
+&gt; &gt; parent without a property (or a property with a different name), maven
+&gt; &gt; doesn't resolve the version and I get all sorts of errors, even if I set
+&gt; it
+&gt; &gt; to the same value. So I guess there must be some sort of support for it?
+&gt; &gt;
+&gt; &gt; Just have a look at the tiny project I attached to the issue. It builds
+&gt; &gt; just fine, except for the fact that the poms deployed in the local maven
+&gt; &gt; repo.
+&gt; &gt;
+&gt; &gt; Chris
+&gt; &gt;
+&gt; &gt; ________________________________________
+&gt; &gt; Von: Stephen Connolly [stephen.alan.connolly@gmail.com]
+&gt; &gt; Gesendet: Montag, 15. Oktober 2012 16:32
+&gt; &gt; An: Maven Developers List
+&gt; &gt; Betreff: Re: Is it a bug? (install plugin deploys poms with variables in
+&gt; &gt; artifact.version and parent.version)
+&gt; &gt;
+&gt; &gt; On 15 October 2012 15:13, christofer.dutz@c-ware.de &lt;
+&gt; &gt; christofer.dutz@c-ware.de&gt; wrote:
+&gt; &gt;
+&gt; &gt; &gt; Hi,
+&gt; &gt; &gt;
+&gt; &gt; &gt; I just opened an issue regarding the install plugin (I think that's the
+&gt; &gt; &gt; module responsible).
+&gt; &gt; &gt; http://jira.codehaus.org/browse/MNG-5358
+&gt; &gt; &gt;
+&gt; &gt; &gt; The general problem is that I am using variables for defining the
+&gt; &gt; versions
+&gt; &gt; &gt; of artifacts, dependencies and parent projects.
+&gt; &gt;
+&gt; &gt;
+&gt; &gt; STOP!
+&gt; &gt;
+&gt; &gt; Property substitution is not supported at the following XPath locations
+&gt; &gt;
+&gt; &gt; /project/parent/groupId
+&gt; &gt; /project/parent/artifactId
+&gt; &gt; /project/parent/version
+&gt; &gt; /project/groupId
+&gt; &gt; /project/artifactId
+&gt; &gt; /project/version
+&gt; &gt; /project/packaging
+&gt; &gt;
+&gt; &gt; If your issue is that Maven is failing to report
+&gt; &gt; groupIds/artifactIds/versions at these XPath locations containing ${...}
+&gt; &gt; characters as being invalid, then you have a valid bug. Otherwise you are
+&gt; &gt; doing something wrong.
+&gt; &gt;
+&gt; &gt; Note we are investigating at some point in the future allowing
+&gt; &gt; /project/parent/version to be optional where the parent is available on
+&gt; &gt; disk at the specified /project/parent/relativePath but that is not a
+&gt; &gt; feature in Maven 3.0.x
+&gt; &gt;
+&gt; &gt; -Stephen
+&gt; &gt;
+&gt; &gt;
+&gt; &gt;
+&gt; &gt; &gt; The install plugin installs the poms in the correct place, but the
+&gt; &gt; &gt; deployed poms contain variables, which could cause major problems. I
+&gt; &gt; would
+&gt; &gt; &gt; assume that because the artifact is deployed in a diectory containing a
+&gt; &gt; &gt; real version, so should the corresponding pom-file.
+&gt; &gt; &gt;
+&gt; &gt; &gt; Is there any known workaround for this or is someone allready working
+&gt; on
+&gt; &gt; &gt; this? If there is no known workaround and you would say this is a bug
+&gt; and
+&gt; &gt; &gt; there is noone working on it, I would start fixing it myself and
+&gt; attach a
+&gt; &gt; &gt; patch to the issue as soon as I've finished it.
+&gt; &gt; &gt;
+&gt; &gt; &gt; Chris
+&gt; &gt; &gt;
+&gt; &gt; ---------------------------------------------------------------------
+&gt; &gt; To unsubscribe, e-mail: dev-unsubscribe@maven.apache.org
+&gt; &gt; For additional commands, e-mail: dev-help@maven.apache.org
+&gt; &gt;
+&gt; &gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: dev-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: dev-help@maven.apache.org
+&gt;
+&gt; --
+&gt; Baptiste &lt;Batmat&gt; MATHUS - http://batmat.net
+&gt; Sauvez un arbre,
+&gt; Mangez un castor !
+&gt; nbsp;!
+&gt;  &lt;dev-help@maven.apache.org&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201210.mbox/raw/%3cCANWgJS6AcXmx21Y3_KRu-tYjGYe9Ma_F2Xg_+h75rkf0O71kcg@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, Quoted Printable, 6195 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201210.mbox/raw/%3cCANWgJS6AcXmx21Y3_KRu-tYjGYe9Ma_F2Xg_+h75rkf0O71kcg@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

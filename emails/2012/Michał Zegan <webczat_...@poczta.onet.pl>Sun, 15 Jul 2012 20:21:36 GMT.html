@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>problems compiling osgi-4.3 bundles using maven</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201207.mbox/%3cCAMmA646rh=8iuPOWkYtedvB2M44=AWrvpZ_agUdS5tBAcCAwDg@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCADVp3v_7gs6g8Y_OJKPBaJQdnEUxhfNngC5NgOkkVLCgUhLtcg@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201207.mbox/%3c20120715143306.4E650816020@nike.apache.org%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCALy+7Umq1jPD06D_bPYTV5jEvOFvZE0hE_0FaS4TKUYmHx2L7A@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201207.mbox/%3cCAMmA646rh=8iuPOWkYtedvB2M44=AWrvpZ_agUdS5tBAcCAwDg@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCADVp3v_7gs6g8Y_OJKPBaJQdnEUxhfNngC5NgOkkVLCgUhLtcg@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201207.mbox/%3c20120715143306.4E650816020@nike.apache.org%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCALy+7Umq1jPD06D_bPYTV5jEvOFvZE0hE_0FaS4TKUYmHx2L7A@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Michał Zegan &lt;webczat_...@poczta.onet.pl&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">problems compiling osgi-4.3 bundles using maven</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Sun, 15 Jul 2012 20:21:36 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+ 
+Hello.
+
+I have a problem using maven for compiling osgi bundles.
+I have a mud game server project based on osgi.
+It's startup application and modules use features specific to osgi
+release 4.3, like generic types and the adapt method of Framework and
+Bundle classes.
+Now, the problem:
+Including the newest org.apache.felix.framework, org.apache.felix.log
+and org.apache.felix.utils artifacts as dependencies brought up
+transitive dependencies org.osgi:org.osgi.core and
+org.osgi:org.osgi.compendium, but it's version is 4.1.0.
+I have used the dependencyManagement thing to override the version to 4.3.0.
+The problem was that it didn't help very much.
+Even that felix had 4.3 api in itself and I had included osgi 4.3
+artifacts that actually duplicate api classes, maven fails to compile
+the project, the compiler says that it can't find symbols in the line
+that uses osgi 4.3 features like adapt, so it seems like it somehow
+tried to compile the project against osgi 4.1.
+Running mvn with -X didn't report 4.1 in the class path, only 4.3 was
+reported.
+Also, if I tried to use eclipse to compile the module's classes, they
+were compiled successfully and then using maven to complete the build
+procedure by executing the package or install phase was successful.
+What is the problem?
+Ahh, and why it says cannot find symbol but it does not say what symbol/etc?
+Like why does it only display one line from the compiler output?
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.19 (MingW32)
+Comment: Using GnuPG with Mozilla - http://enigmail.mozdev.org/
+ 
+iQIcBAEBAgAGBQJQAyZPAAoJEIm05B02l8E6sn8P+wVUzyRbCkikX36fjNUpC+G6
+Q6pL7DHvJ2lb8jmNCAquqhKtYVOQ5lp/2ZoVG5OX9MUKCJvK/vZ+GQ4/EqAL6pS4
+hIGu0eT+xYa/5SHoKTO9RWTOoV0Hvj8crw8jII3Seo7V1NdXYTf7xYnkMKkuskGn
+u0YMUatd9EsVmDJrWt/uUzDuDq+GNJi7iZlo6Q6kKzzNqX2roxvUdFR0qZ/jVuhi
+4wESkLJQcYKAzZZSHyidlGcZhTt2twWl2AXg0f1DiU98XY9IltS0zmRH700kQL/5
+kU7MFZE3gF7uDfnPyO8SjIJcekLAsvFPONKv0uVeD87joxnn7wTUzU08317YNI1A
+zN4QGFaE1Yo893wFD3F21mgW6vh6ha+ZJ4HQ5rIUsdGvPvxmUEPucgWywWZW2n0K
+wbhLI/jSh0o3XJkCQS01BXTVZNgWrStI6m53m0lbW/GwFgI1/KqPfLXJeYWTCjKF
+iQbQSvd9gaQj3tFFgiX9niM/eeZb5B9dDd83V9u9ndE1LpQVTWItKP1Ya0Tl8PVm
+Bop9VoOzPICVNG/RKSrNOn/cPGoUldAy+ib/qVHtGJZhaWoAI5WABh+OgzVPbGx+
+uYMiPCTKzpC6gc9PeUmye+KJGJ/TjRCDV/Foo6wI7qkCQvULnFIiHbBlyf5y1CPj
+hArZCKGTGr7LxjSxhbZb
+=6HEe
+-----END PGP SIGNATURE-----
+
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201207.mbox/raw/%3c50032650.40109@poczta.onet.pl%3e/">Unnamed text/plain</a> (inline, 7-Bit, 2564 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201207.mbox/raw/%3c50032650.40109@poczta.onet.pl%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

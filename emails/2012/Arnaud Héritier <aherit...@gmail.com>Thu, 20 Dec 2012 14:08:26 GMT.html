@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: 1.0.0-SNAPSHOT considered older than 1.0.0?</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201212.mbox/%3c20121220140231.978A1816024@nike.apache.org%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201212.mbox/%3cCAEayHEMuohLhLkfSJS_8RRnb+ZUynXNJ1hg_NGR=3LhNyOtaeQ@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201212.mbox/%3c20121220140231.978A1816024@nike.apache.org%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201212.mbox/%3c20121220150947.25CF9816018@nike.apache.org%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201212.mbox/%3c20121220140231.978A1816024@nike.apache.org%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201212.mbox/%3cCAEayHEMuohLhLkfSJS_8RRnb+ZUynXNJ1hg_NGR=3LhNyOtaeQ@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201212.mbox/%3c20121220140231.978A1816024@nike.apache.org%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201212.mbox/%3c20121220150947.25CF9816018@nike.apache.org%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Arnaud Héritier &lt;aherit...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: 1.0.0-SNAPSHOT considered older than 1.0.0?</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Thu, 20 Dec 2012 14:08:26 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+I don't have the time to check the doc but if it's not in, this is a big
+error (don't hesitate to open an issue)
+A SNAPSHOT is the development version before producing the release.
+A SNAPSHOT is older than its release
+1.0.0-SNAPSHOT -&gt; 1.0.0-&gt; 1.0.1-SNAPSHOT -&gt; 1.0.1 -&gt; ..
+
+Cheers
+
+
+On Thu, Dec 20, 2012 at 3:02 PM, &lt;org.apache.maven.user@io7m.com&gt; wrote:
+
+&gt; Hi.
+&gt;
+&gt; I can't find any documentation on the Maven site about snapshots. I'm
+&gt; trying to determine whether a snapshot is considered to be older or
+&gt; newer than the version number prefix.
+&gt;
+&gt; Is 1.0.0-SNAPSHOT considered to be the current HEAD, having a
+&gt; theoretical 1.0.0 at some point in the past, or is 1.0.0-SNAPSHOT
+&gt; considered to be a precursor to some future 1.0.0 release?
+&gt;
+&gt; The only information I can find seems to be off-site at:
+&gt;
+&gt;
+&gt; https://docs.codehaus.org/display/MAVEN/Dependency+Mediation+and+Conflict+Resolution#DependencyMediationandConflictResolution-IncorporatingSNAPSHOTversionsintothespecification
+&gt;
+&gt; The Maven user guide mentions that snapshots "will be described later
+&gt; in the guide" - but they aren't.
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+
+
+-- 
+-----
+Arnaud Héritier
+http://aheritier.net
+Mail/GTalk: aheritier AT gmail DOT com
+Twitter/Skype : aheritier
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201212.mbox/raw/%3cCAFNCU--fSUYv1xMWO45TD1cJ-8dHW5RoeZ-cx2zXSfPXFW8xHw@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, Quoted Printable, 1420 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201212.mbox/raw/%3cCAFNCU--fSUYv1xMWO45TD1cJ-8dHW5RoeZ-cx2zXSfPXFW8xHw@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

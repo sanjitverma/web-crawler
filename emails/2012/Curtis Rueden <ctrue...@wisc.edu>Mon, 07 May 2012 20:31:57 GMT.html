@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Reducing SNAPSHOT redundancy</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201205.mbox/%3cCA+=EWnChAQQL9gWDvoqLtMhgQgEN+9MSFU=JAcwS9BZ_+t=0RA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cCAKDUN1s3CCtZ58Ec3NHN9YNvb_Niud_7wacjmy6wGoXZRpBgbg@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201205.mbox/%3c1336420508635-5691958.post@n5.nabble.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cCAKDUN1s3CCtZ58Ec3NHN9YNvb_Niud_7wacjmy6wGoXZRpBgbg@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201205.mbox/%3cCA+=EWnChAQQL9gWDvoqLtMhgQgEN+9MSFU=JAcwS9BZ_+t=0RA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cCAKDUN1s3CCtZ58Ec3NHN9YNvb_Niud_7wacjmy6wGoXZRpBgbg@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201205.mbox/%3c1336420508635-5691958.post@n5.nabble.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cCAKDUN1s3CCtZ58Ec3NHN9YNvb_Niud_7wacjmy6wGoXZRpBgbg@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Curtis Rueden &lt;ctrue...@wisc.edu&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Reducing SNAPSHOT redundancy</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Mon, 07 May 2012 20:31:57 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hi everyone,
+
+I have a question about snapshot deployment.
+
+I have a multi-module project with ~30 modules, all in a Git repository on
+GitHub. Whenever someone pushes to the repository, a GitHub notification
+hook pings our Jenkins to do a rebuild, which includes a redeploy to our
+Nexus. This is all great.
+
+However, there is a lot of redundancy between snapshot JAR files. Often, a
+commit will involve only one of the 30 submodules, but all 30 will
+ultimately be rebuilt and redeployed, resulting in a plethora of snapshot
+versions. At any point in time, there is nearly always a "new" version of
+any given submodule of the project.
+
+I was wondering about the best way to reduce this issue. It would be nice
+to only redeploy snapshots that have actually changed—or better, for Maven
+(client-side) or Nexus (server-side) to detect identical snapshots and not
+waste the space creating a superfluous new one. (Of course, for a variety
+of reasons, comparing binary hashes between the latest snapshot JAR and the
+new snapshot candidate may not be enough—especially if the build process or
+CI adds some build-specific information to the JAR. But that is not really
+Maven's problem...)
+
+Alternately, we could do something on the CI side to only do the deploy if
+the submodule is really known to have changed—probably involving git
+reflogs etc. But that road could quickly become fraught with peril...
+
+So my question is: is there a common Maven best practice to mitigate such
+redundancy? Or do most people simply live with the proliferation of
+snapshots that occurs when using a naive deployment scheme?
+
+Thanks,
+Curtis
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201205.mbox/raw/%3cCADN69ynMmyS-V+eROd44Z1qeCKZvJBfc828fumphsvvmnx8Wrg@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, Quoted Printable, 1625 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201205.mbox/raw/%3cCADN69ynMmyS-V+eROd44Z1qeCKZvJBfc828fumphsvvmnx8Wrg@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

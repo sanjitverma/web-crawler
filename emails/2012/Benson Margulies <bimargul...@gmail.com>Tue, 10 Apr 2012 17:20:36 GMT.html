@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: OSX and Maven Compiler Plugin (tools.jar missing)</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201204.mbox/%3cCAKDUN1vMFGcB4P70Op2baRoNFuL51zdPWmpkhcWWg7Fcyc06VA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201204.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201204.mbox/%3cCALy+7Ukf9xKOZVtQ+ot_qSC4Y9G+y9yFML8ba-FpnMgqHat2SA@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201204.mbox/%3cCAKDUN1vMFGcB4P70Op2baRoNFuL51zdPWmpkhcWWg7Fcyc06VA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201204.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201204.mbox/%3c4F847AB1.8050805@it20one.at%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201204.mbox/%3cCAKDUN1vMFGcB4P70Op2baRoNFuL51zdPWmpkhcWWg7Fcyc06VA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201204.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201204.mbox/%3cCALy+7Ukf9xKOZVtQ+ot_qSC4Y9G+y9yFML8ba-FpnMgqHat2SA@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201204.mbox/%3cCAKDUN1vMFGcB4P70Op2baRoNFuL51zdPWmpkhcWWg7Fcyc06VA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201204.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201204.mbox/%3c4F847AB1.8050805@it20one.at%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Benson Margulies &lt;bimargul...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: OSX and Maven Compiler Plugin (tools.jar missing)</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Tue, 10 Apr 2012 17:20:36 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Apple has no tools.jar, they just load it into the regular jar. This
+is why the standard web page
+
+http://maven.apache.org/general.html#tools-jar-dependency
+
+has you make a profile.
+
+
+On Tue, Apr 10, 2012 at 1:06 PM, Anders Hammar &lt;anders@hammar.net&gt; wrote:
+&gt; Most likely there is a system scope dependency pointing at the locally
+&gt; installed tools.jar. The path is different on Windows (for example)
+&gt; and Mac OS. Have a look in the pom and look for that dependency.
+&gt;
+&gt; System scope dependencies are evil,
+&gt; /Anders
+&gt;
+&gt; On Tue, Apr 10, 2012 at 18:50, Francois Eyl &lt;feyl@smaeur.eu&gt; wrote:
+&gt;&gt; Hi guys,
+&gt;&gt;
+&gt;&gt; I'm facing to a strange issue with the maven-compiler-plugin on my OSX
+&gt;&gt; system while the same project/pom work fine on windows and linux. For some
+&gt;&gt; reason the plugin tries to access the tools.jar in a directory that doesn't
+&gt;&gt; exist on OSX since I'm not using the Oracle JVM but the Apple one.
+&gt;&gt;
+&gt;&gt; Here is the full message :
+&gt;&gt;
+&gt;&gt; [ERROR] Failed to execute goal on project com.sma.connector.movex: Could not
+&gt;&gt; resolve dependencies for project
+&gt;&gt; com.sma.connector.movex:com.sma.connector.movex:jar:2.3.3-SNAPSHOT: Could
+&gt;&gt; not find artifact jdk:tools:jar:5.0 at specified path
+&gt;&gt; /System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/../lib/tools.jar
+&gt;&gt; -&gt; [Help 1]
+&gt;&gt; org.apache.maven.lifecycle.LifecycleExecutionException: Failed to execute
+&gt;&gt; goal on project com.sma.connector.movex: Could not resolve dependencies for
+&gt;&gt; project com.sma.connector.movex:com.sma.connector.movex:jar:2.3.3-SNAPSHOT:
+&gt;&gt; Could not find artifact jdk:tools:jar:5.0 at specified path
+&gt;&gt; /System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/../lib/tools.jar
+&gt;&gt;    at
+&gt;&gt; org.apache.maven.lifecycle.internal.LifecycleDependencyResolver.getDependencies(LifecycleDependencyResolver.java:196)
+&gt;&gt;    at
+&gt;&gt; org.apache.maven.lifecycle.internal.LifecycleDependencyResolver.resolveProjectDependencies(LifecycleDependencyResolver.java:108)
+&gt;&gt;    at
+&gt;&gt; org.apache.maven.lifecycle.internal.MojoExecutor.ensureDependenciesAreResolved(MojoExecutor.java:258)
+&gt;&gt;    at
+&gt;&gt; org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:201)
+&gt;&gt;    at
+&gt;&gt; org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:153)
+&gt;&gt;    at
+&gt;&gt; org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:145)
+&gt;&gt;    at
+&gt;&gt; org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:84)
+&gt;&gt;    at
+&gt;&gt; org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:59)
+&gt;&gt;    at
+&gt;&gt; org.apache.maven.lifecycle.internal.LifecycleStarter.singleThreadedBuild(LifecycleStarter.java:183)
+&gt;&gt;    at
+&gt;&gt; org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:161)
+&gt;&gt;    at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:319)
+&gt;&gt;    at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:156)
+&gt;&gt;    at org.apache.maven.cli.MavenCli.execute(MavenCli.java:537)
+&gt;&gt;    at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:196)
+&gt;&gt;    at org.apache.maven.cli.MavenCli.main(MavenCli.java:141)
+&gt;&gt;    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+&gt;&gt;    at
+&gt;&gt; sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+&gt;&gt;    at
+&gt;&gt; sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+&gt;&gt;    at java.lang.reflect.Method.invoke(Method.java:597)
+&gt;&gt;    at
+&gt;&gt; org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:290)
+&gt;&gt;    at
+&gt;&gt; org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:230)
+&gt;&gt;    at
+&gt;&gt; org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:409)
+&gt;&gt;    at
+&gt;&gt; org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:352)
+&gt;&gt; Caused by: org.apache.maven.project.DependencyResolutionException: Could not
+&gt;&gt; resolve dependencies for project
+&gt;&gt; com.sma.connector.movex:com.sma.connector.movex:jar:2.3.3-SNAPSHOT: Could
+&gt;&gt; not find artifact jdk:tools:jar:5.0 at specified path
+&gt;&gt; /System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/../lib/tools.jar
+&gt;&gt;    at
+&gt;&gt; org.apache.maven.project.DefaultProjectDependenciesResolver.resolve(DefaultProjectDependenciesResolver.java:170)
+&gt;&gt;    at
+&gt;&gt; org.apache.maven.lifecycle.internal.LifecycleDependencyResolver.getDependencies(LifecycleDependencyResolver.java:171)
+&gt;&gt;    ... 22 more
+&gt;&gt; Caused by: org.sonatype.aether.resolution.DependencyResolutionException:
+&gt;&gt; Could not find artifact jdk:tools:jar:5.0 at specified path
+&gt;&gt; /System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/../lib/tools.jar
+&gt;&gt;    at
+&gt;&gt; org.sonatype.aether.impl.internal.DefaultRepositorySystem.resolveDependencies(DefaultRepositorySystem.java:412)
+&gt;&gt;    at
+&gt;&gt; org.apache.maven.project.DefaultProjectDependenciesResolver.resolve(DefaultProjectDependenciesResolver.java:164)
+&gt;&gt;    ... 23 more
+&gt;&gt; Caused by: org.sonatype.aether.resolution.ArtifactResolutionException: Could
+&gt;&gt; not find artifact jdk:tools:jar:5.0 at specified path
+&gt;&gt; /System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/../lib/tools.jar
+&gt;&gt;    at
+&gt;&gt; org.sonatype.aether.impl.internal.DefaultArtifactResolver.resolve(DefaultArtifactResolver.java:541)
+&gt;&gt;    at
+&gt;&gt; org.sonatype.aether.impl.internal.DefaultArtifactResolver.resolveArtifacts(DefaultArtifactResolver.java:220)
+&gt;&gt;    at
+&gt;&gt; org.sonatype.aether.impl.internal.DefaultRepositorySystem.resolveDependencies(DefaultRepositorySystem.java:395)
+&gt;&gt;    ... 24 more
+&gt;&gt; Caused by: org.sonatype.aether.transfer.ArtifactNotFoundException: Could not
+&gt;&gt; find artifact jdk:tools:jar:5.0 at specified path
+&gt;&gt; /System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/../lib/tools.jar
+&gt;&gt;    at
+&gt;&gt; org.sonatype.aether.impl.internal.DefaultArtifactResolver.resolve(DefaultArtifactResolver.java:260)
+&gt;&gt;    ... 26 more
+&gt;&gt;
+&gt;&gt;
+&gt;&gt; java -version :
+&gt;&gt; java version "1.6.0_31"
+&gt;&gt; Java(TM) SE Runtime Environment (build 1.6.0_31-b04-414-11M3626)
+&gt;&gt; Java HotSpot(TM) 64-Bit Server VM (build 20.6-b01-414, mixed mode)
+&gt;&gt;
+&gt;&gt; I know the tools.jar is linked to Oracle compiler (also, I guess one of my
+&gt;&gt; dependency needs it since I don't), but I can't figure out how to workaround
+&gt;&gt; this.
+&gt;&gt; Can somebody help me make this work please?
+&gt;&gt;
+&gt;&gt; Thanks,
+&gt;&gt; Francois
+&gt;&gt;
+&gt;&gt; ---------------------------------------------------------------------
+&gt;&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt;&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;&gt;
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201204.mbox/raw/%3cCALhtWke7270WPLUPnRFd0KK01JfMq+W2ShHsdbFiSGRm=4aUiw@mail.gmail.com%3e/">Unnamed text/plain</a> (inline, Quoted Printable, 7316 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201204.mbox/raw/%3cCALhtWke7270WPLUPnRFd0KK01JfMq+W2ShHsdbFiSGRm=4aUiw@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

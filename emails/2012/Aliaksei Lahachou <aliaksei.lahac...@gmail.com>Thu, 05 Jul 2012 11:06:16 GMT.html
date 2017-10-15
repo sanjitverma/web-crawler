@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Maven Version with multimodule project</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201207.mbox/%3cCAAqLGLO_fK5xvYv5s57icE5feRHR6z0HXFmnjP0P-FmsQ84s8g@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201207.mbox/%3c9C1945D202940B47A9F587776BEE7F4013E6BF027F@exchg02%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201207.mbox/%3c1341478428500-5713077.post@n5.nabble.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201207.mbox/%3c1341495771922-5713100.post@n5.nabble.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201207.mbox/%3cCAAqLGLO_fK5xvYv5s57icE5feRHR6z0HXFmnjP0P-FmsQ84s8g@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201207.mbox/%3c9C1945D202940B47A9F587776BEE7F4013E6BF027F@exchg02%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201207.mbox/%3c1341478428500-5713077.post@n5.nabble.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201207.mbox/%3c1341495771922-5713100.post@n5.nabble.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Aliaksei Lahachou &lt;aliaksei.lahac...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Maven Version with multimodule project</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Thu, 05 Jul 2012 11:06:16 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hello,
+
+simply omit the &lt;version&gt; element in the child module and version will be
+inherited from the parent.
+
+
+Regards,
+htfv (Aliaksei Lahachou)
+
+
+On Thu, Jul 5, 2012 at 10:53 AM, cortes &lt;prisco1@alice.it&gt; wrote:
+
+&gt;
+&gt; I have also this structure
+&gt;
+&gt; parent
+&gt;   module1
+&gt;     child1_module1
+&gt;     child2_module1
+&gt;    module2
+&gt;
+&gt;
+&gt; I have seen on this
+&gt;
+&gt; http://docs.codehaus.org/display/MAVEN/best+practices+-+version+management+in+multi+project+bu
+&gt;
+&gt; that I can set in the parent something like this
+&gt;
+&gt;
+&gt; &lt;project&gt;
+&gt;   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+&gt;   &lt;groupId&gt;org.someproject&lt;/groupId&gt;
+&gt;   &lt;artifactId&gt;project-root&lt;/artifactId&gt;
+&gt;   &lt;version&gt;1&lt;/version&gt;
+&gt;   &lt;name&gt;Some Project (Root)&lt;/name&gt;
+&gt;
+&gt;   &lt;properties&gt;
+&gt;     &lt;applicationVersion&gt;1.0-SNAPSHOT&lt;/applicationVersion&gt;
+&gt;   &lt;/properties&gt;
+&gt;
+&gt;   ...
+&gt; &lt;/project&gt;
+&gt;
+&gt; and in the child
+&gt;
+&gt;
+&gt; &lt;project&gt;
+&gt;   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+&gt;   &lt;parent&gt;
+&gt;     &lt;groupId&gt;org.someproject&lt;/groupId&gt;
+&gt;     &lt;artifactId&gt;project-root&lt;/artifactId&gt;
+&gt;     &lt;version&gt;1&lt;/version&gt;
+&gt;   &lt;/parent&gt;
+&gt;
+&gt;   &lt;artifactId&gt;project-core&lt;/artifactId&gt;
+&gt;   &lt;version&gt;${applicationVersion}&lt;/version&gt;
+&gt;   &lt;name&gt;Some Project Core&lt;/name&gt;
+&gt;
+&gt; but if the child has another children I have to reset the properties if I
+&gt; have understand well..
+&gt;
+&gt; Why in this example is not specified where is the parent with the tag
+&gt; relativePath?
+&gt;
+&gt; Thank you very much for the support
+&gt;
+&gt; --
+&gt; View this message in context:
+&gt; http://maven.40175.n5.nabble.com/Maven-Version-with-multimodule-project-tp5713074p5713077.html
+&gt; Sent from the Maven - Users mailing list archive at Nabble.com.
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201207.mbox/raw/%3cCALcFPWHhotM4_tvpFOEBTK29xP19nYKEpDLmaitPLkv2Fc4qsw@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 1796 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201207.mbox/raw/%3cCALcFPWHhotM4_tvpFOEBTK29xP19nYKEpDLmaitPLkv2Fc4qsw@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

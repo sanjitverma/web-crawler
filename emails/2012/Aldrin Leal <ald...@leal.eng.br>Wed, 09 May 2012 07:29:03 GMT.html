@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>[ANN] Rate my Mojo, part II: Launchify</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201205.mbox/%3cloom.20120509T084738-838@post.gmane.org%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cCAKDUN1vzLU81Z8HDCrf3cVu6_MT_tZ0Fha7aqN-4AH783jAUHw@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201205.mbox/%3cloom.20120509T084738-838@post.gmane.org%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201205.mbox/%3c4FAAD643.3010806@gmx.de%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201205.mbox/%3cloom.20120509T084738-838@post.gmane.org%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cCAKDUN1vzLU81Z8HDCrf3cVu6_MT_tZ0Fha7aqN-4AH783jAUHw@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201205.mbox/%3cloom.20120509T084738-838@post.gmane.org%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201205.mbox/%3c4FAAD643.3010806@gmx.de%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Aldrin Leal &lt;ald...@leal.eng.br&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">[ANN] Rate my Mojo, part II: Launchify</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Wed, 09 May 2012 07:29:03 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Folks,
+
+I just published yesterday the sources for Launchify on
+bitbucket&lt;https://bitbucket.org/ingenieux/launchify&gt;.
+While still rushing to writing the docs (not really) and delivering in
+central (not really as well),
+
+I think its worth of general scrutiny and discussion. It works this way:
+
+   - You include a dependency in 'provided' scope, as it contains a
+   class-level annotation which will not mess with reflection and stuff (see
+   my example pom&lt;https://bitbucket.org/ingenieux/launchify/src/db18abf6ca83/launchify-example/pom.xml&gt;
+   )
+   - You pick any class you want to turn into an executable, and place the
+   annotation e.g. @LaunchifyAs("hello") on it (like this
+one&lt;https://bitbucket.org/ingenieux/launchify/src/db18abf6ca83/launchify-example/src/main/java/br/com/ingenieux/launchify/App.java&gt;
+   )
+   - You run launchify (currently, mvn
+   br.com.ingenieux.launchify:launchify-maven-plugin:0.0.1-SNAPSHOT:create-local-stubs),
+   and make sure you have launch4j &lt;http://launch4j.sourceforge.net/&gt; in
+   your PATH somewhere
+
+Launchify will create descriptors and invoke launch4j, creating binary
+stubs into target/test-classes. The vision being: To be simple and enable
+quick delivery of small apps for local usage, not for distribution like
+some other plugins...
+
+Those files generated, you can simply move and install anywhere else, and
+there is a service interface: Launch4j is a prime example, but I envisioned
+that others could write plugins for launchify to switch to a different SPI.
+Like, Init Scripts / Upstart Jobs and Windows Services, for example. On the
+other way, the generated descriptors keep all the references. Modified a
+class in your project? Run again, it will reflect.
+
+So, if you want to create easily CLI versions of your favorite tools to use
+locally, and not wanting to mess with writing .sh/.bat/.cmd/whatever files,
+give it a look. I'm looking for testers :)
+
+Thank you
+
+--
+-- Aldrin Leal, &lt;aldrin@leal.eng.br&gt; / http://meadiciona.com/aldrinleal
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201205.mbox/raw/%3cCALpo8Nvpy8YyRmfJ-5sfmnL8F4bkBbjxt1iH1_DD1cKmOXZAJg@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 1993 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201205.mbox/raw/%3cCALpo8Nvpy8YyRmfJ-5sfmnL8F4bkBbjxt1iH1_DD1cKmOXZAJg@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

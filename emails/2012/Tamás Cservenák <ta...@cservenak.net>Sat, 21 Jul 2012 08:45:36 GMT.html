@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Writing my own mojo - how do I specify a default goal?</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201207.mbox/%3cCACpkv-weC53T5AkLdoh5gCtU-zaHjmHtwXV3p4qv0z9zEaT1rg@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCACpkv-z-pA-j3A2Wdb0PTX=c-g++jSWiw3BAQ9Facj-fMy+5qw@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201207.mbox/%3cCACpkv-weC53T5AkLdoh5gCtU-zaHjmHtwXV3p4qv0z9zEaT1rg@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCACpkv-z-pA-j3A2Wdb0PTX=c-g++jSWiw3BAQ9Facj-fMy+5qw@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201207.mbox/%3cCACpkv-weC53T5AkLdoh5gCtU-zaHjmHtwXV3p4qv0z9zEaT1rg@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCACpkv-z-pA-j3A2Wdb0PTX=c-g++jSWiw3BAQ9Facj-fMy+5qw@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201207.mbox/%3cCACpkv-weC53T5AkLdoh5gCtU-zaHjmHtwXV3p4qv0z9zEaT1rg@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCACpkv-z-pA-j3A2Wdb0PTX=c-g++jSWiw3BAQ9Facj-fMy+5qw@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Tamás Cservenák &lt;ta...@cservenak.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Writing my own mojo - how do I specify a default goal?</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Sat, 21 Jul 2012 08:45:36 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+You cannot have that, you need to bind the goal at least (and goal usually
+have a "preferred" phase it will bind to).
+Plugin that does not have execution defined but it still executes (as you
+say you'd want) is usually bound to lifecycle of the packaging in it's
+lifecycle mapping. So, unless you write your own packaging (I doubt this is
+what you need), you are left to declare plugin _with_ executions.
+
+Thanks,
+~t~
+
+On Sat, Jul 21, 2012 at 10:13 AM, Thomas Sundberg &lt;tsu@kth.se&gt; wrote:
+
+&gt; Hi!
+&gt;
+&gt; I am trying to write my own Maven plugin. I want to be able to specify
+&gt; it in a build without specifying any additional parameters. I don't
+&gt; seem to find any example after some googling. In a perfect world, I
+&gt; would like to write my pom like this:
+&gt;
+&gt;     &lt;build&gt;
+&gt;         &lt;plugins&gt;
+&gt;             &lt;plugin&gt;
+&gt;                 &lt;groupId&gt;se.somath&lt;/groupId&gt;
+&gt;                 &lt;artifactId&gt;publisher-plugin&lt;/artifactId&gt;
+&gt;                 &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+&gt;             &lt;/plugin&gt;
+&gt;         &lt;/plugins&gt;
+&gt;     &lt;/build&gt;
+&gt;
+&gt; That is, just specify that this plugin should be used.
+&gt;
+&gt; At the moment I have to specify it like this:
+&gt;
+&gt;     &lt;build&gt;
+&gt;         &lt;plugins&gt;
+&gt;             &lt;plugin&gt;
+&gt;                 &lt;groupId&gt;se.somath&lt;/groupId&gt;
+&gt;                 &lt;artifactId&gt;publisher-plugin&lt;/artifactId&gt;
+&gt;                 &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+&gt;                 &lt;executions&gt;
+&gt;                     &lt;execution&gt;
+&gt;                         &lt;goals&gt;
+&gt;                             &lt;goal&gt;process&lt;/goal&gt;
+&gt;                         &lt;/goals&gt;
+&gt;                     &lt;/execution&gt;
+&gt;                 &lt;/executions&gt;
+&gt;             &lt;/plugin&gt;
+&gt;         &lt;/plugins&gt;
+&gt;     &lt;/build&gt;
+&gt;
+&gt; Currently I have just one goal and it doesn't take any parameters.
+&gt;
+&gt; This question might be better to send to the developers list, but I
+&gt; don't follow that list and I assume that there are some mojo
+&gt; developers following this list that might be able to assist me.
+&gt;
+&gt; Thomas
+&gt;
+&gt; --
+&gt; Thomas Sundberg
+&gt; M. Sc. in Computer Science
+&gt;
+&gt; Mobile: +46 70 767 33 15
+&gt; Blog: http://thomassundberg.wordpress.com/
+&gt; Twitter: @thomassundberg
+&gt;
+&gt; Better software through faster feedback
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201207.mbox/raw/%3cCAPLpRQKTH6A35EyTFQnm5LuBe=Wnuu6YOZvAeeTiq=dPdNq-hA@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 2349 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201207.mbox/raw/%3cCAPLpRQKTH6A35EyTFQnm5LuBe=Wnuu6YOZvAeeTiq=dPdNq-hA@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

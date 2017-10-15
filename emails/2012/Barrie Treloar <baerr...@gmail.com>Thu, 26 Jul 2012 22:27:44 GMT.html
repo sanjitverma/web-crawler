@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: JDT compiler compliance level as a parameter for eclipse:eclipse target of maven-eclipse-plugin</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201207.mbox/%3cCALy+7Unoj7r41A5M37C99AZZFe2r_sca9WO-yXiZs-UfzCLRXg@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCADVp3v9fejt+pOSEbd4_rXuxomwfEN4HRwrtxYWU1icjXm-GXQ@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201207.mbox/%3cCALy+7Unoj7r41A5M37C99AZZFe2r_sca9WO-yXiZs-UfzCLRXg@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCADVp3v9fejt+pOSEbd4_rXuxomwfEN4HRwrtxYWU1icjXm-GXQ@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201207.mbox/%3cCALy+7Unoj7r41A5M37C99AZZFe2r_sca9WO-yXiZs-UfzCLRXg@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCADVp3v9fejt+pOSEbd4_rXuxomwfEN4HRwrtxYWU1icjXm-GXQ@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201207.mbox/%3cCALy+7Unoj7r41A5M37C99AZZFe2r_sca9WO-yXiZs-UfzCLRXg@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCADVp3v9fejt+pOSEbd4_rXuxomwfEN4HRwrtxYWU1icjXm-GXQ@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Barrie Treloar &lt;baerr...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: JDT compiler compliance level as a parameter for eclipse:eclipse target of maven-eclipse-plugin</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Thu, 26 Jul 2012 22:27:44 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+On Fri, Jul 27, 2012 at 7:13 AM, Wayne Fay &lt;waynefay@gmail.com&gt; wrote:
+&gt;&gt; Long story short, I tried to modify eclipse project generation so that
+&gt;&gt; in the .settings/org.eclipse.jdt.core.prefs instead of this:
+&gt;&gt;     org.eclipse.jdt.core.compiler.compliance=1.5
+&gt;&gt; I get this (look at the compliance):
+&gt;&gt;     org.eclipse.jdt.core.compiler.compliance=1.6
+&gt;&gt; but didn't find a way to configure maven-eclipse-plugin.
+&gt;
+&gt; Most likely you are the first person to want this specific
+&gt; configuration of the plugin, thus it does not currently exist. You'll
+&gt; probably need to scratch your own itch.
+&gt;
+&gt; Pull down the source code for maven-eclipse-plugin, tweak it somehow
+&gt; to add this feature, and contribute the code back for (possible)
+&gt; inclusion in a future release.
+&gt;
+&gt; Here's a hint: you're going to want to adjust EclipseSettingsWriter
+&gt; and probably some Eclipse plugin Mojo code too since this should be an
+&gt; extra configuration item in the plugin...
+&gt; http://maven.apache.org/plugins/maven-eclipse-plugin/xref/org/apache/maven/plugin/eclipse/writers/workspace/EclipseSettingsWriter.html
+
+Also remember, that the maven-eclipse-plugin reads the configuration
+of the maven-compiler-plugin.
+See http://maven.apache.org/plugins/maven-eclipse-plugin/trouble-shooting/jdk-being-used-is-different-than-expected.html
+
+So you ideally need to configure that the way you want.
+I'm not sure what
+org.eclipse.jdt.core.compiler.compliance=1.6
+actually does.
+Is this equivalent to
+
+&lt;plugin&gt;
+   &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+   &lt;version&gt;2.0.2&lt;/version&gt;
+   &lt;configuration&gt;
+       &lt;source&gt;1.5&lt;/source&gt;
+       &lt;target&gt;1.6&lt;/target&gt;
+   &lt;/configuration&gt;
+&lt;/plugin&gt;
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201207.mbox/raw/%3cCADVp3v9ZA+s+9XZmKq-pViD2xEP-iox+F_cZpJODHnqhr5rnGg@mail.gmail.com%3e/">Unnamed text/plain</a> (inline, None, 1853 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201207.mbox/raw/%3cCADVp3v9ZA+s+9XZmKq-pViD2xEP-iox+F_cZpJODHnqhr5rnGg@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

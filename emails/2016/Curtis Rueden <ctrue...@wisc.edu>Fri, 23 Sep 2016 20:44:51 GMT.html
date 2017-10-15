@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: [EXTERNAL] Re: help with version range</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201609.mbox/%3cd27ccf62-f2b0-4948-acf6-67bf5242e2c9@default%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201609.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201609.mbox/%3c99B66011-C0D5-4F8E-A25F-EC134F18FFCB@talios.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201609.mbox/%3cd27ccf62-f2b0-4948-acf6-67bf5242e2c9@default%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201609.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201609.mbox/%3c9dcb5519-a243-4312-9590-aa2b10420e14@default%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201609.mbox/%3cd27ccf62-f2b0-4948-acf6-67bf5242e2c9@default%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201609.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201609.mbox/%3c99B66011-C0D5-4F8E-A25F-EC134F18FFCB@talios.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201609.mbox/%3cd27ccf62-f2b0-4948-acf6-67bf5242e2c9@default%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201609.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201609.mbox/%3c9dcb5519-a243-4312-9590-aa2b10420e14@default%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Curtis Rueden &lt;ctrue...@wisc.edu&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: [EXTERNAL] Re: help with version range</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Fri, 23 Sep 2016 20:44:51 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hi Robert,
+
+&gt; most people that use version ranges that use a non-inclusive top-end
+&gt; specification do not want prerelease versions included.  I have yet to
+&gt; hear you or anyone else give me a use case where you want this.
+
+Personally, I want prerelease versions included.
+
+I think it is unsubstantiated to claim "most people" here.
+
+&gt; There should be a simple way to achieve this
+
+I agree. Why not propose a new syntax, or even a patch? Maven is open
+source.
+
+Regards,
+Curtis
+
+
+--
+Curtis Rueden
+LOCI software architect - http://loci.wisc.edu/software
+ImageJ2 lead, Fiji maintainer - http://imagej.net/User:Rueden
+Did you know ImageJ has a forum? http://forum.imagej.net/
+
+
+On Fri, Sep 23, 2016 at 3:41 PM, Robert Patrick &lt;robert.patrick@oracle.com&gt;
+wrote:
+
+&gt; Well...like I said, I understand the relationship but clearly, most people
+&gt; that use version ranges that use a non-inclusive top-end specification do
+&gt; not want prerelease versions included.  I have yet to hear you or anyone
+&gt; else give me a use case where you want this.
+&gt;
+&gt; The fact that I have to fight Maven to achieve this is a pain--and I have
+&gt; been using Maven for many years now.  There should be a simple way to
+&gt; achieve this that does not require me to do something like this:
+&gt;
+&gt; [1.0,1.999999999999999999999999999999999999999999999999999999999999
+&gt; 999999999999999999999999999)
+&gt;
+&gt;
+&gt; -----Original Message-----
+&gt; From: Karl Heinz Marbaise [mailto:khmarbaise@gmx.de]
+&gt; Sent: Friday, September 23, 2016 3:30 PM
+&gt; To: Maven Users List
+&gt; Subject: Re: [EXTERNAL] Re: help with version range
+&gt;
+&gt; Hi,
+&gt;
+&gt; On 23/09/16 18:38, Robert Patrick wrote:
+&gt; &gt;
+&gt; &gt; What I am questioning is the "engineer's approach" to version range
+&gt; &gt; resolution without
+&gt;  &gt; a valid use case for why Maven should consider  &gt; pre-released versions
+&gt; as within the "not including 2.0" version  &gt; range semantics.
+&gt;
+&gt; The simple answer to this is the timeline of those releases...
+&gt; So a pre-release (2.0-alpha-1, 2.0-RC1 etc.) will be done before the final
+&gt; release (2.0) so must be defined as before...
+&gt;
+&gt; Kind regards
+&gt; Karl Heinz Marbaise
+&gt;
+&gt;
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201609.mbox/raw/%3cCADN69ynHdW3DuefJTLx_Yo13vFGhjmURhQ7Ebs61Kv9eoqOmng@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 2491 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201609.mbox/raw/%3cCADN69ynHdW3DuefJTLx_Yo13vFGhjmURhQ7Ebs61Kv9eoqOmng@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

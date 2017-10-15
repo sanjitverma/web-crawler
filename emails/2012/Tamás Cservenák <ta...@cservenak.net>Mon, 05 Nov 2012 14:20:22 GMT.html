@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Can not get a jar from maven central</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201211.mbox/%3cCAA8Y1+sahtmOgxQsV7NO0unhPiB6G6ggQQFp+-HZPANS=5QChA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201211.mbox/%3cCALy+7UmLK=EbY0VScjVNcg0zzvJPT6uyFFF1piH2JjWzNj6xqg@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201211.mbox/%3cCAA8Y1+sahtmOgxQsV7NO0unhPiB6G6ggQQFp+-HZPANS=5QChA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201211.mbox/%3c1352119180440-5729481.post@n5.nabble.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201211.mbox/%3cCAA8Y1+sahtmOgxQsV7NO0unhPiB6G6ggQQFp+-HZPANS=5QChA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201211.mbox/%3cCALy+7UmLK=EbY0VScjVNcg0zzvJPT6uyFFF1piH2JjWzNj6xqg@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201211.mbox/%3cCAA8Y1+sahtmOgxQsV7NO0unhPiB6G6ggQQFp+-HZPANS=5QChA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201211.mbox/%3c1352119180440-5729481.post@n5.nabble.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Tamás Cservenák &lt;ta...@cservenak.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Can not get a jar from maven central</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Mon, 05 Nov 2012 14:20:22 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hi,
+
+Tried the 1st URL above, and I have the same "Error 101
+(net::ERR_CONNECTION_RESET): The connection was reset." (from Chrome).
+
+Something is wrong here....
+
+On Mon, Nov 5, 2012 at 2:52 PM, Ron Wheeler
+&lt;rwheeler@artifact-software.com&gt;wrote:
+
+&gt; You might be blacklisted.
+&gt; I got a pretty quick response to the http link.
+&gt;
+&gt; Have you done anything that might have made Maven Central think that you
+&gt; should be blacklisted?
+&gt;
+&gt; If so, you probably have to reassure them that you will not do it again.
+&gt;
+&gt; Do you have your own repo in place?
+&gt;
+&gt; Ron
+&gt;
+&gt;
+&gt;
+&gt; On 05/11/2012 8:43 AM, eugene wrote:
+&gt;
+&gt;&gt; Here is some more output if needed:
+&gt;&gt;
+&gt;&gt;
+&gt;&gt; wget -dv
+&gt;&gt; http://repo1.maven.org/maven2/**org/codehaus/woodstox/**
+&gt;&gt; woodstox-core-asl/4.1.4/**woodstox-core-asl-4.1.4.jar&lt;http://repo1.maven.org/maven2/org/codehaus/woodstox/woodstox-core-asl/4.1.4/woodstox-core-asl-4.1.4.jar&gt;
+&gt;&gt; Setting --verbose (verbose) to 1
+&gt;&gt; DEBUG output created by Wget 1.12 on linux-gnu.
+&gt;&gt;
+&gt;&gt; --2012-11-05 10:40:08--
+&gt;&gt; http://repo1.maven.org/maven2/**org/codehaus/woodstox/**
+&gt;&gt; woodstox-core-asl/4.1.4/**woodstox-core-asl-4.1.4.jar&lt;http://repo1.maven.org/maven2/org/codehaus/woodstox/woodstox-core-asl/4.1.4/woodstox-core-asl-4.1.4.jar&gt;
+&gt;&gt; Resolving repo1.maven.org... 68.232.34.223
+&gt;&gt; Caching repo1.maven.org =&gt; 68.232.34.223
+&gt;&gt; Connecting to repo1.maven.org|68.232.34.223|**:80... connected.
+&gt;&gt; Created socket 3.
+&gt;&gt; Releasing 0x089813e8 (new refcount 1).
+&gt;&gt;
+&gt;&gt; ---request begin---
+&gt;&gt; GET
+&gt;&gt; /maven2/org/codehaus/woodstox/**woodstox-core-asl/4.1.4/**
+&gt;&gt; woodstox-core-asl-4.1.4.jar
+&gt;&gt; HTTP/1.0
+&gt;&gt; User-Agent: Wget/1.12 (linux-gnu)
+&gt;&gt; Accept: */*
+&gt;&gt; Host: repo1.maven.org
+&gt;&gt; Connection: Keep-Alive
+&gt;&gt;
+&gt;&gt; ---request end---
+&gt;&gt; HTTP request sent, awaiting response... Read error (Connection reset by
+&gt;&gt; peer) in headers.
+&gt;&gt; Closed fd 3
+&gt;&gt; Retrying.
+&gt;&gt;
+&gt;&gt; --2012-11-05 10:41:09--  (try: 2)
+&gt;&gt; http://repo1.maven.org/maven2/**org/codehaus/woodstox/**
+&gt;&gt; woodstox-core-asl/4.1.4/**woodstox-core-asl-4.1.4.jar&lt;http://repo1.maven.org/maven2/org/codehaus/woodstox/woodstox-core-asl/4.1.4/woodstox-core-asl-4.1.4.jar&gt;
+&gt;&gt; Found repo1.maven.org in host_name_addresses_map (0x89813e8)
+&gt;&gt; Connecting to repo1.maven.org|68.232.34.223|**:80... connected.
+&gt;&gt; Created socket 3.
+&gt;&gt; Releasing 0x089813e8 (new refcount 1).
+&gt;&gt;
+&gt;&gt;
+&gt;&gt;
+&gt;&gt; --
+&gt;&gt; View this message in context: http://maven.40175.n5.nabble.**
+&gt;&gt; com/Can-not-get-a-jar-from-**maven-central-**tp5729478p5729497.html&lt;http://maven.40175.n5.nabble.com/Can-not-get-a-jar-from-maven-central-tp5729478p5729497.html&gt;
+&gt;&gt; Sent from the Maven - Users mailing list archive at Nabble.com.
+&gt;&gt;
+&gt;&gt; ------------------------------**------------------------------**---------
+&gt;&gt; To unsubscribe, e-mail: users-unsubscribe@maven.**apache.org&lt;users-unsubscribe@maven.apache.org&gt;
+&gt;&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;&gt;
+&gt;&gt;
+&gt;&gt;
+&gt;
+&gt; --
+&gt; Ron Wheeler
+&gt; President
+&gt; Artifact Software Inc
+&gt; email: rwheeler@artifact-software.com
+&gt; skype: ronaldmwheeler
+&gt; phone: 866-970-2435, ext 102
+&gt;
+&gt;
+&gt;
+&gt; ------------------------------**------------------------------**---------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.**apache.org&lt;users-unsubscribe@maven.apache.org&gt;
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201211.mbox/raw/%3cCAPLpRQL0dRax4OSY4rWc_Kgn7JXxSd6hY9HnJV=MAf+u-+d24g@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 3247 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201211.mbox/raw/%3cCAPLpRQL0dRax4OSY4rWc_Kgn7JXxSd6hY9HnJV=MAf+u-+d24g@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Referencing a parent POM without relativePath</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201211.mbox/%3c50B03845.3020706@artifact-software.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201211.mbox/%3cCALhtWkfsxt8ztqga0AsX1j9vgN+HjMA7OQf5jDcCYjYS4gAj-A@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201211.mbox/%3c50B026CA.70906@gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201211.mbox/%3c50B04381.3070308@gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201211.mbox/%3c50B03845.3020706@artifact-software.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201211.mbox/%3cCALhtWkfsxt8ztqga0AsX1j9vgN+HjMA7OQf5jDcCYjYS4gAj-A@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201211.mbox/%3c50B026CA.70906@gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201211.mbox/%3c50B04381.3070308@gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Benson Margulies &lt;bimargul...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Referencing a parent POM without relativePath</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Sat, 24 Nov 2012 03:01:43 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+On Fri, Nov 23, 2012 at 8:45 PM, Eric Kolotyluk
+&lt;eric.kolotyluk@gmail.com&gt; wrote:
+&gt; OK, I have added the following to our Corporate POM. Hopefully I, and
+&gt; others, won't fall into this trap again.
+&gt;
+&gt; I still think the &lt;userFriendly&gt;true&lt;/userFriendly&gt; version of Maven would
+&gt; just do the right thing when there is no &lt;relativePath/&gt; element, and there
+&gt; is no ../pom.xml. I can see no value in the current Maven behavior of
+&gt; throwing an error the way it does.
+
+Eric,
+
+It does what you want. If it is not doing it for you, there's
+something wrong with your environment.
+
+None of our POMs have explicit relativePath elements, and they all
+work fine. The empty element is only needed when there *is* a
+../pom.xml to avoid, but you are writing that you don't have one.
+
+
+
+&gt;
+&gt; Cheers, Eric
+&gt;
+&gt;    &lt;!--
+&gt;        No parent for this POM! This is parent of all Kodak projects.
+&gt;        Top Level Project POMs should reference this POM with
+&gt;
+&gt;        &lt;parent&gt;
+&gt;          &lt;groupId&gt;com&lt;/groupId&gt;
+&gt;          &lt;artifactId&gt;kodak&lt;/artifactId&gt;
+&gt;          &lt;version&gt;1.0.0&lt;/version&gt;
+&gt;          &lt;relativePath/&gt;
+&gt;        &lt;/parent&gt;
+&gt;
+&gt;        The empty &lt;relativePath/&gt; element is necessary because com:kodak is a
+&gt; seperate project that will never be in
+&gt;        the parent directory of your project. If &lt;relativePath/&gt; is missing,
+&gt; Maven will look in ../ by default, and
+&gt;        then throw an error because it cannot find ../pom.xml (and you should
+&gt; never have ../pom.xml).
+&gt;    --&gt;
+&gt;
+&gt;
+&gt; On 2012-11-23 12:47 PM, David Karr wrote:
+&gt;&gt;
+&gt;&gt; I had also discovered the difference between the missing vs. empty
+&gt;&gt; "relativePath" element.  Although it was initially disconcerting that I
+&gt;&gt; had
+&gt;&gt; to specify an empty "relativePath" element to get what I assumed was the
+&gt;&gt; most reasonable behavior, I can also see the logic of the alternative with
+&gt;&gt; the default value. I prefer to separate the notion of "parent" pom from
+&gt;&gt; "aggregator" pom (a pom with a list of modules), but if you use a strategy
+&gt;&gt; that combines them, then the default value is more likely.
+&gt;&gt;
+&gt;&gt;
+&gt;&gt; On Fri, Nov 23, 2012 at 12:34 PM, Eric Kolotyluk
+&gt;&gt; &lt;eric.kolotyluk@gmail.com&gt;wrote:
+&gt;&gt;
+&gt;&gt;&gt; DOH! I retract that previous message. I forgot to open my VPN connection
+&gt;&gt;&gt; first.
+&gt;&gt;&gt;
+&gt;&gt;&gt; Putting &lt;relativePath/&gt; in the POM does work!
+&gt;&gt;&gt;
+&gt;&gt;&gt; So, would it be unreasonable if Maven treated the absence of the
+&gt;&gt;&gt; &lt;relativePath&gt; element the same as &lt;relativePath/&gt;. That would make
+it
+&gt;&gt;&gt; more
+&gt;&gt;&gt; user friendly as far as I am concerned.
+&gt;&gt;&gt;
+&gt;&gt;&gt; Also, it was m2e that built the original project POM, and it did not put
+&gt;&gt;&gt; &lt;relativePath/&gt;  in the POM.
+&gt;&gt;&gt;
+&gt;&gt;&gt; Cheers, Eric
+&gt;&gt;&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt; On 2012-11-23 12:22 PM, Eric Kolotyluk wrote:
+&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; I tried putting &lt;relativePath/&gt; in my POM, but it does not fix things.
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;    &lt;parent&gt;
+&gt;&gt;&gt;&gt;      &lt;groupId&gt;com&lt;/groupId&gt;
+&gt;&gt;&gt;&gt;      &lt;artifactId&gt;kodak&lt;/artifactId&gt;
+&gt;&gt;&gt;&gt;      &lt;version&gt;0.0.11-SNAPSHOT&lt;/**version&gt;
+&gt;&gt;&gt;&gt;      &lt;relativePath/&gt;
+&gt;&gt;&gt;&gt;    &lt;/parent&gt;
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; I still get
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; C:\Users\Eric\workspace\tree-**combo-box&gt;mvn clean
+&gt;&gt;&gt;&gt; [INFO] Scanning for projects...
+&gt;&gt;&gt;&gt; Downloading:
+&gt;&gt;&gt;&gt; http://repository.ca.kodak.**com:8082/nexus/content/groups/*
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; *public/com/kodak/0.0.11-**SNAPSHOT/maven-metadata.xml&lt;http://repository.ca.kodak.com:8082/nexus/content/groups/public/com/kodak/0.0.11-SNAPSHOT/maven-metadata.xml&gt;
+&gt;&gt;&gt;&gt; [WARNING] Could not transfer metadata
+&gt;&gt;&gt;&gt; com:kodak:0.0.11-SNAPSHOT/**maven-metadata.xml
+&gt;&gt;&gt;&gt; from/to nexus (http://repository.ca.kodak.**
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; com:8082/nexus/content/groups/**public&lt;http://repository.ca.kodak.com:8082/nexus/content/groups/public&gt;):
+&gt;&gt;&gt;&gt; repository.ca.kodak.com
+&gt;&gt;&gt;&gt; Downloading:
+&gt;&gt;&gt;&gt; http://repository.ca.kodak.**com:8082/nexus/content/groups/*
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; *public/com/kodak/0.0.11-**SNAPSHOT/kodak-0.0.11-**SNAPSHOT.pom&lt;http://repository.ca.kodak.com:8082/nexus/content/groups/public/com/kodak/0.0.11-SNAPSHOT/kodak-0.0.11-SNAPSHOT.pom&gt;
+&gt;&gt;&gt;&gt; [ERROR] The build could not read 1 project -&gt; [Help 1]
+&gt;&gt;&gt;&gt; [ERROR]
+&gt;&gt;&gt;&gt; [ERROR]   The project
+&gt;&gt;&gt;&gt; net.kolotyluk.experiment:tree-**combo-box:0.0.1-SNAPSHOT
+&gt;&gt;&gt;&gt; (C:\Users\Eric\workspace\tree-**combo-box\pom.xml) has 1 error
+&gt;&gt;&gt;&gt; [ERROR]     Non-resolvable parent POM: Could not transfer artifact
+&gt;&gt;&gt;&gt; com:kodak:pom:0.0.11-SNAPSHOT from/to nexus
+&gt;&gt;&gt;&gt; (http://repository.ca.kodak.*
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; *com:8082/nexus/content/groups/**public&lt;http://repository.ca.kodak.com:8082/nexus/content/groups/public&gt;):
+&gt;&gt;&gt;&gt; repository.ca.kodak.com and 'parent.relativePath' points at no local POM
+&gt;&gt;&gt;&gt; @ line 9, column 11: Unknown host repository.ca.kodak.com -&gt; [Help 2]
+&gt;&gt;&gt;&gt; [ERROR]
+&gt;&gt;&gt;&gt; [ERROR] To see the full stack trace of the errors, re-run Maven with the
+&gt;&gt;&gt;&gt; -e switch.
+&gt;&gt;&gt;&gt; [ERROR] Re-run Maven using the -X switch to enable full debug logging.
+&gt;&gt;&gt;&gt; [ERROR]
+&gt;&gt;&gt;&gt; [ERROR] For more information about the errors and possible solutions,
+&gt;&gt;&gt;&gt; please read the following articles:
+&gt;&gt;&gt;&gt; [ERROR] [Help 1] http://cwiki.apache.org/**confluence/display/MAVEN/**
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; ProjectBuildingException&lt;http://cwiki.apache.org/confluence/display/MAVEN/ProjectBuildingException&gt;
+&gt;&gt;&gt;&gt; [ERROR] [Help 2] http://cwiki.apache.org/**confluence/display/MAVEN/**
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; UnresolvableModelException&lt;http://cwiki.apache.org/confluence/display/MAVEN/UnresolvableModelException&gt;
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; It looks like Maven wants to download the Corporate POM because it sees
+&gt;&gt;&gt;&gt; it in Nexus, but craps out because it does not like the Project POM.
+&gt;&gt;&gt;&gt; Maven
+&gt;&gt;&gt;&gt; seems pretty certain that it wants parent.relativePath to point to a
+&gt;&gt;&gt;&gt; local
+&gt;&gt;&gt;&gt; POM.
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; Is there a &lt;userFriendly&gt;true&lt;/**userFriendly&gt; switch I can turn
+on
+&gt;&gt;&gt;&gt; somewhere in Maven ;-)
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; Cheers, Eric
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; On 2012-11-23 9:05 AM, Laird Nelson wrote:
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt; On Fri, Nov 23, 2012 at 11:22 AM, Benson Margulies &lt;
+&gt;&gt;&gt;&gt;&gt; bimargulies@gmail.com&gt;wrote:
+&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;   You just name the G/A/V and no relativePath, and Maven will download
+&gt;&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;&gt; just as it would a dependency.
+&gt;&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;&gt;   Well, not exactly; if there is no &lt;relativePath&gt; element
+present,
+&gt;&gt;&gt;&gt;&gt;&gt; then
+&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt; Maven behaves as though &lt;relativePath&gt;../pom.xml&lt;/**relativePath&gt;
+were
+&gt;&gt;&gt;&gt;&gt; specified.  If that file is a working copy that has not been refreshed
+&gt;&gt;&gt;&gt;&gt; from
+&gt;&gt;&gt;&gt;&gt; the SCM, then problems can ensue.
+&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt; I recall that someone mentioned specifying a relative path like this:
+&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt; &lt;relativePath/&gt;
+&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt; ...and that that was the only way to force Maven to truly resolve the
+&gt;&gt;&gt;&gt;&gt; pom
+&gt;&gt;&gt;&gt;&gt; from the repository, but I don't know if this is in fact true.
+&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt; Best,
+&gt;&gt;&gt;&gt;&gt; Laird
+&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt; ------------------------------**------------------------------**---------
+&gt;&gt;&gt; To unsubscribe, e-mail:
+&gt;&gt;&gt; users-unsubscribe@maven.**apache.org&lt;users-unsubscribe@maven.apache.org&gt;
+&gt;&gt;&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;&gt;&gt;
+&gt;&gt;&gt;
+&gt;
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201211.mbox/raw/%3cCALhtWkdj4FgonUSbjxN_PGyPMq+duDATgTh3HCydvFMUV1narw@mail.gmail.com%3e/">Unnamed text/plain</a> (inline, None, 7177 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201211.mbox/raw/%3cCALhtWkdj4FgonUSbjxN_PGyPMq+duDATgTh3HCydvFMUV1narw@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

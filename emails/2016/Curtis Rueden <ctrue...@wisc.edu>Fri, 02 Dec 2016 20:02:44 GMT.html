@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: ${project.parent.parent.version} does not work</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201612.mbox/%3cCALv+pX4rLLT4ZODBaVeHe+AXPBNV+WKD+PUb0FYBwPdRA-4_=A@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201612.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201612.mbox/%3c37cd6fe5-91fc-511c-299f-f20e94c4874b@florian-schaetz.de%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201612.mbox/%3c2f133262-4a39-c04b-69a6-272430f50cc3@florian-schaetz.de%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201612.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201612.mbox/%3c37cd6fe5-91fc-511c-299f-f20e94c4874b@florian-schaetz.de%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201612.mbox/%3cCALv+pX4rLLT4ZODBaVeHe+AXPBNV+WKD+PUb0FYBwPdRA-4_=A@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201612.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201612.mbox/%3c37cd6fe5-91fc-511c-299f-f20e94c4874b@florian-schaetz.de%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201612.mbox/%3c2f133262-4a39-c04b-69a6-272430f50cc3@florian-schaetz.de%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201612.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201612.mbox/%3c37cd6fe5-91fc-511c-299f-f20e94c4874b@florian-schaetz.de%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Curtis Rueden &lt;ctrue...@wisc.edu&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: ${project.parent.parent.version} does not work</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Fri, 02 Dec 2016 20:02:44 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hi Flo,
+
+&gt; Is there any other chance to get the grandparent version - preferably
+&gt; without writing another maven plugin ;-)
+
+If you control the grandparent POM, you can put a property there and set it
+to ${project.version} and then it should be inherited in the descendants.
+
+If you don't control the grandparent, then sorry, I don't know a simple
+way. Although you could elaborate on why you need this, and perhaps there
+is a different/better/simpler approach.
+
+Regards,
+Curtis
+
+--
+Curtis Rueden
+LOCI software architect - http://loci.wisc.edu/software
+
+
+On Fri, Dec 2, 2016 at 12:30 PM, Florian Schätz &lt;mail@florian-schaetz.de&gt;
+wrote:
+
+&gt; Hello,
+&gt;
+&gt; Was it expected to work with Maven 2, before the whole effective pom
+&gt;&gt; calculation was rewritten?
+&gt;&gt; Did you try?
+&gt;&gt;
+&gt;
+&gt; No, don't have Maven 2 here, it was just referenced as a workaround in
+&gt;
+&gt; https://issues.apache.org/jira/browse/MASSEMBLY-367
+&gt;
+&gt; and in a comment in...
+&gt;
+&gt; http://stackoverflow.com/questions/6948091/maven-retrieving-
+&gt; the-main-module-version-from-a-sub-module
+&gt;
+&gt; Is there any other chance to get the grandparent version - preferably
+&gt; without writing another maven plugin ;-)
+&gt;
+&gt; Regards,
+&gt;
+&gt; Flo
+&gt;
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201612.mbox/raw/%3cCADN69y=tGPwatBQF7WOY78xkEihkv2H0pegntCLqe+bPTpGDtw@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, Quoted Printable, 1385 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201612.mbox/raw/%3cCADN69y=tGPwatBQF7WOY78xkEihkv2H0pegntCLqe+bPTpGDtw@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: shade issues with manifest entries</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201203.mbox/%3cCAKVWSxu=LRoD4HV7H8ecSsU_YZkJRXdSFCu9aM+=XA8cjuAiMw@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201203.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201203.mbox/%3cCAG8spyixxiukJJ==1edRwz-E_u+EZh-fECBTumhtO1qA5k_Mvw@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201203.mbox/%3cCAKVWSxu=LRoD4HV7H8ecSsU_YZkJRXdSFCu9aM+=XA8cjuAiMw@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201203.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201203.mbox/%3cCALy+7Uk2xkJNA2TuDNVYiT01yg8w5EgKYtGgfJUUxabqN8KHTA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201203.mbox/%3cCAKVWSxu=LRoD4HV7H8ecSsU_YZkJRXdSFCu9aM+=XA8cjuAiMw@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201203.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201203.mbox/%3cCAG8spyixxiukJJ==1edRwz-E_u+EZh-fECBTumhtO1qA5k_Mvw@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201203.mbox/%3cCAKVWSxu=LRoD4HV7H8ecSsU_YZkJRXdSFCu9aM+=XA8cjuAiMw@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201203.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201203.mbox/%3cCALy+7Uk2xkJNA2TuDNVYiT01yg8w5EgKYtGgfJUUxabqN8KHTA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Arun Ramakrishnan &lt;sinchronized.a...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: shade issues with manifest entries</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Thu, 15 Mar 2012 19:27:35 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Any pointers would be greatly appreciated.
+
+On Thu, Mar 15, 2012 at 12:25 PM, Arun Ramakrishnan &lt;
+sinchronized.arun@gmail.com&gt; wrote:
+
+&gt; We use shade to build a uber jar. We use this to run jobs on hadoop ( a
+&gt; distributed computing framework ).
+&gt; Now, shade used to be working good. But, after I made some project
+&gt; refactoring, It stopped working.
+&gt;
+&gt;
+&gt; Here is the dependency tree &lt;https://gist.github.com/2046251&gt;, if it helps
+&gt;
+&gt;
+&gt;
+&gt; This is the error I get when I run any class in the jar from the command
+&gt; line.
+&gt;
+&gt; ****************************
+&gt; *Exception in thread "main" java.lang.SecurityException: no manifiest
+&gt; section for signature file entry
+&gt; OSGI-OPT/src/org/osgi/framework/PackagePermission.java*
+&gt;     at
+&gt; sun.security.util.SignatureFileVerifier.verifySection(SignatureFileVerifier.java:380)
+&gt;     at
+&gt; sun.security.util.SignatureFileVerifier.processImpl(SignatureFileVerifier.java:231)
+&gt;     at
+&gt; sun.security.util.SignatureFileVerifier.process(SignatureFileVerifier.java:176)
+&gt;     at java.util.jar.JarVerifier.processEntry(JarVerifier.java:288)
+&gt;     at java.util.jar.JarVerifier.update(JarVerifier.java:199)
+&gt;     at java.util.jar.JarFile.initializeVerifier(JarFile.java:323)
+&gt;     at java.util.jar.JarFile.getInputStream(JarFile.java:388)
+&gt;     at
+&gt; sun.misc.URLClassPath$JarLoader$2.getInputStream(URLClassPath.java:692)
+&gt;     at sun.misc.Resource.cachedInputStream(Resource.java:61)
+&gt;     at sun.misc.Resource.getByteBuffer(Resource.java:144)
+&gt;     at java.net.URLClassLoader.defineClass(URLClassLoader.java:256)
+&gt;     at java.net.URLClassLoader.access$000(URLClassLoader.java:58)
+&gt;     at java.net.URLClassLoader$1.run(URLClassLoader.java:197)
+&gt;     at java.security.AccessController.doPrivileged(Native Method)
+&gt;     at java.net.URLClassLoader.findClass(URLClassLoader.java:190)
+&gt;     at java.lang.ClassLoader.loadClass(ClassLoader.java:306)
+&gt;     at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:301)
+&gt;     at java.lang.ClassLoader.loadClass(ClassLoader.java:247)
+&gt; **************************
+&gt;
+&gt; ***************************************************************************
+&gt;
+&gt;             &lt;plugin&gt;
+&gt;                 &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+&gt;                 &lt;artifactId&gt;maven-shade-plugin&lt;/artifactId&gt;
+&gt;                 &lt;executions&gt;
+&gt;                     &lt;execution&gt;
+&gt;                         &lt;!-- phase&gt;package&lt;/phase&gt;
+&gt;                         &lt;goals&gt;
+&gt;                             &lt;goal&gt;shade&lt;/goal&gt;
+&gt;                         &lt;/goals --&gt;
+&gt;                         &lt;configuration&gt;
+&gt;                             &lt;transformers&gt;
+&gt;                                 &lt;transformer
+&gt;
+&gt; implementation="org.apache.maven.plugins.shade.resource.ComponentsXmlResourceTransformer"
+&gt; /&gt;
+&gt;                             &lt;/transformers&gt;
+&gt;                             &lt;filters&gt;
+&gt;                                 &lt;filter&gt;
+&gt;                                     &lt;artifact&gt;*:*&lt;/artifact&gt;
+&gt;                                     &lt;excludes&gt;
+&gt;                                         &lt;exclude&gt;META-INF/LICENSE&lt;/exclude&gt;
+&gt;                                     &lt;/excludes&gt;
+&gt;                                 &lt;/filter&gt;
+&gt;                             &lt;/filters&gt;
+&gt;                         &lt;/configuration&gt;
+&gt;                     &lt;/execution&gt;
+&gt;                 &lt;/executions&gt;
+&gt;             &lt;/plugin&gt;
+&gt; **************************************************************************
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201203.mbox/raw/%3cCAKVWSxs7QDGp1N6dRj5Sq0gFb1pL_dj+ORnXC9e8tNMmYjiC=w@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 3406 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201203.mbox/raw/%3cCAKVWSxs7QDGp1N6dRj5Sq0gFb1pL_dj+ORnXC9e8tNMmYjiC=w@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

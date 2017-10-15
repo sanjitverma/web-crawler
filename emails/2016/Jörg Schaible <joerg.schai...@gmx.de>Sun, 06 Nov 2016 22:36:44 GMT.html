@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Build behavior differences between 3.2.5 and 3.3.9 with dependency shading</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201611.mbox/%3cCA+nPnMx3pEj1wOj5C86RwAqj0-duaXy8zcvPmjH4NMpFfjouXA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201611.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201611.mbox/%3cCA+nPnMwA-Z89np-ANKaOJ=wgCJt6dgWdT3txYqTjP8M7EbJDeg@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201611.mbox/%3cCA+nPnMx3pEj1wOj5C86RwAqj0-duaXy8zcvPmjH4NMpFfjouXA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201611.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201611.mbox/%3cCA+nPnMwA-Z89np-ANKaOJ=wgCJt6dgWdT3txYqTjP8M7EbJDeg@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201611.mbox/%3cCA+nPnMx3pEj1wOj5C86RwAqj0-duaXy8zcvPmjH4NMpFfjouXA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201611.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201611.mbox/%3cCA+nPnMwA-Z89np-ANKaOJ=wgCJt6dgWdT3txYqTjP8M7EbJDeg@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201611.mbox/%3cCA+nPnMx3pEj1wOj5C86RwAqj0-duaXy8zcvPmjH4NMpFfjouXA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201611.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201611.mbox/%3cCA+nPnMwA-Z89np-ANKaOJ=wgCJt6dgWdT3txYqTjP8M7EbJDeg@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Jörg Schaible &lt;joerg.schai...@gmx.de&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Build behavior differences between 3.2.5 and 3.3.9 with dependency shading</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Sun, 06 Nov 2016 22:36:44 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Stephen Connolly wrote:
+
+&gt; Hmmm I did some digging...
+&gt; 
+&gt; 
+https://maven.apache.org/ref/3.2.3/apidocs/org/apache/maven/artifact/handler/ArtifactHandler.html#isIncludesDependencies()
+&gt; is i think the idea JvZ was hinting at.
+&gt; 
+&gt; For the case where a shaded JAR shades *everything* then a custom
+&gt; packaging will work as we could set this flag and it would stop the
+&gt; transitive dependencies being propagated... but most people do not shade
+&gt; *all* dependencies, rather they shade a subset.
+&gt; 
+&gt; I think we may need to re-think how we do this or rethink the model being
+&gt; read-only
+
+Set the shaded dependencies as optional. This might at least technically 
+produce the proper dependency tree for dependent artifacts.
+
+Cheers,
+Jörg
+
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201611.mbox/raw/%3cnvob9p$uea$1@blaine.gmane.org%3e/">Unnamed text/plain</a> (inline, 8-Bit, 926 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201611.mbox/raw/%3cnvob9p$uea$1@blaine.gmane.org%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

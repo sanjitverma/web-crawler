@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Release plugin &amp; ${project.version} dependencies</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201212.mbox/%3cCA+nPnMyV1W5114-eQe7V4K+SB9b-cNzmFVDFdSCk=vKMOTXQbA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201212.mbox/%3cCAOazyz0sYBxCvXqbY19vrk=vq+LFtHp1Zp4P2iJCgZg_9_QGeA@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201212.mbox/%3c50C95571.9070403@gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201212.mbox/%3cop.wo9vk8obkdkhrr@columbia%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201212.mbox/%3cCA+nPnMyV1W5114-eQe7V4K+SB9b-cNzmFVDFdSCk=vKMOTXQbA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201212.mbox/%3cCAOazyz0sYBxCvXqbY19vrk=vq+LFtHp1Zp4P2iJCgZg_9_QGeA@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201212.mbox/%3c50C95571.9070403@gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201212.mbox/%3cop.wo9vk8obkdkhrr@columbia%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Dan Godfrey &lt;daniel.godf...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Release plugin &amp; ${project.version} dependencies</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Thu, 13 Dec 2012 12:51:06 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hi,
+
+I'm having trouble using the release-plugin on a project as it is
+complaining that it has snapshot dependencies, even though those
+dependencies are actually set to ${project.version}. So when the dependency
+check phase runs they are indeed SNAPSHOT dependencies, if it were to
+continue then they would be updated to non-SNAPSHOT dependencies in a later
+phase.
+
+I was wondering if anybody knows of anyway to get around this?
+
+To explain why: I have 2 separate projects project-main &amp; project-windows.
+project-main is a jar (well multiple jars)which are deployed to our local
+repo. project-windows then takes that deployed jar and packages it up as an
+MSI. Both of these projects are kept in lockstep with regards version
+numbers and have separate CI jobs. I've split the 2 projects up in
+different SCM repos like this as we have have other CI jobs depending on
+project-main for testing, and potentially in the future a project-linux,
+etc.
+
+Thanks,
+Dan.
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201212.mbox/raw/%3cCA+J=zuqNwC558r55dfBVo8x_=Lvb5BEA=gWq7Es5codPMC79Hw@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 958 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201212.mbox/raw/%3cCA+J=zuqNwC558r55dfBVo8x_=Lvb5BEA=gWq7Es5codPMC79Hw@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

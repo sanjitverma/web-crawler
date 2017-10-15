@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Duplicate dependency with different scopes</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201207.mbox/%3cju3b2j$81t$1@dough.gmane.org%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201207.mbox/%3c50054C57.1040401@poczta.onet.pl%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201207.mbox/%3cju3b2j$81t$1@dough.gmane.org%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCALcFPWF5HFosd4rnKyvszZzV70hWpwXcDhKSs=p_oB=pqhYmRA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201207.mbox/%3cju3b2j$81t$1@dough.gmane.org%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201207.mbox/%3c50054C57.1040401@poczta.onet.pl%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201207.mbox/%3cju3b2j$81t$1@dough.gmane.org%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCALcFPWF5HFosd4rnKyvszZzV70hWpwXcDhKSs=p_oB=pqhYmRA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Anders Hammar &lt;and...@hammar.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Duplicate dependency with different scopes</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Tue, 17 Jul 2012 10:02:50 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Well, I disagree with you. A pom project doesn't have a dependency. It
+doesn't have any code and thus no dependencies.
+
+Also, based on my experience, there will always be exceptions to the
+rule "all children will have this dependency". A very common one is
+thinking that all children will have a junit test dependency. Sounds
+reasonable in the beginning, but what happens when you have an API
+module? This one is very unlikely to have any tests as it only
+includes interfaces (or possibly very simple classes). And then it
+will get an incorrect dependency. Sure, an extra test scope dependency
+will not affect any project having a dependency, but this is still an
+incorrect dependency.
+
+/Anders
+
+On Tue, Jul 17, 2012 at 10:57 AM, Graham Crosmarie
+&lt;graham.crosmarie@linagora.com&gt; wrote:
+&gt; Thanks for your answer,
+&gt;
+&gt; But somehow I disagree with you : a pom project might have to define
+&gt; dependencies.
+&gt; IMHO defining such a dependency (besides defining its version and scope in
+&gt; the dependency management) is legitimate if all of the projects having this
+&gt; pom as parent should have this dependency.
+&gt;
+&gt; For example our parent pom which is the parent of all our other projects
+&gt; defines Junit as a dependency because we know all of our prejects are going
+&gt; to use Junit.
+&gt;
+&gt; In my case all subprojects of A need D at least in scope test but some of
+&gt; them (which depends on B) appears to 'also' need D in scope compile.
+&gt;
+&gt;
+&gt; On 17/07/2012 09:43, Anders Hammar wrote:
+&gt;&gt;
+&gt;&gt; As project A is a parent it's a pom project, right? IMHO a pom project
+&gt;&gt; should NEVER have a dependency. Remove that dependency and state that
+&gt;&gt; test scope dependency where it actually is a dependency instead.
+&gt;&gt; Project A could however have dependencyManagement declared for D
+&gt;&gt; stating test as default scope (and version).
+&gt;&gt;
+&gt;&gt; /Anders
+&gt;&gt;
+&gt;&gt; On Tue, Jul 17, 2012 at 9:15 AM, Graham Crosmarie
+&gt;&gt; &lt;graham.crosmarie@linagora.com&gt; wrote:
+&gt;&gt;&gt;
+&gt;&gt;&gt; Hello,
+&gt;&gt;&gt;
+&gt;&gt;&gt; I have a problem with my dependency pattern and I am not sure that maven
+&gt;&gt;&gt; behaves correctly in this case.
+&gt;&gt;&gt;
+&gt;&gt;&gt; Here is my case :
+&gt;&gt;&gt;      - I am using Maven 2.2.1.
+&gt;&gt;&gt;      - I have a project A which defines a dependency D with scope test.
+&gt;&gt;&gt;      - I have a project B whose parent is A and which defines D as a
+&gt;&gt;&gt; dependency in scope compile.
+&gt;&gt;&gt;      - My project hierarchy defines a lot of projects whose parent is A
+&gt;&gt;&gt; and
+&gt;&gt;&gt; who have B as a dependency.
+&gt;&gt;&gt;
+&gt;&gt;&gt; My problem is : all these "subprojects" have D as dependency in scope
+&gt;&gt;&gt; test
+&gt;&gt;&gt; (from A).
+&gt;&gt;&gt; I think that the correct behaviour would be to have D with scope compile
+&gt;&gt;&gt; (from their dependency on B) because scope compile 'contains' scope test.
+&gt;&gt;&gt; But Maven 2.2.1 does not work that way :-).
+&gt;&gt;&gt;
+&gt;&gt;&gt; Is there any way to force my projects to use the D scope from project B
+&gt;&gt;&gt; instead of the one from its parent (project A) ?
+&gt;&gt;&gt;
+&gt;&gt;&gt; Thanks in avance,
+&gt;&gt;&gt;
+&gt;&gt;&gt; --
+&gt;&gt;&gt; Signature
+&gt;&gt;&gt; Graham CROSMARIE
+&gt;&gt;&gt; R&amp;D Engineer
+&gt;&gt;&gt; Linagora GSO -- www.linagora.com &lt;http://www.linagora.com&gt;
+&gt;&gt;
+&gt;&gt; ---------------------------------------------------------------------
+&gt;&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt;&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;&gt;
+&gt;
+&gt;
+&gt; --
+&gt; Signature
+&gt; Graham CROSMARIE
+&gt; R&amp;D Engineer
+&gt; Linagora GSO -- www.linagora.com &lt;http://www.linagora.com&gt;
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201207.mbox/raw/%3cCAKDUN1vJ1_7W1FSSM6MajPDE-7+3p-=2ahTsmOHE6sOVDzzZHw@mail.gmail.com%3e/">Unnamed text/plain</a> (inline, None, 3509 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201207.mbox/raw/%3cCAKDUN1vJ1_7W1FSSM6MajPDE-7+3p-=2ahTsmOHE6sOVDzzZHw@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

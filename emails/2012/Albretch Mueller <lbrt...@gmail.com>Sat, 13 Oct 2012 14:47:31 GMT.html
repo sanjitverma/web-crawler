@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: KEYS?</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201210.mbox/%3cCAPoyBqQgUuMUznBmQ397B4Xqd+nZLSadZ+e0dC9QDrAUjJfGsA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201210.mbox/%3cCAPoyBqQeSPJeaBf1UB0XgmMmT1yuXJU5bBo9XB9OSHVq-ZLRYw@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201210.mbox/%3cCAPoyBqQgUuMUznBmQ397B4Xqd+nZLSadZ+e0dC9QDrAUjJfGsA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201210.mbox/%3cCAPoyBqQeSPJeaBf1UB0XgmMmT1yuXJU5bBo9XB9OSHVq-ZLRYw@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201210.mbox/%3cCAPoyBqQgUuMUznBmQ397B4Xqd+nZLSadZ+e0dC9QDrAUjJfGsA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201210.mbox/%3cCAPoyBqQeSPJeaBf1UB0XgmMmT1yuXJU5bBo9XB9OSHVq-ZLRYw@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201210.mbox/%3cCAPoyBqQgUuMUznBmQ397B4Xqd+nZLSadZ+e0dC9QDrAUjJfGsA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201210.mbox/%3cCAPoyBqQeSPJeaBf1UB0XgmMmT1yuXJU5bBo9XB9OSHVq-ZLRYw@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Albretch Mueller &lt;lbrt...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: KEYS?</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Sat, 13 Oct 2012 14:47:31 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+ I have no way to check that everything on the back end is fine, but
+it seems I keep getting corrupted/unsychronized data:
+~
+ lbrtchx
+~
+$ wget --server-response --no-verbose
+http://www.apache.org/dyn/closer.cgi/maven/maven-3/3.0.4/source/apache-maven-3.0.4-src.tar.gz
+  HTTP/1.1 200 OK
+  Date: Thu, 11 Oct 2012 09:05:17 GMT
+  Server: Apache/2.4.1 (Unix) OpenSSL/1.0.0g
+  Vary: Accept-Encoding
+  Cache-Control: max-age=3600
+  Expires: Thu, 11 Oct 2012 10:05:17 GMT
+  Keep-Alive: timeout=5, max=100
+  Connection: Keep-Alive
+  Transfer-Encoding: chunked
+  Content-Type: text/html; charset=utf-8
+2012-10-11 05:04:58
+URL:http://www.apache.org/dyn/closer.cgi/maven/maven-3/3.0.4/source/apache-maven-3.0.4-src.tar.gz
+[30124] -&gt; "apache-maven-3.0.4-src.tar.gz" [1]
+~
+$ wget http://www.apache.org/dist/maven/KEYS
+--2012-10-13 10:34:40--  http://www.apache.org/dist/maven/KEYS
+Resolving www.apache.org (www.apache.org)... 140.211.11.131,
+192.87.106.229, 2001:610:1:80bc:192:87:106:229
+Connecting to www.apache.org (www.apache.org)|140.211.11.131|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 131350 (128K)
+Saving to: `KEYS'
+
+100%[====================================================================================================&gt;]
+131,350      247K/s   in 0.5s
+
+2012-10-13 10:34:41 (247 KB/s) - `KEYS' saved [131350/131350]
+
+$ ls -l KEYS
+-rw-r--r-- 1 knoppix knoppix 131350 Oct 13  2012 KEYS
+
+$ wc -l KEYS
+2334 KEYS
+
+$ md5sum KEYS
+e1e7483acae6b595207dcd17ab188119  KEYS
+~
+$ gpg --import KEYS
+gpg: key C560DD8B: "Emmanuel Venisse &lt;evenisse@apache.org&gt;" not changed
+gpg: key BB617866: "Sarel Jason van Zyl &lt;jason@maven.org&gt;" not changed
+gpg: key C9725F3B: "Dion Gillard &lt;dion@multitask.com.au&gt;" not changed
+gpg: key 084C9113: "Brett Porter &lt;brett@apache.org&gt;" not changed
+gpg: key 1824BDC1: "Brett Porter (Release Signing Key)
+&lt;brett@apache.org&gt;" not changed
+gpg: key F0E309FF: "Vincent Massol &lt;vmassol@apache.org&gt;" not changed
+gpg: key 5249885E: "Lukas Theussl &lt;ltheussl@apache.org&gt;" not changed
+gpg: key 93CC521B: "Arnaud Heritier (aheritier)
+&lt;aheritier@apache.org&gt;" not changed
+gpg: key 699A35EB: "Arnaud Heritier (CODE SIGNING KEY)
+&lt;aheritier@apache.org&gt;" not changed
+gpg: key 27CD9F92: "Fabrizio Giustina &lt;fgiust@apache.org&gt;" not changed
+gpg: key F0E309FF: "Vincent Massol &lt;vmassol@apache.org&gt;" not changed
+gpg: key AF5EC452: "Dennis Lundberg (CODE SIGNING KEY)
+&lt;dennisl@apache.org&gt;" not changed
+gpg: key 8FB67BAC: "Joakim Erdfelt &lt;joakime@apache.org&gt;" not changed
+gpg: key 3C062231: "Brian E Fox &lt;brianf@apache.org&gt;" not changed
+gpg: key BB550746: "J. Daniel Kulp &lt;dan@kulp.com&gt;" not changed
+gpg: key E50BC813: "Jesse McConnell (CODE SIGNING KEY)
+&lt;jmcconnell@apache.org&gt;" not changed
+gpg: key B3A2D3B1: "John Casey (Maven PMC Member) &lt;john@maven.org&gt;" not changed
+gpg: key 9C0EFF85: "John D Casey &lt;jdcasey@mergere.com&gt;" not changed
+gpg: key DB596386: "Vincent Siveton &lt;vsiveton@apache.org&gt;" not changed
+gpg: key A43C4492: "Carlos Sanchez &lt;carlos.sanchez@mergere.com&gt;" not changed
+gpg: key C625BAFB: "Maria Odea Ching &lt;oching@apache.org&gt;" not changed
+gpg: key 7BA507E8: "Mauro Talevi &lt;mauro@apache.org&gt;" not changed
+gpg: key 70161C62: "Herve Boutemy &lt;hboutemy@apache.org&gt;" not changed
+gpg: key B4372146: "Olivier Lamy &lt;olamy@apache.org&gt;" not changed
+gpg: key 0F353251: "Dan Fabulich &lt;dfabulich@apache.org&gt;" not changed
+gpg: key 064C851C: "Raphaël Piéroni &lt;rafale@apache.org&gt;" not changed
+gpg: key B0874707: "Milos Kleint &lt;mkleint@apache.org&gt;" not changed
+gpg: key 365A46EF: "Mark Hobson &lt;markh@apache.org&gt;" not changed
+gpg: key 81C4177D: "Oleg Gusakov &lt;ogusakov@apache.org&gt;" not changed
+gpg: key 34A72A7F: "John Dennis Casey &lt;jdcasey@commonjava.org&gt;" not changed
+gpg: key 3571506F: "Raphaël Piéroni &lt;rafale@apache.org&gt;" not changed
+gpg: key 9A25CE21: "Barrie Treloar &lt;baerrach@apache.org&gt;" not changed
+gpg: key 9D7013A9: "Dan T. Tran &lt;dantran@apache.org&gt;" not changed
+gpg: key CC303655: "Stephane Nicoll &lt;snicoll@apache.org&gt;" not changed
+gpg: key 39332BA6: "Barrie Treloar &lt;baerrach@apache.org&gt;" not changed
+gpg: key A7FF4A41: "Benjamin Bentmann (CODE SIGNING KEY)
+&lt;bentmann@apache.org&gt;" not changed
+gpg: key 7F3ACFC4: "Paul Gier (Apache Maven) &lt;pgier@apache.org&gt;" not changed
+gpg: key CDA187E9: "Nicolas De loof &lt;nicolas@apache.org&gt;" not changed
+gpg: key B620D787: "Stephen Connolly &lt;stephenc@apache.org&gt;" not changed
+gpg: key DDFA199E: "John Dennis Casey (Apache Code-Signing Key)
+&lt;jdcasey@apache.org&gt;" not changed
+gpg: key 2CF0CC82: "Arnaud Héritier (CODE SIGNING KEY)
+&lt;aheritier@apache.org&gt;" not changed
+gpg: key E0747D50: "Kristian Rosenvold &lt;krosenvold@apache.org&gt;" not changed
+gpg: key 589628E0: "Mark Hobson &lt;markh@apache.org&gt;" not changed
+gpg: key 6BFC416A: "Brian Demers &lt;Brian.Demers@gmail.com&gt;" not changed
+gpg: key DC742C7C: "Brian E Fox (CODE SIGNING KEY)
+&lt;brianf@apache.org&gt;" not changed
+gpg: key 9CE964B8: "Robert Scholte &lt;rfscholte@codehaus.org&gt;" not changed
+gpg: key ED330E1B: "Igor Fedorenko &lt;igor@ifedorenko.com&gt;" not changed
+gpg: key F65C0178: "Tony Chemit (CODE SIGNING KEY)
+&lt;tchemit@apache.org&gt;" not changed
+gpg: key 98B1CC53: "Benson Margulies &lt;bimargulies@apache.org&gt;" not changed
+gpg: key 4FB9BA39: "Tamás Cservenák &lt;tamas@cservenak.net&gt;" not changed
+gpg: Total number processed: 50
+gpg:              unchanged: 50
+~
+$ wget --server-response
+http://www.apache.org/dist/maven/maven-3/3.0.4/source/apache-maven-3.0.4-src.tar.gz.asc
+--2012-10-13 10:38:47--
+http://www.apache.org/dist/maven/maven-3/3.0.4/source/apache-maven-3.0.4-src.tar.gz.asc
+Resolving www.apache.org (www.apache.org)... 192.87.106.229,
+140.211.11.131, 2001:610:1:80bc:192:87:106:229
+Connecting to www.apache.org (www.apache.org)|192.87.106.229|:80... connected.
+HTTP request sent, awaiting response...
+  HTTP/1.1 200 OK
+  Date: Sat, 13 Oct 2012 14:39:04 GMT
+  Server: Apache/2.4.1 (Unix) OpenSSL/1.0.0g
+  Last-Modified: Wed, 05 Sep 2012 07:01:49 GMT
+  ETag: "c3-4c8eef2e018aa"
+  Accept-Ranges: bytes
+  Content-Length: 195
+  Vary: Accept-Encoding
+  Cache-Control: max-age=3600
+  Expires: Sat, 13 Oct 2012 15:39:04 GMT
+  Access-Control-Allow-Origin: *
+  Keep-Alive: timeout=5, max=100
+  Connection: Keep-Alive
+  Content-Type: text/plain; charset=utf-8
+Length: 195 [text/plain]
+Saving to: `apache-maven-3.0.4-src.tar.gz.asc'
+
+100%[====================================================================================================&gt;]
+195         --.-K/s   in 0s
+
+2012-10-13 10:38:47 (13.6 MB/s) - `apache-maven-3.0.4-src.tar.gz.asc'
+saved [195/195]
+
+$ wget --server-response
+http://www.apache.org/dyn/closer.cgi/maven/maven-3/3.0.4/source/apache-maven-3.0.4-src.tar.gz
+--2012-10-13 10:38:58--
+http://www.apache.org/dyn/closer.cgi/maven/maven-3/3.0.4/source/apache-maven-3.0.4-src.tar.gz
+Resolving www.apache.org (www.apache.org)... 140.211.11.131,
+192.87.106.229, 2001:610:1:80bc:192:87:106:229
+Connecting to www.apache.org (www.apache.org)|140.211.11.131|:80... connected.
+HTTP request sent, awaiting response...
+  HTTP/1.1 200 OK
+  Date: Sat, 13 Oct 2012 14:39:15 GMT
+  Server: Apache/2.4.1 (Unix) OpenSSL/1.0.0g
+  Vary: Accept-Encoding
+  Cache-Control: max-age=3600
+  Expires: Sat, 13 Oct 2012 15:39:15 GMT
+  Keep-Alive: timeout=5, max=100
+  Connection: Keep-Alive
+  Transfer-Encoding: chunked
+  Content-Type: text/html; charset=utf-8
+Length: unspecified [text/html]
+Saving to: `apache-maven-3.0.4-src.tar.gz'
+
+    [  &lt;=&gt;
+                                   ] 30,112       143K/s   in 0.2s
+
+2012-10-13 10:38:59 (143 KB/s) - `apache-maven-3.0.4-src.tar.gz' saved [30112]
+
+$ wget --server-response
+http://www.apache.org/dist/maven/maven-3/3.0.4/source/apache-maven-3.0.4-src.tar.gz.md5
+--2012-10-13 10:38:59--
+http://www.apache.org/dist/maven/maven-3/3.0.4/source/apache-maven-3.0.4-src.tar.gz.md5
+Resolving www.apache.org (www.apache.org)... 192.87.106.229,
+140.211.11.131, 2001:610:1:80bc:192:87:106:229
+Connecting to www.apache.org (www.apache.org)|192.87.106.229|:80... connected.
+HTTP request sent, awaiting response...
+  HTTP/1.1 200 OK
+  Date: Sat, 13 Oct 2012 14:39:16 GMT
+  Server: Apache/2.4.1 (Unix) OpenSSL/1.0.0g
+  Last-Modified: Wed, 05 Sep 2012 07:01:49 GMT
+  ETag: "20-4c8eef2e018aa"
+  Accept-Ranges: bytes
+  Content-Length: 32
+  Cache-Control: max-age=3600
+  Expires: Sat, 13 Oct 2012 15:39:16 GMT
+  Access-Control-Allow-Origin: *
+  Keep-Alive: timeout=5, max=100
+  Connection: Keep-Alive
+  Content-Type: text/plain; charset=utf-8
+Length: 32 [text/plain]
+Saving to: `apache-maven-3.0.4-src.tar.gz.md5'
+
+100%[====================================================================================================&gt;]
+32          --.-K/s   in 0s
+
+2012-10-13 10:38:59 (2.23 MB/s) - `apache-maven-3.0.4-src.tar.gz.md5'
+saved [32/32]
+
+$ ls -l
+total 56
+-rw-r--r-- 1 knoppix knoppix 30112 Oct 13 10:38 apache-maven-3.0.4-src.tar.gz
+-rw-r--r-- 1 knoppix knoppix   195 Sep  5 07:01
+apache-maven-3.0.4-src.tar.gz.asc
+-rw-r--r-- 1 knoppix knoppix    32 Sep  5 07:01
+apache-maven-3.0.4-src.tar.gz.md5
+drwxr-xr-x 2 knoppix knoppix  4096 Oct 13 10:37 bad
+-rw-r--r-- 1 knoppix knoppix 11073 Oct 13 10:35 maven.srcs.log
+
+$ ls -l apache-maven-3.0.4-src.tar.*
+-rw-r--r-- 1 knoppix knoppix 30112 Oct 13 10:38 apache-maven-3.0.4-src.tar.gz
+-rw-r--r-- 1 knoppix knoppix   195 Sep  5 07:01
+apache-maven-3.0.4-src.tar.gz.asc
+-rw-r--r-- 1 knoppix knoppix    32 Sep  5 07:01
+apache-maven-3.0.4-src.tar.gz.md5
+
+$ md5sum -b apache-maven-3.0.4-src.tar.*
+19451723190332b4527e138278ae91ab *apache-maven-3.0.4-src.tar.gz
+540ba35dab4c89d2adf576a8277a651a *apache-maven-3.0.4-src.tar.gz.asc
+a20ed622fdc6ae8be9da97a42efbec29 *apache-maven-3.0.4-src.tar.gz.md5
+
+$ cat apache-maven-3.0.4-src.tar.gz.md5
+17ca94d5be05a78c6ab12425b7a0ee10
+
+$ tar xzvf apache-maven-3.0.4-src.tar.gz
+
+gzip: stdin: not in gzip format
+tar: Child returned status 1
+tar: Error is not recoverable: exiting now
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201210.mbox/raw/%3cCAFakBwjZ7=MPD82LFkUAx1ojcNGXiLGZ+qDo-ec_Kb5FA6p6EA@mail.gmail.com%3e/">Unnamed text/plain</a> (inline, Quoted Printable, 10672 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201210.mbox/raw/%3cCAFakBwjZ7=MPD82LFkUAx1ojcNGXiLGZ+qDo-ec_Kb5FA6p6EA@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

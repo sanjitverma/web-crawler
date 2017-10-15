@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Referencing a parent POM without relativePath</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201211.mbox/%3cCAHNdxumygeK8fOnSyD3sAhL=6CKqGfn4St331sedXkznGa4DKA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201211.mbox/%3cCAKDUN1sGj6rmb5X3yKuFhsB+xFzxNLVeAAedxZ-pihhVtb2v9g@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201211.mbox/%3cCAHNdxumygeK8fOnSyD3sAhL=6CKqGfn4St331sedXkznGa4DKA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201211.mbox/%3cCAKDUN1sGj6rmb5X3yKuFhsB+xFzxNLVeAAedxZ-pihhVtb2v9g@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201211.mbox/%3cCAHNdxumygeK8fOnSyD3sAhL=6CKqGfn4St331sedXkznGa4DKA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201211.mbox/%3cCAKDUN1sGj6rmb5X3yKuFhsB+xFzxNLVeAAedxZ-pihhVtb2v9g@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201211.mbox/%3cCAHNdxumygeK8fOnSyD3sAhL=6CKqGfn4St331sedXkznGa4DKA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201211.mbox/%3cCAKDUN1sGj6rmb5X3yKuFhsB+xFzxNLVeAAedxZ-pihhVtb2v9g@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Benson Margulies &lt;bimargul...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Referencing a parent POM without relativePath</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Fri, 23 Nov 2012 17:10:12 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+On Fri, Nov 23, 2012 at 12:05 PM, Laird Nelson &lt;ljnelson@gmail.com&gt; wrote:
+&gt; On Fri, Nov 23, 2012 at 11:22 AM, Benson Margulies &lt;bimargulies@gmail.com&gt;wrote:
+&gt;
+&gt;&gt; You just name the G/A/V and no relativePath, and Maven will download
+&gt;&gt; just as it would a dependency.
+&gt;&gt;
+&gt;
+&gt; Well, not exactly; if there is no &lt;relativePath&gt; element present, then
+&gt; Maven behaves as though &lt;relativePath&gt;../pom.xml&lt;/relativePath&gt; were
+&gt; specified.  If that file is a working copy that has not been refreshed from
+&gt; the SCM, then problems can ensue.
+
+You only ever need an empty relativePath element when there is an
+unwanted pom sitting in .. that you need to discourage Maven from
+paying attention to.
+
+
+&gt;
+&gt; I recall that someone mentioned specifying a relative path like this:
+&gt;
+&gt; &lt;relativePath/&gt;
+&gt;
+&gt;
+&gt; ...and that that was the only way to force Maven to truly resolve the pom
+&gt; from the repository, but I don't know if this is in fact true.
+&gt;
+&gt; Best,
+&gt; Laird
+&gt;
+&gt; --
+&gt; http://about.me/lairdnelson
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201211.mbox/raw/%3cCALhtWkcL1ZQfwF9U2J4AoppxOyHj3vfMHhBLcfkkKKZCaq0_rg@mail.gmail.com%3e/">Unnamed text/plain</a> (inline, None, 1172 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201211.mbox/raw/%3cCALhtWkcL1ZQfwF9U2J4AoppxOyHj3vfMHhBLcfkkKKZCaq0_rg@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

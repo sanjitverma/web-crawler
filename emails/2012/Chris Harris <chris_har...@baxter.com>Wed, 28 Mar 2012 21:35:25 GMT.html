@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: How can I use a Maven plugin to change Eclipse WebSphere Deployment Classloader mode to PARENT_LAST</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201203.mbox/%3cCADVp3v_OrA-uuNL7trvDcwG17FcE0h4xXL4nzq0rNhnd1i-DYA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201203.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201203.mbox/%3cCALy+7UmhALAb0mQapOAsSnyTwmcY0W056h257SL-QJvi3GU48g@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201203.mbox/%3cCADVp3v_OrA-uuNL7trvDcwG17FcE0h4xXL4nzq0rNhnd1i-DYA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201203.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201203.mbox/%3cCALy+7UmhALAb0mQapOAsSnyTwmcY0W056h257SL-QJvi3GU48g@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201203.mbox/%3cCADVp3v_OrA-uuNL7trvDcwG17FcE0h4xXL4nzq0rNhnd1i-DYA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201203.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201203.mbox/%3cCALy+7UmhALAb0mQapOAsSnyTwmcY0W056h257SL-QJvi3GU48g@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201203.mbox/%3cCADVp3v_OrA-uuNL7trvDcwG17FcE0h4xXL4nzq0rNhnd1i-DYA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201203.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201203.mbox/%3cCALy+7UmhALAb0mQapOAsSnyTwmcY0W056h257SL-QJvi3GU48g@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Chris Harris &lt;chris_har...@baxter.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: How can I use a Maven plugin to change Eclipse WebSphere Deployment Classloader mode to PARENT_LAST</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Wed, 28 Mar 2012 21:35:25 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+I know it was in the OP.  I edited the OP and removed that info upon
+discovery.
+
+Good to know about m2e and eclipse:rad.  Someone else also PM'ed me (which
+is fine but another reason I hope to have my info/disclaimer removed from
+the reply) and provided me with another alternative (thanks to Datta):
+
+" http://maven.40175.n5.nabble.com/file/n5601870/RAD_m2e.pdf RAD_m2e.pdf You
+have to do everything what is mentioned in the attached document which I
+believe you have. Then as usual generate the ibmconfig files by  right click
+-&gt; JAVA EE -&gt; generate deployment disctriptor.
+
+You then have to copy the generated files into
+src/main/application/META-INF. 
+
+You will have to add the following line in the
+“org.eclipse.wst.common.component”  file and everything works like a charm.
+
+Changing the “org.eclipse.wst.common.component” file will let maven + RAD
+know where to go and find the CLassLoader information. Then you can go and
+change the  class loader to what you want . whether it is parent_last or
+parent_first. 
+
+By not changing it m2eclipse does not know and then evertime you do a clean
+it will over ride it."
+
+--
+View this message in context: http://maven.40175.n5.nabble.com/How-can-I-use-a-Maven-plugin-to-change-Eclipse-WebSphere-Deployment-Classloader-mode-to-PARENT-LAST-tp4727822p5601870.html
+Sent from the Maven - Users mailing list archive at Nabble.com.
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201203.mbox/raw/%3c1332970525448-5601870.post@n5.nabble.com%3e/">Unnamed text/plain</a> (inline, Quoted Printable, 1613 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201203.mbox/raw/%3c1332970525448-5601870.post@n5.nabble.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: mvn -U dependency:sources re-downloads released sources JARs</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201605.mbox/%3c8651c265f7fd4927b28fa221259325e2@VFLON-XCHMBX3.virtuefusion.corp%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201605.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201605.mbox/%3ccb45e20b14534d54a7d687c8c1aad1b1@VFLON-XCHMBX3.virtuefusion.corp%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201605.mbox/%3cCA+T+PjHWE+z4Omtfh6FGKzYhUzUZSBWHD1914+YZxDoKVg7KPw@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201605.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201605.mbox/%3cCA+T+PjGUj_FFFjf1n2A4Jb8+immr807MY81TMWtEFCSstKKNAA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201605.mbox/%3c8651c265f7fd4927b28fa221259325e2@VFLON-XCHMBX3.virtuefusion.corp%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201605.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201605.mbox/%3ccb45e20b14534d54a7d687c8c1aad1b1@VFLON-XCHMBX3.virtuefusion.corp%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201605.mbox/%3cCA+T+PjHWE+z4Omtfh6FGKzYhUzUZSBWHD1914+YZxDoKVg7KPw@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201605.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201605.mbox/%3cCA+T+PjGUj_FFFjf1n2A4Jb8+immr807MY81TMWtEFCSstKKNAA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Bernd Eckenfels &lt;e...@zusammenkunft.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: mvn -U dependency:sources re-downloads released sources JARs</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Tue, 17 May 2016 18:01:30 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hello,
+
+no, you can configure how often the repo transport of maven should
+check for updated snapshots in configured repos. (Not all plugins obey
+that). With -U you force an immediate recheck.
+
+updatePolicy 	String 	The frequency for downloading
+updates - can be "always", "daily" (default), "interval:XXX" (in
+minutes) or "never" (only if it doesn't exist locally)
+
+It uses the pom.lastUpdated tracking files in the repo cache for that.
+
+Gruss
+Bernd
+
+Am Tue, 17 May 2016 11:32:31 -0400
+schrieb Eric B &lt;ebenzacar@gmail.com&gt;:
+
+&gt; I would suggest that the help documentation is wrong.  To my
+&gt; knowledge, Maven always tries to update the snapshots at every
+&gt; invocation - precisely the concept of the snapshot.  For full
+&gt; releases, however, Maven won't try to re-download releases if they
+&gt; are already in the local repo, or if it has already tried to find
+&gt; (and failed) a release within a predetermined elapsed time.
+&gt; 
+&gt; I've always understood the -U parameter to force maven to check for
+&gt; different versions than what already exists in the local repo, and to
+&gt; force Maven to recheck for the existance of a dependency, even it has
+&gt; already tried and failed.
+&gt; 
+&gt; Thanks,
+&gt; 
+&gt; Eric
+&gt; 
+&gt; 
+&gt; On Tue, May 17, 2016 at 11:04 AM, Adam Mitchell
+&gt; &lt;Adam.Mitchell@playtech.com&gt; wrote:
+&gt; 
+&gt; &gt; Whilst that's true of the maven documentation, when you start
+&gt; &gt; digging into how it's used during artifact resolution it acts as an
+&gt; &gt; override for a repository's update policy.
+&gt; &gt;
+&gt; &gt; (from 3.3.9 release)
+&gt; &gt;
+&gt; &gt; It ends up set on
+&gt; &gt; org.apache.maven.artifact.repository.RepositoryRequest#isForceUpdate()
+&gt; &gt;
+&gt; &gt;     /**
+&gt; &gt;      * Indicates whether remote repositories should be re-checked
+&gt; &gt; for updated artifacts/metadata regardless of their
+&gt; &gt;      * configured update policy.
+&gt; &gt;      *
+&gt; &gt;      * @return {@code true} if remote repositories should be
+&gt; &gt; re-checked for updated artifacts/metadata, {@code false}
+&gt; &gt;      *         otherwise.
+&gt; &gt;      */
+&gt; &gt;     boolean isForceUpdate();
+&gt; &gt;
+&gt; &gt;     /**
+&gt; &gt;      * Enables/disabled forced checks for updated
+&gt; &gt; artifacts/metadata on remote repositories.
+&gt; &gt;      *
+&gt; &gt;      * @param forceUpdate {@code true} to forcibly check the remote
+&gt; &gt; repositories for updated artifacts/metadata, {@code
+&gt; &gt;      *            false} to use the update policy configured on each
+&gt; &gt; repository.
+&gt; &gt;      * @return This request, never {@code null}.
+&gt; &gt;      */
+&gt; &gt;     RepositoryRequest setForceUpdate( boolean forceUpdate );
+&gt; &gt;
+&gt; &gt; Or in the case where you end up in aether, it sets your repository
+&gt; &gt; session to always update:
+&gt; &gt; org.apache.maven.internal.aether.DefaultRepositorySystemSessionFactory:114
+&gt; &gt;         else if ( request.isUpdateSnapshots() )
+&gt; &gt;         {
+&gt; &gt;             session.setUpdatePolicy( RepositoryPolicy.UPDATE_POLICY_ALWAYS
+&gt; &gt; );
+&gt; &gt;         }
+&gt; &gt;
+&gt; &gt; The net result is the same.
+&gt; &gt;
+&gt; &gt; Though I admit that I wouldn't expect this to necessarily
+&gt; &gt; re-download source code unless the metadata was corrupt/missing, it
+&gt; &gt; certainly has more meaning that just update snapshots.
+&gt; &gt;
+&gt; &gt; Quite possibly a bug in maven-core then.
+&gt; &gt;
+&gt; &gt;
+&gt; &gt;
+&gt; &gt;
+&gt; &gt; | Adam Mitchell | Java Software Architect | Tel: +44 (0)207 633
+&gt; &gt; 3570 | Mobile:  | Skype:  | www.playtech.com
+&gt; &gt;
+&gt; &gt; This communication contains information which is privileged and
+&gt; &gt; confidential and is exclusively intended only for the individual or
+&gt; &gt; entity named above (recipient(s)). If you are not the intended
+&gt; &gt; recipient(s) or the person responsible for delivering it to the
+&gt; &gt; intended recipient(s), you are hereby notified that any review,
+&gt; &gt; disclosure, dissemination, distribution or reproduction of this
+&gt; &gt; communication message in any way or act is prohibited. If you
+&gt; &gt; receive this communication by mistake please notify the sender
+&gt; &gt; immediately and then destroy any copies of it. Please note that the
+&gt; &gt; sender monitors e-mails sent or received. Thank you. -----Original
+&gt; &gt; Message----- From: Thomas Broyer [mailto:t.broyer@gmail.com]
+&gt; &gt; Sent: 17 May 2016 11:03
+&gt; &gt; To: Maven Users List &lt;users@maven.apache.org&gt;
+&gt; &gt; Subject: Re: mvn -U dependency:sources re-downloads released
+&gt; &gt; sources JARs
+&gt; &gt;
+&gt; &gt; On Tue, May 17, 2016 at 11:29 AM Adam Mitchell
+&gt; &gt; &lt;Adam.Mitchell@playtech.com
+&gt; &gt; &gt;
+&gt; &gt; wrote:
+&gt; &gt;
+&gt; &gt; &gt; -U is force update, it tells maven to ignore locally cached
+&gt; &gt; &gt; artifacts and to download them afresh, what behaviour were you
+&gt; &gt; &gt; expecting?
+&gt; &gt; &gt;
+&gt; &gt;
+&gt; &gt; -U stands for "update-snapshots" and aims at downloading only
+&gt; &gt; "missing releases" (and "updated snapshots", of course).
+&gt; &gt;
+&gt; &gt; $ mvn -h
+&gt; &gt;
+&gt; &gt; usage: mvn [options] [&lt;goal(s)&gt;] [&lt;phase(s)&gt;]
+&gt; &gt;
+&gt; &gt; Options:
+&gt; &gt; […]
+&gt; &gt;  -U,--update-snapshots                  Forces a check for missing
+&gt; &gt;                                         releases and updated
+&gt; &gt; snapshots on remote repositories $ mvn -v
+&gt; &gt; Apache Maven 3.3.9 (bb52d8502b132ec0a5a3f4c09453c07478323dc5;
+&gt; &gt; 2015-11-10T17:41:47+01:00)
+&gt; &gt; Maven home: /mnt/ssd/tbr/tools/maven
+&gt; &gt; Java version: 1.8.0_91, vendor: Oracle Corporation Java home:
+&gt; &gt; /usr/lib/jvm/java-8-oracle/jre Default locale: fr_FR, platform
+&gt; &gt; encoding: UTF-8 OS name: "linux", version: "4.4.0-22-generic",
+&gt; &gt; arch: "amd64", family: "unix"
+&gt; &gt;
+&gt; &gt; ---------------------------------------------------------------------
+&gt; &gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; &gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt; &gt;
+&gt; 
+
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201605.mbox/raw/%3c20160517200130.00005a24.ecki@zusammenkunft.net%3e/">Unnamed text/plain</a> (inline, Quoted Printable, 5623 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201605.mbox/raw/%3c20160517200130.00005a24.ecki@zusammenkunft.net%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

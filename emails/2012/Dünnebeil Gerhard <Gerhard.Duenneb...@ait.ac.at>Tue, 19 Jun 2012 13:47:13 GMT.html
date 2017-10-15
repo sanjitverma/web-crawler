@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>AW: Problems with the update of snapshots</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201206.mbox/%3c4FE07E1B.3040002@artifact-software.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201206.mbox/%3c4FE0836D.3030302@matrix-consultants.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201206.mbox/%3cCADx2i9_CqnyME=NonBsDEJ+Khrx1=3QYY3ZwK70GDXQOqBKWLA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201206.mbox/%3cCAF=98zy=f2kgta3tVL760n+foUd7d0_b_-jca62+48S0eRNYtA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201206.mbox/%3c4FE07E1B.3040002@artifact-software.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201206.mbox/%3c4FE0836D.3030302@matrix-consultants.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201206.mbox/%3cCADx2i9_CqnyME=NonBsDEJ+Khrx1=3QYY3ZwK70GDXQOqBKWLA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201206.mbox/%3cCAF=98zy=f2kgta3tVL760n+foUd7d0_b_-jca62+48S0eRNYtA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Dünnebeil Gerhard &lt;Gerhard.Duenneb...@ait.ac.at&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">AW: Problems with the update of snapshots</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Tue, 19 Jun 2012 13:47:13 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hmm,
+
+ok. I double checked things. Here is the outcome:
+
+--------------- some excerpt from the log output (gained with the -X switch) ---
+The dependencies of the project:
+[DEBUG] at.ac.ait.enviro:tsapi-io-trafficCount:jar:4.0.7-SNAPSHOT
+[DEBUG]    junit:junit:jar:4.8.2:test
+[DEBUG]    at.ac.ait.enviro:tsapi-api:jar:4.0.7-SNAPSHOT:compile
+[DEBUG]    at.ac.ait.enviro:tsapi-basic-impls:jar:4.0.7-SNAPSHOT:compile
+[DEBUG]       at.ac.ait.enviro:utils:jar:4.0.7-SNAPSHOT:compile                          
+           &lt;-- This is the module that fails
+[DEBUG]       com.vividsolutions:jts:jar:1.8:compile
+[DEBUG]       org.codehaus.groovy:groovy:jar:1.7.0:compile
+[DEBUG]          antlr:antlr:jar:2.7.7:compile
+[DEBUG]          asm:asm:jar:3.2:compile
+[DEBUG]          asm:asm-commons:jar:3.2:compile
+[DEBUG]          asm:asm-util:jar:3.2:compile
+[DEBUG]          asm:asm-analysis:jar:3.2:compile
+[DEBUG]          asm:asm-tree:jar:3.2:compile
+[DEBUG]          jline:jline:jar:0.9.94:compile
+[DEBUG]       org.slf4j:slf4j-api:jar:1.6.1:compile
+[DEBUG]       commons-collections:commons-collections:jar:3.2.1:compile
+[DEBUG]    log4j:log4j:jar:1.2.16:compile
+
+
+A few lines above maven tells me it is happy with the version it finds in the local repository
+but tries to download things nevertheless (at least that's how I interpret things)
+
+[DEBUG] Skipped remote update check for at.ac.ait.enviro:utils:4.0.7-SNAPSHOT/maven-metadata.xml,
+locally installed metadata up-to-date.
+[DEBUG] Skipped remote update check for at.ac.ait.enviro:utils:4.0.7-SNAPSHOT/maven-metadata.xml,
+locally installed metadata up-to-date.
+[DEBUG] Using connector WagonRepositoryConnector with priority 0 for http://ts-toolbox.ait.ac.at/maven2/
+as ts-toolbox
+Downloading: http://ts-toolbox.ait.ac.at/maven2/at/ac/ait/enviro/utils/4.0.7-SNAPSHOT/utils-4.0.7-20120619.063804-9.pom
+[DEBUG] Using connector WagonRepositoryConnector with priority 0 for http://ts-toolbox.ait.ac.at/maven2/snapshots
+as ts-toolbox
+Downloading: http://ts-toolbox.ait.ac.at/maven2/snapshots/at/ac/ait/enviro/utils/4.0.7-SNAPSHOT/utils-4.0.7-20120619.063804-9.pom
+[WARNING] The POM for at.ac.ait.enviro:utils:jar:4.0.7-20120619.063804-9 is missing, no dependency
+information available
+
+
+Finally, near the end of the run it tells me the following
+message : Failed to execute goal on project tsapi-io-trafficCount: Could not resolve dependencies
+for project at.ac.ait.enviro:tsapi-io-trafficCount:jar:4.0.7-SNAPSHOT: Could not find artifact
+at.ac.ait.enviro:utils:jar:4.0.7-20120619.063804-9 in ts-toolbox.ait.snapshots (http://ts-toolbox.ait.ac.at/maven2/snapshots)
+
+---------
+
+
+So, yes. I think it is a snapshot dependency.
+Another thing that is fishy here is that the URL that maven tries to download is NOT in the
+list of repositories.
+Here is the list just as a reference, also taken from the effective-pom.
+&lt;repositories&gt;
+    &lt;repository&gt;
+      &lt;snapshots&gt;
+        &lt;enabled&gt;false&lt;/enabled&gt;
+      &lt;/snapshots&gt;
+      &lt;id&gt;central&lt;/id&gt;
+      &lt;name&gt;Central Repository&lt;/name&gt;
+      &lt;url&gt;http://repo.maven.apache.org/maven2&lt;/url&gt;
+    &lt;/repository&gt;
+ &lt;/repositories&gt;
+
+
+I hope that gives somebody some clue as I definitely am out of my depths here.
+
+Best regards
+Gerhard
+
+
+
+-----Ursprüngliche Nachricht-----
+Von: abhijith tn [mailto:abhijithtn@gmail.com] 
+Gesendet: Dienstag, 19. Juni 2012 15:26
+An: Maven Users List
+Betreff: Re: Problems with the update of snapshots
+
+Hi Gerhard,
+
+This is the basic functionality on which the question is raised on. I guess, maven at any
+cost should not check the repository which is not mentioned in the pom.
+
+Please check the dependency that you have given, if the version has SNAPSHOT word in it, then
+Maven by default tries to look in the SNAPSHOT repository.
+
+Folks,
+Correct me if I am wrong.
+
+On Tue, Jun 19, 2012 at 2:52 PM, Dünnebeil Gerhard &lt; Gerhard.Duennebeil@ait.ac.at&gt;
+wrote:
+
+&gt; Hello everybody,
+&gt;
+&gt; having migrated from maven2 to maven3 (3.0.4) recently I observed some 
+&gt; strange behavior.
+&gt;
+&gt; I am not sure whether this is due to some configuration problem on my 
+&gt; side or whether it's a bug of maven.
+&gt;
+&gt; The problems I have:
+&gt; I am running a continuous integration server (Jenkins). One of the 
+&gt; things this server shall check is whether we are indeed using a set of 
+&gt; artifacts that are up to date, i.e. can be compiled from the newest 
+&gt; code. To check this I delete significant parts of the local repository 
+&gt; each night and rebuild everything from scratch.
+&gt;
+&gt; To achieve this I created a build-profile that does not mention ANY 
+&gt; snapshot repository. I did control that with "help:effective-pom".
+&gt; Additionally I provided the "-no-snapshot-update" flag as a command 
+&gt; line parameter to maven.
+&gt;
+&gt; I now see the following effect:
+&gt; A module "A" is built by Jenkins using maven and then installed to the 
+&gt; local repository and deployed to our company repository. Fine up to then.
+&gt;
+&gt; But when jenkins builds a module "B" which depends on module "A" 
+&gt; despite all measures (see above) maven tries to download a new 
+&gt; snapshot version of module "A".
+&gt; As the snapshot repository is not configured into the build (see 
+&gt; above) this fails which in turn fails the complete build.
+&gt;
+&gt; I am not capable of  isolating and solving this problem and am 
+&gt; therefore asking for help here.
+&gt;
+&gt; Thanks for any input.
+&gt;
+&gt; Best regards
+&gt; Gerhard
+&gt;
+&gt;
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201206.mbox/raw/%3c9F69795E29C890408AC2DAF646C89BB379D89F1DFF@MAILBOX.arc.local%3e/">Unnamed text/plain</a> (inline, Quoted Printable, 5604 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201206.mbox/raw/%3c9F69795E29C890408AC2DAF646C89BB379D89F1DFF@MAILBOX.arc.local%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

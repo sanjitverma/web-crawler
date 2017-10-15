@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: The expression ${artifactId} is deprecated. Please use ${project.artifactId} instead</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201211.mbox/%3cCA+nPnMzbUyzY4QVuo51N_7GXtthanhBj11nTvdytaDVAQEkFoQ@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201211.mbox/%3cCA+nPnMwTyPNh8RnXiS_eHQkOh_csnsQyveLPpprsm7YdxaXszQ@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201211.mbox/%3cCA+nPnMzbUyzY4QVuo51N_7GXtthanhBj11nTvdytaDVAQEkFoQ@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201211.mbox/%3cCA+nPnMwTyPNh8RnXiS_eHQkOh_csnsQyveLPpprsm7YdxaXszQ@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201211.mbox/%3cCA+nPnMzbUyzY4QVuo51N_7GXtthanhBj11nTvdytaDVAQEkFoQ@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201211.mbox/%3cCA+nPnMwTyPNh8RnXiS_eHQkOh_csnsQyveLPpprsm7YdxaXszQ@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201211.mbox/%3cCA+nPnMzbUyzY4QVuo51N_7GXtthanhBj11nTvdytaDVAQEkFoQ@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201211.mbox/%3cCA+nPnMwTyPNh8RnXiS_eHQkOh_csnsQyveLPpprsm7YdxaXszQ@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Anders Hammar &lt;and...@hammar.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: The expression ${artifactId} is deprecated. Please use ${project.artifactId} instead</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Mon, 26 Nov 2012 14:08:05 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+You could also try looking at the effective-pom (help:effective-pom) and
+search for ${artifactId} in that. It might be something you're inheriting.
+But I'm also thinking something along Stephen's comment.
+
+/Anders
+
+
+On Mon, Nov 26, 2012 at 2:51 PM, Stephen Connolly &lt;
+stephen.alan.connolly@gmail.com&gt; wrote:
+
+&gt; I have a sneaky suspicion that you are doing some crazy stupid stuff in
+&gt; your pom.
+&gt;
+&gt; please provide the snippet which gave you the warning and what you think
+&gt; the fix of that is based on the warning...
+&gt;
+&gt;
+&gt; On 26 November 2012 13:44, Alberto Ivo &lt;albertoivo@gmail.com&gt; wrote:
+&gt;
+&gt; &gt; Hello Anders,
+&gt; &gt;
+&gt; &gt; I've tried to do what the warning told me to do. But I got the same
+&gt; warning
+&gt; &gt; anyway.
+&gt; &gt;
+&gt; &gt; In my projetct: *project-parent* i did this:
+&gt; &gt;
+&gt; &gt; &lt;version&gt;*project-parent*.0.0.1-SNAPSHOT&lt;/version&gt;
+&gt; &gt;
+&gt; &gt; I only ask it here because I've tried many other options and in some
+&gt; &gt; situations I got an error, in others I got the same warning.. None work
+&gt; it!
+&gt; &gt;
+&gt; &gt; Ivo
+&gt; &gt;
+&gt; &gt;
+&gt; &gt; On Mon, Nov 26, 2012 at 11:02 AM, Anders Hammar &lt;anders@hammar.net&gt;
+&gt; wrote:
+&gt; &gt;
+&gt; &gt; &gt; Well, the warning text kind of spells this out. You should replace
+&gt; &gt; &gt; "${artifactId}" with "${project.artifactId}".
+&gt; &gt; &gt;
+&gt; &gt; &gt; /Anders
+&gt; &gt; &gt;
+&gt; &gt; &gt; On Mon, Nov 26, 2012 at 1:23 PM, Alberto Ivo &lt;albertoivo@gmail.com&gt;
+&gt; &gt; wrote:
+&gt; &gt; &gt;
+&gt; &gt; &gt; &gt; Hello,
+&gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt; How can I fix this warning?
+&gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt; project-parent is just a maven project with only a pom that is a
+&gt; parent
+&gt; &gt; &gt; for
+&gt; &gt; &gt; &gt; another POMs.
+&gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt; [WARNING]
+&gt; &gt; &gt; &gt; [WARNING] Some problems were encountered while building the effective
+&gt; &gt; &gt; model
+&gt; &gt; &gt; &gt; for com.company.project:project-parent:pom:0.0.1-SNAPSHOT
+&gt; &gt; &gt; &gt; [WARNING] The expression ${artifactId} is deprecated. Please use
+&gt; &gt; &gt; &gt; ${project.artifactId} instead.
+&gt; &gt; &gt; &gt; [WARNING]
+&gt; &gt; &gt; &gt; [WARNING] It is highly recommended to fix these problems because they
+&gt; &gt; &gt; &gt; threaten the stability of your build.
+&gt; &gt; &gt; &gt; [WARNING]
+&gt; &gt; &gt; &gt; [WARNING] For this reason, future Maven versions might no longer
+&gt; &gt; support
+&gt; &gt; &gt; &gt; building such malformed projects.
+&gt; &gt; &gt; &gt; [WARNING]
+&gt; &gt; &gt; &gt;
+&gt; &gt; &gt;
+&gt; &gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201211.mbox/raw/%3cCAKDUN1sf3pw3562yGU6TCCv0yz4=cRKLBCVKVdeG63t3_+Z_EA@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 2129 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201211.mbox/raw/%3cCAKDUN1sf3pw3562yGU6TCCv0yz4=cRKLBCVKVdeG63t3_+Z_EA@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

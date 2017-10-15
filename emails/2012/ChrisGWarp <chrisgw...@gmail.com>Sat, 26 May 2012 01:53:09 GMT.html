@@ -1,0 +1,1420 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Compilation failure: interface com.ibm.websphere.sibx.smobo.ServiceMessageObject</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201205.mbox/%3cCAPJK9=L2J6Qd0sjgUwo61_NuaKeeBaxUJPEMey28PhSN6PQ4NQ@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cCALy+7Ukb3OMvrwsGLka2F9L02UQKO5i-virub7neathCaQjJgQ@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201205.mbox/%3c80FCAA6F0F283346BE3A95393EA0A4C62341242DB0@CORPEXCHMBOX.tgslc.org%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cCAPoyBqRgEHbMm8piuapsx8dXv8sqqg21p1mVt6dc60CYUG-5xg@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201205.mbox/%3cCAPJK9=L2J6Qd0sjgUwo61_NuaKeeBaxUJPEMey28PhSN6PQ4NQ@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cCALy+7Ukb3OMvrwsGLka2F9L02UQKO5i-virub7neathCaQjJgQ@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201205.mbox/%3c80FCAA6F0F283346BE3A95393EA0A4C62341242DB0@CORPEXCHMBOX.tgslc.org%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cCAPoyBqRgEHbMm8piuapsx8dXv8sqqg21p1mVt6dc60CYUG-5xg@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">ChrisGWarp &lt;chrisgw...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Compilation failure: interface com.ibm.websphere.sibx.smobo.ServiceMessageObject</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Sat, 26 May 2012 01:53:09 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+The simple initial answer, is that maven does not have the libraries that are
+a part of the ESB or Process Server runtime library available to it.
+
+If you view your project, in the Package Explorer view, you will see the ESB
+runtime library.
+
+All of those jars are on the compile time/runtime classpath. So this is why
+your code runs and compiles in WID, but not in Maven.
+
+This applies to any of the IBM packaged eclipses. For WAS, WESB and WPS
+(Process Server and Portal Server). Every time you have a runtime library as
+part of a server runtime, WID/Eclipse knows about it, but Maven does not.
+
+So, the question becomes, how do you fix this?
+
+My solution has always been to add a single pom file into the depdencies
+that lists *all* of jars in the runtime library. Then you have to add them
+all into your repo, one at a time. Painful yes, but this only needs to be
+done once.
+
+This is the approach that I've successfully used for WebSphere Application
+Server, ESB, Process Server and Portal Server. I perfer to stick to the base
+product version (eg 7.0.0.0) as that does not change with the various
+versions of WID etc (you don't get a 7.0.0.3 runtime librarby in eclipse,
+you get 7.0.0.0)
+
+Now, having said that, this example uses 7.0.0.3 (as that is all I had been
+given).
+
+Here is a pom, that lists all of the jars that comes with the WPS 7.0.0.3
+(ESB will be similar). I've named it with an artefact id of
+"runtime-library", as that does not appear to clash with any real jars (so
+far).
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project xmlns="http://maven.apache.org/POM/4.0.0"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+http://maven.apache.org/maven-v4_0_0.xsd"&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+    &lt;artifactId&gt;runtime-library&lt;/artifactId&gt;
+    &lt;version&gt;7.0.0.3&lt;/version&gt;
+    &lt;packaging&gt;pom&lt;/packaging&gt;
+    &lt;description&gt;Library POM for the WebSphere Process Server v7.0.0.3
+runtime.&lt;/description&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;aspectjrt&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;bootstrap&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.bpc.admin&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.bpc.common&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.bpc.common.nl1&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.bpc.common.nl2&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.bpc.core&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.bpc.core.nl1&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.bpc.core.nl2&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.bpc.handler.sca&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.bpc.message.sdo&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.bpc.model&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.bpc.query.common&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.bpc.query.common.nl1&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.bpc.query.common.nl2&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.bpc.query&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.bpc.runtime&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.bpc.wccm&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.bpe.query.model&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.bpe.query.model.nl1&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.bpe.query.model.nl2&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.events.client&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.jaxb.tools&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.jaxws.thinclient_7.0.0&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.jaxws.tools&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.mq&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.mqjms&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.msg.client.jms.internal&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.sibx.gateway_7.0.0&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.sibx.migration_6.1.0&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.sibx.runtime&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.sibx.wccm&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.soacore.runtime&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.soacore.sca&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.soacore.wccm&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.wbicmn.runtime&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.wbicmn.system&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.wbicmn.wccm&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.wbicmn.xpath&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.wbit.comptest.rt_7.0.0&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.wps.runtime&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.wps.wccm&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.admin.client_7.0.0&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.admin.core&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.admin.services&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.bpm.artifact.loader&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.bpm.artifact.resolver&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.bpm.bo.emf&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.bpm.bo&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.bpm.bo.validator&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.bpm.bo.xci&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.bpm.contextservice&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.bpm.dtd&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.bpm.ear.resources&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.bpm.redist.commonj.connector&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.bpm.redist.wst.wsdl&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.bpm.session.core&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.bpm.session.policy&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.bpm.session.service&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.cem&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.ejbportable&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.emf&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.jpa&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.monitoring.core&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.monitoring.sca&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.portletcontainer&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.prereq.commonj-twm&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.prereq.soap&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.prereq.vajava&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.prereq.wsdl4j&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.runtime.dist&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.runtime&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.sca.async&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.sca.binding.eis.scdl&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.sca.binding.ejb&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.sca.binding.ejb.scdl&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.sca.binding.http.headers&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.sca.binding.http&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.sca.binding.http.scdl&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.sca.binding.j2c&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.sca.binding.jaxrpc&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.sca.binding.jaxrpc.scdl&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.sca.binding.jaxws&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.sca.binding.jaxws.scdl&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.sca.binding.jms.datahandlers&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.sca.binding.jms.deploy&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.sca.binding.jms&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.sca.binding.mq.headers.impl&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.sca.binding.mq.headers&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.sca.binding.mq&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.sca.binding.mq.scdl&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.sca.binding.sca&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.sca.bindingcore&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.sca.common&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.sca.container&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.sca.java&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.sca.scdl&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.sca.scdl.java&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.sca.scdl.wsdl&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.sca.security&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.sca.transaction&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.sib.server&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.sib.utils&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.sip.container&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.sip.interface&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.wbim&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.wccm&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.ws.webcontainer&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;com.ibm.wsfp.main&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;dhbcore&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;ffdcSupport&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;j2ee&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;mail-impl&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;marshall&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;org.eclipse.emf.common&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;org.eclipse.emf.commonj.sdo&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;org.eclipse.emf.ecore.change&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;org.eclipse.emf.ecore&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;org.eclipse.emf.ecore.sdo&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;org.eclipse.emf.ecore.xmi&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;pe_api&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;rsadbutils&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;sdo_api&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;wsatlib&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;wsif-compatb&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.ibm.websphere.processserver&lt;/groupId&gt;
+            &lt;artifactId&gt;wtembean&lt;/artifactId&gt;
+            &lt;version&gt;7.0.0.3&lt;/version&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/project&gt;
+
+
+I generally keep a special repo in archiva (what I use) for vendor runtimes,
+normally &lt;projectname&gt;.non.freeware as a repo id.
+
+Then I write a batch file to upload all of the jars, and the above
+runtime-library.pom file into the repo, as such:
+
+call mvn deploy:deploy-file -Dfile=runtime-library.pom
+-DpomFile=runtime-library.pom -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+
+call mvn deploy:deploy-file -Dfile=aspectjrt.jar                                    
+-DgroupId=com.ibm.websphere.processserver -DartifactId=aspectjrt                               
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=bootstrap.jar                                    
+-DgroupId=com.ibm.websphere.processserver -DartifactId=bootstrap                               
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.bpc.admin.jar                            
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.bpc.admin                       
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.bpc.common.jar                           
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.bpc.common                      
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.bpc.common.nl1.jar                       
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.bpc.common.nl1                   -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.bpc.common.nl2.jar                       
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.bpc.common.nl2                   -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.bpc.core.jar                             
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.bpc.core                        
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.bpc.core.nl1.jar                         
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.bpc.core.nl1                    
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.bpc.core.nl2.jar                         
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.bpc.core.nl2                    
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.bpc.handler.sca.jar                      
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.bpc.handler.sca                  -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.bpc.message.sdo.jar                      
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.bpc.message.sdo                  -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.bpc.model.jar                            
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.bpc.model                       
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.bpc.query.common.jar                     
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.bpc.query.common                 -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.bpc.query.common.nl1.jar                 
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.bpc.query.common.nl1             -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.bpc.query.common.nl2.jar                 
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.bpc.query.common.nl2             -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.bpc.query.jar                            
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.bpc.query                       
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.bpc.runtime.jar                          
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.bpc.runtime                     
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.bpc.wccm.jar                             
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.bpc.wccm                        
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.bpe.query.model.jar                      
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.bpe.query.model                  -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.bpe.query.model.nl1.jar                  
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.bpe.query.model.nl1              -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.bpe.query.model.nl2.jar                  
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.bpe.query.model.nl2              -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.events.client.jar                        
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.events.client                   
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.jaxb.tools.jar                           
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.jaxb.tools                      
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.jaxws.thinclient_7.0.0.jar               
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.jaxws.thinclient_7.0.0           -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.jaxws.tools.jar                          
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.jaxws.tools                     
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.mq.jar                                   
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.mq                              
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.mqjms.jar                                
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.mqjms                           
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.msg.client.jms.internal.jar              
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.msg.client.jms.internal          -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.sibx.gateway_7.0.0.jar                   
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.sibx.gateway_7.0.0               -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.sibx.migration_6.1.0.jar                 
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.sibx.migration_6.1.0             -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.sibx.runtime.jar                         
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.sibx.runtime                    
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.sibx.wccm.jar                            
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.sibx.wccm                       
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.soacore.runtime.jar                      
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.soacore.runtime                  -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.soacore.sca.jar                          
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.soacore.sca                     
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.soacore.wccm.jar                         
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.soacore.wccm                    
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.wbicmn.runtime.jar                       
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.wbicmn.runtime                   -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.wbicmn.system.jar                        
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.wbicmn.system                   
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.wbicmn.wccm.jar                          
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.wbicmn.wccm                     
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.wbicmn.xpath.jar                         
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.wbicmn.xpath                    
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.wbit.comptest.rt_7.0.0.jar               
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.wbit.comptest.rt_7.0.0           -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.wps.runtime.jar                          
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.wps.runtime                     
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.wps.wccm.jar                             
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.wps.wccm                        
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.admin.client_7.0.0.jar                
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.admin.client_7.0.0            -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.admin.core.jar                        
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.ws.admin.core                   
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.admin.services.jar                    
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.admin.services                -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.bpm.artifact.loader.jar               
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.bpm.artifact.loader           -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.bpm.artifact.resolver.jar             
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.bpm.artifact.resolver         -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.bpm.bo.emf.jar                        
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.ws.bpm.bo.emf                   
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.bpm.bo.jar                            
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.ws.bpm.bo                       
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.bpm.bo.validator.jar                  
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.bpm.bo.validator              -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.bpm.bo.xci.jar                        
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.ws.bpm.bo.xci                   
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.bpm.contextservice.jar                
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.bpm.contextservice            -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.bpm.dtd.jar                           
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.ws.bpm.dtd                      
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.bpm.ear.resources.jar                 
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.bpm.ear.resources             -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file
+-Dfile=com.ibm.ws.bpm.redist.commonj.connector.jar      
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.bpm.redist.commonj.connector  -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.bpm.redist.wst.wsdl.jar               
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.bpm.redist.wst.wsdl           -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.bpm.session.core.jar                  
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.bpm.session.core              -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.bpm.session.policy.jar                
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.bpm.session.policy            -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.bpm.session.service.jar               
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.bpm.session.service           -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.cem.jar                               
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.ws.cem                          
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.ejbportable.jar                       
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.ejbportable                   -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.emf.jar                               
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.ws.emf                          
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.jpa.jar                               
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.ws.jpa                          
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.monitoring.core.jar                   
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.monitoring.core               -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.monitoring.sca.jar                    
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.monitoring.sca                -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.portletcontainer.jar                  
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.portletcontainer              -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.prereq.commonj-twm.jar                
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.prereq.commonj-twm            -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.prereq.soap.jar                       
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.prereq.soap                   -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.prereq.vajava.jar                     
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.prereq.vajava                 -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.prereq.wsdl4j.jar                     
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.prereq.wsdl4j                 -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.runtime.dist.jar                      
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.runtime.dist                  -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.runtime.jar                           
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.ws.runtime                      
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.sca.async.jar                         
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.ws.sca.async                    
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.sca.binding.eis.scdl.jar              
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.sca.binding.eis.scdl          -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.sca.binding.ejb.jar                   
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.sca.binding.ejb               -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.sca.binding.ejb.scdl.jar              
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.sca.binding.ejb.scdl          -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.sca.binding.http.headers.jar          
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.sca.binding.http.headers      -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.sca.binding.http.jar                  
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.sca.binding.http              -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.sca.binding.http.scdl.jar             
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.sca.binding.http.scdl         -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.sca.binding.j2c.jar                   
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.sca.binding.j2c               -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.sca.binding.jaxrpc.jar                
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.sca.binding.jaxrpc            -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.sca.binding.jaxrpc.scdl.jar           
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.sca.binding.jaxrpc.scdl       -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.sca.binding.jaxws.jar                 
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.sca.binding.jaxws             -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.sca.binding.jaxws.scdl.jar            
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.sca.binding.jaxws.scdl        -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file
+-Dfile=com.ibm.ws.sca.binding.jms.datahandlers.jar      
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.sca.binding.jms.datahandlers  -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.sca.binding.jms.deploy.jar            
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.sca.binding.jms.deploy        -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.sca.binding.jms.jar                   
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.sca.binding.jms               -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file
+-Dfile=com.ibm.ws.sca.binding.mq.headers.impl.jar       
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.sca.binding.mq.headers.impl   -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.sca.binding.mq.headers.jar            
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.sca.binding.mq.headers        -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.sca.binding.mq.jar                    
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.sca.binding.mq                -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.sca.binding.mq.scdl.jar               
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.sca.binding.mq.scdl           -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.sca.binding.sca.jar                   
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.sca.binding.sca               -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.sca.bindingcore.jar                   
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.sca.bindingcore               -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.sca.common.jar                        
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.ws.sca.common                   
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.sca.container.jar                     
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.sca.container                 -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.sca.java.jar                          
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.ws.sca.java                     
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.sca.scdl.jar                          
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.ws.sca.scdl                     
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.sca.scdl.java.jar                     
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.sca.scdl.java                 -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.sca.scdl.wsdl.jar                     
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.sca.scdl.wsdl                 -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.sca.security.jar                      
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.sca.security                  -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.sca.transaction.jar                   
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.sca.transaction               -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.sib.server.jar                        
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.ws.sib.server                   
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.sib.utils.jar                         
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.ws.sib.utils                    
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.sip.container.jar                     
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.sip.container                 -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.sip.interface.jar                     
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.sip.interface                 -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.wbim.jar                              
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.ws.wbim                         
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.wccm.jar                              
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.ws.wccm                         
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.ws.webcontainer.jar                      
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=com.ibm.ws.webcontainer                  -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=com.ibm.wsfp.main.jar                            
+-DgroupId=com.ibm.websphere.processserver -DartifactId=com.ibm.wsfp.main                       
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=dhbcore.jar                                      
+-DgroupId=com.ibm.websphere.processserver -DartifactId=dhbcore                                 
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=ffdcSupport.jar                                  
+-DgroupId=com.ibm.websphere.processserver -DartifactId=ffdcSupport                             
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=j2ee.jar                                         
+-DgroupId=com.ibm.websphere.processserver -DartifactId=j2ee                                    
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=mail-impl.jar                                    
+-DgroupId=com.ibm.websphere.processserver -DartifactId=mail-impl                               
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=marshall.jar                                     
+-DgroupId=com.ibm.websphere.processserver -DartifactId=marshall                                
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=org.eclipse.emf.common.jar                       
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=org.eclipse.emf.common                   -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=org.eclipse.emf.commonj.sdo.jar                  
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=org.eclipse.emf.commonj.sdo              -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=org.eclipse.emf.ecore.change.jar                 
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=org.eclipse.emf.ecore.change             -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=org.eclipse.emf.ecore.jar                        
+-DgroupId=com.ibm.websphere.processserver -DartifactId=org.eclipse.emf.ecore                   
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=org.eclipse.emf.ecore.sdo.jar                    
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=org.eclipse.emf.ecore.sdo                -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=org.eclipse.emf.ecore.xmi.jar                    
+-DgroupId=com.ibm.websphere.processserver
+-DartifactId=org.eclipse.emf.ecore.xmi                -Dversion=7.0.0.3
+-Dpackaging=jar -DgeneratePom=true -DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=pe_api.jar                                       
+-DgroupId=com.ibm.websphere.processserver -DartifactId=pe_api                                  
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=rsadbutils.jar                                   
+-DgroupId=com.ibm.websphere.processserver -DartifactId=rsadbutils                              
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=sdo_api.jar                                      
+-DgroupId=com.ibm.websphere.processserver -DartifactId=sdo_api                                 
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=wsatlib.jar                                      
+-DgroupId=com.ibm.websphere.processserver -DartifactId=wsatlib                                 
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=wsif-compatb.jar                                 
+-DgroupId=com.ibm.websphere.processserver -DartifactId=wsif-compatb                            
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+call mvn deploy:deploy-file -Dfile=wtembean.jar                                     
+-DgroupId=com.ibm.websphere.processserver -DartifactId=wtembean                                
+-Dversion=7.0.0.3 -Dpackaging=jar -DgeneratePom=true
+-DrepositoryId=XXXX.non.freeware
+-Durl=dav:http://localhost:9000/archiva/repository/XXXX.non.freeware
+
+
+I strongly recommend that you only use 7.0.0.0 and not 7.0.0.3 (as given in
+the above example). There is one execption to this, that I've noticed in
+some of the Portal runtimes, new jars and functionality being introduced in
+fixpacks. In those cases, you will be forced to have a 6.1.0.0 and a
+6.1.0.11 runtime-library.pom file to cater for the differing dependencies.
+
+Google the was6-maven-plugin, and you'll see that I added the servicedeploy
+task to the plugin, and how I use it.
+
+There is one final gotcha, servidedeploy is a subset of WID. There are cases
+where servicedeploy can not generate the code that WID can. In this case,
+you have two choices:
+1. Rewrite the code, so that this does not happen.
+2. Check in the generated code (bad and ugly, but it works).
+
+I've used both approaches to deliver hundreds of Process Server modules
+(ears), just like ESB reliably.
+
+Good luck.
+
+-Chris
+
+
+
+--
+View this message in context: http://maven.40175.n5.nabble.com/Compilation-failure-interface-com-ibm-websphere-sibx-smobo-ServiceMessageObject-tp5652928p5709876.html
+Sent from the Maven - Users mailing list archive at Nabble.com.
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201205.mbox/raw/%3c1337997189046-5709876.post@n5.nabble.com%3e/">Unnamed text/plain</a> (inline, 7-Bit, 72042 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201205.mbox/raw/%3c1337997189046-5709876.post@n5.nabble.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

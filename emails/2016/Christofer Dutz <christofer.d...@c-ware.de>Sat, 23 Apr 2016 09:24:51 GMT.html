@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>AW: Dealing with .jars that have overlapping .classes</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201604.mbox/%3cCADN69ym9MDM=scLT_qONHGyY0z+oBFckpQyM4wSwMmtYi5SO2w@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201604.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201604.mbox/%3cDB5PR05MB12852506482921023D83366CA2600@DB5PR05MB1285.eurprd05.prod.outlook.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201604.mbox/%3cCADN69ym9MDM=scLT_qONHGyY0z+oBFckpQyM4wSwMmtYi5SO2w@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201604.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201604.mbox/%3cDB5PR05MB12852506482921023D83366CA2600@DB5PR05MB1285.eurprd05.prod.outlook.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201604.mbox/%3cCADN69ym9MDM=scLT_qONHGyY0z+oBFckpQyM4wSwMmtYi5SO2w@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201604.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201604.mbox/%3cDB5PR05MB12852506482921023D83366CA2600@DB5PR05MB1285.eurprd05.prod.outlook.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201604.mbox/%3cCADN69ym9MDM=scLT_qONHGyY0z+oBFckpQyM4wSwMmtYi5SO2w@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201604.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201604.mbox/%3cDB5PR05MB12852506482921023D83366CA2600@DB5PR05MB1285.eurprd05.prod.outlook.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Christofer Dutz &lt;christofer.d...@c-ware.de&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">AW: Dealing with .jars that have overlapping .classes</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Sat, 23 Apr 2016 09:24:51 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Here I could re-phrase my request to extend the dependencyManagement with the ability to add
+"includes". Cause when dealing with these uber-jars I always have to add a set of excludes
+and would like to have some replacement includes ... sort of:
+
+dependencyManagement
+    dependency-x
+        exludes 
+            crappy-uber-jar
+        includes
+            the individual jars that make up the uber-jar
+
+So I don't have to rely on all users knowing that if they reference "dependency-x" they have
+to manually include all the individual jars (and no ... a pom handling this is not practical,
+cause I usually search for jars providing a given class and not poms referencing jars that
+provide a class ;-) )
+
+Chris
+
+
+________________________________________
+Von: ctrueden.wisc@gmail.com &lt;ctrueden.wisc@gmail.com&gt; im Auftrag von Curtis Rueden
+&lt;ctrueden@wisc.edu&gt;
+Gesendet: Freitag, 22. April 2016 21:03
+An: Maven Users List
+Betreff: Re: Dealing with .jars that have overlapping .classes
+
+Hi Kevin,
+
+My projects handles it as follows:
+
+1) Death to uber-JARs; use component JARs whenever they exist. If they
+don't exist, consider forking the project to create them, or at least
+shading the embedded dependencies. (E.g.:
+https://github.com/scijava/jython-shaded)
+
+2) Use excludes to avoid bogus transitive dependencies. For example, no one
+should depend on xml-apis, since those classes come with Java. But lots of
+projects do. So just exclude xml-apis:xml-apis in your dependencyManagement
+section for all afflicted projects. Probably also xalan:xalan, maybe
+xerces, etc.
+
+3) Contact project maintainers upstream to inform them when you find these
+situations. Many build systems simply do not alert the maintainers that
+anything like this is happening. So they may just be clueless (though
+Stephen Colbourne is pretty awesome—I would be surprised if he doesn't know
+about the joda overlap in this case... but still, may as well ask about
+it). E.g.: we had one dependency where the project's gradle build system
+was putting *two copies of each class* into the final JAR artifact! Guess
+how much maven-enforcer-plugin liked that? :-)
+
+4) Finally, if you have to do it, just add some class excludes to your
+maven-enforcer-configuration. Especially for cases like joda, chances are
+the two copies of the classes are identical, so having both on the
+classpath will work just fine, pragmatically.
+
+Regards,
+Curtis
+
+--
+Curtis Rueden
+LOCI software architect - http://loci.wisc.edu/software
+ImageJ2 lead, Fiji maintainer - http://imagej.net/User:Rueden
+Did you know ImageJ has a forum? http://forum.imagej.net/
+
+
+On Fri, Apr 22, 2016 at 1:23 PM, Kevin Burton &lt;burton@spinn3r.com&gt; wrote:
+
+&gt; We have a rather complex classpath in our app... sometimes maven computes
+&gt; the wrong classpath because one package changes classpath order and has a
+&gt; dependency on an earlier jar.
+&gt;
+&gt; To avoid this we usually analyze our classpath between builds and our
+&gt; builds break if a classpath change isn't approved.
+&gt;
+&gt; One of the BIG problems here is when we get overlapping classes.
+&gt;
+&gt; Right now this is happening with joda time and joda convert.  WE have about
+&gt; 10 classes that are in both .jars.
+&gt;
+&gt; First. It seems irresponsible for project maintainers to release artifacts
+&gt; like this. If there are shared .classes just publish a new -core artifact.
+&gt;
+&gt; Just being pragmatic.. I'm not sure the BEST way to handle this.
+&gt;
+&gt; One strategy is to make sure that each lib is the LATEST .. but sometimes
+&gt; that's not possible.
+&gt;
+&gt; How do you guys handle this?
+&gt;
+&gt; --
+&gt;
+&gt; We’re hiring if you know of any awesome Java Devops or Linux Operations
+&gt; Engineers!
+&gt;
+&gt; Founder/CEO Spinn3r.com
+&gt; Location: *San Francisco, CA*
+&gt; blog: http://burtonator.wordpress.com
+&gt; … or check out my Google+ profile
+&gt; &lt;https://plus.google.com/102718274791889610666/posts&gt;
+&gt;
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201604.mbox/raw/%3cDB5PR05MB12856AE329FC69917604ACB4A2600@DB5PR05MB1285.eurprd05.prod.outlook.com%3e/">Unnamed text/plain</a> (inline, Quoted Printable, 4043 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201604.mbox/raw/%3cDB5PR05MB12856AE329FC69917604ACB4A2600@DB5PR05MB1285.eurprd05.prod.outlook.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

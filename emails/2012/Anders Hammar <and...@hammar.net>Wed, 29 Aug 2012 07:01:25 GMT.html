@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Build number incremented twice</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201208.mbox/%3cCAKDUN1sxDtLY2Q_Qkx9u=pcyZJW8ZtimSWQ6AdZTP+QJ9Fg4_g@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201208.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201208.mbox/%3c3508631.miSrIRFFV5@localhost%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201208.mbox/%3c1346161177316-5718627.post@n5.nabble.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201208.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201208.mbox/%3cCAGFKA-12hHrNv86rG8XOH4_Y0K03vpm3uPLeOVApNgNgWvVVtA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201208.mbox/%3cCAKDUN1sxDtLY2Q_Qkx9u=pcyZJW8ZtimSWQ6AdZTP+QJ9Fg4_g@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201208.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201208.mbox/%3c3508631.miSrIRFFV5@localhost%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201208.mbox/%3c1346161177316-5718627.post@n5.nabble.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201208.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201208.mbox/%3cCAGFKA-12hHrNv86rG8XOH4_Y0K03vpm3uPLeOVApNgNgWvVVtA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Anders Hammar &lt;and...@hammar.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Build number incremented twice</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Wed, 29 Aug 2012 07:01:25 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+As that is a Codehaus Mojo plugin, you be more lucky over at the Mojo
+users list [1].
+
+/Anders
+
+[1] http://mojo.codehaus.org/buildnumber-maven-plugin/mail-lists.html
+
+On Tue, Aug 28, 2012 at 3:39 PM, Prashant &lt;prashantbhandare1@gmail.com&gt; wrote:
+&gt; Hi
+&gt; I am using the buildnumber-maven-plugin to increment the version no.
+&gt; and my POM looks below.
+&gt; the version no. is incremented twice.
+&gt;
+&gt; I am calling the maven tasks in this way each time i build
+&gt; "mvn validate"
+&gt;
+&gt; do i need to pass any parameters?
+&gt;
+&gt;
+&gt; &lt;plugin&gt;
+&gt;         &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+&gt;         &lt;artifactId&gt;buildnumber-maven-plugin&lt;/artifactId&gt;
+&gt;         &lt;version&gt;1.1&lt;/version&gt;
+&gt;         &lt;configuration&gt;
+&gt;         &lt;format&gt;3.1.{0,number}&lt;/format&gt;
+&gt;           &lt;items&gt;
+&gt;             &lt;item&gt;buildNumber0&lt;/item&gt;
+&gt;           &lt;/items&gt;
+&gt;           &lt;doCheck&gt;false&lt;/doCheck&gt;
+&gt;           &lt;doUpdate&gt;true&lt;/doUpdate&gt;
+&gt;         &lt;/configuration&gt;
+&gt;         &lt;executions&gt;
+&gt;           &lt;execution&gt;
+&gt;             &lt;phase&gt;validate&lt;/phase&gt;
+&gt;             &lt;goals&gt;
+&gt;               &lt;goal&gt;create&lt;/goal&gt;
+&gt;             &lt;/goals&gt;
+&gt;           &lt;/execution&gt;
+&gt;         &lt;/executions&gt;
+&gt;       &lt;/plugin&gt;
+&gt;
+&gt; Thanks in Advance.
+&gt; Prashant
+&gt;
+&gt;
+&gt;
+&gt; --
+&gt; View this message in context: http://maven.40175.n5.nabble.com/Build-number-incremented-twice-tp5718627.html
+&gt; Sent from the Maven - Users mailing list archive at Nabble.com.
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201208.mbox/raw/%3cCAKDUN1s2iVTAbb5aGy51u3Gap3r7EFAaceWacCbk3AOWoD+nwA@mail.gmail.com%3e/">Unnamed text/plain</a> (inline, None, 1760 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201208.mbox/raw/%3cCAKDUN1s2iVTAbb5aGy51u3Gap3r7EFAaceWacCbk3AOWoD+nwA@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

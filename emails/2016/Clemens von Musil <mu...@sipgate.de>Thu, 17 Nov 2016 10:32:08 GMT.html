@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Building WAR files with/without EAR context</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201611.mbox/%3cCAAKNHCfBNGCsxAkhggNvPD=ONxKF3c6Vr1d9-guT2XmoA_VTag@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201611.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201611.mbox/%3c20161117150731.565a567c@xss.co.at%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201611.mbox/%3c20161116103909.1f54d39c@xss.co.at%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201611.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201611.mbox/%3c20161117150731.565a567c@xss.co.at%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201611.mbox/%3cCAAKNHCfBNGCsxAkhggNvPD=ONxKF3c6Vr1d9-guT2XmoA_VTag@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201611.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201611.mbox/%3c20161117150731.565a567c@xss.co.at%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201611.mbox/%3c20161116103909.1f54d39c@xss.co.at%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201611.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201611.mbox/%3c20161117150731.565a567c@xss.co.at%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Clemens von Musil &lt;mu...@sipgate.de&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Building WAR files with/without EAR context</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Thu, 17 Nov 2016 10:32:08 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+We pushed a very minimal example project to a public github repo located
+here:
+
+https://github.com/kr1schan/mavenToy
+
+The project consists of an ear, two war modules, one ejb module and one
+plain jar artifact.
+Both war modules depend on the ejbmodule as well as on the jar artifact.
+SkinnyWar is enabled and configured in all conscience.
+
+After 'mvn clean package', the resulting ear shows correct handling of the
+jar dependency.
+The ejb dependency remains in both war files.
+
+Can you please point us our error?
+
+Thanks a lot,
+Clemens von Musil
+
+P.S: There is a branch called 'ejb-skinny-wars' showing the workaround I
+described in my latest post.
+
+2016-11-16 10:39 GMT+01:00 Martin Hoeller &lt;martin@xss.co.at&gt;:
+
+&gt; On 16 Nov 2016, Clemens von Musil wrote:
+&gt;
+&gt; &gt; This is true for jar dependencies.
+&gt; &gt;
+&gt; &gt; But if the war file depends on an artifact with type ejb
+&gt; &gt; (&lt;type&gt;ejb&lt;/type&gt;), the skinnywar-option ignores this dependency and
+let
+&gt; it
+&gt; &gt; remain in war/lib.
+&gt;
+&gt; This is not true in general, it works for me!
+&gt; Did you declare the dependency correct with &lt;type&gt;ejb&lt;/type&gt; in *all*
+&gt; places (WAR and EAR, and maybe a parent POM)) where you reference it?
+&gt;
+&gt; &gt; And if there are two war files WAR1 and WAR2 depending on the same
+&gt; artifact
+&gt; &gt; with type ejb, the ear isn't deployable as the beans within the
+&gt; &gt; ejb-artifact resist in WAR1/lib _and_ WAR2/lib. The container tries to
+&gt; &gt; deploy beans from both loations and struggles as it cannot deploy the
+&gt; same
+&gt; &gt; bean twice.
+&gt;
+&gt; This is a logical result from the above problem.
+&gt;
+&gt; &gt; We found a workaound. We define all dependencies without the type-tag to
+&gt; &gt; keep the skinnywar-option working. To avoid malicious packaging inside
+&gt; the
+&gt; &gt; EAR, we define all these dependencies as jarmodules with explicit deploy
+&gt; &gt; path and entry in the application.xml. Such a definition looks like
+&gt; &gt;
+&gt; &gt; &lt;jarModule&gt;
+&gt; &gt;     &lt;groupId&gt;groupid&lt;/groupId&gt;
+&gt; &gt;     &lt;artifactId&gt;artifactid&lt;/artifactId&gt;
+&gt; &gt;     &lt;includeInApplicationXml&gt;true&lt;/includeInApplicationXml&gt;
+&gt; &gt;     &lt;bundleDir&gt;/&lt;/bundleDir&gt;
+&gt; &gt; &lt;/jarModule&gt;
+&gt; &gt;
+&gt; &gt; Ugly but working.
+&gt;
+&gt; This shouldn't be necessary. I really think you have a configuration bug
+&gt; and missed the &lt;type&gt;ejb&lt;/type&gt; in some places.
+&gt;
+&gt; - martin
+&gt;
+
+
+
+-- 
+
+Clemens von Musil - musil@sipgate.de
+Telefon: +49 (0)211-63 55 56-85
+Telefax: +49 (0)211-63 55 55-22
+
+sipgate GmbH - Gladbacher Str. 74 - 40219 Düsseldorf
+HRB Düsseldorf 39841 - Geschäftsführer: Thilo Salmon, Tim Mois
+Steuernummer: 106/5724/7147, Umsatzsteuer-ID: DE219349391
+
+www.sipgate.de - www.sipgate.at - www.sipgate.co.uk
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201611.mbox/raw/%3cCAJ4M5n5ryvrrbR7YDWsz8ezM1h0ggO0m2wrzp8MOWn-KMR=ppg@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, Quoted Printable, 2595 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201611.mbox/raw/%3cCAJ4M5n5ryvrrbR7YDWsz8ezM1h0ggO0m2wrzp8MOWn-KMR=ppg@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

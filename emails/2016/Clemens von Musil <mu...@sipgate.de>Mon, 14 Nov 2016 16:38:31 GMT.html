@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Building WAR files with/without EAR context</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201611.mbox/%3c073F348693FA4BD3BB6143179C4F8847@gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201611.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201611.mbox/%3c20161116092409.1ea10c7b@xss.co.at%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201611.mbox/%3c20161109091845.29c1a5c3@xss.co.at%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201611.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201611.mbox/%3c20161116092409.1ea10c7b@xss.co.at%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201611.mbox/%3c073F348693FA4BD3BB6143179C4F8847@gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201611.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201611.mbox/%3c20161116092409.1ea10c7b@xss.co.at%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201611.mbox/%3c20161109091845.29c1a5c3@xss.co.at%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201611.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201611.mbox/%3c20161116092409.1ea10c7b@xss.co.at%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Clemens von Musil &lt;mu...@sipgate.de&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Building WAR files with/without EAR context</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Mon, 14 Nov 2016 16:38:31 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hi again,
+
+thanks a lot for your advice, Martin.
+
+We spent a lot of time into skinny wars but stuck with ejb dependencies.
+
+The EAR contains several WAR modules and these WAR modules share several
+EJB modules.
+Unfortunately, the skinny war option seems to ignore transitive EJB
+dependencies so that we get errors with duplicate beans on startup.
+
+All workarounds we could imagine do not work properly. Recently we tried to
+omit the "&lt;type&gt;ejb&lt;/type&gt;" on all EJB dependencies and put all libs into
+the EAR-root folder. This "hack" leads our wildfly into some unpredictable
+(and completely messed up state) deploying all beans into any random
+module...
+Some sites advice to exclude $(war_module)/lib completely what makes the
+WAR module undeployable in standalone mode.
+
+Could you please point us any direction to get skinny wars working with
+shared EJB modules?
+
+Thanks a lot,
+Clemens von Musil
+
+
+2016-11-09 9:18 GMT+01:00 Martin Hoeller &lt;martin@xss.co.at&gt;:
+
+&gt; Hi!
+&gt;
+&gt; On 08 Nov 2016, Clemens von Musil wrote:
+&gt;
+&gt; &gt; I am working on a multimodule maven project consisting of several EJB,
+&gt; WAR
+&gt; &gt; and an EAR module. The EJB modules contain shared functionality.
+&gt; &gt;
+&gt; &gt; To increase development speed, I want the WAR modules build in a way that
+&gt; &gt; allows me to bundle them into the EAR as well as deploy them standalone
+&gt; in
+&gt; &gt; my EE container.
+&gt;
+&gt; Wrong approach! Build the WAR as you would need it in standalone-mode and
+&gt; configure the maven-ear-plugin to make the WAR a skinny war.
+&gt;
+&gt; Details can be found here:
+&gt; https://maven.apache.org/plugins/maven-ear-plugin/
+&gt; examples/skinny-wars.html
+&gt;
+&gt; hth,
+&gt; - martin
+&gt;
+
+
+
+-- 
+
+Clemens von Musil - musil@sipgate.de
+Telefon: +49 (0)211-63 55 56-85
+Telefax: +49 (0)211-63 55 55-22
+
+sipgate GmbH - Gladbacher Str. 74 - 40219 Düsseldorf
+HRB Düsseldorf 39841 - Geschäftsführer: Thilo Salmon, Tim Mois
+Steuernummer: 106/5724/7147, Umsatzsteuer-ID: DE219349391
+
+www.sipgate.de - www.sipgate.at - www.sipgate.co.uk
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201611.mbox/raw/%3cCAJ4M5n6wMF5aj1ctfvhXaEUbkwP-DsExCNQRe+zZaJuCqdEjWA@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, Quoted Printable, 1984 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201611.mbox/raw/%3cCAJ4M5n6wMF5aj1ctfvhXaEUbkwP-DsExCNQRe+zZaJuCqdEjWA@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

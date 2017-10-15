@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: How to Sign a .par file through Maven</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201208.mbox/%3c1346228947072-5718725.post@n5.nabble.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201208.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201208.mbox/%3c1346229366180-5718727.post@n5.nabble.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201208.mbox/%3c1346228947072-5718725.post@n5.nabble.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201208.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201208.mbox/%3c1346229366180-5718727.post@n5.nabble.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201208.mbox/%3c1346228947072-5718725.post@n5.nabble.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201208.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201208.mbox/%3c1346229366180-5718727.post@n5.nabble.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201208.mbox/%3c1346228947072-5718725.post@n5.nabble.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201208.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201208.mbox/%3c1346229366180-5718727.post@n5.nabble.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Brian Topping &lt;topp...@codehaus.org&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: How to Sign a .par file through Maven</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Wed, 29 Aug 2012 08:32:54 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+What specific problems did you have?
+
+This is not a tech support line.  If you need paid support, you might want to contact Sonatype.
+ 
+
+On Aug 29, 2012, at 11:29 AM, TarunKhandelwal wrote:
+
+&gt; Hello Brian,
+&gt; 
+&gt; Yes I have tried all of that.
+&gt; 
+&gt; Here is the sample pom.
+&gt; 
+&gt; &lt;project xmlns="http://maven.apache.org/POM/4.0.0"
+&gt; xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+&gt; 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+&gt;                      http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+&gt; 	&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+&gt; 	&lt;groupId&gt;com.Testing.maven&lt;/groupId&gt;
+&gt; 	&lt;artifactId&gt;sampleapp&lt;/artifactId&gt;
+&gt; 	&lt;packaging&gt;par&lt;/packaging&gt;
+&gt; 	&lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+&gt; 	&lt;name&gt;Embedded Solution&lt;/name&gt;
+&gt; 	&lt;url&gt;http://google.com&lt;/url&gt;
+&gt; 	&lt;dependencies&gt;
+&gt; 	&lt;dependency&gt;
+&gt; 		&lt;groupId&gt;Test&lt;/groupId&gt;
+&gt; 		&lt;artifactId&gt;Test&lt;/artifactId&gt;
+&gt; 		&lt;version&gt;0.0.1&lt;/version&gt;
+&gt; 	&lt;/dependency&gt;
+&gt; 	&lt;/dependencies&gt;
+&gt; 	&lt;pluginRepositories&gt;
+&gt; 		&lt;pluginRepository&gt;
+&gt; 			&lt;id&gt;com.springsource.repository.bundles.milestone&lt;/id&gt;
+&gt; 			&lt;name&gt;SpringSource Enterprise Bundle Repository - SpringSource Bundle
+&gt; Milestones&lt;/name&gt;
+&gt; 			&lt;url&gt;http://repository.springsource.com/maven/bundles/milestone &lt;/url&gt;
+&gt; 		&lt;/pluginRepository&gt;
+&gt; 	&lt;/pluginRepositories&gt;
+&gt; 	&lt;build&gt;
+&gt; 		&lt;resources&gt;
+&gt; 			&lt;resource&gt;
+&gt; 				&lt;directory&gt;.&lt;/directory&gt;
+&gt; 				&lt;includes&gt;
+&gt; 				&lt;include&gt;app.xml&lt;/include&gt;
+&gt; 				&lt;/includes&gt;
+&gt; 			&lt;/resource&gt;
+&gt; 		&lt;/resources&gt;
+&gt; 		&lt;plugins&gt;
+&gt; 			&lt;plugin&gt;
+&gt; 				&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+&gt; 				&lt;artifactId&gt;maven-par-plugin&lt;/artifactId&gt;
+&gt; 				&lt;version&gt;1.0.0.M1&lt;/version&gt;
+&gt; 				&lt;configuration&gt;
+&gt; 					&lt;applicationDescription&gt;Testing Sample&lt;/applicationDescription&gt;
+&gt; 				&lt;/configuration&gt;
+&gt; 			&lt;/plugin&gt;
+&gt; 			&lt;plugin&gt;
+&gt; 				&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+&gt; 				&lt;artifactId&gt;maven-jarsigner-plugin&lt;/artifactId&gt;
+&gt; 				&lt;version&gt;1.2&lt;/version&gt;
+&gt; 				&lt;executions&gt;
+&gt; 					&lt;execution&gt;
+&gt; 						&lt;id&gt;sign&lt;/id&gt;
+&gt; 						&lt;goals&gt;
+&gt; 							&lt;goal&gt;sign&lt;/goal&gt;
+&gt; 						&lt;/goals&gt;
+&gt; 					&lt;/execution&gt;
+&gt; 				&lt;/executions&gt;
+&gt; 				&lt;configuration&gt;
+&gt; 					&lt;keystore&gt;[path]&lt;/keystore&gt;
+&gt; 					&lt;alias&gt;Alias&lt;/alias&gt;
+&gt; 					&lt;storepass&gt;storepass&lt;/storepass&gt;
+&gt; 					&lt;keypass&gt;keypass&lt;/keypass&gt;
+&gt; 				&lt;/configuration&gt;
+&gt; 			&lt;/plugin&gt;
+&gt; 		&lt;/plugins&gt;
+&gt; 	&lt;/build&gt;
+&gt; &lt;/project&gt;
+&gt; 
+&gt; 
+&gt; Please let me know if there is any confusion in getting my requirement.
+&gt; 
+&gt; Thanks,
+&gt; Tarun Khandelwal
+&gt; 
+&gt; 
+&gt; 
+&gt; --
+&gt; View this message in context: http://maven.40175.n5.nabble.com/How-to-Sign-a-par-file-through-Maven-tp5718722p5718725.html
+&gt; Sent from the Maven - Users mailing list archive at Nabble.com.
+&gt; 
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt; 
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/signed (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201208.mbox/raw/%3cEC8D19F2-29DF-4F6C-99EA-1007F8581102@codehaus.org%3e/1">Unnamed text/plain</a> (inline, Quoted Printable, 2831 bytes)</li>
+</ul>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201208.mbox/raw/%3cEC8D19F2-29DF-4F6C-99EA-1007F8581102@codehaus.org%3e/2">signature.asc (application/pgp-signature)</a> (attachment, 7-Bit, 842 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201208.mbox/raw/%3cEC8D19F2-29DF-4F6C-99EA-1007F8581102@codehaus.org%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Ant task with org.eclipse.ant.core.antRunner</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201211.mbox/%3cCALhtWkd6bq=8ktgxUMahRoWxyZYioXNEtuMQr6WbLDaXqh5arw@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201211.mbox/%3cCALy+7Uk+s3WX2R3et+=rkaHb3r2ePO7qDC_SDVESeT_4pPQm-g@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201211.mbox/%3c50969904.6080507@hoegernet.de%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201211.mbox/%3cCALy+7Uk+s3WX2R3et+=rkaHb3r2ePO7qDC_SDVESeT_4pPQm-g@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201211.mbox/%3cCALhtWkd6bq=8ktgxUMahRoWxyZYioXNEtuMQr6WbLDaXqh5arw@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201211.mbox/%3cCALy+7Uk+s3WX2R3et+=rkaHb3r2ePO7qDC_SDVESeT_4pPQm-g@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201211.mbox/%3c50969904.6080507@hoegernet.de%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201211.mbox/%3cCALy+7Uk+s3WX2R3et+=rkaHb3r2ePO7qDC_SDVESeT_4pPQm-g@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Artem Grebenkin &lt;gre...@googlemail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Ant task with org.eclipse.ant.core.antRunner</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Sun, 04 Nov 2012 22:10:34 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hi folks, 
+
+I'm new to maven and I'm looking for a possibility to execute an ant task which has been invoked
+through a headless eclipse like this:
+
+java -jar /Applications/eclipse/plugins/org.eclipse.equinox.launcher_1.3.0.v20120522-1813.jar
+-application org.eclipse.ant.core.antRunner -nosplash -buildfile build.xml
+
+Ant task:
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project default="codegen" basedir=".."&gt;
+&lt;dirname property="antfile.dir" file="${ant.file}"/&gt;
+    
+  &lt;!-- Global properties --&gt;
+&lt;property name="main.directory" location="${antfile.dir}/.."/&gt;
+&lt;property name="output.directory" location="${main.directory}"/&gt;
+&lt;property name="source.directory" value="src"/&gt;
+&lt;property name="genJDKLevel" value="5.0"/&gt;
+
+&lt;target name="codegen"&gt;
+
+ &lt;!-- A macrodef makes it easier to generate code for multiple models in one script. --&gt;
+&lt;macrodef name="ecore2Java"&gt;
+&lt;attribute name="modelName"/&gt;
+&lt;element name="settings"/&gt;
+&lt;sequential&gt;
+&lt;emf.Ecore2Java
+model="${main.directory}/ecore2java/model/@{modelName}.ecore"
+genModel="${output.directory}/emf/@{modelName}.genmodel"
+modelProject="${output.directory}"
+modelProjectFragmentPath="${source.directory}"
+modelPluginID="@{modelName}.model"
+copyright="This is my code."
+jdkLevel="${genJDKLevel}"&gt;
+&lt;settings/&gt;
+&lt;/emf.Ecore2Java&gt;
+&lt;/sequential&gt;
+&lt;/macrodef&gt;
+
+&lt;!-- Generating the code for the library model --&gt;
+&lt;ecore2Java modelName="library"&gt;
+&lt;settings&gt;
+&lt;arg line="-package http:///library.ecore org.examples Library"/&gt;
+&lt;/settings&gt;
+&lt;/ecore2Java&gt;
+
+&lt;/target&gt;
+&lt;/project&gt;
+
+So, my question is, how I can do this in maven?
+
+Best regards,
+Artem.
+
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201211.mbox/raw/%3c26C923DD6FC54B99A1913D74F754E397@gmail.com%3e/1">Unnamed text/plain</a> (inlin, 7-Bit, 1576 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201211.mbox/raw/%3c26C923DD6FC54B99A1913D74F754E397@gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

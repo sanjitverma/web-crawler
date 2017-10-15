@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Issue with liquibase plugin and Maven: Cannot find database driver: org.postgresql.Driver</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201207.mbox/%3cCAFZnXLJBYbvGkK2Uxq7T9zyLRm_MtOxZ3YFT8G5s3EbvOU0gyQ@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201207.mbox/%3c1343248996311-5714915.post@n5.nabble.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201207.mbox/%3c5741B12BCAE2D44294E1D1E4B49B505C2CFE9C@ORD2MBX02D.mex05.mlsrvr.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201207.mbox/%3c5741B12BCAE2D44294E1D1E4B49B505C2D00C3@ORD2MBX02D.mex05.mlsrvr.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201207.mbox/%3cCAFZnXLJBYbvGkK2Uxq7T9zyLRm_MtOxZ3YFT8G5s3EbvOU0gyQ@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201207.mbox/%3c1343248996311-5714915.post@n5.nabble.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201207.mbox/%3c5741B12BCAE2D44294E1D1E4B49B505C2CFE9C@ORD2MBX02D.mex05.mlsrvr.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201207.mbox/%3c5741B12BCAE2D44294E1D1E4B49B505C2D00C3@ORD2MBX02D.mex05.mlsrvr.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Anders Hammar &lt;and...@hammar.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Issue with liquibase plugin and Maven: Cannot find database driver: org.postgresql.Driver</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Wed, 25 Jul 2012 20:37:10 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Based on the information on [1], you shouldn't declare a dependency to
+the driver on the plugin itself, but just on the project. Try removing
+that.
+
+Also, not seeing the complete POM, is the projects dependency to the
+driver really a declared dependency? Or is it just in
+dependencyManagement?
+
+I would also upgrade to the latest version of the plugin just to
+ensure it's not a bug in 2.0.3. (The latest seems to be v2.0.5). Just
+for the heck of it if it still doesn't work I would try some other
+versions as well.
+
+Lastly, I would try the Liquibase's forum. If it's something specific
+to this plugin they would know.
+
+/Anders
+
+[1] http://www.liquibase.org/manual/maven
+
+On Wed, Jul 25, 2012 at 9:31 PM, John Kramer &lt;jkramer@mojiva.com&gt; wrote:
+&gt; 3.0.3
+&gt;
+&gt; John Kramer
+&gt; email: jkramer@mojiva.com
+&gt; mobile: 314.435.2370
+&gt; skype: kramer.mojiva
+&gt; 0xCAFEBABE00000032
+&gt;
+&gt;
+&gt;
+&gt;
+&gt;
+&gt;
+&gt;
+&gt; On 7/25/12 3:28 PM, "Wayne Fay" &lt;waynefay@gmail.com&gt; wrote:
+&gt;
+&gt;&gt;&gt; If I manually inspect the specified postgres jar, it does contain the
+&gt;&gt;&gt;class
+&gt;&gt;&gt; org.postgresql.Driver.
+&gt;&gt;&gt;
+&gt;&gt;&gt; And if I run maven with debugging output turned on, it looks like the
+&gt;&gt;&gt; plugin's classpath contains that jar:
+&gt;&gt;
+&gt;&gt;Is this Maven 2.x or 3.0.4 or something else?
+&gt;&gt;
+&gt;&gt;Wayne
+&gt;&gt;
+&gt;&gt;---------------------------------------------------------------------
+&gt;&gt;To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt;&gt;For additional commands, e-mail: users-help@maven.apache.org
+&gt;&gt;
+&gt;
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201207.mbox/raw/%3cCAKDUN1uOP+PiK9HQ0sDZyD0k5CTBqXZgQqxTUgfnykL2x4Da5A@mail.gmail.com%3e/">Unnamed text/plain</a> (inline, None, 1830 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201207.mbox/raw/%3cCAKDUN1uOP+PiK9HQ0sDZyD0k5CTBqXZgQqxTUgfnykL2x4Da5A@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

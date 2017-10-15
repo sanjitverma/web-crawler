@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Question about plugin execution ordering</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201208.mbox/%3cCANyrOm4ypRAUA8fEXAxLkKs6b-YS+QWoym9Nwb_5erT_mo6JYQ@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201208.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201208.mbox/%3cCAH-zGCjmARYf+dFsCSBEn7AyRUw85=+Lxx8d=ygvreTzBHYPUQ@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201208.mbox/%3cCANyrOm4ypRAUA8fEXAxLkKs6b-YS+QWoym9Nwb_5erT_mo6JYQ@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201208.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201208.mbox/%3cCAChPNbeyJiej_AxChv8WJTdLdST=UcgxTgqWqS==6Jo09+JgGw@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201208.mbox/%3cCANyrOm4ypRAUA8fEXAxLkKs6b-YS+QWoym9Nwb_5erT_mo6JYQ@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201208.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201208.mbox/%3cCAH-zGCjmARYf+dFsCSBEn7AyRUw85=+Lxx8d=ygvreTzBHYPUQ@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201208.mbox/%3cCANyrOm4ypRAUA8fEXAxLkKs6b-YS+QWoym9Nwb_5erT_mo6JYQ@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201208.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201208.mbox/%3cCAChPNbeyJiej_AxChv8WJTdLdST=UcgxTgqWqS==6Jo09+JgGw@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Anders Hammar &lt;and...@hammar.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Question about plugin execution ordering</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Fri, 31 Aug 2012 09:09:14 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+It's not supported. The best solution I can think of is to produce your own
+maven plugin,that does what you want. With Maven 3, you can produce that
+plugin as part of you multi-module build if you don't want to keep it
+outside of it.
+
+/Anders
+
+On Fri, Aug 31, 2012 at 10:57 AM, Jeff MAURY &lt;jeffmaury@jeffmaury.com&gt;wrote:
+
+&gt; Hello,
+&gt;
+&gt; I have a question about plugin execution ordering. I understood this has
+&gt; been fixed in 3.0.3 but I have a special case.
+&gt; I need to execute differents goals from the same plugin in the same phase:
+&gt; so far so good, I just need to list them in the proper order in my POM
+&gt; file.
+&gt; But now, I want to insert between the two goal the execute of the clean
+&gt; goal of the Maven clean goal.
+&gt; So I duplicated the definition of the first plugin, each declaration
+&gt; declaring only one goal and insert the Maven clean plugin execution between
+&gt; the two.
+&gt; I am facing several problems
+&gt; 1) it seems multi declaration of the same plugin generates a warning and
+&gt; leads to problems as I can't see the execution of the first goal
+&gt; 2) do you think this use case is not supported
+&gt;
+&gt; Thanks
+&gt; Jeff
+&gt;
+&gt;
+&gt; --
+&gt; Jeff MAURY
+&gt;
+&gt;
+&gt; "Legacy code" often differs from its suggested alternative by actually
+&gt; working and scaling.
+&gt;  - Bjarne Stroustrup
+&gt;
+&gt; http://www.jeffmaury.com
+&gt; http://riadiscuss.jeffmaury.com
+&gt; http://www.twitter.com/jeffmaury
+&gt;
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201208.mbox/raw/%3cCAKDUN1vJOhWjgWhYxyHeRie1P3VLNGFhQAWpedTXXq41uTt98g@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 1567 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201208.mbox/raw/%3cCAKDUN1vJOhWjgWhYxyHeRie1P3VLNGFhQAWpedTXXq41uTt98g@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

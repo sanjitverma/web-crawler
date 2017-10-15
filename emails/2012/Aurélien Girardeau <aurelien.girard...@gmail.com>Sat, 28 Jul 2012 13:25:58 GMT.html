@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Using ant-contrib in ant based plugin development</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201207.mbox/%3c48fe16f848cd05c93306999cbdaea9a0.squirrel@www.mosabuam.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCAK8jvqyfTD=YDCF3eNAmd_x8Zg+rrsLAg3cE9_z9g86SLXZ0FQ@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201207.mbox/%3c48fe16f848cd05c93306999cbdaea9a0.squirrel@www.mosabuam.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201207.mbox/%3c2AABD6C4E379F04AAFEE26CA8D93ECAE192EA78365@SMAPEXMBX1.prod.ad.merc.chicago.cme.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201207.mbox/%3c48fe16f848cd05c93306999cbdaea9a0.squirrel@www.mosabuam.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCAK8jvqyfTD=YDCF3eNAmd_x8Zg+rrsLAg3cE9_z9g86SLXZ0FQ@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201207.mbox/%3c48fe16f848cd05c93306999cbdaea9a0.squirrel@www.mosabuam.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201207.mbox/%3c2AABD6C4E379F04AAFEE26CA8D93ECAE192EA78365@SMAPEXMBX1.prod.ad.merc.chicago.cme.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Aurélien Girardeau &lt;aurelien.girard...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Using ant-contrib in ant based plugin development</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Sat, 28 Jul 2012 13:25:58 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hi Roy,
+
+I use ant-contrib in a Ant-based Mojo and it works fine for me.
+
+Here is my ant-contrib declaration in my build.xml:
+
+&lt;taskdef resource="net/sf/antcontrib/antlib.xml"&gt;
+                &lt;classpath&gt;
+                    &lt;pathelement location="${ant-contrib-jar}" /&gt;
+                &lt;/classpath&gt;
+&lt;/taskdef&gt;
+
+Note that antcontrib.properties doesn't contain "for" declaration. Prefer
+antlib.xml.
+
+and here is my mojos.xml for ${ant-contrib-jar} parameter:
+
+&lt;parameter&gt;
+&lt;name&gt;ant-contrib-jar&lt;/name&gt;
+&lt;property&gt;ant-contrib-jar&lt;/property&gt;
+&lt;required&gt;true&lt;/required&gt;
+&lt;expression&gt;${ant-contrib-jar}&lt;/expression&gt;
+&lt;defaultValue&gt;${project.build.directory}/antcontrib/
+ant-contrib-1.0b3.jar&lt;/defaultValue&gt;
+&lt;type&gt;java.lang.String&lt;/type&gt;
+&lt;description&gt;&lt;/description&gt;
+&lt;/parameter&gt;
+
+Note that I don't use a antcontrib artifact deployed in my local repo, but
+a antcontrib jar installed in my ${project.build.directory}. I dont't think
+it change anything.
+
+Did you try an echo on your  ${settings.localRepository}  or  ${user.home}
+to check they are correcty loaded at Maven runtime?
+
+Hope it can help,
+
+Aurélien
+
+
+2012/7/27 Manfred Moser &lt;manfred@mosabuam.com&gt;
+
+&gt; Why are you not implementing your plugin in Java or even Groovy?
+&gt;
+&gt;
+&gt; http://www.sonatype.com/books/mcookbook/reference/writing-plugins-alternative-sect-writing-groovy.html
+&gt;
+&gt; Shell script seems like a bad idea to me if you want it to run everywhere..
+&gt;
+&gt; manfred
+&gt;
+&gt; On Fri, July 27, 2012 2:26 pm, Lyons, Roy wrote:
+&gt; &gt; Update:
+&gt; &gt;
+&gt; &gt; Not hearing anything made me give up on pure ant...  I was able to get
+&gt; &gt; things working with the &lt;shellscript shell="ksh"&gt; task, and just
+&gt; embedding
+&gt; &gt; kornshell.  That, of course, defeats the usual idea of a plugin since it
+&gt; &gt; is platform specific...  but later on, I can add in support for windows
+&gt; by
+&gt; &gt; doing a similar shellscript directive with cmd based on the osfamily
+&gt; task.
+&gt; &gt;  Interestingly, I was able to use both of those from ant-contrib...  but
+&gt; &gt; not &lt;for   or &lt;if
+&gt; &gt;
+&gt; &gt; Odd.
+&gt; &gt;
+&gt; &gt;
+&gt; &gt; I am still interested in possibilities of using ant in its pure form, so
+&gt; &gt; any responses to this thread are still welcome.
+&gt; &gt;
+&gt; &gt; Thanks,
+&gt; &gt;
+&gt; &gt; Roy
+&gt; &gt; ________________________________________
+&gt; &gt; From: Lyons, Roy
+&gt; &gt; Sent: Friday, July 27, 2012 12:16 PM
+&gt; &gt; To: Maven Users List
+&gt; &gt; Subject: RE: Using ant-contrib in ant based plugin development
+&gt; &gt;
+&gt; &gt; my webmail made me login again, and I didnt see part of my message was
+&gt; &gt; missing.  here is the full thing:
+&gt; &gt;
+&gt; &gt;
+&gt; &gt; Maven User List,
+&gt; &gt;
+&gt; &gt; I waited in sending to this list until after I had exhausted my other
+&gt; &gt; resources, including google searching, documentation, and experimentation
+&gt; &gt; of my own.
+&gt; &gt;
+&gt; &gt; As such, I hope that your collective minds can take on this challenge.
+&gt; &gt;
+&gt; &gt;
+&gt; &gt; So here is the problem:
+&gt; &gt;
+&gt; &gt; [INFO]    task-segment: [com.cme.plugins:cme-packaging:cme-packaging]
+&gt; &gt; (aggregator-style)
+&gt; &gt; [INFO]
+&gt; &gt; ------------------------------------------------------------------------
+&gt; &gt; [INFO] [cme-packaging:cme-packaging {execution: default-cli}]
+&gt; &gt;
+&gt; &gt; cmepackage:
+&gt; &gt;      [echo] We are in UNIX
+&gt; &gt; [INFO]
+&gt; &gt; ------------------------------------------------------------------------
+&gt; &gt; [ERROR] BUILD ERROR
+&gt; &gt; [INFO]
+&gt; &gt; ------------------------------------------------------------------------
+&gt; &gt; [INFO] Failed to execute: Executing Ant script: package.build.xml
+&gt; &gt; [cmepackage]: Failed to execute.
+&gt; &gt;
+&gt; &gt; Could not create task or type of type: for.
+&gt; &gt;
+&gt; &gt; Ant could not find the task or a class this task relies upon.
+&gt; &gt;
+&gt; &gt; This is common and has a number of causes; the usual
+&gt; &gt; solutions are to read the manual pages then download and
+&gt; &gt; install needed JAR files, or fix the build file:
+&gt; &gt;  - You have misspelt 'for'.
+&gt; &gt;    Fix: check your spelling.
+&gt; &gt;  - The task needs an external JAR file to execute
+&gt; &gt;      and this is not found at the right place in the classpath.
+&gt; &gt;
+&gt; &gt;
+&gt; &gt; What is extremely interesting to me is the fact that it can use the task
+&gt; &gt; definition for "osfamily", but not for the "for" task.  Also of interest
+&gt; &gt; to me is the fact that I can use this script with "ant -f" without a
+&gt; &gt; problem.
+&gt; &gt;
+&gt; &gt; Before I get suggestions that I should use java instead, I need to
+&gt; confess
+&gt; &gt; that I am only now just learning java.  My job in configuration
+&gt; management
+&gt; &gt; uses a whole lot more in perl and ksh than anything...
+&gt; &gt;
+&gt; &gt; Also, my research showed lots of ways to cope with it in antrun, with an
+&gt; &gt; inline script -- but that won't do so much for me as I am trying to make
+&gt; a
+&gt; &gt; plugin...
+&gt; &gt;
+&gt; &gt; Here is my declaration in my pom:
+&gt; &gt;
+&gt; &gt; &lt;build&gt;
+&gt; &gt;     &lt;plugins&gt;
+&gt; &gt;       &lt;plugin&gt;
+&gt; &gt;         &lt;artifactId&gt;maven-plugin-plugin&lt;/artifactId&gt;
+&gt; &gt;         &lt;version&gt;2.5&lt;/version&gt;
+&gt; &gt;         &lt;!-- Add the Ant plugin tools --&gt;
+&gt; &gt;         &lt;dependencies&gt;
+&gt; &gt;           &lt;dependency&gt;
+&gt; &gt;             &lt;groupId&gt;org.apache.maven.plugin-tools&lt;/groupId&gt;
+&gt; &gt;             &lt;artifactId&gt;maven-plugin-tools-ant&lt;/artifactId&gt;
+&gt; &gt;             &lt;version&gt;2.5&lt;/version&gt;
+&gt; &gt;           &lt;/dependency&gt;
+&gt; &gt;           &lt;dependency&gt;
+&gt; &gt;              &lt;groupId&gt;ant-contrib&lt;/groupId&gt;
+&gt; &gt;              &lt;artifactId&gt;ant-contrib&lt;/artifactId&gt;
+&gt; &gt;              &lt;version&gt;1.0b3&lt;/version&gt;
+&gt; &gt;             &lt;/dependency&gt;
+&gt; &gt;
+&gt; &gt;
+&gt; &gt; I also placed a dependency on ant-contrib in my pom's dependencies
+&gt; &gt; section.
+&gt; &gt;
+&gt; &gt; my build xml has this in it...  as you can see, I was experimenting with
+&gt; &gt; different methods of forcing it to find the items.  I have nothing
+&gt; special
+&gt; &gt; in mojos xml.  Perhaps that is where my issue is?
+&gt; &gt;
+&gt; &gt; &lt;project name="processPackages" default="cmepackage" basedir="." &gt;
+&gt; &gt; &lt;!--
+&gt; &gt;    &lt;taskdef uri="antlib:net.sf.antcontrib"
+&gt; &gt;             resource="net/sf/antcontrib/antlib.xml"
+&gt; &gt;             classpath="path/to/ant-contrib.jar"/&gt;
+&gt; &gt; &lt;taskdef resource="net/sf/antcontrib/antlib.xml" /&gt;
+&gt; &gt; &lt;taskdef resource="net/sf/antcontrib/antcontrib.properties" &gt;
+&gt; &gt;         &lt;classpath&gt;
+&gt; &gt;                 &lt;pathelement
+&gt; &gt;
+&gt; location="${settings.localRepository}/ant-contrib/ant-contrib/1.0b3/ant-contrib-1.0b3.jar"
+&gt; &gt; /&gt;
+&gt; &gt;         &lt;/classpath&gt;
+&gt; &gt; &lt;/taskdef&gt;
+&gt; &gt; --&gt;
+&gt; &gt; &lt;taskdef resource="net/sf/antcontrib/antlib.xml" &gt;
+&gt; &gt;         &lt;classpath refid="maven.plugin.classpath" /&gt;
+&gt; &gt; &lt;/taskdef&gt;
+&gt; &gt; &lt;target name="cmepackage"&gt;
+&gt; &gt; &lt;osfamily property="os.family" /&gt;
+&gt; &gt; &lt;if&gt;
+&gt; &gt;         &lt;equals arg1="${os.family}" arg2="unix" /&gt;
+&gt; &gt;         &lt;then&gt;
+&gt; &gt;
+&gt; &gt;
+&gt; &gt; I had the most luck so far with
+&gt; &gt; &lt;taskdef resource="net/sf/antcontrib/antcontrib.properties" &gt;
+&gt; &gt;         &lt;classpath&gt;
+&gt; &gt;                 &lt;pathelement
+&gt; &gt;
+&gt; location="${user.home}/.m2/repository/ant-contrib/ant-contrib/1.0b3/ant-contrib-1.0b3.jar"
+&gt; &gt; /&gt;
+&gt; &gt;         &lt;/classpath&gt;
+&gt; &gt; &lt;/taskdef&gt;
+&gt; &gt;
+&gt; &gt; ________________________________________
+&gt; &gt; From: Lyons, Roy
+&gt; &gt; Sent: Friday, July 27, 2012 12:15 PM
+&gt; &gt; To: Maven Users List
+&gt; &gt; Subject: Using ant-contrib in ant based plugin development
+&gt; &gt;
+&gt; &gt; Maven User List,
+&gt; &gt;
+&gt; &gt; I waited in sending to this list until after I had exhausted my other
+&gt; &gt; resources, including google searching, documentation, and experimentation
+&gt; &gt; of my own.
+&gt; &gt;
+&gt; &gt; As such, I hope that your collective minds can take on this challenge.
+&gt; &gt;
+&gt; &gt;
+&gt; &gt; So here is the problem:
+&gt; &gt;
+&gt; &gt; [INFO]    task-segment: [com.cme.plugins:cme-packaging:cme-packaging]
+&gt; &gt; (aggregator-style)
+&gt; &gt; [INFO]
+&gt; &gt; ------------------------------------------------------------------------
+&gt; &gt; [INFO] [cme-packaging:cme-packaging {execution: default-cli}]
+&gt; &gt;
+&gt; &gt; cmepackage:
+&gt; &gt;      [echo] We are in UNIX
+&gt; &gt; [INFO]
+&gt; &gt; ------------------------------------------------------------------------
+&gt; &gt; [ERROR] BUILD ERROR
+&gt; &gt; [INFO]
+&gt; &gt; ------------------------------------------------------------------------
+&gt; &gt; [INFO] Failed to execute: Executing Ant script: package.build.xml
+&gt; &gt; [cmepackage]: Failed to execute.
+&gt; &gt;
+&gt; &gt; Could not create task or type of type: for.
+&gt; &gt;
+&gt; &gt; Ant could not find the task or a class this task relies upon.
+&gt; &gt;
+&gt; &gt; This is common and has a number of causes; the usual
+&gt; &gt; solutions are to read the manual pages then download and
+&gt; &gt; install needed JAR files, or fix the build file:
+&gt; &gt;  - You have misspelt 'for'.
+&gt; &gt;    Fix: check your spelling.
+&gt; &gt;  - The task needs an external JAR file to execute
+&gt; &gt;      and this is not found at the right place in the classpath.
+&gt; &gt;
+&gt; &gt;
+&gt; &gt; What is extremely interesting to me is the fact that it can use the task
+&gt; &gt; definition for
+&gt; &gt;
+&gt; &gt;
+&gt; &gt;
+&gt; &gt;
+&gt; &gt;
+&gt; &gt;
+&gt; &gt;
+&gt; &gt; Here is my declaration in my pom:
+&gt; &gt;
+&gt; &gt; &lt;build&gt;
+&gt; &gt;     &lt;plugins&gt;
+&gt; &gt;       &lt;plugin&gt;
+&gt; &gt;         &lt;artifactId&gt;maven-plugin-plugin&lt;/artifactId&gt;
+&gt; &gt;         &lt;version&gt;2.5&lt;/version&gt;
+&gt; &gt;         &lt;!-- Add the Ant plugin tools --&gt;
+&gt; &gt;         &lt;dependencies&gt;
+&gt; &gt;           &lt;dependency&gt;
+&gt; &gt;             &lt;groupId&gt;org.apache.maven.plugin-tools&lt;/groupId&gt;
+&gt; &gt;             &lt;artifactId&gt;maven-plugin-tools-ant&lt;/artifactId&gt;
+&gt; &gt;             &lt;version&gt;2.5&lt;/version&gt;
+&gt; &gt;           &lt;/dependency&gt;
+&gt; &gt;           &lt;dependency&gt;
+&gt; &gt;              &lt;groupId&gt;ant-contrib&lt;/groupId&gt;
+&gt; &gt;              &lt;artifactId&gt;ant-contrib&lt;/artifactId&gt;
+&gt; &gt;              &lt;version&gt;1.0b3&lt;/version&gt;
+&gt; &gt;             &lt;/dependency&gt;
+&gt; &gt;
+&gt; &gt;
+&gt; &gt; I also placed a dependency on ant-contrib in my pom's dependencies
+&gt; &gt; section.
+&gt; &gt;
+&gt; &gt; my build xml has this in it...  as you can see, I was experimenting with
+&gt; &gt; different methods of forcing it to find the items.  I have nothing
+&gt; special
+&gt; &gt; in mojos xml.  Perhaps that is where my issue is?
+&gt; &gt;
+&gt; &gt; &lt;project name="processPackages" default="cmepackage" basedir="." &gt;
+&gt; &gt; &lt;!--
+&gt; &gt;    &lt;taskdef uri="antlib:net.sf.antcontrib"
+&gt; &gt;             resource="net/sf/antcontrib/antlib.xml"
+&gt; &gt;             classpath="path/to/ant-contrib.jar"/&gt;
+&gt; &gt; &lt;taskdef resource="net/sf/antcontrib/antlib.xml" /&gt;
+&gt; &gt; &lt;taskdef resource="net/sf/antcontrib/antcontrib.properties" &gt;
+&gt; &gt;         &lt;classpath&gt;
+&gt; &gt;                 &lt;pathelement
+&gt; &gt;
+&gt; location="${settings.localRepository}/ant-contrib/ant-contrib/1.0b3/ant-contrib-1.0b3.jar"
+&gt; &gt; /&gt;
+&gt; &gt;         &lt;/classpath&gt;
+&gt; &gt; &lt;/taskdef&gt;
+&gt; &gt; --&gt;
+&gt; &gt; &lt;taskdef resource="net/sf/antcontrib/antlib.xml" &gt;
+&gt; &gt;         &lt;classpath refid="maven.plugin.classpath" /&gt;
+&gt; &gt; &lt;/taskdef&gt;
+&gt; &gt; &lt;target name="cmepackage"&gt;
+&gt; &gt; &lt;osfamily property="os.family" /&gt;
+&gt; &gt; &lt;if&gt;
+&gt; &gt;         &lt;equals arg1="${os.family}" arg2="unix" /&gt;
+&gt; &gt;         &lt;then&gt;
+&gt; &gt;
+&gt; &gt;
+&gt; &gt; I had the most luck so far with
+&gt; &gt; &lt;taskdef resource="net/sf/antcontrib/antcontrib.properties" &gt;
+&gt; &gt;         &lt;classpath&gt;
+&gt; &gt;                 &lt;pathelement
+&gt; &gt;
+&gt; location="${user.home}/.m2/repository/ant-contrib/ant-contrib/1.0b3/ant-contrib-1.0b3.jar"
+&gt; &gt; /&gt;
+&gt; &gt;         &lt;/classpath&gt;
+&gt; &gt; &lt;/taskdef&gt;
+&gt; &gt;
+&gt; &gt; ---------------------------------------------------------------------
+&gt; &gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; &gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt; &gt;
+&gt; &gt;
+&gt; &gt; ---------------------------------------------------------------------
+&gt; &gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; &gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt; &gt;
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201207.mbox/raw/%3cCAHJcQ3q8ER=X9b8wFUtTz5JsrqCAdhuLi6gLMB8tqaSqZzHF4Q@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, Quoted Printable, 11327 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201207.mbox/raw/%3cCAHJcQ3q8ER=X9b8wFUtTz5JsrqCAdhuLi6gLMB8tqaSqZzHF4Q@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

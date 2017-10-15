@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Re-Releasing Configured Artifacts, how?</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201204.mbox/%3c1334879470896-5653047.post@n5.nabble.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201204.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201204.mbox/%3cCALy+7Umi2KaJgJus5Tzs+VCaDLkqNoSND-JJQ08PD4Y89rUdCw@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201204.mbox/%3c4F8FFD6A.8070702@artifact-software.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201204.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201204.mbox/%3c1334751033066-5648895.post@n5.nabble.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201204.mbox/%3c1334879470896-5653047.post@n5.nabble.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201204.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201204.mbox/%3cCALy+7Umi2KaJgJus5Tzs+VCaDLkqNoSND-JJQ08PD4Y89rUdCw@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201204.mbox/%3c4F8FFD6A.8070702@artifact-software.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201204.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201204.mbox/%3c1334751033066-5648895.post@n5.nabble.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Andrew Hughes &lt;ahhug...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Re-Releasing Configured Artifacts, how?</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Thu, 19 Apr 2012 23:57:24 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+NOTE: For many situations, this is not appropriate.... we are an exception.
+
+1. Check Out the revision / tag you want to re-configure.
+2. Alter appropriate properties file(s), commit.
+3. Do release:prepare release:perform
+
+This utilizes the SCM as a configuration management tool (in addition to
+source control). There are several advantages to this and several drawbacks.
+
+
+I now use a pom module, with several war executions to overlay a war. This
+works well.
+
+
+
+&lt;project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="
+http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+&lt;parent&gt;
+&lt;artifactId&gt;acme-project&lt;/artifactId&gt;
+&lt;groupId&gt;com.acme&lt;/groupId&gt;
+&lt;version&gt;0.1.0.0-SNAPSHOT&lt;/version&gt;
+&lt;relativePath&gt;..&lt;/relativePath&gt;
+&lt;/parent&gt;
+&lt;artifactId&gt;acme-project-webapp-env&lt;/artifactId&gt;
+&lt;packaging&gt;pom&lt;/packaging&gt;
+&lt;dependencies&gt;
+&lt;dependency&gt;
+&lt;groupId&gt;${project.groupId}&lt;/groupId&gt;
+&lt;artifactId&gt;acme-project-webapp&lt;/artifactId&gt;
+&lt;type&gt;war&lt;/type&gt;
+&lt;/dependency&gt;
+&lt;/dependencies&gt;
+&lt;build&gt;
+&lt;pluginManagement&gt;
+&lt;plugins&gt;
+&lt;plugin&gt;
+&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+&lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
+&lt;version&gt;2.2&lt;/version&gt;
+&lt;configuration&gt;
+&lt;overlays&gt;
+&lt;overlay&gt;
+&lt;groupId&gt;${project.groupId}&lt;/groupId&gt;
+&lt;artifactId&gt;acme-project-webapp&lt;/artifactId&gt;
+&lt;includes&gt;
+&lt;include&gt;WEB-INF/*.properties&lt;/include&gt;
+&lt;include&gt;WEB-INF/*.props&lt;/include&gt;
+&lt;/includes&gt;
+&lt;filtered&gt;true&lt;/filtered&gt;
+&lt;/overlay&gt;
+&lt;overlay&gt;
+&lt;groupId&gt;${project.groupId}&lt;/groupId&gt;
+&lt;artifactId&gt;acme-project-webapp&lt;/artifactId&gt;
+&lt;filtered&gt;false&lt;/filtered&gt;
+&lt;/overlay&gt;
+&lt;/overlays&gt;
+&lt;/configuration&gt;
+&lt;/plugin&gt;
+&lt;/plugins&gt;
+&lt;/pluginManagement&gt;
+&lt;plugins&gt;
+&lt;plugin&gt;
+&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+&lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
+&lt;executions&gt;
+&lt;!-- build with dev config --&gt;
+&lt;execution&gt;
+&lt;id&gt;dev&lt;/id&gt;
+&lt;phase&gt;package&lt;/phase&gt;
+&lt;goals&gt;
+&lt;goal&gt;war&lt;/goal&gt;
+&lt;/goals&gt;
+&lt;configuration&gt;
+&lt;classifier&gt;dev&lt;/classifier&gt;
+&lt;filters&gt;
+&lt;filter&gt;${basedir}/env-dev.properties&lt;/filter&gt;
+&lt;/filters&gt;
+&lt;/configuration&gt;
+&lt;/execution&gt;
+&lt;!-- build with staging config --&gt;
+&lt;execution&gt;
+&lt;id&gt;staging&lt;/id&gt;
+&lt;phase&gt;package&lt;/phase&gt;
+&lt;goals&gt;
+&lt;goal&gt;war&lt;/goal&gt;
+&lt;/goals&gt;
+&lt;configuration&gt;
+&lt;classifier&gt;staging&lt;/classifier&gt;
+&lt;filters&gt;
+&lt;filter&gt;${basedir}/env-staging.properties&lt;/filter&gt;
+&lt;/filters&gt;
+&lt;/configuration&gt;
+&lt;/execution&gt;
+&lt;!-- build with prod config --&gt;
+&lt;execution&gt;
+&lt;id&gt;prod&lt;/id&gt;
+&lt;phase&gt;package&lt;/phase&gt;
+&lt;goals&gt;
+&lt;goal&gt;war&lt;/goal&gt;
+&lt;/goals&gt;
+&lt;configuration&gt;
+&lt;classifier&gt;prod&lt;/classifier&gt;
+&lt;filters&gt;
+&lt;filter&gt;${basedir}/env-prod.properties&lt;/filter&gt;
+&lt;/filters&gt;
+&lt;/configuration&gt;
+&lt;/execution&gt;
+&lt;/executions&gt;
+&lt;/plugin&gt;
+&lt;/plugins&gt;
+&lt;/build&gt;
+&lt;/project&gt;
+
+
+
+
+
+
+On Thu, Apr 19, 2012 at 9:26 PM, Ron Wheeler &lt;rwheeler@artifact-software.com
+&gt; wrote:
+
+&gt; On 19/04/2012 6:40 AM, Andrew Hughes wrote:
+&gt;
+&gt;&gt; My app uses CDI (Weld), I know all about DI. I agree with you both :)
+&gt;&gt;
+&gt;&gt; We would rather re-release (a new) version (not snapshot). If we want to
+&gt;&gt; we
+&gt;&gt; can always change a deployment at runtime if we choose.
+&gt;&gt;
+&gt; I am not sure what you mean by this.
+&gt;
+&gt;&gt;
+&gt;&gt; Cheers
+&gt;&gt; On 19/04/2012 3:22 PM, "Ron Wheeler"&lt;rwheeler@artifact-**software.com&lt;rwheeler@artifact-software.com&gt;&gt;
+&gt;&gt;  wrote:
+&gt;&gt;
+&gt;&gt;  I am not sure that these were the options suggested by Wayne.
+&gt;&gt;&gt;
+&gt;&gt;&gt; It appears that you are building a very common type of application that
+&gt;&gt;&gt; hundreds of people build with Maven.
+&gt;&gt;&gt; A lot of people use Spring which has dynamic configuration.
+&gt;&gt;&gt; Web services have endpoint definitions.
+&gt;&gt;&gt; Most applications have some sort of database that has run-time
+&gt;&gt;&gt; information.
+&gt;&gt;&gt;
+&gt;&gt;&gt; The problem of injecting run-time information into webapps is well known
+&gt;&gt;&gt; and Wayne gave you some Best Practices.
+&gt;&gt;&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt; One of the key principles of building reliable systems is that you should
+&gt;&gt;&gt; take what you have tested in your test environment and run it unaltered
+&gt;&gt;&gt; in
+&gt;&gt;&gt; production.
+&gt;&gt;&gt; Rebuilding the artifact after testing it, puts you in the position of
+&gt;&gt;&gt; putting something into production that is new and untested.
+&gt;&gt;&gt;
+&gt;&gt;&gt; Wayne suggested some alternatives.
+&gt;&gt;&gt;
+&gt;&gt;&gt; We used JNDI and I documented this in 2 blog articles:
+&gt;&gt;&gt;
+&gt;&gt;&gt; http://blog.artifact-software.****com/tech/?p=150&lt;http://blog.**
+&gt;&gt;&gt; artifact-software.com/tech/?p=**150&lt;http://blog.artifact-software.com/tech/?p=150&gt;
+&gt;&gt;&gt; &gt;
+&gt;&gt;&gt; http://blog.artifact-software.****com/tech/?p=58&lt;http://blog.**
+&gt;&gt;&gt; artifact-software.com/tech/?p=**58&lt;http://blog.artifact-software.com/tech/?p=58&gt;
+&gt;&gt;&gt; &gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt; Your approach is not a "Best Practice".
+&gt;&gt;&gt; Part of the reason that it is difficult to do under Maven is that it
+&gt;&gt;&gt; should not be done this way.
+&gt;&gt;&gt;
+&gt;&gt;&gt; The developers should not have any interest in the run-time environment
+&gt;&gt;&gt; and should produce code that runs unaltered in any properly setup
+&gt;&gt;&gt; environment.
+&gt;&gt;&gt;
+&gt;&gt;&gt; If the system administrator changes an IP address or a database password,
+&gt;&gt;&gt; he should be able to change the information in the system in one place
+&gt;&gt;&gt; without having to ask the developer to produce a new application.
+&gt;&gt;&gt; This should be well documented in the applications installation and
+&gt;&gt;&gt; system
+&gt;&gt;&gt; administration procedures.
+&gt;&gt;&gt; Database passwords, IP addresses, hostnames, etc. are not the concern of
+&gt;&gt;&gt; a
+&gt;&gt;&gt; developer. These are under the control of the system administrator.
+&gt;&gt;&gt;
+&gt;&gt;&gt; If the developer builds run-time environment information into the
+&gt;&gt;&gt; application, the system administrator's changes will get overwritten with
+&gt;&gt;&gt; each new release.
+&gt;&gt;&gt; This could result in a nasty surprise when the application restarts.
+&gt;&gt;&gt; If you are wearing both hats, you need to be aware of which role you are
+&gt;&gt;&gt; performing at any given time and build your application so that it
+&gt;&gt;&gt; respects
+&gt;&gt;&gt; the roles.
+&gt;&gt;&gt;
+&gt;&gt;&gt; This is a universal problem and Wayne identified several ways to fix this
+&gt;&gt;&gt; easily.
+&gt;&gt;&gt;
+&gt;&gt;&gt; As you may be able to gather from my notes, we also went through the
+&gt;&gt;&gt; process that you are grappling with before we got some good advice and
+&gt;&gt;&gt; did
+&gt;&gt;&gt; the right thing.
+&gt;&gt;&gt; It was very easy to do it right and once we had the first run-time stuff
+&gt;&gt;&gt; into JNDI, it was easy to see how to handle each new issue.
+&gt;&gt;&gt; We started with database and then added web services endpoints and other
+&gt;&gt;&gt; properties.
+&gt;&gt;&gt;
+&gt;&gt;&gt; I hope that this helps.
+&gt;&gt;&gt;
+&gt;&gt;&gt; Ron
+&gt;&gt;&gt;
+&gt;&gt;&gt; On 19/04/2012 12:33 AM, Andrew Hughes wrote:
+&gt;&gt;&gt;
+&gt;&gt;&gt;  I have looked into several options.
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; Assembly with Qualifiers (new module):
+&gt;&gt;&gt;&gt; Looks good because I can run multiple&lt;executions&gt;, each with a unique
+&gt;&gt;&gt;&gt; &lt;filter&gt;somefile.property&lt;/****filter&gt;. However I can't re-use
+the same
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; assembly description because the classifier is now obatined from the&lt;id&gt;
+&gt;&gt;&gt;&gt; in the assembly descriptor :'( . That kinda sucks, it means I would have
+&gt;&gt;&gt;&gt; to
+&gt;&gt;&gt;&gt; duplicate the assembly xml for each target classified artifact (or
+&gt;&gt;&gt;&gt; copy/filter/rename the assembly xml during a gererate-sources or
+&gt;&gt;&gt;&gt; similar).
+&gt;&gt;&gt;&gt; IMHO, this is not the best solution.
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; Profiles:
+&gt;&gt;&gt;&gt; Only allow one build property set to exist, and thus each build can't
+&gt;&gt;&gt;&gt; use
+&gt;&gt;&gt;&gt; filtering on the config. For this reason the resulting duplication and
+&gt;&gt;&gt;&gt; deviation on each build would introduce bloat and increase the
+&gt;&gt;&gt;&gt; likelyhood
+&gt;&gt;&gt;&gt; of breakage.
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; War Overlays :
+&gt;&gt;&gt;&gt; This is (unfortunately) the best solution I have.
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; +acme (pom)
+&gt;&gt;&gt;&gt; ++acme-webapp (war)&lt;--- all config options remain as ${someProperty}
+&gt;&gt;&gt;&gt; (ie.
+&gt;&gt;&gt;&gt; No Filtering here!)
+&gt;&gt;&gt;&gt; ++acme-webapp-overlay (pom)
+&gt;&gt;&gt;&gt; ++acme-webapp-overlay-dev (war)
+&gt;&gt;&gt;&gt; ++acme-webapp-overlay-uat (war)
+&gt;&gt;&gt;&gt; ++acme-webapp-overlay-prod (war)
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; The acme-webapp-overlay will configure the
+&gt;&gt;&gt;&gt; &lt;plugin&gt;...&lt;artifactId&gt;maven-****war-plugin&lt;/artifactId&gt;&lt;****
+&gt;&gt;&gt;&gt; overlays&gt;...
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; (as well
+&gt;&gt;&gt;&gt; as configure a dependecy too acme-webapp) the and each child module
+&gt;&gt;&gt;&gt; (dev,uat,prod) provides their&lt;properties&gt;, which will filter selected
+&gt;&gt;&gt;&gt; parts of acme-webapp (war) as it is overlayed.
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; This works, but I'm over it :)~
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; Thanks for all the advice
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; On Thu, Apr 19, 2012 at 2:38 AM, Wayne Fay&lt;waynefay@gmail.com&gt;   wrote:
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;  I will read up some more. But, I was more wondering in regards to
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt; classifiers if I could release x3 (or more) builds of the same module
+&gt;&gt;&gt;&gt;&gt;&gt; (at
+&gt;&gt;&gt;&gt;&gt;&gt; the moment I have one module per conf, each is a war overlay).
+&gt;&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;&gt;  I am not a huge fan of producing multiple artifacts (thus, your
+&gt;&gt;&gt;&gt;&gt; suggestion of classifiers) for these types of purposes.
+&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt; Instead, you should think about what kinds of things you could do that
+&gt;&gt;&gt;&gt;&gt; would allow to produce a single artifact and then push it unchanged
+&gt;&gt;&gt;&gt;&gt; into your various deployment environments. There are lots of
+&gt;&gt;&gt;&gt;&gt; strategies to help with this problem: JNDI, Spring, other DI
+&gt;&gt;&gt;&gt;&gt; solutions, etc.
+&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt; Wayne
+&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt; ------------------------------****----------------------------**--**
+&gt;&gt;&gt;&gt;&gt; ---------
+&gt;&gt;&gt;&gt;&gt; To unsubscribe, e-mail: users-unsubscribe@maven.**apac**he.org&lt;http://apache.org&gt;
+&gt;&gt;&gt;&gt;&gt; &lt;users-unsubscribe@**maven.apache.org&lt;users-unsubscribe@maven.apache.org&gt;
+&gt;&gt;&gt;&gt;&gt; &gt;
+&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;  --
+&gt;&gt;&gt; Ron Wheeler
+&gt;&gt;&gt; President
+&gt;&gt;&gt; Artifact Software Inc
+&gt;&gt;&gt; email: rwheeler@artifact-software.com
+&gt;&gt;&gt; skype: ronaldmwheeler
+&gt;&gt;&gt; phone: 866-970-2435, ext 102
+&gt;&gt;&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt; ------------------------------**------------------------------**
+&gt;&gt;&gt; ---------
+&gt;&gt;&gt; To unsubscribe, e-mail: users-unsubscribe@maven.**apache.org&lt;users-unsubscribe@maven.apache.org&gt;
+&gt;&gt;&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;&gt;&gt;
+&gt;&gt;&gt;
+&gt;
+&gt; --
+&gt; Ron Wheeler
+&gt; President
+&gt; Artifact Software Inc
+&gt; email: rwheeler@artifact-software.com
+&gt; skype: ronaldmwheeler
+&gt; phone: 866-970-2435, ext 102
+&gt;
+&gt;
+&gt;
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201204.mbox/raw/%3cCAMvYC1XrOLR7AVwvQ_sOWA95BQU9xpBJ_S+Ks935QBxaZ19i3g@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 9976 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201204.mbox/raw/%3cCAMvYC1XrOLR7AVwvQ_sOWA95BQU9xpBJ_S+Ks935QBxaZ19i3g@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Multi module project and separate builds</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201209.mbox/%3c5050A64E.4080509@uottawa.ca%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201209.mbox/%3cCADN69yk8EOVV2jVPXFe5M4RmgCndH03OGzzjKT0W0sNdP9WmZg@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201209.mbox/%3c5050A64E.4080509@uottawa.ca%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201209.mbox/%3c1347354596011-5721155.post@n5.nabble.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201209.mbox/%3c5050A64E.4080509@uottawa.ca%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201209.mbox/%3cCADN69yk8EOVV2jVPXFe5M4RmgCndH03OGzzjKT0W0sNdP9WmZg@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201209.mbox/%3c5050A64E.4080509@uottawa.ca%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201209.mbox/%3c1347354596011-5721155.post@n5.nabble.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Anders Hammar &lt;and...@hammar.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Multi module project and separate builds</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Wed, 12 Sep 2012 17:53:15 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+I don't see any problems at all. The classes that are truly common
+(i.e. shared between your client code and server code) goes into a
+shared library. This is one of the modules and let's call it "common".
+Then you put the client specific code in a separate module, which has
+a dependency to "common". And then you put the server specific code in
+the server module, which also has a dependency to "common". Thus,
+three modules which are handled by one aggregating pom. This is what
+we call a multi-module build and this is standard procedure for most
+dev projects.
+
+/Anders
+
+On Wed, Sep 12, 2012 at 5:12 PM, Julian Wiesner &lt;jwies017@uottawa.ca&gt; wrote:
+&gt; Dear Maven Users Community,
+&gt;
+&gt; Thank you for your responses so far.
+&gt;
+&gt; @Anders: I'm aware that generally speaking the method I suggested is
+&gt; unconventional. However, the nature of my project is very unconventional
+&gt; itself. To give you a further idea of my Project: It is a Mod to an existing
+&gt; application. The server side (i.e. packet handling, port management, etc) is
+&gt; all dependent on an API which is different from the client side. The client
+&gt; side will mostly entail functions that will only be useful to the user. I'm
+&gt; trying to reduce the amount of unnecessary code to have a more efficient
+&gt; application. Sure, it'd be easy to just write all the code for the client
+&gt; and server in one jar, but half of it won't be used in either environments.
+&gt;
+&gt; @Wayne: By adjusting I mean either omit or add functions that are required
+&gt; by the provided API. The way this application, for which I'm creating this
+&gt; Mod, is set up so that there are 2 different APIs for the Client and the
+&gt; Server. (Probably due to the fact there is a large community developing Mods
+&gt; for it.) For my Mod to work on the server I will have to integrate it into
+&gt; its API and the same with the client. Thus, I have different imports and
+&gt; different functions for each version. Currently how I'm managing my code is
+&gt; by strictly working on the common classes that are shared between the 2
+&gt; versions. However, I have problems setting my project up in the way I
+&gt; described earlier.
+&gt;
+&gt; I hope this may have clarified some questions.
+&gt;
+&gt; Sincerely,
+&gt;
+&gt; Julian Wiesner
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201209.mbox/raw/%3cCAKDUN1skFPVrSctDN7wc_eD3OLEDKuF0HXB-13Sk2UpHjtbcYw@mail.gmail.com%3e/">Unnamed text/plain</a> (inline, None, 2598 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201209.mbox/raw/%3cCAKDUN1skFPVrSctDN7wc_eD3OLEDKuF0HXB-13Sk2UpHjtbcYw@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

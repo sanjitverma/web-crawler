@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Getting profile settings values in a Java class</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201212.mbox/%3c1354782335149-5735884.post@n5.nabble.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201212.mbox/%3cCAA8BW8ENQzr=M+OFr=Jo_yrYC-_3joutTtzERK4h-4u6EajqfQ@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201212.mbox/%3c1354782335149-5735884.post@n5.nabble.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201212.mbox/%3c50C09E4E.1080208@artifact-software.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201212.mbox/%3c1354782335149-5735884.post@n5.nabble.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201212.mbox/%3cCAA8BW8ENQzr=M+OFr=Jo_yrYC-_3joutTtzERK4h-4u6EajqfQ@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201212.mbox/%3c1354782335149-5735884.post@n5.nabble.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201212.mbox/%3c50C09E4E.1080208@artifact-software.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Anders Hammar &lt;and...@hammar.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Getting profile settings values in a Java class</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Thu, 06 Dec 2012 08:35:05 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+This is probably difficult to solve without access to the actual
+problematic project.
+
+/Anders
+
+
+On Thu, Dec 6, 2012 at 9:25 AM, Javix &lt;serguei.cambour@atos.net&gt; wrote:
+
+&gt; I knew those option to desactivate a profile. The problem that I can't
+&gt; figure
+&gt; out how to solve is WHY the same Maven configuration works in one project
+&gt; and not at all in another? By the way, if comment out the line
+&gt;
+&gt; &lt;activation&gt;
+&gt;   &lt;activeByDefault&gt;true&lt;/activeByDefault&gt;
+&gt; &lt;/activation&gt;
+&gt;
+&gt; and run
+&gt;
+&gt; mvn test -P [profile_to_use]
+&gt;
+&gt; it works fine too. But in another project, no matter the way I use to run
+&gt; Maven tests (commenting out the profile activation lines, running with
+&gt; negation option (![profile_not_to_use], [profile_to_use], it does not work
+&gt; and fails. So I have to set it up explicitly every time in the POM file.
+&gt; Here is my configuration:
+&gt;
+&gt; Apache Maven 3.0.4 (r1232337; 2012-01-17 09:44:56+0100)
+&gt; Maven home: C:\Apache\apache-maven-3.0.4
+&gt; Java version: 1.6.0_21, vendor: Sun Microsystems Inc.
+&gt; Java home: C:\Program Files\Java\jdk1.6.0_21\jre
+&gt; Default locale: fr_FR, platform encoding: Cp1252
+&gt; OS name: "windows xp", version: "5.1", arch: "x86", family: "windows"
+&gt;
+&gt; Regards
+&gt;
+&gt;
+&gt;
+&gt; --
+&gt; View this message in context:
+&gt; http://maven.40175.n5.nabble.com/Getting-profile-settings-values-in-a-Java-class-tp5722740p5735884.html
+&gt; Sent from the Maven - Users mailing list archive at Nabble.com.
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201212.mbox/raw/%3cCAKDUN1tiVP89ww_FaQGhHR0Rd1Ns94MhBUaD_jmRgoN8FV2pqg@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 1609 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201212.mbox/raw/%3cCAKDUN1tiVP89ww_FaQGhHR0Rd1Ns94MhBUaD_jmRgoN8FV2pqg@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

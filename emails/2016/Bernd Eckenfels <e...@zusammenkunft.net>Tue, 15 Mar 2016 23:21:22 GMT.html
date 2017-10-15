@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>AW: Find the correct build order of a set of distinct butinterdependent projects</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201603.mbox/%3cCA+NpsqtxTLu0gcFPmrLsJ0YUA6XtWwrgSOeaC__mHcWAebDZUA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201603.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201603.mbox/%3c1458226141295-5864003.post@n5.nabble.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201603.mbox/%3cCA+NpsqtxTLu0gcFPmrLsJ0YUA6XtWwrgSOeaC__mHcWAebDZUA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201603.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201603.mbox/%3c48b7e0f6972bb44947d3290bd2b0c8bd@dag.cloud%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201603.mbox/%3cCA+NpsqtxTLu0gcFPmrLsJ0YUA6XtWwrgSOeaC__mHcWAebDZUA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201603.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201603.mbox/%3c1458226141295-5864003.post@n5.nabble.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201603.mbox/%3cCA+NpsqtxTLu0gcFPmrLsJ0YUA6XtWwrgSOeaC__mHcWAebDZUA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201603.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201603.mbox/%3c48b7e0f6972bb44947d3290bd2b0c8bd@dag.cloud%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Bernd Eckenfels &lt;e...@zusammenkunft.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">AW: Find the correct build order of a set of distinct butinterdependent projects</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Tue, 15 Mar 2016 23:21:22 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hello,
+
+It might not completely solve your problem (as it does not observe versions) but with Jenkins
+Maven Jobs it builds dependent jobs automatically.
+
+If you follow a release strategy it is however not something you need in practice as you have
+to step through the dependencies to release them anyway.
+
+And when your system matures and you start to refacture dependencies they start to change
+over time.
+
+Maybe stuffing all in a graph database would help you (jqassist.org).
+
+Gruss
+Bernd
+-- 
+http://bernd.eckenfels.net
+
+Von: Elliot Metsger
+Gesendet: Dienstag, 15. März 2016 23:27
+An: Maven Users List
+Betreff: Re: Find the correct build order of a set of distinct butinterdependent projects
+
+Hi Christophe,
+
+Just chiming in with my experience; we used to have a complex build, and I
+used approach #2.  I don't remember the total number of projects in the
+reactor (it was less than 100 for sure, but probably more than 20), and
+that worked fine.
+
+I wasn't aware of the Maven event spy approach.  That sounds like a tidy,
+albeit more technical, solution.  I don't think we were able to
+successfully use the dependency plugin, but this was a few years ago and
+the plugin may have advanced since then.
+
+On Tue, Mar 15, 2016 at 4:17 PM, Christophe Thiebaud &lt;
+christophe.thiebaud@dag.cloud&gt; wrote:
+
+&gt; Hi all,
+&gt;
+&gt; The problem is all in the title :
+&gt;
+&gt; How to find the correct build order of a set of distinct but
+&gt; interdependent projects.
+&gt;
+&gt; Distinct means that each project lives in its own source repository, each
+&gt; project build separately.
+&gt;
+&gt; Interdependent means that projects may be dependent upon each other.
+&gt;
+&gt; So the question is:
+&gt;
+&gt;    - which projects depends on which other projects?
+&gt;
+&gt; in order to be able to build the projects still separately, but in the
+&gt; correct order.
+&gt;
+&gt; e.g. slf4j and logback: which one depends on the other? Which one do I
+&gt; need to build first?
+&gt;
+&gt; I thought of the following four possible solutions, and I have experience
+&gt; with the first three:
+&gt;
+&gt; 1. The poor man’s solution : hardcode the order
+&gt; 2. Generate a multi-module pom file that contains all projects as modules
+&gt; 3. Collect build-time repository events with a maven event spy
+&gt; 4. Collect pom file dependency information with the dependency plugin
+&gt;
+&gt; to avoid a loooong mail, the options are further detailed here :
+&gt; http://dag.cloud/docs/theproblem.html
+&gt;
+&gt; This is so generic a problem that I am sure you've already been faced with.
+&gt;
+&gt; I'd be glad to get some piece of advice from the community.
+&gt;
+&gt; For instance, is somebody aware of any existing open source toolset around
+&gt; this problem?
+&gt;
+&gt; Concerning option #4, I am under the impression (from blurred remember of
+&gt; some mail exchanges on this list long time ago) that the dependency-plugin
+&gt; tree goal implementation is not congruent with the actual aether
+&gt; implementation, which, if true, would be a show stopper. Can somebody
+&gt; confirm/infirm ?
+&gt;
+&gt; Thanks!
+&gt; Christophe
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201603.mbox/raw/%3c56e898f2.a185c20a.7621f.23fb@mx.google.com%3e/1">Unnamed text/plain</a> (inline, Quoted Printable, 3172 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201603.mbox/raw/%3c56e898f2.a185c20a.7621f.23fb@mx.google.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

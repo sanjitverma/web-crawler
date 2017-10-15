@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Version ranges not working</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201209.mbox/%3cCA+nPnMyDfyc8Ys81ZZp+e2jAgi8=rds9CwbXwSjMny16R8Gxbg@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201209.mbox/%3cCAKn1Wjx95cRc-sdC6b4tcGr7do6TXOjQYN04QiRvJ9g4GRwVfw@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201209.mbox/%3c5064D9BA.7060706@kirona.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201209.mbox/%3c5064F129.9020208@artifact-software.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201209.mbox/%3cCA+nPnMyDfyc8Ys81ZZp+e2jAgi8=rds9CwbXwSjMny16R8Gxbg@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201209.mbox/%3cCAKn1Wjx95cRc-sdC6b4tcGr7do6TXOjQYN04QiRvJ9g4GRwVfw@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201209.mbox/%3c5064D9BA.7060706@kirona.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201209.mbox/%3c5064F129.9020208@artifact-software.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Baptiste MATHUS ...@batmat.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Version ranges not working</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Thu, 27 Sep 2012 23:20:06 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
++1.
+Version ranges are basically just a bad practice in my experience. I mostly
+don't see any interest apart from being able to see a normally passing
+build suddenly going rogue because you somehow had a dependency update
+somewhere in the dependency tree. (I wrote something similar in that
+comment
+http://www.sonatype.com/people/2012/08/download-it-all-at-once-a-maven-idea/#comment-635524577
+)
+
+So, please, Maven users, don't use them. It's like having scripts inside
+your pom.xml, it might seem sexy and powerful, but it's dangerous.
+Nail down a version, and upgrade explicitly when you need to and/or are
+ready to. You'll be very happy that way and your build'll stay green.
+
+Cheers
+
+2012/9/28 Stephen Connolly &lt;stephen.alan.connolly@gmail.com&gt;
+
+&gt; Well that is a recipe for disaster. rules only make sense within the scope
+&gt; of the artifacts they apply to.
+&gt;
+&gt; This is kind of why version ranges are next to useless from a practical PoV
+&gt; anyway
+&gt;
+&gt; On 27 September 2012 23:05, Paul French &lt;paul.french@kirona.com&gt; wrote:
+&gt;
+&gt; &gt; I would only want the same version rules applied to all artifacts, not on
+&gt; &gt; a per artifact basis, that would be a nightmare! I understand that people
+&gt; &gt; who produce artifacts have their own versioning rules. However we can
+&gt; take
+&gt; &gt; that into account in our version ranging.
+&gt; &gt;
+&gt; &gt; Usually for 3rd party artifacts we have a very narrow version range since
+&gt; &gt; we cannot trust the producer of that artifact not to break their current
+&gt; &gt; API in later versions unless they support semantic versioning.
+&gt; &gt;
+&gt; &gt;
+&gt; &gt; On 27/09/2012 22:29, Stephen Connolly wrote:
+&gt; &gt;
+&gt; &gt;&gt; when is that class applied?
+&gt; &gt;&gt;
+&gt; &gt;&gt; each dependency would have its own comparator, as each dependency has
+&gt; its
+&gt; &gt;&gt; own versioning rules.
+&gt; &gt;&gt;
+&gt; &gt;&gt; and then don't start on epoch's (i.e. where the versioning rules change
+&gt; &gt;&gt; from under your feet mid sequence
+&gt; &gt;&gt;
+&gt; &gt;&gt; It's tempting... but dangerous... the closest I have come up with is the
+&gt; &gt;&gt; rulesets hack from versions-maven-plugin @ mojo... but even that has
+&gt; &gt;&gt; issues... hence why I haven't pushed it further.
+&gt; &gt;&gt;
+&gt; &gt;&gt; -Stephen
+&gt; &gt;&gt;
+&gt; &gt;&gt; On 27 September 2012 22:19, Paul French &lt;paul.french@kirona.com&gt; wrote:
+&gt; &gt;&gt;
+&gt; &gt;&gt;  Okay I see the problem.
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt; How about allowing a user to plugin a Version class that implements
+&gt; &gt;&gt;&gt; Comparator
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt;    class MavenVersion implements Comparable&lt;MavenVersion&gt;
+&gt; &gt;&gt;&gt;    {
+&gt; &gt;&gt;&gt;      public int compareTo(MavenVersion o)
+&gt; &gt;&gt;&gt;      {
+&gt; &gt;&gt;&gt;        // your implementation
+&gt; &gt;&gt;&gt;      }
+&gt; &gt;&gt;&gt;    }
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt; Then we can all do whatever we need.
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt; On 27/09/2012 21:40, Hervé BOUTEMY wrote:
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt;  I understand that many people get caught
+&gt; &gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt; But what do you expect from [1.7,1.8]?
+&gt; &gt;&gt;&gt;&gt; And [1.7,1.8-beta)?
+&gt; &gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt; The actual semantic is pure mathematical range, including or excluding
+&gt; &gt;&gt;&gt;&gt; an
+&gt; &gt;&gt;&gt;&gt; extreme
+&gt; &gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt; since 1.8-alpha&lt;1.8-beta-&lt;1.8-rc&lt;1.****8-SNAPSHOT&lt;1.8, it's
+pure math
+&gt; &gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt; IMHO, anything that doesn't conform mathematical range will have some
+&gt; &gt;&gt;&gt;&gt; unexpected behaviour sometime
+&gt; &gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt; Yes, people need to learn that they usually want
+&gt; &gt;&gt;&gt;&gt; [1.7,1.8-alpha-SNAPSHOT)
+&gt; &gt;&gt;&gt;&gt; if
+&gt; &gt;&gt;&gt;&gt; they want to be precise. Or approximations: [1.7,1.8-a), [1.7,1.7.999]
+&gt; &gt;&gt;&gt;&gt; Or we need to create another notation and define its semantics
+&gt; precisely
+&gt; &gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt; Regards,
+&gt; &gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt; Hervé
+&gt; &gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt; Le jeudi 27 septembre 2012 20:46:08 Paul French a écrit :
+&gt; &gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;  +1
+&gt; &gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt; I agree with Jesse.
+&gt; &gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt; A version range like [1.7,1.8) should exclude any artifact that
+&gt; starts
+&gt; &gt;&gt;&gt;&gt;&gt; with 1.8
+&gt; &gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt; Then maven (or aether) would respect semantic versioning rules.
+&gt; &gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt; We use version ranges/semantic versioning and API analysis to ensure
+&gt; &gt;&gt;&gt;&gt;&gt; our
+&gt; &gt;&gt;&gt;&gt;&gt; artifacts are versioned correctly. Sometimes we get caught out by
+&gt; what
+&gt; &gt;&gt;&gt;&gt;&gt; Jesse outlined below.
+&gt; &gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt; On 27/09/2012 15:51, Stephen Connolly wrote:
+&gt; &gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;  On 27 September 2012 14:41, Jesse Long &lt;jpl@unknown.za.net&gt;
+wrote:
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;  Dear Maven Community,
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; I am writing to beg you to fix the problems with the version
+ranges
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; in
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; Maven 3.0.5, specifically regarding the defining compatible
+version
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; ranges.
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; I am using Maven 3.0.4. I have a simple project that depends
+on
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; org.slf4j:slf4j-api version 1.5.*. I define my compatibility
+range
+&gt; as
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; [1.5.0,1.6.0), but this links slf4j-api version 1.6.0-RC0.
+If I
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; define
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; the
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; version range as [1.5.0,1.6.0-SNAPSHOT) I still get slf4j-api
+&gt; version
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; 1.6.0-RC0 linked in. I then tried [1.5.0,1.6.0-RC0), but
+then
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; slf4j-api
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; version 1.6.0-alpha2 is linked in.
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; Eventually, I discover that if I ask for [1.5.0,1.6.0-alpha),
+then
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; the
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; correct version, 1.5.11, is linked in. But if version 1.6.0-aa7
+was
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; released it would probably break again.
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; This is all too counter-intuitive. The current version of
+SLF4J is
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; 1.7.1.
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; If my project was to be built against it, knowing that there
+is a
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; likelihood of an incompatible change being introduced in
+1.8.0
+&gt; (SLF4J
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; does
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; not adhere to SemVer), I would like to define my version
+range for
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; slf4j-api as [1.7.0,1.8.0). I
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt;  I think you do [1.7.0,1.8.0-!)
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt; but that might just include 1.8.0-SNAPSHOT
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;   have no way of knowing before the time what type of -RC0,
+-alpha2
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; qualified releases will be made for 1.8.0, so I can only
+exclude
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; 1.8.0.
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; However, when 1.8.0-alpha2 is released with incompatible
+changes,
+&gt; my
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; build
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; will immediately be broken.
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; I could depend on version 1.5.11 directly, without using
+a version
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; range,
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; but Maven considers this a soft version dependency and will
+ignore
+&gt; it
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; as
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; needed.
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; It is apparent that there is no reliable way to define a
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; compatibility
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; range in Maven. I feel that this should be a major concern
+to all
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; Maven
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; users and developers.
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; It would be a shame for all the effort made by the Maven
+community
+&gt; to
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; make
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; software builds stable and reproducible to be undermined
+by
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; consistent,
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; predictable breakage described above.
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; I have read in mailing list archives that the suggested
+way of
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; excluding
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; all 1.8.0 pre-release version is to define an exclusive
+upper bound
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; as
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; 1.8.0-SNAPSHOT - like [1.7.0,1.8.0-SNAPSHOT). As demonstrated
+above
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; with
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; 1.6.0-RC0, this does not work. Also, it makes no sense at
+all for a
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; user
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; to
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; wish to include 1.8.0-SNAPSHOT and not 1.8.0.
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; My proposal is that the qualifier is ignored when comparing
+a
+&gt; version
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; to
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; the version number declared in an exclusive upper bound.
+ie.
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; 1.6.0-xyz
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; should be considered equal to 1.6.0 in [1.5.0,1.6.0), and
+therefore
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; considered to fall outside of the version range. Importantly,
+it
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; should
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; only be for the special case of comparing to the version
+number in
+&gt; an
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; exclusive upper bound.
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; If the powers that be see fit, an exception could be made
+for
+&gt; service
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; pack
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; qualifiers, which according to one web page on Maven version
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; ordering I
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; read, should be sorted after the release, although I would
+prefer
+&gt; to
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; see
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; Maven more closely aligned to SemVer, where all qualified
+version
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; numbers
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; are considered pre-release versions. I consider 1.7.2 a
+better
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; version
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; number than 1.7.1-sp1.
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; Ultimately, I would like to be able to make things as easy
+as
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; possible
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; for
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; users depending on a library that adheres to SemVer, to
+define a
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; compatibility range like: [1.4.0,2.0.0). I see no reason
+why it
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; should
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; not
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; be as easy as that.
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; Please consider fixing this soon.
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; I have not logged a Jira issue, as I cannot log into CodeHaus
+Jira.
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; The
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; signup link on this page displays an error:
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; http://maven.apache.org/users/
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; **getting-help.html &lt;http://maven.apache.org/****
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; users/getting-help.html&lt;
+&gt; http://maven.apache.org/**users/getting-help.html&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; &lt;http:/**/maven.apache.org/users/**getting-help.html&lt;
+&gt; http://maven.apache.org/users/getting-help.html&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; &gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; Jira issue MNG-3092, reported over 5 years ago, is related
+to this
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; issue,
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; but the initial report is for a similar issue, not this
+issue. The
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; issue
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; I
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; describe above is reported and discussed in the comments
+for
+&gt; MNG-3092
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; though.
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; Thanks,
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; Jesse
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+&gt; ------------------------------******--------------------------**--**
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; --**---------
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; To unsubscribe, e-mail:
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; users-unsubscribe@maven.****apac**he.org &lt;http://apache.org&gt;&lt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; users-unsubscribe@**maven.**apache.org &lt;http://maven.apache.org&gt;&lt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; users-unsubscribe@**maven.apache.org&lt;
+&gt; users-unsubscribe@maven.apache.org&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; &gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt;  ------------------------------****----------------------------**
+&gt; &gt;&gt;&gt;&gt;&gt;&gt; --**
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt; ---------
+&gt; &gt;&gt;&gt;&gt;&gt; To unsubscribe, e-mail: users-unsubscribe@maven.**apac**he.org&lt;
+&gt; http://apache.org&gt;
+&gt; &gt;&gt;&gt;&gt;&gt; &lt;users-unsubscribe@**maven.apache.org&lt;
+&gt; users-unsubscribe@maven.apache.org&gt;
+&gt; &gt;&gt;&gt;&gt;&gt; &gt;
+&gt; &gt;&gt;&gt;&gt;&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt; &gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;  ------------------------------****----------------------------**
+&gt; &gt;&gt;&gt;&gt; --**---------
+&gt; &gt;&gt;&gt;&gt; To unsubscribe, e-mail: users-unsubscribe@maven.**apac**he.org&lt;
+&gt; http://apache.org&gt;
+&gt; &gt;&gt;&gt;&gt; &lt;users-unsubscribe@**maven.apache.org&lt;
+&gt; users-unsubscribe@maven.apache.org&gt;
+&gt; &gt;&gt;&gt;&gt; &gt;
+&gt; &gt;&gt;&gt;&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt; &gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;  ------------------------------****----------------------------**
+&gt; &gt;&gt;&gt; --**---------
+&gt; &gt;&gt;&gt; To unsubscribe, e-mail: users-unsubscribe@maven.**apac**he.org&lt;
+&gt; http://apache.org&gt;
+&gt; &gt;&gt;&gt; &lt;users-unsubscribe@**maven.apache.org&lt;
+&gt; users-unsubscribe@maven.apache.org&gt;
+&gt; &gt;&gt;&gt; &gt;
+&gt; &gt;&gt;&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt;
+&gt; &gt;
+&gt; &gt; ------------------------------**------------------------------**---------
+&gt; &gt; To unsubscribe, e-mail: users-unsubscribe@maven.**apache.org&lt;
+&gt; users-unsubscribe@maven.apache.org&gt;
+&gt; &gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt; &gt;
+&gt; &gt;
+&gt;
+&gt; --
+&gt; Baptiste &lt;Batmat&gt; MATHUS - http://batmat.net
+&gt; Sauvez un arbre,
+&gt; Mangez un castor !
+&gt; nbsp;!
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201209.mbox/raw/%3cCANWgJS4dtLv13BkiOSTsiGF64UBw6Hkx+D6ibpu8nZc6uquQsw@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, Quoted Printable, 11213 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201209.mbox/raw/%3cCANWgJS4dtLv13BkiOSTsiGF64UBw6Hkx+D6ibpu8nZc6uquQsw@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

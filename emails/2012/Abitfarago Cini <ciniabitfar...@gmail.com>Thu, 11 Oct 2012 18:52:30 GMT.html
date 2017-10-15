@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>xdoclet plugin for maven - custom tag handlers</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201210.mbox/%3cCADN69ympjdVwLR6_=pAY=dgahnNtL--suK0sT=Fv9+y8C2eDxQ@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201210.mbox/%3c40FC58BA-3052-4ABE-8E00-DCAAE93F28F9@codehaus.org%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201210.mbox/%3c255343FA5EEE4D4599D4588EE379349B23A6D4BC@RHV-EXRDA-S21.corp.ebay.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201210.mbox/%3c40FC58BA-3052-4ABE-8E00-DCAAE93F28F9@codehaus.org%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201210.mbox/%3cCADN69ympjdVwLR6_=pAY=dgahnNtL--suK0sT=Fv9+y8C2eDxQ@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201210.mbox/%3c40FC58BA-3052-4ABE-8E00-DCAAE93F28F9@codehaus.org%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201210.mbox/%3c255343FA5EEE4D4599D4588EE379349B23A6D4BC@RHV-EXRDA-S21.corp.ebay.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201210.mbox/%3c40FC58BA-3052-4ABE-8E00-DCAAE93F28F9@codehaus.org%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Abitfarago Cini &lt;ciniabitfar...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">xdoclet plugin for maven - custom tag handlers</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Thu, 11 Oct 2012 18:52:30 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hi,
+
+I try to port an old Ant based build to Maven. It contains multiple xdoclet
+generations, of them (for XML files) uses home brewed tag handlers. These
+handlers are built separately and the artifact is installed in my local
+repository.
+
+When I run the *mvn install* it complains saying:
+
+[ERROR] Failed to execute goal
+org.codehaus.mojo:xdoclet-maven-plugin:1.0:xdoclet (default) on project
+pcm-services-model: Error executing ant tasks: Unexpected error: XDoclet
+failed. xdoclet.template.TemplateException: Could not find tag handler for
+prefix: 'xdclDum' -&gt; [Help 1]
+
+What I am missing?
+
+Abitfarago
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201210.mbox/raw/%3cCAGHJHvZtfYzxME+2Bfkid6Ypr=WwgbJ9h67edtJqYmjX=y4BVQ@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 605 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201210.mbox/raw/%3cCAGHJHvZtfYzxME+2Bfkid6Ypr=WwgbJ9h67edtJqYmjX=y4BVQ@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

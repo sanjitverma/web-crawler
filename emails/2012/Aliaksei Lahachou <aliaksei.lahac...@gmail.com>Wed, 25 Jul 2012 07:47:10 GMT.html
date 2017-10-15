@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Executing a goal *after* install</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201207.mbox/%3cCAA8Y1+so4vNkf4fNGvinqr+MVNMFqvkBWU_L5jhyt3a=E2qGag@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201207.mbox/%3c1343203670721-5714848.post@n5.nabble.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201207.mbox/%3cCAK8jvqwBY4eH1B3ekz4_1qkqNh4hLd57pRvLBGis6+GoozDAFA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCAPLpRQJJAOePf3Yv8_OMKJw7K4B9x8OCF-_Ob61Q1Aq-ST97Hg@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201207.mbox/%3cCAA8Y1+so4vNkf4fNGvinqr+MVNMFqvkBWU_L5jhyt3a=E2qGag@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201207.mbox/%3c1343203670721-5714848.post@n5.nabble.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201207.mbox/%3cCAK8jvqwBY4eH1B3ekz4_1qkqNh4hLd57pRvLBGis6+GoozDAFA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCAPLpRQJJAOePf3Yv8_OMKJw7K4B9x8OCF-_Ob61Q1Aq-ST97Hg@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Aliaksei Lahachou &lt;aliaksei.lahac...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Executing a goal *after* install</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Wed, 25 Jul 2012 07:47:10 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hi Mirko!
+
+You may try doing the same trick as the cobertura-maven-plugin does when
+aggregate is set to true.
+
+1. Every module executes the plugin, but the plugin updates the same file
+in the directory of the project from which the build was started. In you
+case you may, for example, calculate SHA1 of the module artifacts and
+append them to a file.
+2. When the execution belongs to the last module in the reactor,
+cobertura-maven-plugin generates a report in the directory of the project
+from which the build was started. At this point you have all artifacts, the
+list of SHA1, and you may do other stuff with it, for example, post the
+list somewhere.
+
+
+Regards,
+htfv (Aliaksei Lahachou)
+
+
+On Wed, Jul 25, 2012 at 9:24 AM, Mirko Friedenhagen &lt;mfriedenhagen@gmail.com
+&gt; wrote:
+
+&gt; Hello Brett,
+&gt;
+&gt; unfortunately, binding it to Lifecycle.INSTALL without a custom
+&gt; lifecycle seems not to be good enough. During the run of "mvn
+&gt; install", "install" will be run in every module seperately (first
+&gt; parent, the reactor projects). Now after install:install succeeded in
+&gt; the parent, my goal foo:create-sha1-list runs but install:install did
+&gt; not run in the other reactor projects (probably they are even not yet
+&gt; compiled yet).
+&gt;
+&gt; I want to create exactly *one* bill-of-materials for *all* artifacts
+&gt; created in the multi-module project.
+&gt;
+&gt; I will take a look at the lifecycle stuff, though I fear  I did not
+&gt; grasp the documentation right now :-).
+&gt;
+&gt; Regards Mirko
+&gt;
+&gt; On Wed, Jul 25, 2012 at 2:13 AM, Brett Porter &lt;brett@apache.org&gt; wrote:
+&gt; &gt; Binding the mojo in the install phase will run it after anything already
+&gt; executed in the install phase, which should be sufficient for your use case
+&gt; (you can probably even run it in the package phase since everything
+&gt; attaching artifacts will happen there).
+&gt; &gt;
+&gt; &gt; - Brett
+&gt; &gt;
+&gt; &gt; On 25/07/2012, at 7:08 AM, Mirko Friedenhagen wrote:
+&gt; &gt;
+&gt; &gt;&gt; Hello,
+&gt; &gt;&gt;
+&gt; &gt;&gt; in a multi-module project, I want to create a sha1 list of all
+&gt; &gt;&gt; artifacts created. For that I created a Mojo which collects all
+&gt; &gt;&gt; artifacts as well as attachedArtifacts from the executionRoot as well
+&gt; &gt;&gt; as the invoking parent. Now I probably need a way to execute a plugin
+&gt; &gt;&gt; *after* install ran in all projects. Is there a way to define that I
+&gt; &gt;&gt; want to run the mojo "post-install"?
+&gt; &gt;&gt;
+&gt; &gt;&gt; Regards Mirko
+&gt; &gt;&gt;
+&gt; &gt;&gt; ---------------------------------------------------------------------
+&gt; &gt;&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; &gt;&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt; &gt;&gt;
+&gt; &gt;
+&gt; &gt; --
+&gt; &gt; Brett Porter
+&gt; &gt; brett@apache.org
+&gt; &gt; http://brettporter.wordpress.com/
+&gt; &gt; http://au.linkedin.com/in/brettporter
+&gt; &gt; http://twitter.com/brettporter
+&gt; &gt;
+&gt; &gt;
+&gt; &gt;
+&gt; &gt;
+&gt; &gt;
+&gt; &gt;
+&gt; &gt; ---------------------------------------------------------------------
+&gt; &gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; &gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt; &gt;
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201207.mbox/raw/%3cCALcFPWG5YboAChE0O7Dinqv+Nx9JOkpqaSWsnizSLYjwkZztpA@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 3150 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201207.mbox/raw/%3cCALcFPWG5YboAChE0O7Dinqv+Nx9JOkpqaSWsnizSLYjwkZztpA@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Can Maven edit a WAR?</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201208.mbox/%3cCAKDUN1sNs84hEgB8ZMY+0K3SD4ZBvU4XdH9SzPrf3JHvC1OENA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201208.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201208.mbox/%3cCA+nPnMx9D2mzUQfiZEyAiKQom_3622okv6NzAUFq679f=GgBkQ@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201208.mbox/%3c625FA4AE-6CD3-4783-8666-19A6CAB7B04A@riverainc.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201208.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201208.mbox/%3c501C3B3B.6010503@artifact-software.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201208.mbox/%3cCAKDUN1sNs84hEgB8ZMY+0K3SD4ZBvU4XdH9SzPrf3JHvC1OENA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201208.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201208.mbox/%3cCA+nPnMx9D2mzUQfiZEyAiKQom_3622okv6NzAUFq679f=GgBkQ@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201208.mbox/%3c625FA4AE-6CD3-4783-8666-19A6CAB7B04A@riverainc.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201208.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201208.mbox/%3c501C3B3B.6010503@artifact-software.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Anders Hammar &lt;and...@hammar.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Can Maven edit a WAR?</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Fri, 03 Aug 2012 20:09:41 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+&gt; @Doug What you said is exactly what I'm talking about. I WANT to externalize my configuration,
+and am almost set up to have it
+&gt; completely external. My problem has been figuring out how to get the external properties
+back into the WAR. For this, I'll check
+&gt; how powerful these overlays that Matt mentioned are.
+
+The thing is that you shouldn't get the config file (e.g. a properties
+file) back into the war. Instead, your code should read the config
+file from the classpath and then you just need to have the config file
+available on the classpath in runtime. This is supported by app
+servers etc by having this file in a config folder external to the
+deployables.
+
+A similar solution is to read the configurations from JNDI. Similar in
+that sense that it is external to your deployable archive.
+
+/Anders
+
+&gt;
+&gt; I DON'T want to couple database credentials etc. with my source code. I would only put
+a template properties file in the source, with directions for deployment.
+&gt;
+&gt; One idea is to have my xml files try to be more dynamic. For example I could guide the
+configuration at runtime based on environment variables(I saw this idea on-line somewhere).
+Environment variables are usually available as xml properties. I could throw my external properties
+files into the $CATALINA_BASE/lib directory and point to different files as I need them at
+runtime. Does this sound reasonable to everyone?
+&gt;
+&gt; Thanks for all the ideas.
+&gt;
+&gt; On Aug 3, 2012, at 12:16 PM, Ron Wheeler wrote:
+&gt;
+&gt;&gt; On 03/08/2012 12:04 PM, Jared Hall wrote:
+&gt;&gt;&gt; I would like to be able to modify the contents of a WAR file.
+&gt;&gt;&gt;
+&gt;&gt;&gt; Goal: I would like to be in a directory with my WAR and a pom.xml. When I type
+'maven configure', I would like maven to apply a filter to some of the files in the war, and
+then leave behind the exact same WAR, with the filters applied. I don't need to compile any
+files, I just need to apply some filters to some files that are already in a WAR.
+&gt;&gt;&gt;
+&gt;&gt;&gt; The motivation for this is that I compile something that is still un-configured.
+I throw the war into my test environment and configure it. If it passes, I graduate it to
+production and re-configure it.
+&gt;&gt;&gt;
+&gt;&gt;&gt; Note: I don't care whether or not I use Maven or something like a scripting language
+to accomplish this. The end goal is what I described above, one typed command that reconfigures
+the WAR. I thought Maven might be able to do most of the leg-work for me.
+&gt;&gt;&gt;
+&gt;&gt;&gt; Any help is appreciated, thanks.
+&gt;&gt;&gt; ---------------------------------------------------------------------
+&gt;&gt;&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt;&gt;&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;&gt;&gt;
+&gt;&gt;&gt;
+&gt;&gt; Maven is not a scripting tool.
+&gt;&gt; It has very definite ideas about how software gets built and this is not
+&gt;&gt; really in line with its ideas.
+&gt;&gt; In dealing with Maven, you have to conform to its process or you will
+&gt;&gt; have a miserable life until you submit.
+&gt;&gt; "Resistance is futile" is your best mantra when planning to do battle
+&gt;&gt; with Maven.
+&gt;&gt; Stop before you start.
+&gt;&gt;
+&gt;&gt; Try Ant.
+&gt;&gt; It is the Border Collie of Java tools and wants to do whatever you want
+&gt;&gt; to do.
+&gt;&gt; It has no preconceived ideas about "Best Practices".
+&gt;&gt;
+&gt;&gt; Ron
+&gt;&gt;
+&gt;&gt; --
+&gt;&gt; Ron Wheeler
+&gt;&gt; President
+&gt;&gt; Artifact Software Inc
+&gt;&gt; email: rwheeler@artifact-software.com
+&gt;&gt; skype: ronaldmwheeler
+&gt;&gt; phone: 866-970-2435, ext 102
+&gt;&gt;
+&gt;&gt;
+&gt;&gt; ---------------------------------------------------------------------
+&gt;&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt;&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;&gt;
+&gt;
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201208.mbox/raw/%3cCAKDUN1tv23wRi2BvC5gwvMjqXPmNDMNz39iU2PdEgLn9LedR2A@mail.gmail.com%3e/">Unnamed text/plain</a> (inline, Quoted Printable, 4011 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201208.mbox/raw/%3cCAKDUN1tv23wRi2BvC5gwvMjqXPmNDMNz39iU2PdEgLn9LedR2A@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

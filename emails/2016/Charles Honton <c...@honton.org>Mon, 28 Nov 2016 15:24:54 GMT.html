@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Don't overwrite existing artifact - how?</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201611.mbox/%3c57A008FAA9E6E1E3.86C35063-4A19-4135-9058-32C28E354111@mail.outlook.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201611.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201611.mbox/%3cKL1PR01MB09825119D02F608F82FCFE77B58D0@KL1PR01MB0982.apcprd01.prod.exchangelabs.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201611.mbox/%3c57A008FAA9E6E1E3.86C35063-4A19-4135-9058-32C28E354111@mail.outlook.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201611.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201611.mbox/%3c3B7A7BDFFD286F49A19A5B35D26E08FB01EA0ABB@srvmail2.aurenz.local%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201611.mbox/%3c57A008FAA9E6E1E3.86C35063-4A19-4135-9058-32C28E354111@mail.outlook.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201611.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201611.mbox/%3cKL1PR01MB09825119D02F608F82FCFE77B58D0@KL1PR01MB0982.apcprd01.prod.exchangelabs.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201611.mbox/%3c57A008FAA9E6E1E3.86C35063-4A19-4135-9058-32C28E354111@mail.outlook.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201611.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201611.mbox/%3c3B7A7BDFFD286F49A19A5B35D26E08FB01EA0ABB@srvmail2.aurenz.local%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Charles Honton &lt;c...@honton.org&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Don't overwrite existing artifact - how?</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Mon, 28 Nov 2016 15:24:54 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+As far as preventing overwrite of an existing remote artifact, you can use the exists-maven-plugin
+&lt;https://github.com/chonton/exists-maven-plugin&gt;.  (https://github.com/chonton/exists-maven-plugin
+&lt;https://github.com/chonton/exists-maven-plugin&gt;) This plugin will check for the existence
+of a current artifact and set a property which can be used to ‘skip’ later plugin execution.
+
+By default, this plugin sets the maven.deploy.skip property to false if the current project’s
+non-snapshot artifact already exists in the remote repository, thus preventing attempted overwrite
+of final artifacts.  You could configure this plugin to set a different property or also prevent
+SNAPSHOT artifacts from being overwritten.
+
+If you have a similar need for install phase, you can create an issue or pull request at this
+project.
+
+chas
+
+&gt; On Nov 28, 2016, at 12:11 AM, Hohl, Gerrit &lt;g.hohl@aurenz.de&gt; wrote:
+&gt; 
+&gt; Hello everyone, :-)
+&gt; 
+&gt; seems my question was an odd one as I didn't get any replies on it.
+&gt; So maybe I modify it a little bit:
+&gt; Is it possible - maybe with an own Maven plugin - to check if an artifact is already
+in the remote / central repository of my company?
+&gt; 
+&gt; The goal is the following:
+&gt; 
+&gt; Each check-in into the SCM triggers a build which builds with "install" on the Jenkins
+build server.
+&gt; Except if that version is already in the central Nexus repository of the company.
+&gt; A manually triggered build on the Jenkins build server will build with "deploy".
+&gt; Except if that version is already in the central Nexus repository of the company.
+&gt; 
+&gt; This way always the newest version of an artifact would be available for other artifact
+build processes which depend on it.
+&gt; But versions which have been already "released" wouldn't be changed / overwritten.
+&gt; Otherwise they would change on the build server because someone forgot to change the
+version and break other builds on that machine.
+&gt; 
+&gt; Does someone of you know if it is possible to realize something like that with already
+existing (and still maintained / developed) plugins?
+&gt; Or how a programmatically solution could look like? Means does someone know what the
+Maven classes for accessing the remote repository are?
+&gt; 
+&gt; Regards,
+&gt; Gerrit
+&gt; -----Ursprüngliche Nachricht-----
+&gt; Von: Hohl, Gerrit [mailto:g.hohl@aurenz.de] 
+&gt; Gesendet: Freitag, 18. November 2016 08:48
+&gt; An: users@maven.apache.org
+&gt; Betreff: Don't overwrite existing artifact - how?
+&gt; 
+&gt; Hello everyone, :-)
+&gt; 
+&gt; 
+&gt; 
+&gt; is it somehow possible not to "install" an artifact which already exists in the local
+repository?
+&gt; 
+&gt; What about artifacts in a remote repository? Is it possible to prevent deployment of
+such artifacts?
+&gt; 
+&gt; 
+&gt; 
+&gt; I don't want to have our build server to accidentally install an artifact a second time
+just because someone forgot to change the version.
+&gt; 
+&gt; Even if that artifact isn't deployed to the remote repository it will be used on that
+build server.
+&gt; 
+&gt; In the maven-install-plugin description there is no option. But who knows...
+&gt; 
+&gt; 
+&gt; 
+&gt; I saw that there is the possibility in Nexus to prevent redeployement for a repository.
+&gt; 
+&gt; Is there also a way within Maven? Or not because Maven says it's the job of the repository
+server / service itself.
+&gt; 
+&gt; In the maven-deploy-plugin description there is no option. But who knows...
+&gt; 
+&gt; 
+&gt; 
+&gt; Regards,
+&gt; 
+&gt; Gerrit
+&gt; 
+&gt; 
+&gt; 
+&gt; 
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt; 
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201611.mbox/raw/%3c6BA0B828-5FE9-4CBB-9E15-3A32B210C27E@honton.org%3e/1">Unnamed text/plain</a> (inline, Quoted Printable, 3703 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201611.mbox/raw/%3c6BA0B828-5FE9-4CBB-9E15-3A32B210C27E@honton.org%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

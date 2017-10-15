@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Missing key cacheFile, checkstyle plugin, custom check class</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201204.mbox/%3cCAPCjjnHis6irVjRRET-s7VVKCqAz8pJbS=wRu7SUxTUXzesAZw@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201204.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201204.mbox/%3cCAMQqkaS557y5ji2749WSe3tkPn7mFhG_i=JB3OqWWKLvO8dpQw@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201204.mbox/%3cCAMQqkaRsbghdvvcmobeAtCXKFAv5-vvsG8Sy0FCD+7-eTHVzXg@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201204.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201204.mbox/%3cCAMQqkaS557y5ji2749WSe3tkPn7mFhG_i=JB3OqWWKLvO8dpQw@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201204.mbox/%3cCAPCjjnHis6irVjRRET-s7VVKCqAz8pJbS=wRu7SUxTUXzesAZw@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201204.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201204.mbox/%3cCAMQqkaS557y5ji2749WSe3tkPn7mFhG_i=JB3OqWWKLvO8dpQw@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201204.mbox/%3cCAMQqkaRsbghdvvcmobeAtCXKFAv5-vvsG8Sy0FCD+7-eTHVzXg@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201204.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201204.mbox/%3cCAMQqkaS557y5ji2749WSe3tkPn7mFhG_i=JB3OqWWKLvO8dpQw@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Barrie Treloar &lt;baerr...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Missing key cacheFile, checkstyle plugin, custom check class</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Thu, 12 Apr 2012 22:40:31 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+On Fri, Apr 13, 2012 at 3:29 AM, Grant Lewis &lt;ukchucktown@gmail.com&gt; wrote:
+&gt; Yes, I tried all the suggested solutions including that one. On a hunch I
+&gt; went ahead and explicitly set the checkstyle version to 5.5 in the POM and
+&gt; problem solved. I believe checkstyle 5.5 changed the method signatures on
+&gt; some of the log methods and that was causing the issue during the report
+&gt; generation. Here is what worked for me...
+
+Running mvn -X would have told you (in great verbosage) what version
+of plugins were being loaded.
+
+And you would have noticed that m-checkstyle-p was not 5.5.
+
+It is best practice to lock down version of plugins.
+
+Use "The Loving Iron Fist of Maven", aka m-enforcer-p to fail your
+build when someone forgets to specify a plugin version.
+
+Your release manager will thank you.
+A sainthood is a real possibility.
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201204.mbox/raw/%3cCADVp3v-07fuxyy0fCQVDPN23bWXsSFxvhv37PvZiq5RxeemVNw@mail.gmail.com%3e/">Unnamed text/plain</a> (inline, None, 1029 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201204.mbox/raw/%3cCADVp3v-07fuxyy0fCQVDPN23bWXsSFxvhv37PvZiq5RxeemVNw@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

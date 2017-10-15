@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Site, deployment url and inheritance</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201207.mbox/%3c4FF18393.5070208@apache.org%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCACxOcRr8xBBS0OK73BxZ_sDGZPwBkpV=DRqXNrSNLOfW9to9OA@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201207.mbox/%3c4FF18393.5070208@apache.org%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCACxOcRr8xBBS0OK73BxZ_sDGZPwBkpV=DRqXNrSNLOfW9to9OA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201207.mbox/%3c4FF18393.5070208@apache.org%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCACxOcRr8xBBS0OK73BxZ_sDGZPwBkpV=DRqXNrSNLOfW9to9OA@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201207.mbox/%3c4FF18393.5070208@apache.org%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCACxOcRr8xBBS0OK73BxZ_sDGZPwBkpV=DRqXNrSNLOfW9to9OA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Grégory Joseph &lt;greg....@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Site, deployment url and inheritance</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Mon, 02 Jul 2012 11:57:53 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hi Lukas,
+
+On 2 July 2012 13:18, Lukas Theussl &lt;ltheussl@apache.org&gt; wrote:
+&gt; Grégory Joseph wrote:
+&gt;&gt; It kind of sounds like MSITE-600 to me, so I'm unsure if/how the issue
+&gt;&gt; was fixed. Example:
+&gt;&gt; * Corporate parent pom defines this site deployment url:
+&gt;&gt; prot://foo/${artifactId}/${version} -- it works for this pom, and it's
+&gt;&gt; a good enough default for most of our single-module projects. Not the
+&gt;&gt; lack of trailing slash, btw.
+&gt;&gt; * Some multi-module project defines this site deployment url:
+&gt;&gt; prot://foo/xuq/lolcats/${version}. And the resulting deployment urls
+&gt;&gt; end up looking like:
+&gt;&gt; prot://foo/corp-parent/12//../../xuq/lolcats/${version} (and I still
+&gt;&gt; don't know where the double slash comes from)
+&gt;
+&gt; Normalizing this is exactly the same as
+&gt; prot://foo/xuq/lolcats/${version},
+
+It *should* be, but by using those URLs as-is, Maven relies on the
+receiving end to do the normalization.
+And I'm still wondering why it bothers doing that in the first place ;)
+
+&gt; so the deployment location should be
+&gt; correct. Did you try site:stage to check?
+
+How is that helping ? I am not worried about inter-module links -
+those indeed seem to work - but about why the parent's urls are taken
+into account in the first place, and if there's a good reason for
+that, then I wonder why normalization doesn't happen on the Maven
+side.
+
+Cheers,
+
+-g
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201207.mbox/raw/%3cCACxOcRpdwehJdc5wM31X=1ai-jDruX+Zk66V1GRDad4tx=B4Hw@mail.gmail.com%3e/">Unnamed text/plain</a> (inline, Quoted Printable, 1545 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201207.mbox/raw/%3cCACxOcRpdwehJdc5wM31X=1ai-jDruX+Zk66V1GRDad4tx=B4Hw@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

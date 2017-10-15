@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: AW: [maven-3/trunk] bootstrap-build failing</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201211.mbox/%3cCAPJK9=+q_spAeUpOJwDKY_LGor9_kJLW_dYbd8B6G8KetEcKDA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201211.mbox/%3cC76B3518F981E0468383F7E091A595B88EFBE5@c005815.chres1.doleni.net%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201211.mbox/%3c37958B3C-2782-4DE5-8EA0-1E6B34B07FFA@gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201211.mbox/%3cC76B3518F981E0468383F7E091A595B88EFBE5@c005815.chres1.doleni.net%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201211.mbox/%3cCAPJK9=+q_spAeUpOJwDKY_LGor9_kJLW_dYbd8B6G8KetEcKDA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201211.mbox/%3cC76B3518F981E0468383F7E091A595B88EFBE5@c005815.chres1.doleni.net%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201211.mbox/%3c37958B3C-2782-4DE5-8EA0-1E6B34B07FFA@gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201211.mbox/%3cC76B3518F981E0468383F7E091A595B88EFBE5@c005815.chres1.doleni.net%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Anders Hammar &lt;and...@hammar.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: AW: [maven-3/trunk] bootstrap-build failing</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Thu, 01 Nov 2012 16:23:18 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+I'm guessing there's a missing proxy configuration here.
+
+/Anders
+
+
+On Thu, Nov 1, 2012 at 4:42 PM, Stuart McCulloch &lt;mcculls@gmail.com&gt; wrote:
+
+&gt; On 1 Nov 2012, at 15:06, Stadelmann Josef wrote:
+&gt;
+&gt; &gt; OK Stuart,
+&gt; &gt; at my Vista System, it fails. Just downloaded and installed ant 1.8.4
+&gt; &gt;
+&gt; &gt; $ java -version
+&gt; &gt; java version "1.6.0_30"
+&gt; &gt; Java(TM) SE Runtime Environment (build 1.6.0_30-b12)
+&gt; &gt; Java HotSpot(TM) Client VM (build 20.5-b03, mixed mode)
+&gt; &gt;
+&gt; &gt; C770817@C036357 /e/asf/maven/maven-3/trunk
+&gt; &gt;
+&gt; &gt; $ ant -version
+&gt; &gt; Apache Ant(TM) version 1.8.4 compiled on May 22 2012
+&gt; &gt;
+&gt; &gt; $ ant -d -f build.xml
+&gt; &gt; ...
+&gt; &gt; BUILD FAILED
+&gt; &gt; E:\asf\maven\maven-3\trunk\build.xml:250: Java returned: 1
+&gt; &gt;        at org.apache.tools.ant.taskdefs.Java.execute(Java.java:111)
+&gt; &gt;        at
+&gt; org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:291)
+&gt; &gt;        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+&gt; &gt;        at
+&gt; sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+&gt; &gt;        at
+&gt; sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+&gt; &gt;        at java.lang.reflect.Method.invoke(Method.java:597)
+&gt; &gt;        at
+&gt; org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:106)
+&gt; &gt;        at org.apache.tools.ant.Task.perform(Task.java:348)
+&gt; &gt;        at org.apache.tools.ant.Target.execute(Target.java:392)
+&gt; &gt;        at org.apache.tools.ant.Target.performTasks(Target.java:413)
+&gt; &gt;        at
+&gt; org.apache.tools.ant.Project.executeSortedTargets(Project.java:1399)
+&gt; &gt;        at org.apache.tools.ant.Project.executeTarget(Project.java:1368)
+&gt; &gt;        at
+&gt; org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+&gt; &gt;        at org.apache.tools.ant.Project.executeTargets(Project.java:1251)
+&gt; &gt;        at org.apache.tools.ant.Main.runBuild(Main.java:809)
+&gt; &gt;        at org.apache.tools.ant.Main.startAnt(Main.java:217)
+&gt; &gt;        at org.apache.tools.ant.launch.Launcher.run(Launcher.java:280)
+&gt; &gt;        at org.apache.tools.ant.launch.Launcher.main(Launcher.java:109)
+&gt; &gt;
+&gt; &gt; Total time: 2 minutes 7 seconds
+&gt; &gt;
+&gt; &gt; E:\asf\maven\maven-3\trunk&gt;
+&gt; &gt;
+&gt; &gt; So I have no clue why this ant bootstrap-build fails  on my Vista System
+&gt; which is a clean as many other systems used to develop code.
+&gt; &gt; The line build.xml(250) is where ...MavenCLI class gets invoked/forked
+&gt; by a java command. I have no clue why 1 is returned to/by Java.
+&gt;
+&gt; Line 250 in build.xml is where it forks the JVM - if you capture the
+&gt; output from running "ant -d -f build.xml" and look for "maven-compile:"
+&gt; then it should show the actual command it forks (ie. the one that returns
+&gt; error code 1). You could copy that command and all its arguments (ie. java
+&gt; -classpath ...&lt;snip&gt;... org.apache.maven.cli.MavenCli ...&lt;etc&gt;...) and try
+&gt; it from the command-line to see if there's an error message that's not
+&gt; getting passed on. Perhaps also add '-X' after
+&gt; 'org.apache.maven.cli.MavenCli' to enable full debug output.
+&gt;
+&gt; &gt; OK - we sit behind a firewall , if that makes a difference?
+&gt;
+&gt; The bootstrap build should use your local settings.xml just like Maven, so
+&gt; as long this is configured with any proxy needed to access Maven Central
+&gt; then it should be fine.
+&gt;
+&gt; &gt; Josef
+&gt; &gt;
+&gt; &gt; -----Ursprüngliche Nachricht-----
+&gt; &gt; Von: Stuart McCulloch [mailto:mcculls@gmail.com]
+&gt; &gt; Gesendet: Donnerstag, 1. November 2012 14:52
+&gt; &gt; An: Maven Users List
+&gt; &gt; Betreff: Re: [maven-3/trunk] bootstrap-build failing
+&gt; &gt;
+&gt; &gt; On 1 November 2012 10:29, Stadelmann Josef &lt;
+&gt; josef.stadelmann@axa-winterthur.ch&gt; wrote:
+&gt; &gt;
+&gt; &gt;&gt; How can I cure best the problems shown below? it occurs during a
+&gt; &gt;&gt; bootstrap-build of maven-3/trunk on my Vista System.
+&gt; &gt;&gt; (see red lines, which are of interesst to me).
+&gt; &gt;&gt;
+&gt; &gt;&gt; I have successfully build from sources SLF4J é all. Where does this
+&gt; &gt;&gt; bootstrap-build.xml expect this files now?
+&gt; &gt;&gt; where do I have to copy the SLF4J-*.jars and maybe others to make the
+&gt; &gt;&gt; maven-3/trunk build.xml (bootstrap-build) happy?
+&gt; &gt;&gt;
+&gt; &gt;
+&gt; &gt; SLF4J should be downloaded by the [artifact:dependencies] task, just
+&gt; like all the other bootstrap dependencies - you shouldn't need to build it
+&gt; yourself.
+&gt; &gt;
+&gt; &gt; Has the final error shown below, (which makes the bootstrap-build fail?)
+&gt; to
+&gt; &gt;&gt; do with the absence of SLF4J-*.jar's or what does it indicate?
+&gt; &gt;&gt;
+&gt; &gt;
+&gt; &gt; The SLF4J messages about 'Failed to load class' and 'Defaulting to
+&gt; no-operation' are informational and should not fail the build. It means
+&gt; that it couldn't find a backend implementation (the current build does not
+&gt; specify a particular backend on purpose) so it's telling you about this in
+&gt; case you had meant to choose a backend but forgot:
+&gt; &gt; http://www.slf4j.org/codes.html#StaticLoggerBinder
+&gt; &gt;
+&gt; &gt; The final error just says that Java returned 1 on exit, but doesn't say
+&gt; why
+&gt; &gt; - you could try running "ant -d -f build.xml" to see if that gives more
+&gt; information about the failure at the end.
+&gt; &gt;
+&gt; &gt; FWIW, I just tried the bootstrap build on a clean system (OSX, Java
+&gt; 1.6.0_37, Ant 1.8.4) and it built without errors - note that I still saw
+&gt; the SLF4J messages, but those are expected at the moment
+&gt; &gt;
+&gt; &gt; This on a Windows Vista System
+&gt; &gt;&gt; Josef
+&gt; &gt;&gt;
+&gt; &gt;&gt; ant -f E:\\asf\\maven\\maven-3\\trunk all
+&gt; &gt;&gt; clean-bootstrap:
+&gt; &gt;&gt; initTaskDefs:
+&gt; &gt;&gt; Building Apache Maven ...
+&gt; &gt;&gt; isMavenHomeSet:
+&gt; &gt;&gt; init:
+&gt; &gt;&gt; maven.home = E:\Users\C770817\SW-UMGEBUNG\apache-maven-3.1
+&gt; &gt;&gt; maven.repo.local = /E:/Users/C770817/.m2/repository distributionId =
+&gt; &gt;&gt; apache-maven distributionName = Apache Maven distributionDirectory =
+&gt; &gt;&gt; apache-maven
+&gt; &gt;&gt; prompt-maven-home-exists:
+&gt; &gt;&gt; pull:
+&gt; &gt;&gt; Copying 1 file to E:\asf\maven\maven-3\trunk
+&gt; &gt;&gt; Deleting: E:\asf\maven\maven-3\trunk\dependencies.xml
+&gt; &gt;&gt; generate-sources:
+&gt; &gt;&gt; Created dir: E:\asf\maven\maven-3\trunk\bootstrap\target
+&gt; &gt;&gt; Created dir:
+&gt; &gt;&gt; E:\asf\maven\maven-3\trunk\bootstrap\target\generated-sources
+&gt; &gt;&gt; Generating sources for maven-model/src/main/mdo/maven.mdo
+&gt; &gt;&gt; Generating sources for maven-plugin-api/src/main/mdo/lifecycle.mdo
+&gt; &gt;&gt; Generating sources for maven-model-builder/src/main/mdo/profiles.mdo
+&gt; &gt;&gt; Generating sources for maven-settings/src/main/mdo/settings.mdo
+&gt; &gt;&gt; Generating sources for maven-core/src/main/mdo/toolchains.mdo
+&gt; &gt;&gt; Generating sources for
+&gt; &gt;&gt; maven-repository-metadata/src/main/mdo/metadata.mdo
+&gt; &gt;&gt; Generating sources for maven-compat/src/main/mdo/profiles.mdo
+&gt; &gt;&gt; Generating sources for maven-compat/src/main/mdo/paramdoc.mdo
+&gt; &gt;&gt; compile-boot:
+&gt; &gt;&gt; Created dir: E:\asf\maven\maven-3\trunk\bootstrap\target\classes
+&gt; &gt;&gt; Compiling 719 source files to
+&gt; &gt;&gt; E:\asf\maven\maven-3\trunk\bootstrap\target\classes
+&gt; &gt;&gt; Note: Some input files use or override a deprecated API.
+&gt; &gt;&gt; Note: Recompile with -Xlint:deprecation for details.
+&gt; &gt;&gt; Note: Some input files use unchecked or unsafe operations.
+&gt; &gt;&gt; Note: Recompile with -Xlint:unchecked for details.
+&gt; &gt;&gt; Copying 1 file to E:\asf\maven\maven-3\trunk\bootstrap\target\classes
+&gt; &gt;&gt; process-classes:
+&gt; &gt;&gt; Using plexus version 1.5.5
+&gt; &gt;&gt; SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+&gt; &gt;&gt; SLF4J: Defaulting to no-operation (NOP) logger implementation
+&gt; &gt;&gt; SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for
+&gt; &gt;&gt; further details.
+&gt; &gt;&gt; [INFO] Discovered 129 component descriptors(s)
+&gt; &gt;&gt; maven-compile:
+&gt; &gt;&gt; SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+&gt; &gt;&gt; SLF4J: Defaulting to no-operation (NOP) logger implementation
+&gt; &gt;&gt; SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for
+&gt; &gt;&gt; further details.
+&gt; &gt;&gt; null 3.1-SNAPSHOT
+&gt; &gt;&gt; ${distributionShortName} home: &lt;unknown maven home&gt; Java version:
+&gt; &gt;&gt; 1.6.0_30, vendor: Sun Microsystems Inc.
+&gt; &gt;&gt; Java home: C:\Program Files\Java\jdk1.6.0_30\jre Default locale:
+&gt; &gt;&gt; de_CH, platform encoding: Cp1252 OS name: "windows vista", version:
+&gt; &gt;&gt; "6.0", arch: "x86", family:
+&gt; &gt;&gt; "windows"[debug] execute contextualize [debug] execute contextualize
+&gt; &gt;&gt;
+&gt; &gt;&gt; -------------------------------------------------------
+&gt; &gt;&gt; T E S T S
+&gt; &gt;&gt; -------------------------------------------------------
+&gt; &gt;&gt; Running org.apache.maven.model.ActivationFileTest
+&gt; &gt;&gt; Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.016
+&gt; &gt;&gt; sec Running org.apache.maven.model.ActivationOSTest
+&gt; &gt;&gt; Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+&gt; &gt;&gt; Running org.apache.maven.model.ActivationPropertyTest
+&gt; &gt;&gt; Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+&gt; &gt;&gt; Running org.apache.maven.model.ActivationTest
+&gt; &gt;&gt; Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+&gt; &gt;&gt; Running org.apache.maven.model.BuildTest Tests run: 4, Failures: 0,
+&gt; &gt;&gt; Errors: 0, Skipped: 0, Time elapsed: 0.016 sec Running
+&gt; &gt;&gt; org.apache.maven.model.CiManagementTest
+&gt; &gt;&gt; Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+&gt; &gt;&gt; Running org.apache.maven.model.ContributorTest
+&gt; &gt;&gt; Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+&gt; &gt;&gt; Running org.apache.maven.model.DependencyManagementTest
+&gt; &gt;&gt; Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+&gt; &gt;&gt; Running org.apache.maven.model.DependencyTest
+&gt; &gt;&gt; Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+&gt; &gt;&gt; Running org.apache.maven.model.DeploymentRepositoryTest
+&gt; &gt;&gt; Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+&gt; &gt;&gt; Running org.apache.maven.model.DeveloperTest
+&gt; &gt;&gt; Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+&gt; &gt;&gt; Running org.apache.maven.model.DistributionManagementTest
+&gt; &gt;&gt; Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+&gt; &gt;&gt; Running org.apache.maven.model.ExclusionTest
+&gt; &gt;&gt; Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+&gt; &gt;&gt; Running org.apache.maven.model.ExtensionTest
+&gt; &gt;&gt; Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+&gt; &gt;&gt; Running org.apache.maven.model.IssueManagementTest
+&gt; &gt;&gt; Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+&gt; &gt;&gt; Running org.apache.maven.model.LicenseTest
+&gt; &gt;&gt; Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+&gt; &gt;&gt; Running org.apache.maven.model.MailingListTest
+&gt; &gt;&gt; Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+&gt; &gt;&gt; Running org.apache.maven.model.ModelTest Tests run: 4, Failures: 0,
+&gt; &gt;&gt; Errors: 0, Skipped: 0, Time elapsed: 0 sec Running
+&gt; &gt;&gt; org.apache.maven.model.NotifierTest
+&gt; &gt;&gt; Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+&gt; &gt;&gt; Running org.apache.maven.model.OrganizationTest
+&gt; &gt;&gt; Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+&gt; &gt;&gt; Running org.apache.maven.model.ParentTest Tests run: 4, Failures: 0,
+&gt; &gt;&gt; Errors: 0, Skipped: 0, Time elapsed: 0 sec Running
+&gt; &gt;&gt; org.apache.maven.model.PluginConfigurationTest
+&gt; &gt;&gt; Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+&gt; &gt;&gt; Running org.apache.maven.model.PluginContainerTest
+&gt; &gt;&gt; Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+&gt; &gt;&gt; Running org.apache.maven.model.PluginExecutionTest
+&gt; &gt;&gt; Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+&gt; &gt;&gt; Running org.apache.maven.model.PluginManagementTest
+&gt; &gt;&gt; Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+&gt; &gt;&gt; Running org.apache.maven.model.PluginTest Tests run: 4, Failures: 0,
+&gt; &gt;&gt; Errors: 0, Skipped: 0, Time elapsed: 0 sec Running
+&gt; &gt;&gt; org.apache.maven.model.PrerequisitesTest
+&gt; &gt;&gt; Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+&gt; &gt;&gt; Running org.apache.maven.model.ProfileTest
+&gt; &gt;&gt; Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+&gt; &gt;&gt; Running org.apache.maven.model.RelocationTest
+&gt; &gt;&gt; Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+&gt; &gt;&gt; Running org.apache.maven.model.ReportingTest
+&gt; &gt;&gt; Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+&gt; &gt;&gt; Running org.apache.maven.model.ReportPluginTest
+&gt; &gt;&gt; Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+&gt; &gt;&gt; Running org.apache.maven.model.ReportSetTest
+&gt; &gt;&gt; Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+&gt; &gt;&gt; Running org.apache.maven.model.RepositoryPolicyTest
+&gt; &gt;&gt; Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.016
+&gt; &gt;&gt; sec Running org.apache.maven.model.RepositoryTest
+&gt; &gt;&gt; Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+&gt; &gt;&gt; Running org.apache.maven.model.ResourceTest
+&gt; &gt;&gt; Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.016
+&gt; &gt;&gt; sec Running org.apache.maven.model.ScmTest Tests run: 4, Failures: 0,
+&gt; &gt;&gt; Errors: 0, Skipped: 0, Time elapsed: 0 sec Running
+&gt; &gt;&gt; org.apache.maven.model.SiteTest Tests run: 4, Failures: 0, Errors: 0,
+&gt; &gt;&gt; Skipped: 0, Time elapsed: 0 sec
+&gt; &gt;&gt;
+&gt; &gt;&gt; Results :
+&gt; &gt;&gt;
+&gt; &gt;&gt; Tests run: 148, Failures: 0, Errors: 0, Skipped: 0
+&gt; &gt;&gt;
+&gt; &gt;&gt; [debug] execute contextualize
+&gt; &gt;&gt; [debug] execute contextualize
+&gt; &gt;&gt;
+&gt; &gt;&gt; -------------------------------------------------------
+&gt; &gt;&gt; T E S T S
+&gt; &gt;&gt; -------------------------------------------------------
+&gt; &gt;&gt; Running org.apache.maven.artifact.versioning.ComparableVersionTest
+&gt; &gt;&gt; Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.046
+&gt; &gt;&gt; sec Running
+&gt; &gt;&gt; org.apache.maven.artifact.versioning.DefaultArtifactVersionTest
+&gt; &gt;&gt; Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.016
+&gt; &gt;&gt; sec Running org.apache.maven.artifact.versioning.VersionRangeTest
+&gt; &gt;&gt; Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+&gt; &gt;&gt;
+&gt; &gt;&gt; Results :
+&gt; &gt;&gt;
+&gt; &gt;&gt; Tests run: 21, Failures: 0, Errors: 0, Skipped: 0
+&gt; &gt;&gt;
+&gt; &gt;&gt; [debug] execute contextualize
+&gt; &gt;&gt; [debug] execute contextualize
+&gt; &gt;&gt;
+&gt; &gt;&gt; -------------------------------------------------------
+&gt; &gt;&gt; T E S T S
+&gt; &gt;&gt; -------------------------------------------------------
+&gt; &gt;&gt; Running org.apache.maven.plugin.descriptor.PluginDescriptorBuilderTest
+&gt; &gt;&gt; Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.078
+&gt; &gt;&gt; sec Running org.apache.maven.plugin.lifecycle.LifecycleXpp3ReaderTest
+&gt; &gt;&gt; Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+&gt; &gt;&gt;
+&gt; &gt;&gt; Results :
+&gt; &gt;&gt;
+&gt; &gt;&gt; Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
+&gt; &gt;&gt;
+&gt; &gt;&gt; [debug] execute contextualize
+&gt; &gt;&gt; [debug] execute contextualize
+&gt; &gt;&gt;
+&gt; &gt;&gt; -------------------------------------------------------
+&gt; &gt;&gt; T E S T S
+&gt; &gt;&gt; -------------------------------------------------------
+&gt; &gt;&gt; Running org.apache.maven.model.building.DefaultModelBuilderFactoryTest
+&gt; &gt;&gt; Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.203
+&gt; &gt;&gt; sec Running
+&gt; &gt;&gt; org.apache.maven.model.inheritance.DefaultInheritanceAssemblerTest
+&gt; &gt;&gt; Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.671
+&gt; &gt;&gt; sec Running
+&gt; &gt;&gt; org.apache.maven.model.interpolation.StringSearchModelInterpolatorTest
+&gt; &gt;&gt; Tests run: 28, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.593
+&gt; &gt;&gt; sec Running org.apache.maven.model.path.DefaultUrlNormalizerTest
+&gt; &gt;&gt; Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+&gt; &gt;&gt; Running
+&gt; &gt;&gt; org.apache.maven.model.profile.activation.JdkVersionProfileActivatorTe
+&gt; &gt;&gt; st Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed:
+&gt; &gt;&gt; 0.078 sec Running
+&gt; &gt;&gt; org.apache.maven.model.profile.activation.PropertyProfileActivatorTest
+&gt; &gt;&gt; Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.11
+&gt; &gt;&gt; sec Running
+&gt; &gt;&gt; org.apache.maven.model.validation.DefaultModelValidatorTest
+&gt; &gt;&gt; Tests run: 43, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.967
+&gt; &gt;&gt; sec
+&gt; &gt;&gt;
+&gt; &gt;&gt; Results :
+&gt; &gt;&gt;
+&gt; &gt;&gt; Tests run: 94, Failures: 0, Errors: 0, Skipped: 0
+&gt; &gt;&gt;
+&gt; &gt;&gt; [debug] execute contextualize
+&gt; &gt;&gt; [debug] execute contextualize
+&gt; &gt;&gt;
+&gt; &gt;&gt; -------------------------------------------------------
+&gt; &gt;&gt; T E S T S
+&gt; &gt;&gt; -------------------------------------------------------
+&gt; &gt;&gt;
+&gt; &gt;&gt; Results :
+&gt; &gt;&gt;
+&gt; &gt;&gt; Tests run: 0, Failures: 0, Errors: 0, Skipped: 0
+&gt; &gt;&gt;
+&gt; &gt;&gt; [debug] execute contextualize
+&gt; &gt;&gt; [debug] execute contextualize
+&gt; &gt;&gt;
+&gt; &gt;&gt; -------------------------------------------------------
+&gt; &gt;&gt; T E S T S
+&gt; &gt;&gt; -------------------------------------------------------
+&gt; &gt;&gt; Running
+&gt; &gt;&gt; org.apache.maven.settings.building.DefaultSettingsBuilderFactoryTest
+&gt; &gt;&gt; Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.109
+&gt; &gt;&gt; sec Running
+&gt; &gt;&gt; org.apache.maven.settings.validation.DefaultSettingsValidatorTest
+&gt; &gt;&gt; Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+&gt; &gt;&gt;
+&gt; &gt;&gt; Results :
+&gt; &gt;&gt;
+&gt; &gt;&gt; Tests run: 7, Failures: 0, Errors: 0, Skipped: 0
+&gt; &gt;&gt;
+&gt; &gt;&gt; [debug] execute contextualize
+&gt; &gt;&gt; [debug] execute contextualize
+&gt; &gt;&gt;
+&gt; &gt;&gt; -------------------------------------------------------
+&gt; &gt;&gt; T E S T S
+&gt; &gt;&gt; -------------------------------------------------------
+&gt; &gt;&gt;
+&gt; &gt;&gt; Results :
+&gt; &gt;&gt;
+&gt; &gt;&gt; Tests run: 0, Failures: 0, Errors: 0, Skipped: 0
+&gt; &gt;&gt;
+&gt; &gt;&gt; [debug] execute contextualize
+&gt; &gt;&gt; [debug] execute contextualize
+&gt; &gt;&gt;
+&gt; &gt;&gt; -------------------------------------------------------
+&gt; &gt;&gt; T E S T S
+&gt; &gt;&gt; -------------------------------------------------------
+&gt; &gt;&gt; Running org.apache.maven.repository.internal.DefaultServiceLocatorTest
+&gt; &gt;&gt; Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.187
+&gt; &gt;&gt; sec Running
+&gt; &gt;&gt; org.apache.maven.repository.internal.DefaultVersionResolverTest
+&gt; &gt;&gt; Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.764
+&gt; &gt;&gt; sec Running org.apache.maven.repository.internal.RepositorySystemTest
+&gt; &gt;&gt; Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.281
+&gt; &gt;&gt; sec
+&gt; &gt;&gt;
+&gt; &gt;&gt; Results :
+&gt; &gt;&gt;
+&gt; &gt;&gt; Tests run: 6, Failures: 0, Errors: 0, Skipped: 0
+&gt; &gt;&gt;
+&gt; &gt;&gt; E:\asf\maven\maven-3\trunk\build.xml:250: Java returned: 1 BUILD
+&gt; &gt;&gt; FAILED (total time: 1 minute 21 seconds)
+&gt; &gt;&gt;
+&gt; &gt;
+&gt; &gt; --
+&gt; &gt; Cheers, Stuart
+&gt; &gt;
+&gt; &gt; ---------------------------------------------------------------------
+&gt; &gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; &gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt; &gt;
+&gt;
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201211.mbox/raw/%3cCAKDUN1vZyv0j2Bu39i75-RXX5vsxoPLFH7CiL=VvTfwsj=LGHw@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, Quoted Printable, 18316 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201211.mbox/raw/%3cCAKDUN1vZyv0j2Bu39i75-RXX5vsxoPLFH7CiL=VvTfwsj=LGHw@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

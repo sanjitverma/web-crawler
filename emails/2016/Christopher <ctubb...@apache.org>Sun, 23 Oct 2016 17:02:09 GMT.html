@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Maven Compiler Plugin 3.5.1 bug</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201610.mbox/%3c580ceba0.e74bc20a.6ebbc.faad@mx.google.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201610.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201610.mbox/%3c61c68ea4-de9c-4c8d-9c3e-fd112f9c24d5@default%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201610.mbox/%3c580ceba0.e74bc20a.6ebbc.faad@mx.google.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201610.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201610.mbox/%3c61c68ea4-de9c-4c8d-9c3e-fd112f9c24d5@default%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201610.mbox/%3c580ceba0.e74bc20a.6ebbc.faad@mx.google.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201610.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201610.mbox/%3c61c68ea4-de9c-4c8d-9c3e-fd112f9c24d5@default%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201610.mbox/%3c580ceba0.e74bc20a.6ebbc.faad@mx.google.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201610.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201610.mbox/%3c61c68ea4-de9c-4c8d-9c3e-fd112f9c24d5@default%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Christopher &lt;ctubb...@apache.org&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Maven Compiler Plugin 3.5.1 bug</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Sun, 23 Oct 2016 17:02:09 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+I agree. You can also manually add the directory as a source directory in
+Eclipse. I'd want the IDEs to be able to do this automatically. I don't
+want to get into an IDE war on this thread, though. I just used Eclipse as
+an example, because I know how that currently works. However, it only works
+because of the availability of the build-helper eclipse plugin.
+Establishing the convention in the compiler plugin itself might make it
+easier to automate the behavior across IDEs without the need for added
+plugins.
+
+On Sun, Oct 23, 2016 at 12:56 PM &lt;ecki@zusammenkunft.net&gt; wrote:
+
+&gt; Manually marking a directory as source is not what I would define as
+&gt; „understands Maven“. Eclipse finds thise directories automatically (if a
+&gt; know plugin is used)
+&gt;
+&gt;
+&gt; Gruss
+&gt; Bernd
+&gt; --
+&gt; http://bernd.eckenfels.net
+&gt; From Win 10 Mobile
+&gt;
+&gt; Von: Robert Patrick
+&gt; Gesendet: Sonntag, 23. Oktober 2016 18:45
+&gt; An: Maven Users List
+&gt; Betreff: RE: Maven Compiler Plugin 3.5.1 bug
+&gt;
+&gt; That's why we use IntelliJ :-)
+&gt;
+&gt; It understands Maven projects and uses Maven to build them.  In the IDE,
+&gt; you simply cancel the exclusion on the target directory and mark the
+&gt; appropriate subdirectory(ies) as a generated sources root.   Nothing to do
+&gt; on the IDE side.
+&gt;
+&gt;
+&gt; -----Original Message-----
+&gt; From: Christopher [mailto:ctubbsii@apache.org]
+&gt; Sent: Sunday, October 23, 2016 11:42 AM
+&gt; To: Maven Users List
+&gt; Subject: Re: Maven Compiler Plugin 3.5.1 bug
+&gt;
+&gt; The build-helper-maven-plugin method has the advantage of having a
+&gt; corresponding build-helper plugin in Eclipse, to automatically add the
+&gt; generated sources to the project build path in Eclipse (with m2e). If the
+&gt; compiler plugin started using one of the directories in /target/ as a
+&gt; source directory by default (maybe /target/generated-src/{main,test}/java),
+&gt; it might be nice, but at least for me, it'd only really be useful if IDEs
+&gt; also followed that behavior. For now, build-helper is required for this to
+&gt; work in Eclipse (I don't know about other IDEs). If the compiler plugin did
+&gt; this, and IDEs followed suit, I'd think that would be useful.
+&gt;
+&gt; On Sat, Oct 22, 2016 at 6:50 PM Robert Patrick &lt;robert.patrick@oracle.com&gt;
+&gt; wrote:
+&gt;
+&gt; &gt; Thanks, I am aware of that plugin and have used it before.  It sure
+&gt; &gt; seems like the compiler plugin should provide this capability without
+&gt; &gt; the need for yet another plugin to fill the functionality gaps...don't
+&gt; you think?
+&gt; &gt;
+&gt; &gt;
+&gt; &gt; -----Original Message-----
+&gt; &gt; From: Curtis Rueden [mailto:ctrueden@wisc.edu]
+&gt; &gt; Sent: Saturday, October 22, 2016 5:48 PM
+&gt; &gt; To: Maven Users List
+&gt; &gt; Subject: RE: Maven Compiler Plugin 3.5.1 bug
+&gt; &gt;
+&gt; &gt; You can add source directories using the build-helper-maven-plugin.
+&gt; &gt;
+&gt; &gt; On Oct 22, 2016 4:39 PM, "Robert Patrick" &lt;robert.patrick@oracle.com&gt;
+&gt; &gt; wrote:
+&gt; &gt;
+&gt; &gt; &gt; I am using the &lt;resources&gt; section of the POM, not my own plugin, to
+&gt; &gt; &gt; populate some tokens in a Java source file that we use to get build
+&gt; &gt; &gt; information (version, git commit/branch info, build timestamp, etc).
+&gt; &gt; &gt;
+&gt; &gt; &gt;         &lt;resources&gt;
+&gt; &gt; &gt;             &lt;resource&gt;
+&gt; &gt; &gt;                 &lt;directory&gt;src/main/resources/templates&lt;/directory&gt;
+&gt; &gt; &gt;                 &lt;includes&gt;
+&gt; &gt; &gt;                     &lt;include&gt;*.java&lt;/include&gt;
+&gt; &gt; &gt;                 &lt;/includes&gt;
+&gt; &gt; &gt;                 &lt;filtering&gt;true&lt;/filtering&gt;
+&gt; &gt; &gt;
+&gt; &gt; &gt; &lt;targetPath&gt;${project.build.directory}/generated-sources/
+&gt; &gt; &gt; annotations&lt;/targetPath&gt;
+&gt; &gt; &gt;             &lt;/resource&gt;
+&gt; &gt; &gt;           &lt;resources&gt;
+&gt; &gt; &gt;
+&gt; &gt; &gt; The documentation claims that the default value for the
+&gt; &gt; &gt; generatedSourcesDirectory is this directory so you are saying that
+&gt; &gt; &gt; somehow the fact that the maven-compiler-plugin no longer includes
+&gt; &gt; &gt; the directory in the build is a feature?
+&gt; &gt; &gt;
+&gt; &gt; &gt; I looked through the compiler plugin's documentation and couldn't
+&gt; &gt; &gt; figure out a way to add a directory to the build.  I know how to add
+&gt; &gt; &gt; the directory to the build if I write my own plugin but that seems
+&gt; &gt; &gt; pretty heavy-handed for something that should be trivial.  What am I
+&gt; &gt; missing?
+&gt; &gt; &gt;
+&gt; &gt; &gt;
+&gt; &gt; &gt; -----Original Message-----
+&gt; &gt; &gt; From: Thomas Broyer [mailto:t.broyer@gmail.com]
+&gt; &gt; &gt; Sent: Saturday, October 22, 2016 4:29 PM
+&gt; &gt; &gt; To: Maven Users List
+&gt; &gt; &gt; Subject: Re: Maven Compiler Plugin 3.5.1 bug
+&gt; &gt; &gt;
+&gt; &gt; &gt; This is not a bug, it's a bug fix! Bug introduced in 3.2, fixed in
+&gt; &gt; &gt; 3.5.1 (see release notes for that version).
+&gt; &gt; &gt;
+&gt; &gt; &gt; Your plugin should use its own output directory and add it as a
+&gt; &gt; &gt; source root.
+&gt; &gt; &gt;
+&gt; &gt; &gt; Le sam. 22 oct. 2016 23:18, Robert Patrick
+&gt; &gt; &gt; &lt;robert.patrick@oracle.com&gt; a écrit :
+&gt; &gt; &gt;
+&gt; &gt; &gt; &gt; Periodically, I update the versions of the Maven plugins for my
+&gt; &gt; projects.
+&gt; &gt; &gt; &gt; Today was one of those days.  What I found is that the
+&gt; &gt; &gt; &gt; maven-compiler-plugin 3.5.1's compile goal no longer seems to not
+&gt; &gt; &gt; &gt; be including the
+&gt; &gt; &gt; &gt; ${project.build.directory}/generated-sources/annotations
+&gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt; directory in the compile.
+&gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt; My project generates a Java file in the process-resources phase
+&gt; &gt; &gt; &gt; and puts the file in this directory.  Other files in the normal
+&gt; &gt; &gt; &gt; src/main/java location include/depend on this generated file.
+&gt; &gt; &gt; &gt; When I run my build with 3.5, it works perfectly.  When I run the
+&gt; &gt; &gt; &gt; exact same build with 3.5.1, it fails.
+&gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt; I logged into my Apache Jira account but the compiler plugin
+&gt; &gt; &gt; &gt; project
+&gt; &gt; does
+&gt; &gt; &gt; &gt; not seem to want to let me create an issue for this.   Is there some
+&gt; &gt; sort
+&gt; &gt; &gt; &gt; of special permission required to create an issue on the
+&gt; &gt; &gt; &gt; maven-compiler-plugin?
+&gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt;
+&gt; &gt; &gt;
+&gt; &gt; &gt; --------------------------------------------------------------------
+&gt; &gt; &gt; - To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; &gt; &gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt; &gt; &gt;
+&gt; &gt; &gt;
+&gt; &gt;
+&gt; &gt; ---------------------------------------------------------------------
+&gt; &gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; &gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt; &gt;
+&gt; &gt;
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201610.mbox/raw/%3cCAL5zq9apUtT5+huSJ3MrKyg2LBc9P5hvWuDHJ+oiX2V_1e9Cjg@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, Quoted Printable, 6368 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201610.mbox/raw/%3cCAL5zq9apUtT5+huSJ3MrKyg2LBc9P5hvWuDHJ+oiX2V_1e9Cjg@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

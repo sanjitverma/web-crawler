@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Re-Releasing Configured Artifacts, how?</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201204.mbox/%3c1334742321803-7476336.post@n2.nabble.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201204.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201204.mbox/%3cCAKDUN1t4BjrgjEOaP+b0vw512etoWYdmairwaub3aYLbS4SSig@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201204.mbox/%3cCADVp3v-tUaoNC_qjYm=whuDS3=AfFQjH4GatZSwP1TxrRjMgTw@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201204.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201204.mbox/%3cCALy+7UmMmtAgMKsERBDxyu1vhk+yVwtsEZRD3CNrpgUHoBugsA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201204.mbox/%3c1334742321803-7476336.post@n2.nabble.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201204.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201204.mbox/%3cCAKDUN1t4BjrgjEOaP+b0vw512etoWYdmairwaub3aYLbS4SSig@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201204.mbox/%3cCADVp3v-tUaoNC_qjYm=whuDS3=AfFQjH4GatZSwP1TxrRjMgTw@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201204.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201204.mbox/%3cCALy+7UmMmtAgMKsERBDxyu1vhk+yVwtsEZRD3CNrpgUHoBugsA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Andrew Hughes &lt;ahhug...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Re-Releasing Configured Artifacts, how?</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Wed, 18 Apr 2012 10:26:27 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Thanks very much :)
+
+I will read up some more. But, I was more wondering in regards to
+classifiers if I could release x3 (or more) builds of the same module (at
+the moment I have one module per conf, each is a war overlay).
+
+Cheers
+On 18/04/2012 4:51 PM, "Barrie Treloar" &lt;baerrach@gmail.com&gt; wrote:
+
+&gt; On Wed, Apr 18, 2012 at 4:33 PM, Andrew Hughes &lt;ahhughes@gmail.com&gt; wrote:
+&gt; &gt; Hi All,
+&gt; &gt;
+&gt; &gt;
+&gt; &gt; We have decided that we would like to release configured artifacts from
+&gt; our
+&gt; &gt; scm. I am looking at the most suitable way to do this with maven3.
+&gt; &gt;
+&gt; &gt; Use Case:
+&gt; &gt; We have released v2.5.1.0 or our webapp. We would like to take v2.5.1.0,
+&gt; &gt; make a change to the configuration (i.e. a &lt;property&gt;), check that into
+&gt; the
+&gt; &gt; SCM and then release that as v2.5.1.1 (or we could even use
+&gt; &gt; 2.5.1.${buildNumber})
+&gt; &gt;
+&gt; &gt; Additionally:
+&gt; &gt; We need to release different artifacts for each release for different
+&gt; &gt; target environments LATEST, DEV, UAT, PRODUCTION.
+&gt; &gt;
+&gt; &gt;
+&gt; &gt;
+&gt; &gt; What is the best way to achieve this, and (if possible) are classifiers a
+&gt; &gt; suitable way to distinguish LATEST, DEV, UAT, PRODUCTION configured
+&gt; &gt; artifacts?
+&gt;
+&gt; Have you read the freely available books over at
+&gt; http://maven.apache.org/articles.html?
+&gt;
+&gt; classifiers are not meta data about your released artifact.
+&gt; From http://maven.apache.org/pom.html
+&gt; The classifier allows to distinguish artifacts that were built from
+&gt; the same POM but differ in their content....
+&gt;
+&gt; You will need to use some internal mechanism for tracking this meta
+&gt; data.  That's your PMs job.
+&gt;
+&gt; To make a new build,
+&gt; Create a branch 2.5.1.1 from the tagged version 2.5.1.0.
+&gt; Make your changes on the branch.
+&gt; Check them in.
+&gt; Run mvn release:prepare and mvn release:perform to generate 2.5.1.1
+&gt; (or whatever release process you use that originally create 2.5.1.0)
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201204.mbox/raw/%3cCAMvYC1W58_duOV8x2Y0E0OpppA7MfP7FAtZc4Y+dxJ=mgpjwrw@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 2042 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201204.mbox/raw/%3cCAMvYC1W58_duOV8x2Y0E0OpppA7MfP7FAtZc4Y+dxJ=mgpjwrw@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

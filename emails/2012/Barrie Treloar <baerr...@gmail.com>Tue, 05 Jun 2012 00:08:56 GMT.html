@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Eclipse Plugin and Project Links to Independent Projects</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201206.mbox/%3c1338850477867-5710828.post@n5.nabble.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201206.mbox/%3cp0624080ccbf3036edcac@%5b10.1.125.126%5d%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201206.mbox/%3cCAMgJZ9LhXRw29qb6vSBXM11+SCSD9RXXw-2-+U-c5mgDcFVVrA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201206.mbox/%3cCAMgJZ9LyfQA_cgaXaT-acq-YkE+h5xA+o9HgmLiRF1TTb21e3A@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201206.mbox/%3c1338850477867-5710828.post@n5.nabble.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201206.mbox/%3cp0624080ccbf3036edcac@%5b10.1.125.126%5d%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201206.mbox/%3cCAMgJZ9LhXRw29qb6vSBXM11+SCSD9RXXw-2-+U-c5mgDcFVVrA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201206.mbox/%3cCAMgJZ9LyfQA_cgaXaT-acq-YkE+h5xA+o9HgmLiRF1TTb21e3A@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Barrie Treloar &lt;baerr...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Eclipse Plugin and Project Links to Independent Projects</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Tue, 05 Jun 2012 00:08:56 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+On Tue, Jun 5, 2012 at 3:19 AM, Chris Redekop &lt;chris.redekop@gmail.com&gt; wrote:
+&gt; (How) can I use the Eclipse plugin to create Eclipse project files
+&gt; that refer to an dependency A) with an Eclipse project link instead of
+&gt; B) as a JAR in the repo?  The dependency in this case is A) NOT a
+&gt; module of the parent project (where 'mvn eclipse:eclipse' is executed)
+&gt; and B) NOT built with Maven.
+&gt;
+&gt; Project links work well between modules in a multi-module project, and
+&gt; the -Declipse.workspace property provides some related functionality;
+&gt; but its workspace scan only seems to recognize other Maven projects.
+
+You can't.
+
+mvn eclipse:eclipse will automatically configure the .classpath to
+reference any dependency that is already configured in Eclipse and is
+a Maven project.
+
+If you think about it, how do you expect eclipse:eclipse to work out
+that your non-Maven project just happens to be the same as one of your
+Maven dependencies?
+
+&gt; I am looking for something like -Declipse.workspace but more direct
+&gt; and fully contained within the plugin configuration: a map between
+&gt; dependencies and Eclipse projects that says, "when you are generating
+&gt; Eclipse project files and hit this dependency, refer to this Eclipse
+&gt; project instead of the artifact's JAR in the repo."
+&gt;
+&gt; The use case here is migrating one of an organization's existing
+&gt; builds to Maven while NOT migrating ALL an organization's builds.  We
+&gt; currently have a mix of Maven/non-Maven builds cohabitating in the
+&gt; same Eclipse workspace.  In this environment, dependencies from
+&gt; Maven-built projects to non-Maven-built projects appear twice:
+&gt; 1) as a JAR dependency and
+&gt; 2) as an Eclipse project where active development takes place.
+&gt;
+&gt; The duplicate project/class definition is causing confusion.
+
+You have some of options:
+1) Dont use mvn eclipse:eclipse
+2) Use mvn eclipse:eclipse to "kick-start" the .classpath creation and
+then manually tweak this to work with the non-Maven project.  You then
+check-in the eclipse files: .project, .classpath into your source
+control.
+3) Migrate your non-Maven builds to Maven.  If these are Ant builds it
+should be a simple process to create a dumb Maven wrapper that just
+calls out to Ant to do the build.  This will give you a pom.xml that
+specifies the correct dependency coordinates for mvn eclipse:eclipse
+to then use.  Then when you are ready to migrate these projects, you
+take out the Ant stuff and replace it with the equivalent Maven
+plugins.
+
+I would recommend 3).
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201206.mbox/raw/%3cCADVp3v_901hCM=JUeWUdMTBfO_XzDsuZ19B+hz8NaZ_KRaVyHg@mail.gmail.com%3e/">Unnamed text/plain</a> (inline, Quoted Printable, 2695 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201206.mbox/raw/%3cCADVp3v_901hCM=JUeWUdMTBfO_XzDsuZ19B+hz8NaZ_KRaVyHg@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

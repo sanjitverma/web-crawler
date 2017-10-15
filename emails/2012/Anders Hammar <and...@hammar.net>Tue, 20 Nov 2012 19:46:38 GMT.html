@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: exportAntProperties not working in 3.0.4</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201211.mbox/%3c476f33cf595cc8e383b8052533c82316.squirrel@www.mosabuam.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201211.mbox/%3c1353471767112-5732293.post@n5.nabble.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201211.mbox/%3cB5E72FE8A204C442A678B9A728D562D923C0F5@Bramblewattle.nau.froot.nau.edu%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201211.mbox/%3c1353471767112-5732293.post@n5.nabble.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201211.mbox/%3c476f33cf595cc8e383b8052533c82316.squirrel@www.mosabuam.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201211.mbox/%3c1353471767112-5732293.post@n5.nabble.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201211.mbox/%3cB5E72FE8A204C442A678B9A728D562D923C0F5@Bramblewattle.nau.froot.nau.edu%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201211.mbox/%3c1353471767112-5732293.post@n5.nabble.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Anders Hammar &lt;and...@hammar.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: exportAntProperties not working in 3.0.4</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Tue, 20 Nov 2012 19:46:38 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Yes, you need to log in to Codehaus JIRA and file a ticket on the MANTRUN
+project [1].
+
+/Anders
+
+[1] http://jira.codehaus.org/browse/MANTRUN
+
+
+On Tue, Nov 20, 2012 at 7:27 PM, Paul Gazda &lt;Paul.Gazda@nau.edu&gt; wrote:
+
+&gt; I would be happy to submit a jira, but I can't find where on the jira site
+&gt; to create an issue. Do I need an account?
+&gt;
+&gt; Paul
+&gt;
+&gt; -----Original Message-----
+&gt; From: Olivier Lamy [mailto:olamy@apache.org]
+&gt; Sent: Tuesday, November 20, 2012 10:49 AM
+&gt; To: Maven Users List
+&gt; Subject: Re: exportAntProperties not working in 3.0.4
+&gt;
+&gt; Probably an issue .
+&gt; Could create a jira with a sample project ?
+&gt;
+&gt; Thanks
+&gt; --
+&gt; Olivier
+&gt; Le 20 nov. 2012 17:23, "Paul Gazda" &lt;Paul.Gazda@nau.edu&gt; a écrit :
+&gt; &gt;
+&gt; &gt; I have a pom.xml that uses maven-antrun-plugin v 1.7 in phase "validate"
+&gt; to detect the run environment, and based on that set the appropriate
+&gt; filters file path as property "filters.file". exportAntProperties is set to
+&gt; true. The filters.file property is supposed to be used in the filters tag
+&gt; like this:
+&gt; &gt;   &lt;build&gt;
+&gt; &gt;        &lt;filters&gt;
+&gt; &gt;         &lt;filter&gt;${filters.file}&lt;/filter&gt;
+&gt; &gt;       &lt;/filters&gt;
+&gt; &gt; .
+&gt; &gt; .
+&gt; &gt; .
+&gt; &gt;
+&gt; &gt; This worked when I was using maven 2.2.1, but since I upgraded to maven
+&gt; 3.0.4, the value for filters.file is no longer being passed to the &lt;filter&gt;
+&gt; tag. I have read the doc on maven-antrun-plugin several times, and searched
+&gt; the web for info, but have not found any evidence of a change in how
+&gt; maven-antrun-plugin is supposed to work with maven 3.
+&gt; &gt;
+&gt; &gt; Has there been a change in the details of how this is supposed to work,
+&gt; or is this a bug?
+&gt; &gt;
+&gt; &gt; Thanks.
+&gt; &gt;
+&gt; &gt; Paul Gazda
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201211.mbox/raw/%3cCAKDUN1vV1AOmEsJu_OvqUTPUxrfHEgK9_jUF=3KWN+_VstfCYA@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, Quoted Printable, 1863 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201211.mbox/raw/%3cCAKDUN1vV1AOmEsJu_OvqUTPUxrfHEgK9_jUF=3KWN+_VstfCYA@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Fwd: maven dependency plugin and maven 3</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201206.mbox/%3cCA+nPnMw95Zw1FyAF_Rt4ypreoc7+OT3QMWzXfQtFgykB9Su2Pg@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201206.mbox/%3cB8E7C5F2-C1F0-417E-9F99-A4B6F6EBA392@tesla.io%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201206.mbox/%3c4FC95E87.8070109@tuis.net%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201206.mbox/%3cB8E7C5F2-C1F0-417E-9F99-A4B6F6EBA392@tesla.io%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201206.mbox/%3cCA+nPnMw95Zw1FyAF_Rt4ypreoc7+OT3QMWzXfQtFgykB9Su2Pg@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201206.mbox/%3cB8E7C5F2-C1F0-417E-9F99-A4B6F6EBA392@tesla.io%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201206.mbox/%3c4FC95E87.8070109@tuis.net%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201206.mbox/%3cB8E7C5F2-C1F0-417E-9F99-A4B6F6EBA392@tesla.io%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Anthony Dahanne &lt;anthony.daha...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Fwd: maven dependency plugin and maven 3</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Sun, 03 Jun 2012 15:42:10 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hello  all,
+sorry to bump ... :-(
+but I'm still having issues understanding what's wrong with the maven
+dependency plugin and maven 3...
+I attached a pom to demonstrate the problem :
+Using maven 3,
+1) do a mvn package
+2) then do a mvn
+org.apache.maven.plugins:maven-dependency-plugin:2.4:purge-local-repository
+-Dverbose=true   -DresolutionFuzziness=version -U
+
+You will see the following output :
+[INFO] --- maven-dependency-plugin:2.4:purge-local-repository
+(default-cli) @ pof ---
+[WARNING] Missing POM for javax.servlet:servlet-api:jar:2.5
+[INFO] Skipping: pof. It cannot be resolved.
+[INFO] Nothing to do for project: net.dahanne:pof:jar:1.0.0-SNAPSHOT
+
+But I can tell you javax.servlet:servlet-api:jar:2.5 has a pom, and is
+already installed in the local maven repository.
+
+Could you guys share some light on this ? I think the maven dependency
+plugin is not working fine with maven 3 , as opposed to what the
+documentation says :
+ https://cwiki.apache.org/MAVEN/maven-3x-plugin-compatibility-matrix.html
+
+Thanks,
+Anthony
+
+
+---------- Forwarded message ----------
+From: Anthony Dahanne &lt;anthony.dahanne@gmail.com&gt;
+Date: Thu, May 31, 2012 at 5:50 PM
+Subject: maven dependency plugin and maven 3
+To: users@maven.apache.org
+
+
+Hello all,
+I'm only using maven 3 on my machine (be it command line or m2e).
+I tried to use the maven dependency plugin on a project,
+
+mvn org.apache.maven.plugins:maven-dependency-plugin:2.4:purge-local-repository
+-Dverbose=true   -DresolutionFuzziness=version
+
+and it printed such warnings :
+
+[WARNING] Missing POM for javax.servlet:servlet-api:jar:2.5
+[WARNING] Missing POM for org.easymock:easymock:jar:3.0
+[WARNING] Missing POM for junit:junit:jar:4.8.2
+
+before telling me that the build was successful.
+Thing is, it did not purge anything from my repo; because of those
+warnings actually; launching the same command with -X, I could see :
+[DEBUG] Verifying availability of
+/Users/anthony/.m2/repository/javax/servlet/servlet-api/2.5/servlet-api-2.5.pom
+from []
+[WARNING] Missing POM for javax.servlet:servlet-api:jar:2.5: Error
+resolving project artifact: Could not find artifact
+javax.servlet:servlet-api:pom:2.5 for project
+javax.servlet:servlet-api:pom:2.5
+[DEBUG]   javax.servlet:servlet-api:jar:2.5:provided (selected for provided)
+
+and... I can tell you
+/Users/anthony/.m2/repository/javax/servlet/servlet-api/2.5/servlet-api-2.5.pom
+exists and contains :
+&lt;project&gt;
+ &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+ &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+ &lt;artifactId&gt;servlet-api&lt;/artifactId&gt;
+ &lt;version&gt;2.5&lt;/version&gt;
+&lt;/project&gt;
+
+Debugging the code a little, I could notice that this goal was using
+org.apache.maven.artifact.resolver.DefaultArtifactResolver#resolveTransitively
+from maven-artifact-manager 2.0.9 to find the dependencies.
+
+I am wondering if this plugin failed purging my dependencies because
+it used a maven 2 library to scan the dependencies, and my local repo
+has only been built and used by mvn3 (and the repo metadata/layout
+could be different to what this plugin was expecting) ..
+Any thoughts ?
+thanks a lot in advance
+Anthony
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/mixed (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201206.mbox/raw/%3cCAJHJdS9fufV=SPk_t=uth-jWBuO+hxyf-6SChcfFmvBu3uqYvQ@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, Quoted Printable, 3101 bytes)</li>
+</ul>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201206.mbox/raw/%3cCAJHJdS9fufV=SPk_t=uth-jWBuO+hxyf-6SChcfFmvBu3uqYvQ@mail.gmail.com%3e/2">pom.xml (text/xml)</a> (attachment, Base64, 1396 bytes)</li>
+</ul>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201206.mbox/raw/%3cCAJHJdS9fufV=SPk_t=uth-jWBuO+hxyf-6SChcfFmvBu3uqYvQ@mail.gmail.com%3e/3">Unnamed text/plain</a> (inline, None, 191 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201206.mbox/raw/%3cCAJHJdS9fufV=SPk_t=uth-jWBuO+hxyf-6SChcfFmvBu3uqYvQ@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

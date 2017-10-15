@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: [ANN] Apache Maven JAR Plugin Version 3.0.1 Released</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201606.mbox/%3cCANYqzZ-uZvhAzsosCitsp+7NV9Dc8J4zPG6tVa3M-h78_wp=Sg@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201606.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201606.mbox/%3cCAPCjjnFn8=zgWjmWg2y2V5zrRp7dJhvj3UkAJp9LLCTYUZJ2zw@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201606.mbox/%3cCAKDUN1vXZhukV4up-v=00=ZHcOQakMGkVAFQ1X8iafKjvj6rcg@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201606.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201606.mbox/%3c1465824254844-5872086.post@n5.nabble.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201606.mbox/%3cCANYqzZ-uZvhAzsosCitsp+7NV9Dc8J4zPG6tVa3M-h78_wp=Sg@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201606.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201606.mbox/%3cCAPCjjnFn8=zgWjmWg2y2V5zrRp7dJhvj3UkAJp9LLCTYUZJ2zw@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201606.mbox/%3cCAKDUN1vXZhukV4up-v=00=ZHcOQakMGkVAFQ1X8iafKjvj6rcg@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201606.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201606.mbox/%3c1465824254844-5872086.post@n5.nabble.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Anders Hammar &lt;and...@hammar.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: [ANN] Apache Maven JAR Plugin Version 3.0.1 Released</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Mon, 13 Jun 2016 13:18:09 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+I also see that there is a v0.17.1 of the connector.
+http://repo.maven.apache.org/maven2/.m2e/connectors/m2eclipse-mavenarchiver/0.17.1/N/LATEST/
+Have you tried that? I have absolutely no clue what the difference is
+though...:-)
+
+/Anders
+
+On Mon, Jun 13, 2016 at 3:12 PM, Anders Hammar &lt;anders@hammar.net&gt; wrote:
+
+&gt; You should probably move this to the m2e list instead. It might require
+&gt; another change to the mavenarchiver connector.
+&gt;
+&gt; /Anders
+&gt;
+&gt; On Mon, Jun 13, 2016 at 10:45 AM, Thorsten Heit &lt;theit@gmx.de&gt; wrote:
+&gt;
+&gt;&gt; Hi,
+&gt;&gt;
+&gt;&gt; using version 3.0.1 inside Eclipse, I now get the following error after
+&gt;&gt; updating my project(s):
+&gt;&gt;
+&gt;&gt; Error message:
+&gt;&gt; org.codehaus.plexus.archiver.jar.Manifest.write(java.io.PrintWriter)
+&gt;&gt; Resource: pom.xml
+&gt;&gt; Path: /&lt;my project&gt;
+&gt;&gt; Location: line 1
+&gt;&gt; Type: Maven Configuration Problem
+&gt;&gt;
+&gt;&gt; This sounds like a similar problem I had with version 3.0.0; see
+&gt;&gt; https://issues.apache.org/jira/browse/MJAR-222. Do you have any
+&gt;&gt; information
+&gt;&gt; what is causing this behaviour?
+&gt;&gt;
+&gt;&gt;
+&gt;&gt; I'm using
+&gt;&gt; - Eclipse Neon (4.6.0RC3)
+&gt;&gt; - m2e 1.7.0.20160531-2022
+&gt;&gt; - m2e connector for mavenarchiver from the link in MJAR-222
+&gt;&gt; - Java 1.8.0_92
+&gt;&gt;
+&gt;&gt;
+&gt;&gt; Side note:
+&gt;&gt; Building from the command line works; the error only occurs in Eclipse...
+&gt;&gt;
+&gt;&gt;
+&gt;&gt; Regards
+&gt;&gt;
+&gt;&gt; Thorsten
+&gt;&gt;
+&gt;&gt;
+&gt;&gt;
+&gt;&gt; khmarbaise wrote
+&gt;&gt; &gt; The Apache Maven team is pleased to announce the release of the
+&gt;&gt; &gt; Apache Maven JAR Plugin Version 3.0.1.
+&gt;&gt; &gt;
+&gt;&gt; &gt; https://maven.apache.org/plugins/maven-jar-plugin/
+&gt;&gt; &gt;
+&gt;&gt; &gt; Important Note:
+&gt;&gt; &gt;
+&gt;&gt; &gt;  * Maven 3.X only
+&gt;&gt; &gt;  * JDK 6 minimum requirement
+&gt;&gt; &gt;
+&gt;&gt; &gt; You should specify the version in your project's plugin configuration:
+&gt;&gt; &gt;
+&gt;&gt; &gt; &lt;plugin&gt;
+&gt;&gt; &gt;
+&gt;&gt; &gt; &lt;groupId&gt;
+&gt;&gt; &gt; org.apache.maven.plugins
+&gt;&gt; &gt; &lt;/groupId&gt;
+&gt;&gt; &gt;
+&gt;&gt; &gt; &lt;artifactId&gt;
+&gt;&gt; &gt; maven-jar-plugin
+&gt;&gt; &gt; &lt;/artifactId&gt;
+&gt;&gt; &gt;
+&gt;&gt; &gt; &lt;version&gt;
+&gt;&gt; &gt; 3.0.1
+&gt;&gt; &gt; &lt;/version&gt;
+&gt;&gt; &gt; &lt;/plugin&gt;
+&gt;&gt; &gt; You can download the appropriate sources etc. from the download page:
+&gt;&gt; &gt;
+&gt;&gt; &gt; https://maven.apache.org/plugins/maven-jar-plugin/download.cgi
+&gt;&gt; &gt;
+&gt;&gt; &gt; Release Notes Maven JAR Plugin 3.0.1
+&gt;&gt; &gt;
+&gt;&gt; &gt;
+&gt;&gt; https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12317526&amp;version=12335708
+&gt;&gt; &gt;
+&gt;&gt; &gt;
+&gt;&gt; &gt; Bug:
+&gt;&gt; &gt;
+&gt;&gt; &gt;  * [MJAR-226] - Memory issues - Upgrade maven-archiver to 3.1.0
+&gt;&gt; &gt;
+&gt;&gt; &gt; Improvements:
+&gt;&gt; &gt;
+&gt;&gt; &gt;  * [MJAR-219] - Improve confusing text wrt Jarsigner plugin on Usage
+&gt;&gt; page
+&gt;&gt; &gt;  * [MJAR-225] - Upgrade maven-plugins to version 30
+&gt;&gt; &gt;  * [MJAR-227] - Upgrade of 'plexus-archiver' to version 3.3.
+&gt;&gt; &gt;
+&gt;&gt; &gt; Enjos,
+&gt;&gt; &gt;
+&gt;&gt; &gt; -The Apache Maven team
+&gt;&gt; &gt;
+&gt;&gt; &gt; ---------------------------------------------------------------------
+&gt;&gt; &gt; To unsubscribe, e-mail:
+&gt;&gt;
+&gt;&gt; &gt; users-unsubscribe@.apache
+&gt;&gt;
+&gt;&gt; &gt; For additional commands, e-mail:
+&gt;&gt;
+&gt;&gt; &gt; users-help@.apache
+&gt;&gt;
+&gt;&gt;
+&gt;&gt;
+&gt;&gt;
+&gt;&gt;
+&gt;&gt; --
+&gt;&gt; View this message in context:
+&gt;&gt; http://maven.40175.n5.nabble.com/ANN-Apache-Maven-JAR-Plugin-Version-3-0-1-Released-tp5871579p5872074.html
+&gt;&gt; Sent from the Maven - Users mailing list archive at Nabble.com.
+&gt;&gt;
+&gt;&gt; ---------------------------------------------------------------------
+&gt;&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt;&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;&gt;
+&gt;&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201606.mbox/raw/%3cCAKDUN1veAcyOt8gmXB8YN-Lha=+f+Tq_cZyciedATZ0cTpuU6w@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 3220 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201606.mbox/raw/%3cCAKDUN1veAcyOt8gmXB8YN-Lha=+f+Tq_cZyciedATZ0cTpuU6w@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

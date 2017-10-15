@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>problem scm in superPOM</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201202.mbox/%3c1329728264261-5498506.post@n5.nabble.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201202.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201202.mbox/%3cCAAUMjNbO_o4WhwTvGoZueVLsaM5XULczdrp=9eioMV2YH9gk1A@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201202.mbox/%3cCAGQgZQR0fyu+QdUytLS=Gf0xTOKwyJ7_qx_qfBwepcJBy=0+GA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201202.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201202.mbox/%3cCAAUMjNbO_o4WhwTvGoZueVLsaM5XULczdrp=9eioMV2YH9gk1A@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201202.mbox/%3c1329728264261-5498506.post@n5.nabble.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201202.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201202.mbox/%3cCAAUMjNbO_o4WhwTvGoZueVLsaM5XULczdrp=9eioMV2YH9gk1A@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201202.mbox/%3cCAGQgZQR0fyu+QdUytLS=Gf0xTOKwyJ7_qx_qfBwepcJBy=0+GA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201202.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201202.mbox/%3cCAAUMjNbO_o4WhwTvGoZueVLsaM5XULczdrp=9eioMV2YH9gk1A@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">José Manuel Prieto &lt;joseman...@prietopalacios.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">problem scm in superPOM</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Mon, 20 Feb 2012 10:22:06 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hi,
+
+I try configure to scm (for mvn release:prepare release:perform ) in my
+enterprise superPOM. But I have a problem.
+
+mySuperPom.xml (pom.xml)
+&lt;properties&gt;
+ &lt;git.url&gt;scm:git:ssh://git@192.168.1.18:/home/git/proyectos/&lt;/git.url&gt;
+&lt;dot.git&gt;.git&lt;/dot.git&gt;
+ &lt;/properties&gt;
+
+&lt;scm&gt;
+&lt;url&gt;${git.url}${project.name}${dot.git}&lt;/url&gt;
+ &lt;connection&gt;${git.url}${project.name}${dot.git}&lt;/connection&gt;
+&lt;developerConnection&gt;${git.url}${project.name
+}${dot.git}&lt;/developerConnection&gt;
+ &lt;/scm&gt;
+
+myPom.xml (pom.xml)
+&lt;properties&gt;
+ &lt;project.name&gt;nasa_cierrestaquillasexportacion&lt;/project.name&gt;
+&lt;/properties&gt;
+
+myEffectivePOM.xml (pom.xml)
+  &lt;scm&gt;
+ &lt;connection&gt;scm:git:ssh://git@192.168.1.18:
+/home/git/proyectos/nasa_cierrestaquillasexportacion.git/nasa_cierrestaquillasexportacion&lt;/connection&gt;
+ &lt;developerConnection&gt;scm:git:ssh://git@192.168.1.18:
+/home/git/proyectos/nasa_cierrestaquillasexportacion.git/nasa_cierrestaquillasexportacion&lt;/developerConnection&gt;
+&lt;url&gt;scm:git:ssh://git@192.168.1.18:
+/home/git/proyectos/nasa_cierrestaquillasexportacion.git/nasa_cierrestaquillasexportacion&lt;/url&gt;
+  &lt;/scm&gt;
+
+The question is, why put at the end?:
+scm:git:ssh://git@192.168.1.18:
+/home/git/proyectos/nasa_cierrestaquillasexportacion.git/nasa_cierrestaquillasexportacion
+instead of:
+scm:git:ssh://git@192.168.1.18:
+/home/git/proyectos/nasa_cierrestaquillasexportacion.git
+why add /nasa_cierrestaquillasexportacion?
+
+If I put scm in myPom.xml all is correct.
+
+Thanks
+Jose Manuel Prieto
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201202.mbox/raw/%3cCAAUMjNY8bgoystmYiSfP4nfz0xFcy77nY58cGQi9YKHctsWKYQ@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 1455 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201202.mbox/raw/%3cCAAUMjNY8bgoystmYiSfP4nfz0xFcy77nY58cGQi9YKHctsWKYQ@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

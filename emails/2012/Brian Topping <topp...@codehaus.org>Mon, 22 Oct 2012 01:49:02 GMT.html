@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Problem with release:perform step: target/check/pom.xml not found?</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201210.mbox/%3cC9B21074-AF2D-4EF5-860C-89DE49AB9C8D@oracle.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201210.mbox/%3cD4A40334-7F32-4410-89FB-C4416C559983@codehaus.org%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201210.mbox/%3cC9B21074-AF2D-4EF5-860C-89DE49AB9C8D@oracle.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201210.mbox/%3cD4A40334-7F32-4410-89FB-C4416C559983@codehaus.org%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201210.mbox/%3cC9B21074-AF2D-4EF5-860C-89DE49AB9C8D@oracle.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201210.mbox/%3cD4A40334-7F32-4410-89FB-C4416C559983@codehaus.org%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201210.mbox/%3cC9B21074-AF2D-4EF5-860C-89DE49AB9C8D@oracle.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201210.mbox/%3cD4A40334-7F32-4410-89FB-C4416C559983@codehaus.org%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Brian Topping &lt;topp...@codehaus.org&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Problem with release:perform step: target/check/pom.xml not found?</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Mon, 22 Oct 2012 01:49:02 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Try adding "/trunk" after the &lt;developerConnection&gt; and &lt;connection&gt; entries. 
+
+
+On Oct 21, 2012, at 9:36 PM, Russell Gold &lt;russell.gold@oracle.com&gt; wrote:
+
+&gt; This is my first time releasing this project via maven, and I am presumably doing something
+wrong.
+&gt; 
+&gt; The release:prepare step seems to work just fine, ending with:
+&gt; 
+&gt;     [INFO] Building jar: /Users/rgold/projects/httpunit/httpunit/target/httpunit-1.7.2-javadoc.jar
+&gt;     [INFO] 
+&gt;     [INFO] --- maven-gpg-plugin:1.1:sign (sign-artifacts) @ httpunit ---
+&gt;     GPG Passphrase: ***********
+&gt; *[INFO] ------------------------------------------------------------------------
+&gt;     [INFO] BUILD SUCCESS
+&gt;     [INFO] ------------------------------------------------------------------------
+&gt;     [INFO] Total time: 56.441s
+&gt;     [INFO] Finished at: Sun Oct 21 21:23:40 EDT 2012
+&gt;     [INFO] Final Memory: 15M/81M
+&gt;     [INFO] ------------------------------------------------------------------------
+&gt; [INFO] Checking in modified POMs...
+&gt; [INFO] Executing: /bin/sh -c cd /Users/rgold/projects/httpunit/httpunit &amp;&amp; svn
+--non-interactive commit --file /var/folders/t5/whm3w7t93l521hxh3cn_v2rw0000gn/T/maven-scm-1558011316.commit
+--targets /var/folders/t5/whm3w7t93l521hxh3cn_v2rw0000gn/T/maven-scm-6609960458242262828-targets
+&gt; [INFO] Working directory: /Users/rgold/projects/httpunit/httpunit
+&gt; [INFO] Tagging release with the label httpunit-1.7.2...
+&gt; [INFO] Executing: /bin/sh -c cd /Users/rgold/projects/httpunit/httpunit &amp;&amp; svn
+--non-interactive copy --file /var/folders/t5/whm3w7t93l521hxh3cn_v2rw0000gn/T/maven-scm-1454972466.commit
+--revision 1111 https://httpunit.svn.sourceforge.net/svnroot/httpunit/trunk/httpunit https://httpunit.svn.sourceforge.net/svnroot/httpunit/tags/httpunit-1.7.2
+&gt; [INFO] Working directory: /Users/rgold/projects/httpunit/httpunit
+&gt; [INFO] Transforming 'HttpUnit'...
+&gt; [INFO] Not removing release POMs
+&gt; [INFO] Checking in modified POMs...
+&gt; [INFO] Executing: /bin/sh -c cd /Users/rgold/projects/httpunit/httpunit &amp;&amp; svn
+--non-interactive commit --file /var/folders/t5/whm3w7t93l521hxh3cn_v2rw0000gn/T/maven-scm-946716656.commit
+--targets /var/folders/t5/whm3w7t93l521hxh3cn_v2rw0000gn/T/maven-scm-2228214041112649129-targets
+&gt; [INFO] Working directory: /Users/rgold/projects/httpunit/httpunit
+&gt; [INFO] Release preparation complete.
+&gt; [INFO] ------------------------------------------------------------------------
+&gt; [INFO] BUILD SUCCESS
+&gt; [INFO] ------------------------------------------------------------------------
+&gt; [INFO] Total time: 1:21.002s
+&gt; [INFO] Finished at: Sun Oct 21 21:23:57 EDT 2012
+&gt; [INFO] Final Memory: 6M/81M
+&gt; [INFO] ------------------------------------------------------------------------
+&gt; 
+&gt; but when I try release:perform, I get
+&gt; 
+&gt; /Users/rgold/projects/httpunit/httpunit&gt; mvn release:perform
+&gt; [INFO] Scanning for projects...
+&gt; [INFO]                                                                         
+&gt; [INFO] ------------------------------------------------------------------------
+&gt; [INFO] Building HttpUnit 1.7.3-SNAPSHOT
+&gt; [INFO] ------------------------------------------------------------------------
+&gt; [INFO] 
+&gt; [INFO] --- maven-release-plugin:2.1:perform (default-cli) @ httpunit ---
+&gt; [INFO] Checking out the project to perform the release ...
+&gt; [INFO] Executing: /bin/sh -c cd /Users/rgold/projects/httpunit/httpunit/target &amp;&amp;
+svn --non-interactive checkout https://httpunit.svn.sourceforge.net/svnroot/httpunit/tags/httpunit-1.7.2
+/Users/rgold/projects/httpunit/httpunit/target/checkout
+&gt; [INFO] Working directory: /Users/rgold/projects/httpunit/httpunit/target
+&gt; [INFO] Executing goals 'deploy'...
+&gt; [INFO] Executing: /bin/sh -c cd /Users/rgold/projects/httpunit/httpunit/target/checkout
+&amp;&amp; /opt/local/share/java/maven3/bin/mvn deploy --no-plugin-updates -Psonatype-oss-release
+-f pom.xml
+&gt;     [WARNING] Command line option -npu is deprecated and will be removed in future Maven
+versions.
+&gt;     [INFO] Scanning for projects...
+&gt;     [ERROR] The build could not read 1 project -&gt; [Help 1]
+&gt;     [ERROR]   
+&gt;     [ERROR]   The project  (/Users/rgold/projects/httpunit/httpunit/target/checkout/pom.xml)
+has 1 error
+&gt;     [ERROR]     Non-readable POM /Users/rgold/projects/httpunit/httpunit/target/checkout/pom.xml:
+/Users/rgold/projects/httpunit/httpunit/target/checkout/pom.xml (No such file or directory)
+&gt;     [ERROR] 
+&gt;     [ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+&gt;     [ERROR] Re-run Maven using the -X switch to enable full debug logging.
+&gt;     [ERROR] 
+&gt;     [ERROR] For more information about the errors and possible solutions, please read
+the following articles:
+&gt;     [ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/ProjectBuildingException
+&gt; [INFO] ------------------------------------------------------------------------
+&gt; [INFO] BUILD FAILURE
+&gt; [INFO] ------------------------------------------------------------------------
+&gt; [INFO] Total time: 1:48.207s
+&gt; [INFO] Finished at: Sun Oct 21 21:25:52 EDT 2012
+&gt; [INFO] Final Memory: 6M/81M
+&gt; [INFO] ------------------------------------------------------------------------
+&gt; [ERROR] Failed to execute goal org.apache.maven.plugins:maven-release-plugin:2.1:perform
+(default-cli) on project httpunit: Maven execution failed, exit code: '1' -&gt; [Help 1]
+&gt; 
+&gt; My presumption is that there is something wrong with my pom (attached). 
+&gt; &lt;pom.xml&gt;
+&gt; The scm section is:
+&gt; 
+&gt; 	&lt;scm&gt;
+&gt; 		&lt;url&gt;http://httpunit.svn.sourceforge.net/viewvc/httpunit&lt;/url&gt;
+&gt; 		&lt;developerConnection&gt;scm:svn:https://httpunit.svn.sourceforge.net/svnroot/httpunit/trunk/httpunit&lt;/developerConnection&gt;
+&gt; 		&lt;connection&gt;scm:svn:http://httpunit.svn.sourceforge.net/svnroot/httpunit/trunk/httpunit&lt;/connection&gt;
+&gt; 	&lt;/scm&gt;
+&gt; 
+&gt; What am I missing? 
+&gt; 
+&gt; 
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201210.mbox/raw/%3cDA96F105-E137-4EB3-B947-F9BA4CE3DD50@codehaus.org%3e/1">Unnamed text/plain</a> (inline, Quoted Printable, 5935 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201210.mbox/raw/%3cDA96F105-E137-4EB3-B947-F9BA4CE3DD50@codehaus.org%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

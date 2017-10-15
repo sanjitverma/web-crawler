@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Deploying asc files</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201605.mbox/%3cfcc1da4e-c77b-c60d-8904-46a5df4f31cd@artifact-software.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201605.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201605.mbox/%3c1463157105167-5868018.post@n5.nabble.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201605.mbox/%3cCAEayHEMZ6Yi_cNw0Vz6ADdW322p+2=rcpcu-S6jVTMAdhtRb1w@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201605.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201605.mbox/%3c1463157105167-5868018.post@n5.nabble.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201605.mbox/%3cfcc1da4e-c77b-c60d-8904-46a5df4f31cd@artifact-software.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201605.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201605.mbox/%3c1463157105167-5868018.post@n5.nabble.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201605.mbox/%3cCAEayHEMZ6Yi_cNw0Vz6ADdW322p+2=rcpcu-S6jVTMAdhtRb1w@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201605.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201605.mbox/%3c1463157105167-5868018.post@n5.nabble.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Brice Vandeputte &lt;bvandeputte....@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Deploying asc files</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Fri, 13 May 2016 14:14:30 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hi
+Recently I had to do that to deploy on public sonatype
+you could have a look at this pom.xml (maven-gpg-plugin)
+&lt;https://github.com/boly38/mongodbdump-java-wrapper/blob/master/pom.xml&gt;
+and at the sonatype online requirements doc
+&lt;http://central.sonatype.org/pages/requirements.html#sign-files-with-gpgpgp&gt;
+to see on how to work with GPG.
+
+my 2 cents
+
+2016-05-13 12:56 GMT+02:00 Thomas Broyer &lt;t.broyer@gmail.com&gt;:
+
+&gt; AFAIK, you can't do that with the maven-deploy-plugin, you need to
+&gt; use maven-gpg-plugin:sign-and-deploy-file (which will do the signing too).
+&gt;
+&gt; On Fri, May 13, 2016 at 12:47 PM Jochen Wiedmann &lt;
+&gt; jochen.wiedmann@gmail.com&gt;
+&gt; wrote:
+&gt;
+&gt; &gt; Hi,
+&gt; &gt;
+&gt; &gt; I am deploying my release to a Nexus staging repository by using
+&gt; &gt;
+&gt; &gt;    mvn deploy:deploy-file -Dfile=target/myfile-1.0.jar
+&gt; &gt; -DpomFile=target/myFile-1.0.pom
+&gt; &gt;
+&gt; &gt; Is it possible, to have the GPG Signatures (target/myfile-1.0.jar.asc,
+&gt; &gt; etc.) deployed as well?
+&gt; &gt;
+&gt; &gt; Thanks,
+&gt; &gt;
+&gt; &gt; Jochen
+&gt; &gt;
+&gt; &gt;
+&gt; &gt; --
+&gt; &gt; The next time you hear: "Don't reinvent the wheel!"
+&gt; &gt;
+&gt; &gt;
+&gt; &gt;
+&gt; http://www.keystonedevelopment.co.uk/wp-content/uploads/2014/10/evolution-of-the-wheel-300x85.jpg
+&gt; &gt;
+&gt; &gt; ---------------------------------------------------------------------
+&gt; &gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; &gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt; &gt;
+&gt; &gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201605.mbox/raw/%3cCAF_fj-Ef8XS5k+5XK2KG_EyW_c+47OJ1yofLanNiX=w-EbF8hQ@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 1377 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201605.mbox/raw/%3cCAF_fj-Ef8XS5k+5XK2KG_EyW_c+47OJ1yofLanNiX=w-EbF8hQ@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

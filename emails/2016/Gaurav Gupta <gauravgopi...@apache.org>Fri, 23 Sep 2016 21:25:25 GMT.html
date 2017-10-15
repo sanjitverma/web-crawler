@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Excluding transitive dependencies of plugins</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201609.mbox/%3c8611e5a7-4df4-6b41-69c8-b23fe189bae6@schulte.it%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201609.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201609.mbox/%3ca7c7570d-94f8-4e0d-9770-f33bcf7bd66a@default%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201609.mbox/%3cCAJpToqcQzLs_XBCn79sE6WonWMd_Bb9L2pdQoM-Z_GJNWRHhHw@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201609.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201609.mbox/%3c25b4e953-dffc-6127-8fd1-ce0c517cce67@swe-blog.net%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201609.mbox/%3c8611e5a7-4df4-6b41-69c8-b23fe189bae6@schulte.it%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201609.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201609.mbox/%3ca7c7570d-94f8-4e0d-9770-f33bcf7bd66a@default%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201609.mbox/%3cCAJpToqcQzLs_XBCn79sE6WonWMd_Bb9L2pdQoM-Z_GJNWRHhHw@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201609.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201609.mbox/%3c25b4e953-dffc-6127-8fd1-ce0c517cce67@swe-blog.net%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Gaurav Gupta &lt;gauravgopi...@apache.org&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Excluding transitive dependencies of plugins</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Fri, 23 Sep 2016 21:25:25 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Any pointers please?
+
+Thanks
+Gaurav
+
+On Mon, Sep 19, 2016 at 5:51 PM, Gaurav Gupta &lt;gauravgopi123@apache.org&gt;
+wrote:
+
+&gt; Hi,
+&gt;
+&gt; I have a use case where I need to exclude transitive dependency of a
+&gt; plugin.
+&gt; I am using following plugin
+&gt;
+&gt; &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+&gt; &lt;artifactId&gt;cobertura-maven-plugin&lt;/artifactId&gt;
+&gt; &lt;version&gt;2.7&lt;/version&gt;
+&gt;
+&gt; This has transitive dependency on logback-classic. To exclude this
+&gt; dependency, I tried following two options
+&gt;
+&gt; 1.
+&gt; &lt;build&gt;
+&gt;
+&gt;   &lt;plugins&gt;
+&gt;     &lt;plugin&gt;
+&gt;       &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+&gt;       &lt;artifactId&gt;cobertura-maven-plugin&lt;/artifactId&gt;
+&gt;       &lt;version&gt;2.7&lt;/version&gt;
+&gt;       &lt;dependencies&gt;
+&gt;         &lt;dependency&gt;
+&gt;           &lt;groupId&gt;net.sourceforge.cobertura&lt;/groupId&gt;
+&gt;           &lt;artifactId&gt;cobertura&lt;/artifactId&gt;
+&gt;           &lt;version&gt;2.1.1&lt;/version&gt;
+&gt;           &lt;exclusions&gt;
+&gt;             &lt;exclusion&gt;
+&gt;               &lt;groupId&gt;ch.qos.logback&lt;/groupId&gt;
+&gt;               &lt;artifactId&gt;logback-classic&lt;/artifactId&gt;
+&gt;             &lt;/exclusion&gt;
+&gt;           &lt;/exclusions&gt;
+&gt;         &lt;/dependency&gt;
+&gt;       &lt;/dependencies&gt;
+&gt;       &lt;configuration&gt;
+&gt;         &lt;check&gt;&lt;/check&gt;
+&gt;       &lt;/configuration&gt;
+&gt;       &lt;executions&gt;
+&gt;         &lt;execution&gt;
+&gt;           &lt;phase&gt;process-classes&lt;/phase&gt;
+&gt;           &lt;goals&gt;
+&gt;             &lt;goal&gt;instrument&lt;/goal&gt;
+&gt;           &lt;/goals&gt;
+&gt;         &lt;/execution&gt;
+&gt;       &lt;/executions&gt;
+&gt;     &lt;/plugin&gt;
+&gt;   &lt;/plugins&gt;
+&gt; &lt;/build&gt;
+&gt;
+&gt; 2. &lt;build&gt;
+&gt;
+&gt;   &lt;plugins&gt;
+&gt;     &lt;plugin&gt;
+&gt;       &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+&gt;       &lt;artifactId&gt;cobertura-maven-plugin&lt;/artifactId&gt;
+&gt;       &lt;version&gt;2.7&lt;/version&gt;
+&gt;       &lt;configuration&gt;
+&gt;         &lt;check&gt;&lt;/check&gt;
+&gt;       &lt;/configuration&gt;
+&gt;       &lt;executions&gt;
+&gt;         &lt;execution&gt;
+&gt;           &lt;phase&gt;process-classes&lt;/phase&gt;
+&gt;           &lt;goals&gt;
+&gt;             &lt;goal&gt;instrument&lt;/goal&gt;
+&gt;           &lt;/goals&gt;
+&gt;         &lt;/execution&gt;
+&gt;       &lt;/executions&gt;
+&gt;     &lt;/plugin&gt;
+&gt;   &lt;/plugins&gt;
+&gt; &lt;/build&gt;
+&gt;
+&gt; &lt;dependencies&gt;
+&gt;   &lt;dependency&gt;
+&gt;     &lt;groupId&gt;net.sourceforge.cobertura&lt;/groupId&gt;
+&gt;     &lt;artifactId&gt;cobertura&lt;/artifactId&gt;
+&gt;     &lt;version&gt;2.1.1&lt;/version&gt;
+&gt;     &lt;exclusions&gt;
+&gt;       &lt;exclusion&gt;
+&gt;         &lt;groupId&gt;ch.qos.logback&lt;/groupId&gt;
+&gt;         &lt;artifactId&gt;logback-classic&lt;/artifactId&gt;
+&gt;       &lt;/exclusion&gt;
+&gt;     &lt;/exclusions&gt;
+&gt;   &lt;/dependency&gt;
+&gt; &lt;/dependencies&gt;
+&gt;
+&gt;
+&gt; But with both options I see that logback-classic is downloaded.
+&gt; Can someone please point me to correct usage of this?
+&gt;
+&gt; Thanks
+&gt; Gaurav
+&gt;
+&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201609.mbox/raw/%3cCAJpToqeMa96FHH47VxhttQ-3d3heGrr87o968FMJzt-AxKsWng@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 2449 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201609.mbox/raw/%3cCAJpToqeMa96FHH47VxhttQ-3d3heGrr87o968FMJzt-AxKsWng@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

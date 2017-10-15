@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: exec maven goals from java fails - invalid plugin descriptor</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201206.mbox/%3c1340820539226-5712222.post@n5.nabble.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201206.mbox/%3c6369CB70BFD88942B9705AC1E639A3382316E2DBD9@DC-US1MBEX4.global.avaya.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201206.mbox/%3c1340816556532-5712214.post@n5.nabble.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201206.mbox/%3c1340821217503-5712225.post@n5.nabble.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201206.mbox/%3c1340820539226-5712222.post@n5.nabble.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201206.mbox/%3c6369CB70BFD88942B9705AC1E639A3382316E2DBD9@DC-US1MBEX4.global.avaya.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201206.mbox/%3c1340816556532-5712214.post@n5.nabble.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201206.mbox/%3c1340821217503-5712225.post@n5.nabble.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Fernanda Araújo &lt;fernanda.g.ara...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: exec maven goals from java fails - invalid plugin descriptor</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Wed, 27 Jun 2012 18:10:20 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hi, I had a kinda similar problem, I think it has to do with the version of
+exec-maven-plugin you are using "1.2" try changing it.
+
+On Wed, Jun 27, 2012 at 2:02 PM, Shaddow89
+&lt;hagemeier.andre@googlemail.com&gt;wrote:
+
+&gt; Hi,
+&gt; i am currently developing a maven plugin that invokes several other plugins
+&gt; while it is executed. Therefore i use MavenCli:
+&gt;
+&gt;                StringBuffer commands = new StringBuffer();
+&gt;
+&gt;  commands.append("org.codehaus.mojo:exec-maven-plugin:1.2:exec ");
+&gt;                commands.append("-Dexecutable=src/main/resources/test.sh ");
+&gt;
+&gt;                MavenCli.main(commands.toString().split(" "),  new
+&gt; Classworld());
+&gt;
+&gt; If i execute this code from a standard java class, this execution will
+&gt; work.
+&gt; If I use this code in my plugin, and execute the plugin from an other
+&gt; project, the following exception occurs:
+&gt;
+&gt;
+&gt; Internal error in the plugin manager getting plugin
+&gt; 'org.codehaus.mojo:exec-maven-plugin': Plugin
+&gt; 'org.codehaus.mojo:exec-maven-plugin:1.2' has an invalid descriptor:
+&gt; 1) Plugin's descriptor contains the wrong group ID: tmp
+&gt; 2) Plugin's descriptor contains the wrong artifact ID:
+&gt; generate-dependencies-maven-plugin
+&gt; 3) Plugin's descriptor contains the wrong version: 0.0.1-SNAPSHOT
+&gt; 4) Plugin's descriptor contains the wrong group ID:
+&gt; org.apache.maven.plugins
+&gt; 5) Plugin's descriptor contains the wrong artifact ID:
+&gt; maven-dependency-plugin
+&gt; 6) Plugin's descriptor contains the wrong version: 2.4
+&gt;
+&gt;
+&gt; I gooled this error and most people suggest wiping the local maven repo.
+&gt; But
+&gt; this didnt help at all. Furthermore, this error does not depend on the exec
+&gt; plugin. I have another part of my code, where i use the install plugin,
+&gt; which causes the same error.
+&gt;
+&gt; Is the general approach of invoking the goals wrong? I cannot configure the
+&gt; plugins, which are to be invoked, in the final project. My plugin needs to
+&gt; invoke the other goals.
+&gt;
+&gt; Ideas are highly welcome
+&gt;
+&gt; --
+&gt; View this message in context:
+&gt; http://maven.40175.n5.nabble.com/exec-maven-goals-from-java-fails-invalid-plugin-descriptor-tp5712214.html
+&gt; Sent from the Maven - Users mailing list archive at Nabble.com.
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201206.mbox/raw/%3cCACbSMSMkLprrcXso74o4AsuMSpHWG_UMBrJyGvW53+Tj0LKgFg@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 2361 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201206.mbox/raw/%3cCACbSMSMkLprrcXso74o4AsuMSpHWG_UMBrJyGvW53+Tj0LKgFg@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

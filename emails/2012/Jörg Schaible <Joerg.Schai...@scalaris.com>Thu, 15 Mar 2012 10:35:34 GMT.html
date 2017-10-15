@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Which is the BEST Approach to define Global POM.XML</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201203.mbox/%3cCAFdPtEg1AhJF3ETfwqukhXwFNgTO84+7hqN31Te_i1Y8aA45Dw@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201203.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201203.mbox/%3cCAKDUN1utv0_MZhO1wzPxHJstdZ7J2d+KEjicGey2Y1=vCGW0Mg@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201203.mbox/%3cCAKDUN1sjL9nrNGpbYJZN=55d25AXLGCE_dvRu=cEkzkvb_8zCA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201203.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201203.mbox/%3c4F61E0AE.3050301@gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201203.mbox/%3cCAFdPtEg1AhJF3ETfwqukhXwFNgTO84+7hqN31Te_i1Y8aA45Dw@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201203.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201203.mbox/%3cCAKDUN1utv0_MZhO1wzPxHJstdZ7J2d+KEjicGey2Y1=vCGW0Mg@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201203.mbox/%3cCAKDUN1sjL9nrNGpbYJZN=55d25AXLGCE_dvRu=cEkzkvb_8zCA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201203.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201203.mbox/%3c4F61E0AE.3050301@gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Jörg Schaible &lt;Joerg.Schai...@scalaris.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Which is the BEST Approach to define Global POM.XML</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Thu, 15 Mar 2012 10:35:34 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Eric Kolotyluk wrote:
+
+&gt; What I do is have a top-level POM like (see below), and then I have my
+&gt; top level project POMs reference that (see further below). This may not
+&gt; be the best example, as I am still in the process of building the
+&gt; infrastructure, but
+&gt; 
+&gt;  1. I put the Parent POM in its own place in source control and I
+&gt;     manually deploy it with Maven when I make changes.
+&gt;  2. You need to do this before creating any Project POMs that reference
+&gt;     it because they should reference it via Maven and not the file
+&gt;     system - if you work in a large company you will soon discover why.
+&gt;  3. There is of course a bootstrapping issue because now the project
+&gt;     POMs need to know how to find your Repository Manager, which is why
+&gt;     I include that information in the top level (Corporate) POM so
+&gt;     people can use it as a reference.
+&gt;  4. As you may gather I am using Sonatype's Nexus as a Repository Manager.
+&gt;  5. We are still developing our corporate repository infrastructure so
+&gt;     the content of the Corporate POM will evolve over time as our
+&gt;     corporate governance and policies are better codified.
+&gt; 
+&gt; Does that help?
+
+[snip]
+
+&gt; &lt;modules&gt;
+&gt; &lt;module&gt;platform.Java&lt;/module&gt;
+&gt; &lt;module&gt;platform.NET&lt;/module&gt;
+&gt; &lt;/modules&gt;
+
+[snip]
+
+It's a bad idea to declare modules in a global (resp. corporate POM). Such a 
+POM should be a project on its own with no submodules. Or do you think the 
+Apache parent POM references all projects at Apache that use Maven directly 
+(or indirectly)?
+
+A project POM may now refer the global parent either using a specific 
+version (to pin down a specific set of versions and dependencies) or a 
+SNAPSHOT to use the latest entries/updates of the global POM.
+
+- Jörg
+
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201203.mbox/raw/%3cjjsgls$4qh$1@dough.gmane.org%3e/">Unnamed text/plain</a> (inline, 8-Bit, 1924 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201203.mbox/raw/%3cjjsgls$4qh$1@dough.gmane.org%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

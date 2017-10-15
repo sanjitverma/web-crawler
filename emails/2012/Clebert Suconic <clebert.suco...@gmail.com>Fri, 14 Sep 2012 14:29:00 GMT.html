@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: NullPointerException on Maven Compile</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201209.mbox/%3cCAAqLGLORJEn6OEX3ki6PPO1VEjv8fsAmsNkkPbcZZ4013mTXGQ@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201209.mbox/%3cCADN69yngCMW9Rsw0zrdit5S4UB04p-zh6Oa_hJdMHftHgyTmDw@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201209.mbox/%3cCALhtWkd231TdDX5pgjk7o6mZHKE-ZGexCimfDxsxB=WYML5GBw@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201209.mbox/%3c4d39aa0f3e1fefffe55d312b363fc537.squirrel@www.mosabuam.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201209.mbox/%3cCAAqLGLORJEn6OEX3ki6PPO1VEjv8fsAmsNkkPbcZZ4013mTXGQ@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201209.mbox/%3cCADN69yngCMW9Rsw0zrdit5S4UB04p-zh6Oa_hJdMHftHgyTmDw@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201209.mbox/%3cCALhtWkd231TdDX5pgjk7o6mZHKE-ZGexCimfDxsxB=WYML5GBw@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201209.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201209.mbox/%3c4d39aa0f3e1fefffe55d312b363fc537.squirrel@www.mosabuam.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Clebert Suconic &lt;clebert.suco...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: NullPointerException on Maven Compile</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Fri, 14 Sep 2012 14:29:00 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Thanks,
+
+http://jira.codehaus.org/browse/MCOMPILER-181
+
+
+I haven't filled a JIRA before because I wasn't sure it was a bug or a
+configuration. (although even if it's a configuration causing this, it
+should throw a valid error message).
+
+On Fri, Sep 14, 2012 at 6:05 AM, Benson Margulies &lt;bimargulies@gmail.com&gt;wrote:
+
+&gt; Please file a JIRA.
+&gt;
+&gt; On Thu, Sep 13, 2012 at 4:56 PM, Clebert Suconic
+&gt; &lt;clebert.suconic@gmail.com&gt; wrote:
+&gt; &gt; We have recently upgraded mvn compile on HornetQ, a
+&gt; &gt; Message-oriented-middleware from RedHat,
+&gt; &gt;
+&gt; &gt;
+&gt; &gt; and we are now facing a NullPointerException on mac computers, when we
+&gt; &gt; upgrade mvn-compiler to 2.5. It all works fine with 2.3.1, and it's funny
+&gt; &gt; that only fails on my mac.
+&gt; &gt;
+&gt; &gt; * https://gist.github.com/3717257
+&gt; &gt;
+&gt; &gt;
+&gt; &gt; If there's anyone available to take a look, you can download my repo at:
+&gt; &gt;
+&gt; &gt; git://github.com/clebertsuconic/hornetq.git
+&gt; &gt; cd hornetq
+&gt; &gt; git checkout mvn-upgrade-fails
+&gt; &gt;
+&gt; &gt; or you can view it here:
+&gt; &gt; https://github.com/clebertsuconic/hornetq/tree/mvn-upgrade-fails
+&gt; &gt;
+&gt; &gt;
+&gt; &gt;
+&gt; &gt; *
+&gt; &gt; Here is the NPE I"m getting (with mvn -X)
+&gt; &gt;
+&gt; &gt; [INFO] Compiling 50 source files to
+&gt; &gt; /work/hornetq/hornetq/hornetq-commons/target/classes
+&gt; &gt; [INFO] -------------------------------------------------------------
+&gt; &gt; [ERROR] COMPILATION ERROR :
+&gt; &gt; [INFO] -------------------------------------------------------------
+&gt; &gt; [ERROR] error: java.lang.NullPointerException
+&gt; &gt; [INFO] 1 error
+&gt; &gt; [INFO] -------------------------------------------------------------
+&gt; &gt; [INFO]
+&gt; ------------------------------------------------------------------------
+&gt; &gt; [INFO] BUILD FAILURE
+&gt; &gt; [INFO]
+&gt; ------------------------------------------------------------------------
+&gt; &gt; [INFO] Total time: 2.935s
+&gt; &gt; [INFO] Finished at: Thu Sep 13 15:13:53 CDT 2012
+&gt; &gt; [INFO] Final Memory: 9M/81M
+&gt; &gt; [INFO]
+&gt; ------------------------------------------------------------------------
+&gt; &gt; [ERROR] Failed to execute goal
+&gt; &gt; org.apache.maven.plugins:maven-compiler-plugin:2.5.1:compile
+&gt; &gt; (default-compile) on project hornetq-commons: Compilation failure
+&gt; &gt; [ERROR] error: java.lang.NullPointerException
+&gt; &gt; [ERROR] -&gt; [Help 1]
+&gt; &gt; org.apache.maven.lifecycle.LifecycleExecutionException: Failed to
+&gt; &gt; execute goal org.apache.maven.plugins:maven-compiler-plugin:2.5.1:compile
+&gt; &gt; (default-compile) on project hornetq-commons: Compilation failure
+&gt; &gt; error: java.lang.NullPointerException
+&gt; &gt;
+&gt; &gt;         at
+&gt; org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:213)
+&gt; &gt;         at
+&gt; org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:153)
+&gt; &gt;         at
+&gt; org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:145)
+&gt; &gt;         at
+&gt; org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:84)
+&gt; &gt;         at
+&gt; org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:59)
+&gt; &gt;         at
+&gt; org.apache.maven.lifecycle.internal.LifecycleStarter.singleThreadedBuild(LifecycleStarter.java:183)
+&gt; &gt;         at
+&gt; org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:161)
+&gt; &gt;         at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:320)
+&gt; &gt;         at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:156)
+&gt; &gt;         at org.apache.maven.cli.MavenCli.execute(MavenCli.java:537)
+&gt; &gt;         at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:196)
+&gt; &gt;         at org.apache.maven.cli.MavenCli.main(MavenCli.java:141)
+&gt; &gt;         at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+&gt; &gt;         at
+&gt; sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+&gt; &gt;         at
+&gt; sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+&gt; &gt;         at java.lang.reflect.Method.invoke(Method.java:597)
+&gt; &gt;         at
+&gt; org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:290)
+&gt; &gt;         at
+&gt; org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:230)
+&gt; &gt;         at
+&gt; org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:409)
+&gt; &gt;         at
+&gt; org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:352)
+&gt; &gt; Caused by: org.apache.maven.plugin.CompilationFailureException:
+&gt; &gt; Compilation failure
+&gt; &gt; error: java.lang.NullPointerException
+&gt; &gt;
+&gt; &gt;         at
+&gt; org.apache.maven.plugin.AbstractCompilerMojo.execute(AbstractCompilerMojo.java:729)
+&gt; &gt;         at
+&gt; org.apache.maven.plugin.CompilerMojo.execute(CompilerMojo.java:128)
+&gt; &gt;         at
+&gt; org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:101)
+&gt; &gt;         at
+&gt; org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:209)
+&gt; &gt;         ... 19 more
+&gt; &gt; [ERROR]
+&gt; &gt; [ERROR]
+&gt; &gt; [ERROR] For more information about the errors and possible solutions,
+&gt; &gt; please read the following articles:
+&gt; &gt; [ERROR] [Help 1]
+&gt; &gt; http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+
+
+-- 
+Clebert Suconic
+http://community.jboss.org/people/clebert.suconic@jboss.com
+http://clebertsuconic.blogspot.com
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201209.mbox/raw/%3cCAKF+bspP1-hNezUBE--QUFmYWhyWoLYKW+nuqF+nZDtiBMcjnw@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 5404 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201209.mbox/raw/%3cCAKF+bspP1-hNezUBE--QUFmYWhyWoLYKW+nuqF+nZDtiBMcjnw@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

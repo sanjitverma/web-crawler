@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Questions about property resolution</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201206.mbox/%3cA1D4484E-CA9D-4E19-A788-DE7EEE0CC829@rapicault.net%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201206.mbox/%3c4397EEA9-F61E-4B28-B575-C7E31269EF6C@rapicault.net%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201206.mbox/%3c4FD5F62F.6020901@gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201206.mbox/%3c4397EEA9-F61E-4B28-B575-C7E31269EF6C@rapicault.net%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201206.mbox/%3cA1D4484E-CA9D-4E19-A788-DE7EEE0CC829@rapicault.net%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201206.mbox/%3c4397EEA9-F61E-4B28-B575-C7E31269EF6C@rapicault.net%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201206.mbox/%3c4FD5F62F.6020901@gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201206.mbox/%3c4397EEA9-F61E-4B28-B575-C7E31269EF6C@rapicault.net%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Belhadj abdessalem &lt;belhadj.abdessa...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Questions about property resolution</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Mon, 11 Jun 2012 13:46:45 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+hello,
+
+this seem a property under your server properties
+
+cheek your server properties,
+
+2012/6/11 Cédric Teyton &lt;cedric.teyton@gmail.com&gt;
+
+&gt; Hello,
+&gt;
+&gt; I've a question with respect to some POM.xml files i've observed recently.
+&gt; In some cases like the following one :
+&gt;
+&gt; &lt;project&gt;
+&gt; &lt;modelVersion&gt;4.0.0&lt;/**modelVersion&gt;
+&gt; &lt;groupId&gt;activemq-web&lt;/**groupId&gt;
+&gt; &lt;artifactId&gt;activemq-web&lt;/**artifactId&gt;
+&gt; &lt;name&gt;ActiveMQ :: Web&lt;/name&gt;
+&gt; &lt;version&gt;4.0-M2&lt;/version&gt;
+&gt; &lt;description&gt;Web Connector for REST API and Streamlets
+&gt; support&lt;/description&gt;
+&gt; &lt;dependencies&gt;
+&gt;    ...
+&gt; &lt;dependency&gt;
+&gt; &lt;groupId&gt;springframework&lt;/**groupId&gt;
+&gt; &lt;artifactId&gt;spring&lt;/**artifactId&gt;
+&gt; &lt;version&gt;${spring_version}&lt;/**version&gt;
+&gt; &lt;/dependency&gt;
+&gt;    ...
+&gt; &lt;/dependencies&gt;
+&gt; &lt;/project&gt;
+&gt;
+&gt; I just don't figure out how the variable /${spring_version}/ can be
+&gt; matched to something.
+&gt; Indeed, there's no property specified in this POM, and there is also no
+&gt; parent.
+&gt;
+&gt; Have you an idea about how this property can find an actual value ?
+&gt; Thanks a lot,
+&gt;
+&gt; Cheers
+&gt; Cédric
+&gt;
+&gt;
+
+
+-- 
+Abdessalem BELHADJ
+Ingénieur en Informatique
+Direction des Etudes
+E-Mail : a.belhadj@eugena.fr
+Tel : (+33) 06 36 28 78 89
+
+P Afin de contribuer au respect de l'environnement, merci de n'imprimer ce
+courriel que si nécessaire.
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201206.mbox/raw/%3cCAF=98zzW5rai2jzWNfhUAUveSTmqRNhvmdLjBOSNMomzHhQUEQ@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, Quoted Printable, 1291 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201206.mbox/raw/%3cCAF=98zzW5rai2jzWNfhUAUveSTmqRNhvmdLjBOSNMomzHhQUEQ@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

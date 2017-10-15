@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Maven and Continous Integration / Continous Delivery</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201604.mbox/%3cCALhtWkcqnYt7qUrw3Hb8KsCACAKKWPFLNJJoL8RHZ1pnipHeoA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201604.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201604.mbox/%3cCAPCjjnGTKDmza-4MkPkDq1a_Ut-XvscRqfKL60qR0comY0rEnA@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201604.mbox/%3cCAFmYSVmuWgUB7SiiKmw+M4-F6RtRxDNzpyk5Yf-8=EJV8Vt8SQ@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201604.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201604.mbox/%3cd63bdd3d-4215-40ea-b3e3-2918c49ec954@default%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201604.mbox/%3cCALhtWkcqnYt7qUrw3Hb8KsCACAKKWPFLNJJoL8RHZ1pnipHeoA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201604.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201604.mbox/%3cCAPCjjnGTKDmza-4MkPkDq1a_Ut-XvscRqfKL60qR0comY0rEnA@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201604.mbox/%3cCAFmYSVmuWgUB7SiiKmw+M4-F6RtRxDNzpyk5Yf-8=EJV8Vt8SQ@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201604.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201604.mbox/%3cd63bdd3d-4215-40ea-b3e3-2918c49ec954@default%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Dan Tran &lt;dant...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Maven and Continous Integration / Continous Delivery</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Fri, 22 Apr 2016 02:16:52 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+the big issue with that technique is that the pom deployed to maven repo,
+its version is the real version, will be maintaining nightmare
+
+-D
+
+On Wed, Apr 20, 2016 at 2:17 AM, Francois-Xavier Bonnet &lt;
+francois-xavier.bonnet@centraliens.net&gt; wrote:
+
+&gt; Maybe this article could help:
+&gt; https://axelfontaine.com/blog/dead-burried.html
+&gt;
+&gt; 2016-04-20 11:07 GMT+02:00 Hohl, Gerrit &lt;g.hohl@aurenz.de&gt;:
+&gt;
+&gt; &gt; Hello everyone, :-)
+&gt; &gt;
+&gt; &gt;
+&gt; &gt;
+&gt; &gt; I'm currently sitting on the book "Continuous Delivery" written by Jez
+&gt; &gt; Humble and David Farley.
+&gt; &gt;
+&gt; &gt; They write that each build is a potential release candidate. And each
+&gt; &gt; build should be triggered by the check-in into the SCM.
+&gt; &gt;
+&gt; &gt; So far, so good. But how do I realize that in Maven?
+&gt; &gt;
+&gt; &gt; Up until now the version number in our Maven projects and modules have
+&gt; &gt; been static. If it had to be changed the developer had to perform that
+&gt; &gt; step.
+&gt; &gt;
+&gt; &gt; But if the CI server performs the build as well as putting the result
+&gt; &gt; into the repository (in our case Nexus), the resulting artifacts have to
+&gt; &gt; include the build number in some way. Otherwise I overwrite the same
+&gt; &gt; artifact other and other again until a developer changes the version in
+&gt; &gt; the POM file. Depending projects then will see only the last version of
+&gt; &gt; the artifact and builds won't be repeatable (means the functionality of
+&gt; &gt; the artifact changes without anyone noticing it).
+&gt; &gt;
+&gt; &gt; One way would be to modify the POM between the check-out from the SCM
+&gt; &gt; and the Maven build process and writing the build number into it.
+&gt; &gt;
+&gt; &gt; But then I will have the problem in the IDE that it don't understand
+&gt; &gt; that the current version I've checked-out is the version I have referred
+&gt; &gt; on in another project I've checked-out.
+&gt; &gt;
+&gt; &gt; If the CI server checks-in the changed POM file afterwards it will
+&gt; &gt; trigger the next build. Also it will cause problems if the POM was
+&gt; &gt; changed in the SCM in the meantime as the CI maybe can't merge it.
+&gt; &gt;
+&gt; &gt;
+&gt; &gt;
+&gt; &gt; Anyone solved that problem?
+&gt; &gt;
+&gt; &gt;
+&gt; &gt;
+&gt; &gt; Regards,
+&gt; &gt;
+&gt; &gt; Gerrit
+&gt; &gt;
+&gt; &gt;
+&gt; &gt;
+&gt; &gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201604.mbox/raw/%3cCAPCjjnHBQa2=hiEdrzoo_fY2m0cOOQRwrjyN65ZRPhYzTbu7YQ@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 2076 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201604.mbox/raw/%3cCAPCjjnHBQa2=hiEdrzoo_fY2m0cOOQRwrjyN65ZRPhYzTbu7YQ@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

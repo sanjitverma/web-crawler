@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: MEAR: Exception while deploying the app...Invalid ejb jar</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201210.mbox/%3cCAKDUN1tCPZbG=ETCrC0bchOtVUFvjbO-n9FTYLsA8eOEiTC-_g@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201210.mbox/%3cCAESUf_ATHh46pRDWq3_tG0jnaCSbFgZ=h96Dsn+f88r93CdW4g@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201210.mbox/%3cCALy+7UkAmURkCJ4XmOKK0wDox3piMByzbLow_0P6CBWu1DAo=w@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201210.mbox/%3cCADy3QzOK4Z2ODEnBgyxcptff3G4qhKFnZfPS8nMTnfh7aVuEwQ@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201210.mbox/%3cCAKDUN1tCPZbG=ETCrC0bchOtVUFvjbO-n9FTYLsA8eOEiTC-_g@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201210.mbox/%3cCAESUf_ATHh46pRDWq3_tG0jnaCSbFgZ=h96Dsn+f88r93CdW4g@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201210.mbox/%3cCALy+7UkAmURkCJ4XmOKK0wDox3piMByzbLow_0P6CBWu1DAo=w@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201210.mbox/%3cCADy3QzOK4Z2ODEnBgyxcptff3G4qhKFnZfPS8nMTnfh7aVuEwQ@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Jörg Schaible &lt;Joerg.Schai...@scalaris.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: MEAR: Exception while deploying the app...Invalid ejb jar</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Thu, 25 Oct 2012 06:32:51 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hi Derek,
+
+snekse wrote:
+
+&gt; I'm hoping someone can shed some light on this.  When I package my ear
+&gt; using maven-ear-plugin 2.7, I'm able to deploy without an issue.  If I
+&gt; update my pom to use maven-ear-plugin v2.8, I cannot deploy the ear and I
+&gt; receive the error below in my Glassfish 3.1.2.2 server logs:
+&gt; 
+&gt; remote failure: Error occurred during deployment: Exception while
+&gt; deploying the app [mycoservicesear] : Invalid ejb jar
+&gt; [mycoservicesejb.jar]: it contains zero ejb.
+&gt; Note:
+&gt; 1. A valid ejb jar requires at least one session, entity (1.x/2.x style),
+&gt; or message-driven bean.
+&gt; 2. EJB3+ entity beans (@Entity) are POJOs and please package them as
+&gt; library jar.
+&gt; 3. If the jar file contains valid EJBs which are annotated with EJB
+&gt; component level annotations (@Stateless, @Stateful, @MessageDriven,
+&gt; @Singleton), please check server.log to see whether the annotations were
+&gt; processed properly.. Please see server.log for more details.
+&gt; Command deploy failed.
+&gt; 
+&gt; 
+&gt; This error is preceded by warnings such as this.
+&gt; 
+&gt; [#|2012-10-23T17:33:01.374-0500|WARNING|glassfish3.1.2|global|
+_ThreadID=86;_ThreadName=Thread-7;|Error
+&gt; in annotation processing: java.lang.NoClassDefFoundError:
+&gt; com/myco/services/business/PersonService|#] (NOTE: Defined in
+&gt; mycoservicesclient)
+&gt; 
+&gt; 
+&gt; Our mycoservices project looks like this:
+&gt; 
+&gt; mycoservices
+&gt; |-mycoservicesclient
+&gt; |-mycoservicescore
+&gt; |-mycoservicesear
+&gt; |-mycoservicesejb
+&gt; |-mycoserviceswar
+&gt; 
+&gt; When I explode the resulting ears, the biggest difference I notice is in
+&gt; the MANIFEST.MF of the mycoservicesejb.jar.  The 2.7 version has
+&gt; mycoservicesclient.jar and all of the other Maven dependencies listed for
+&gt; Class-Path.  The 2.8 version has nothing listed.
+
+What about you're talking now? The mycoservicesejb.jar has been generated by 
+the maven-ejb-plugin and not by the maven-ear-plugin. I am not aware that 
+the maven-ear-plugin replaces anything in the jars of the dependent EJB 
+components.
+
+&gt; From what I've read in
+&gt; the release notes for
+&gt; 
+2.8&lt;http://jira.codehaus.org/secure/ReleaseNote.jspa?projectId=11132&amp;version=18269&gt;,
+&gt; nothing seems to point towards this kind of change.
+&gt; 
+&gt; Any clarification of what's going on, and more importantly, what the right
+&gt; way to configure things to work on 2.8 (preferably with an explanation of
+&gt; why) would be greatly appreciated.
+
+Normally the structure of an EAR contains a "lib" directory where all the 
+jars reside that can be used in the EJBs classpath, while the EJBs are in 
+the root of the EAR structure. However, Maven has historically put any jar 
+into the EARs root and therefore forced the jar with the EJB to contain a 
+manifest that listed all dependencies in its Class-Path entry. Note, that 
+this entry is not actually a name only, it is the complete path in the EAR 
+structure.
+
+It seems that for the new version something has been changed for the 
+generated default "application.xml". That triggers your app server to look 
+now for the EJB's dependencies in the wrong place.
+
+Try to define the "defaultJavaBundleDir" to "lib". After we did that we 
+could create our EJB jars without the nasty "Class-Path" entry in the 
+manifest. If you still want this entry in the manifest of your EJBs, you 
+must configure a "classpathPrefix" of "lib/" in the ejb-plugin's 
+archive/manifest configuration. Your ear should end up with a structure 
+like:
+
+mycoservices.ear
++ mycoservices.ejb
++ lib/
+  + mycoservicescore.jar
++ META-INF/
+  + application.xml
+
+- Jörg
+
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201210.mbox/raw/%3ck6amei$cmd$1@ger.gmane.org%3e/">Unnamed text/plain</a> (inline, 8-Bit, 3694 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201210.mbox/raw/%3ck6amei$cmd$1@ger.gmane.org%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

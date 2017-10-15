@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Why isn't maven-dependency-plugin copying my artifacts anymore?</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201603.mbox/%3cCA+NpsquVe89tVPELGD695WmuR0gz=xXbskmFvpZ4u8EJagGAag@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201603.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201603.mbox/%3c56E2F769.30208@gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201603.mbox/%3c56E261AE.5030404@gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201603.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201603.mbox/%3c56E2F769.30208@gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201603.mbox/%3cCA+NpsquVe89tVPELGD695WmuR0gz=xXbskmFvpZ4u8EJagGAag@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201603.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201603.mbox/%3c56E2F769.30208@gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201603.mbox/%3c56E261AE.5030404@gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201603.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201603.mbox/%3c56E2F769.30208@gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Jörg Schaible &lt;joerg.schai...@gmx.de&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Why isn't maven-dependency-plugin copying my artifacts anymore?</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Fri, 11 Mar 2016 16:40:51 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+David M. Karr wrote:
+
+&gt; On 03/10/2016 09:43 PM, Uwe Barthel wrote:
+&gt;&gt; I tried:
+&gt;&gt; 'mvn clean' removes the lib/ and target/ folder.
+&gt;&gt; 'mvn package' puts the libs into lib/ again.
+&gt;&gt;
+&gt;&gt; I delete all libs in lib/ folder but let the lib/ folder itself and the
+&gt;&gt; target folder untouched. ‘mvn package’ works as expected.
+&gt;&gt;
+&gt; 
+&gt; As usual, this still isn't doing anything for me.
+&gt; 
+&gt; This time I looked closer at the console output.  I'm thinking there's a
+&gt; clue here.  I looked closer at the output from
+&gt; "maven-dependency-plugin".  This is what I saw:
+&gt; -------------------------
+&gt; [INFO] --- maven-dependency-plugin:2.10:unpack (unpack-license) @
+&gt; com.cisco.yangide.core ---
+&gt; [INFO] Configured Artifact:
+&gt; org.opendaylight.odlparent:odl-license:0.0.1-SNAPSHOT:jar
+&gt; [INFO] Unpacking
+&gt; .../.m2/repository/org/opendaylight/odlparent/odl-license/0.0.1-
+SNAPSHOT/odl-license-0.0.1-SNAPSHOT.jar
+&gt; to .../git/yangide/plugins/com.cisco.yangide.core/target/classes with
+&gt; includes "" and excludes "META-INF/**"
+&gt; -----------------------
+&gt; 
+&gt; This is the only occurrence of "maven-dependency-plugin" in the build
+&gt; output, and notice that it's the "unpack" goal, not the "copy" goal.
+&gt; This reference to the "unpack" goal is in the parent of the parent of
+&gt; this pom.  Is this causing the maven-dependency-plugin to somehow skip
+&gt; the "copy" goal?
+
+Use "mvn help:effective-pom" to see what Maven actually uses after merging 
+the POM with the parent.
+
+Cheers,
+Jörg
+
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201603.mbox/raw/%3cnbusej$30p$1@ger.gmane.org%3e/">Unnamed text/plain</a> (inline, 8-Bit, 1658 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201603.mbox/raw/%3cnbusej$30p$1@ger.gmane.org%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

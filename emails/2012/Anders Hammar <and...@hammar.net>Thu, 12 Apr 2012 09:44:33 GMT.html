@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: sync to central and patched 3rd party artifacts</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201204.mbox/%3c7370F6F5ED3B874F988F5CE657D801EA1BB9F5A11B@UKMA1.UK.NDS.COM%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201204.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201204.mbox/%3c1334225237084-5635198.post@n5.nabble.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201204.mbox/%3c7370F6F5ED3B874F988F5CE657D801EA1BB9F5A11B@UKMA1.UK.NDS.COM%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201204.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201204.mbox/%3cCALy+7UkSsDXoi6h0MY6OQ=-uMYnHsO_2J2MG8GWT3+23DNtZag@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201204.mbox/%3c7370F6F5ED3B874F988F5CE657D801EA1BB9F5A11B@UKMA1.UK.NDS.COM%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201204.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201204.mbox/%3c1334225237084-5635198.post@n5.nabble.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201204.mbox/%3c7370F6F5ED3B874F988F5CE657D801EA1BB9F5A11B@UKMA1.UK.NDS.COM%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201204.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201204.mbox/%3cCALy+7UkSsDXoi6h0MY6OQ=-uMYnHsO_2J2MG8GWT3+23DNtZag@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Anders Hammar &lt;and...@hammar.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: sync to central and patched 3rd party artifacts</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Thu, 12 Apr 2012 09:44:33 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+I *think* there is no verification that all dependencies exist in
+central, so you would then put something into central that will not
+work for the the end users. We've been there several times in the past
+and it hasn't been a pleasant experience.
+
+/Anders
+
+On Thu, Apr 12, 2012 at 09:41, Nord, James &lt;JNord@nds.com&gt; wrote:
+&gt; Hi all,
+&gt;
+&gt; I was wondering how things are supposed to work when you have a sync to central but you
+relly on a patched version of a 3rd party artifact.
+&gt;
+&gt; For example lets assume my library X depends on apache common io, and the current version
+has a bug that has been sitting around with a path for a while and not making it into any
+release.
+&gt; So according to the documents normally we would download and build a patched verison
+of commons:commons-io and deploy it to our repo as common:commons-io:1.2.3-4_JIRA1234
+&gt;
+&gt; Using the same Group and artifact is recommended to avoid bringin in duplicate classes
+is someone who consumes our lib also uses commons-io.
+&gt;
+&gt; Anyway this is all good - but what happens if we want our artifact X synced to central
+- we must have all dependencies available on central but we have no sync control on commons/commons-io.
+&gt;
+&gt; What would normally happen here?
+&gt;
+&gt; /James
+&gt;
+&gt; ________________________________
+&gt;
+&gt; **************************************************************************************
+&gt; This message is confidential and intended only for the addressee. If you have received
+this message in error, please immediately notify the postmaster@nds.com and delete it from
+your system as well as any copies. The content of e-mails as well as traffic data may be monitored
+by NDS for employment and security purposes. To protect the environment please do not print
+this e-mail unless necessary.
+&gt;
+&gt; NDS Limited. Registered Office: One London Road, Staines, Middlesex, TW18 4EX, United
+Kingdom. A company registered in England and Wales. Registered no. 3080780. VAT no. GB 603
+8808 40-00
+&gt; **************************************************************************************
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201204.mbox/raw/%3cCAKDUN1teVJPiSWB4E_GVxGY6usf1PQ8zNRW=sceaeLDrLg4BHQ@mail.gmail.com%3e/">Unnamed text/plain</a> (inline, Quoted Printable, 2268 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201204.mbox/raw/%3cCAKDUN1teVJPiSWB4E_GVxGY6usf1PQ8zNRW=sceaeLDrLg4BHQ@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

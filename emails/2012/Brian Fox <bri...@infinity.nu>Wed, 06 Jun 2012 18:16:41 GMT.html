@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: why is commons-math3 jar missing from sonatype mirror of central?</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201206.mbox/%3cCAMk_Beiq=4O_=ngGRd10seOOddmnO+_rPNxaTZ3Gm+zs9RLjGQ@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201206.mbox/%3c14F9DFD6B68FA947B8406A630D40029916E95D23@EXMB2.pennmutual.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201206.mbox/%3cp0624080ccbf3036edcac@%5b10.1.125.126%5d%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201206.mbox/%3cCAAZGhMGcC+85d-BB__DJnB8VL32=YcEwZ+cp_Jd764m5X=3=og@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201206.mbox/%3cCAMk_Beiq=4O_=ngGRd10seOOddmnO+_rPNxaTZ3Gm+zs9RLjGQ@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201206.mbox/%3c14F9DFD6B68FA947B8406A630D40029916E95D23@EXMB2.pennmutual.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201206.mbox/%3cp0624080ccbf3036edcac@%5b10.1.125.126%5d%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201206.mbox/%3cCAAZGhMGcC+85d-BB__DJnB8VL32=YcEwZ+cp_Jd764m5X=3=og@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Brian Fox &lt;bri...@infinity.nu&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: why is commons-math3 jar missing from sonatype mirror of central?</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Wed, 06 Jun 2012 18:16:41 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Found the email Russ ;-)
+
+Anyway, repository.s.o isn't intended to be a mirror, it's just a
+proxy used primarily by us for internal use and for oss users building
+our stuff. http://search.maven.org has replaced the need to use rso's
+search as well.
+
+Regarding why the files aren't in the repository, it's no longer synced as
+a mirror since we now have 4 other machines for that purpose, so only
+things that have been requested are in there. It does appear to be in the
+index though:
+https://repository.sonatype.org/index.html#nexus-search;quick~commons-math
+
+
+
+On Mon, Jun 4, 2012 at 8:54 PM, Russ Tremain &lt;russt@releasetools.org&gt; wrote:
+
+&gt; it is here:
+&gt;
+&gt;        http://repo.maven.apache.org/**maven2/org/apache/commons/**
+&gt; commons-math3/3.0&lt;http://repo.maven.apache.org/maven2/org/apache/commons/commons-math3/3.0&gt;
+&gt;
+&gt; but not getting sync'd to the sonatype mirror:
+&gt;
+&gt;        https://repository.sonatype.**org/index.html#nexus-search;**
+&gt; quick~commons-math3&lt;https://repository.sonatype.org/index.html#nexus-search;quick~commons-math3&gt;
+&gt;
+&gt; in fact I only see 7 of the 32 files mirrored.
+&gt;
+&gt; anyone know why?
+&gt;
+&gt; It makes me wonder if other files are missing as well...
+&gt;
+&gt; /r
+&gt;
+&gt; ------------------------------**------------------------------**---------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.**apache.org&lt;users-unsubscribe@maven.apache.org&gt;
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201206.mbox/raw/%3cCAMk_Beg0mZ4VSp0qL41=op8Wvm4KbCVv7MZ5VuS6h5xEf7bozw@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 1425 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201206.mbox/raw/%3cCAMk_Beg0mZ4VSp0qL41=op8Wvm4KbCVv7MZ5VuS6h5xEf7bozw@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

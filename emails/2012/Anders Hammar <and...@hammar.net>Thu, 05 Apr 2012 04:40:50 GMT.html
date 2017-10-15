@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Sub modules and goals</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201204.mbox/%3cCAKbR2FMAhfgYaV1d80gOvYoKtUr04V1LTco+gH9OZPo+7Cvbwg@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201204.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201204.mbox/%3cCA+nPnMyqmvWFFED756DA3iTyJ3u5nLoxwSk8ZGsgvRpdd82uNQ@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201204.mbox/%3cCAKbR2FMAhfgYaV1d80gOvYoKtUr04V1LTco+gH9OZPo+7Cvbwg@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201204.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201204.mbox/%3cCA+nPnMyqmvWFFED756DA3iTyJ3u5nLoxwSk8ZGsgvRpdd82uNQ@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201204.mbox/%3cCAKbR2FMAhfgYaV1d80gOvYoKtUr04V1LTco+gH9OZPo+7Cvbwg@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201204.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201204.mbox/%3cCA+nPnMyqmvWFFED756DA3iTyJ3u5nLoxwSk8ZGsgvRpdd82uNQ@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201204.mbox/%3cCAKbR2FMAhfgYaV1d80gOvYoKtUr04V1LTco+gH9OZPo+7Cvbwg@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201204.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201204.mbox/%3cCA+nPnMyqmvWFFED756DA3iTyJ3u5nLoxwSk8ZGsgvRpdd82uNQ@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Anders Hammar &lt;and...@hammar.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Sub modules and goals</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Thu, 05 Apr 2012 04:40:50 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+First, you don't need to execute "mvn clean install deploy". Just
+execute "mvn clean deploy".
+
+The feature of deploying only if ALL artifacts build ok is something
+you need to look for in a repo manager. In Nexus you can use the
+staging feature in the Pro version for this (there is planned support
+for Snapshots which I believe will be part of the next version). I
+*think* Artifactory has a similar feature, or at least some plugin for
+Hudson that will do what you want. If you need more detailed info I
+suggest asking on their mailing lists.
+
+On Thu, Apr 5, 2012 at 05:11, Rajwinder Makkar &lt;rmakkaroffice@gmail.com&gt; wrote:
+&gt; Here is a scenario :
+&gt;
+&gt; I have one maven project which has sub modules defined in the root pom. So
+&gt; maven starts with root pom and then it hits &lt;module&gt; tag and start
+&gt; compiling the sub modules. goals i use are
+&gt;
+&gt; clean install deploy.
+&gt;
+&gt; What is happening here lets say root pom has 5 module and first one gets
+&gt; compiled and then deployed to remote maven repo then second one gett
+&gt; compiled and get deployed and lets assume it fails on 3rd module. So
+&gt; basically althoguh end of the day build fails but still it updates the
+&gt; remote maven repo that compiled fine.
+&gt;
+&gt; I deally if build fails then it should not deploy any thing. Is it
+&gt; configurable some how that maven compiles all modules and then only it
+&gt; deploy if successful ?
+&gt;
+&gt; -Raj
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201204.mbox/raw/%3cCAKDUN1vAH6_7B8weXaUWBr5VqD2jtozNAW+V0vv2DF-d2z0EXQ@mail.gmail.com%3e/">Unnamed text/plain</a> (inline, None, 1570 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201204.mbox/raw/%3cCAKDUN1vAH6_7B8weXaUWBr5VqD2jtozNAW+V0vv2DF-d2z0EXQ@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

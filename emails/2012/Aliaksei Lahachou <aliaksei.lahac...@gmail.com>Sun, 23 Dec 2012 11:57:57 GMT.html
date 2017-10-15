@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Emma CodeCoverage for specific child module only</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201212.mbox/%3cCAChPNbcAFi0=+ks2zEpzB6j0XWLHq+wnRpaQyaDzHSpO9KrA8A@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201212.mbox/%3cCANyrOm6Cu=_qkyw8ud8y80Tqig=_J-9MwCSiWUQTgff__kdx7Q@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201212.mbox/%3cCALy+7UkP1PqRuta-bTKS+eGzcZk30RT48BWoAvwHEthZKpRyRw@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201212.mbox/%3c1356365047708-5740067.post@n5.nabble.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201212.mbox/%3cCAChPNbcAFi0=+ks2zEpzB6j0XWLHq+wnRpaQyaDzHSpO9KrA8A@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201212.mbox/%3cCANyrOm6Cu=_qkyw8ud8y80Tqig=_J-9MwCSiWUQTgff__kdx7Q@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201212.mbox/%3cCALy+7UkP1PqRuta-bTKS+eGzcZk30RT48BWoAvwHEthZKpRyRw@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201212.mbox/%3c1356365047708-5740067.post@n5.nabble.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Aliaksei Lahachou &lt;aliaksei.lahac...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Emma CodeCoverage for specific child module only</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Sun, 23 Dec 2012 11:57:57 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Try mvn clean emma:emma -pl Yahoo-Java-spring
+
+Regards,
+htfv (Aliaksei Lahachou)
+Am 18.12.2012 20:04 schrieb "godisone" &lt;rajan.jain@verizonwireless.com&gt;:
+
+&gt; Hi
+&gt;
+&gt; I have parent pom file which has two modules.
+&gt;
+&gt; &lt;modules&gt;
+&gt;         &lt;module&gt;Yahoo-Flex&lt;/module&gt;
+&gt;         &lt;module&gt;Yahoo-Java-spring&lt;/module&gt;
+&gt; &lt;/modules&gt;
+&gt;
+&gt; Now i want to run
+&gt;
+&gt; mvn clean emma:emma
+&gt;
+&gt; Project Yahoo-Java-spring has declared following [below is part of pom.xml]
+&gt;
+&gt; &lt;build&gt;
+&gt;                 &lt;plugin&gt;
+&gt;                                 &lt;groupId&gt;org.sonatype.flexmojos&lt;/groupId&gt;
+&gt;
+&gt; &lt;artifactId&gt;flexmojos-maven-plugin&lt;/artifactId&gt;
+&gt;                                 &lt;version&gt;${flexmojosversion}&lt;/version&gt;
+&gt;                                 &lt;executions&gt;
+&gt;                                         &lt;execution&gt;
+&gt;                                                 &lt;goals&gt;
+&gt;
+&gt; &lt;goal&gt;copy-flex-resources&lt;/goal&gt;
+&gt;                                                 &lt;/goals&gt;
+&gt;                                                 &lt;configuration&gt;
+&gt;
+&gt; &lt;stripVersion&gt;true&lt;/stripVersion&gt;
+&gt;                                                 &lt;/configuration&gt;
+&gt;                                         &lt;/execution&gt;
+&gt;                                 &lt;/executions&gt;
+&gt;                 &lt;/plugin&gt;
+&gt;                 &lt;plugin&gt;
+&gt;                         &lt;groupId&gt;emma&lt;/groupId&gt;
+&gt;                         &lt;artifactId&gt;emma&lt;/artifactId&gt;
+&gt;                         &lt;version&gt;2.0.5312&lt;/version&gt;
+&gt;                 &lt;/plugin&gt;
+&gt; &lt;/build&gt;
+&gt;
+&gt; Currently when i run
+&gt; mvn clean emma:emma
+&gt; it compiles both the project and run code coverage
+&gt;
+&gt; I just want to run emma:emma on the Yahoo-Java-Spring how can i do it.
+&gt;
+&gt; Thanks
+&gt; Raj
+&gt;
+&gt;
+&gt;
+&gt;
+&gt; --
+&gt; View this message in context:
+&gt; http://maven.40175.n5.nabble.com/Emma-CodeCoverage-for-specific-child-module-only-tp5739060.html
+&gt; Sent from the Maven - Users mailing list archive at Nabble.com.
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201212.mbox/raw/%3cCALcFPWFdSQTVAd5px-DLROXkMuWJ5Vspd5z8vKNF5W12EkvQFQ@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 2074 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201212.mbox/raw/%3cCALcFPWFdSQTVAd5px-DLROXkMuWJ5Vspd5z8vKNF5W12EkvQFQ@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

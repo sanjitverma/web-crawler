@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Reducing SNAPSHOT redundancy</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201205.mbox/%3c34922D8098CB7048A99568D009AF262D085AF5430E@NYKPCMMGMB05.INTRANET.BARCAPINT.COM%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cCAHNdxumrH6c-vBDAeVdiDxRfkc0sAW5p3DQ8V=-nwkS_0mawGg@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201205.mbox/%3c4FA91EF7.3020306@artifact-software.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cCAHNdxumrH6c-vBDAeVdiDxRfkc0sAW5p3DQ8V=-nwkS_0mawGg@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201205.mbox/%3c34922D8098CB7048A99568D009AF262D085AF5430E@NYKPCMMGMB05.INTRANET.BARCAPINT.COM%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cCAHNdxumrH6c-vBDAeVdiDxRfkc0sAW5p3DQ8V=-nwkS_0mawGg@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201205.mbox/%3c4FA91EF7.3020306@artifact-software.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cCAHNdxumrH6c-vBDAeVdiDxRfkc0sAW5p3DQ8V=-nwkS_0mawGg@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Anders Hammar &lt;and...@hammar.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Reducing SNAPSHOT redundancy</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Tue, 08 May 2012 16:05:30 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Yet another way of configuring your multi-module build on CI is to NOT
+just do "mvn deploy". The key thing with CI is that you want to verify
+the build, right? And get quick feedback on errors.
+Doing "mvn dpeloy" on a larger multi-module build will not do this for
+the latter part of the build. So, what you want is "mvn test". You
+will then not waste time creating jars that you don't really need (for
+verifying the build). That build could then trigger a "mvn deploy"
+(possibly with -DskipTests) job to push to the repo. Or even better, a
+second step of the same job (which will ensure that it's the same code
+base being used and not a fresh checkout).
+
+/Anders
+On Tue, May 8, 2012 at 3:26 PM, Ron Wheeler
+&lt;rwheeler@artifact-software.com&gt; wrote:
+&gt; +1
+&gt; Ron
+&gt;
+&gt; On 08/05/2012 8:39 AM, Thiessen, Todd (Todd) wrote:
+&gt;&gt;
+&gt;&gt; In my experience, I notice a certain lifecycle with builds.  They start
+&gt;&gt; off relatively small but as the releases and years pass, the build grows and
+&gt;&gt; evolves.  More things get tacked on, more modules get added, and so forth.
+&gt;&gt;
+&gt;&gt; I find that over time, the earlier modules of the build change less and
+&gt;&gt; less. There can be any number of reasons for this (feature content for that
+&gt;&gt; area is relatively stable and needs fewer and fewer enhancements, etc..).
+&gt;&gt; Whatever the reason, what this tells me is that those modules no longer need
+&gt;&gt; to be built over and over again. They can be broken out into their own trunk
+&gt;&gt; and built and versioned independently.  This would shorten your build time,
+&gt;&gt; which is vital in a CI kind of environment where you want to have a change
+&gt;&gt; tested and get feedback on the build as quickly as possible.
+&gt;&gt;
+&gt;&gt; Now 30 modules is still relatively small.  I am not sure how long your
+&gt;&gt; turn around time is. I start to get a bit concerned once a build approaches
+&gt;&gt; 10 minutes.  Once it does, I start to ask questions like "Are all modules of
+&gt;&gt; this build changing constantly?  If not, which ones are not and why? Which
+&gt;&gt; of these can and should be considered to be pulled out into their own
+&gt;&gt; trunk."
+&gt;&gt;
+&gt;&gt; I find that this line of thinking not only helps to keep all build times
+&gt;&gt; fast, but it also helps to keep a healthy high quality code base which
+&gt;&gt; promotes re-use.
+&gt;&gt;
+&gt;&gt; Anyway, that's my 2 cents.
+&gt;&gt;
+&gt;&gt;&gt; -----Original Message-----
+&gt;&gt;&gt; From: ctrueden.wisc@gmail.com [mailto:ctrueden.wisc@gmail.com] On
+&gt;&gt;&gt; Behalf Of Curtis Rueden
+&gt;&gt;&gt; Sent: Monday, May 07, 2012 4:32 PM
+&gt;&gt;&gt; To: Maven Users List
+&gt;&gt;&gt; Cc: Johannes Schindelin
+&gt;&gt;&gt; Subject: Reducing SNAPSHOT redundancy
+&gt;&gt;&gt;
+&gt;&gt;&gt; Hi everyone,
+&gt;&gt;&gt;
+&gt;&gt;&gt; I have a question about snapshot deployment.
+&gt;&gt;&gt;
+&gt;&gt;&gt; I have a multi-module project with ~30 modules, all in a Git repository
+&gt;&gt;&gt; on
+&gt;&gt;&gt; GitHub. Whenever someone pushes to the repository, a GitHub
+&gt;&gt;&gt; notification
+&gt;&gt;&gt; hook pings our Jenkins to do a rebuild, which includes a redeploy to
+&gt;&gt;&gt; our
+&gt;&gt;&gt; Nexus. This is all great.
+&gt;&gt;&gt;
+&gt;&gt;&gt; However, there is a lot of redundancy between snapshot JAR files.
+&gt;&gt;&gt; Often, a
+&gt;&gt;&gt; commit will involve only one of the 30 submodules, but all 30 will
+&gt;&gt;&gt; ultimately be rebuilt and redeployed, resulting in a plethora of
+&gt;&gt;&gt; snapshot
+&gt;&gt;&gt; versions. At any point in time, there is nearly always a "new" version
+&gt;&gt;&gt; of
+&gt;&gt;&gt; any given submodule of the project.
+&gt;&gt;&gt;
+&gt;&gt;&gt; I was wondering about the best way to reduce this issue. It would be
+&gt;&gt;&gt; nice
+&gt;&gt;&gt; to only redeploy snapshots that have actually changed-or better, for
+&gt;&gt;&gt; Maven
+&gt;&gt;&gt; (client-side) or Nexus (server-side) to detect identical snapshots and
+&gt;&gt;&gt; not
+&gt;&gt;&gt; waste the space creating a superfluous new one. (Of course, for a
+&gt;&gt;&gt; variety
+&gt;&gt;&gt; of reasons, comparing binary hashes between the latest snapshot JAR and
+&gt;&gt;&gt; the
+&gt;&gt;&gt; new snapshot candidate may not be enough-especially if the build
+&gt;&gt;&gt; process or
+&gt;&gt;&gt; CI adds some build-specific information to the JAR. But that is not
+&gt;&gt;&gt; really
+&gt;&gt;&gt; Maven's problem...)
+&gt;&gt;&gt;
+&gt;&gt;&gt; Alternately, we could do something on the CI side to only do the deploy
+&gt;&gt;&gt; if
+&gt;&gt;&gt; the submodule is really known to have changed-probably involving git
+&gt;&gt;&gt; reflogs etc. But that road could quickly become fraught with peril...
+&gt;&gt;&gt;
+&gt;&gt;&gt; So my question is: is there a common Maven best practice to mitigate
+&gt;&gt;&gt; such
+&gt;&gt;&gt; redundancy? Or do most people simply live with the proliferation of
+&gt;&gt;&gt; snapshots that occurs when using a naive deployment scheme?
+&gt;&gt;&gt;
+&gt;&gt;&gt; Thanks,
+&gt;&gt;&gt; Curtis
+&gt;&gt;
+&gt;&gt; ---------------------------------------------------------------------
+&gt;&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt;&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;&gt;
+&gt;&gt;
+&gt;
+&gt;
+&gt; --
+&gt; Ron Wheeler President Artifact Software Inc email:
+&gt; rwheeler@artifact-software.com skype: ronaldmwheeler phone: 866-970-2435,
+&gt; ext 102
+&gt;
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201205.mbox/raw/%3cCAKDUN1sM6yt+viwwTXOrW8x8KgJ-BWUQN5YwjCpyb0qF8OZdbQ@mail.gmail.com%3e/">Unnamed text/plain</a> (inline, Quoted Printable, 5130 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201205.mbox/raw/%3cCAKDUN1sM6yt+viwwTXOrW8x8KgJ-BWUQN5YwjCpyb0qF8OZdbQ@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

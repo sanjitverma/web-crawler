@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Maven Shade Plugin 1.7 causes ${project.basedir} to point to the build dir instead of where the pom.xml is</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201206.mbox/%3c1340416211562-5711857.post@n5.nabble.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201206.mbox/%3c1340455359794-5711863.post@n5.nabble.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201206.mbox/%3cCALzs+uzi=VK7wt8AO+DJAWS5ojFmww3WoUYFvJU-V9WWtM9Oig@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201206.mbox/%3cCALzs+uxY6Y2Pa5-3zf03u4uOWdwq3NphAiMQH=Rm84NCRiH0Ww@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201206.mbox/%3c1340416211562-5711857.post@n5.nabble.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201206.mbox/%3c1340455359794-5711863.post@n5.nabble.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201206.mbox/%3cCALzs+uzi=VK7wt8AO+DJAWS5ojFmww3WoUYFvJU-V9WWtM9Oig@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201206.mbox/%3cCALzs+uxY6Y2Pa5-3zf03u4uOWdwq3NphAiMQH=Rm84NCRiH0Ww@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Benson Margulies &lt;bimargul...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Maven Shade Plugin 1.7 causes ${project.basedir} to point to the build dir instead of where the pom.xml is</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Sat, 23 Jun 2012 11:10:28 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+You mean, other uses in your POM end up in target instead of .? Could
+you please post a JIRA with a testcase? I didn't think that there was
+a way for a mojo to change that value, but I suppose I might have
+found one by accident.
+
+On Fri, Jun 22, 2012 at 3:01 PM, Shay Banon &lt;kimchy@gmail.com&gt; wrote:
+&gt; The title says it all, has anybody seen it? Once I upgraded from 1.5/1.6 to
+&gt; 1.7, all references with ${project.basedir} seemed to move to "target/"
+&gt; instead of ".".
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201206.mbox/raw/%3cCALhtWkcnrOqCrQi8ZuKgf6zJ_kE8Hudp3Q61A+oUFeVty5i3Ag@mail.gmail.com%3e/">Unnamed text/plain</a> (inline, None, 663 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201206.mbox/raw/%3cCALhtWkcnrOqCrQi8ZuKgf6zJ_kE8Hudp3Q61A+oUFeVty5i3Ag@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

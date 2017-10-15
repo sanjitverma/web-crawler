@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Release plugin &amp; ${project.version} dependencies</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201212.mbox/%3cOFE336D4E1.95EFE641-ONC1257AD4.003811B1-C1257AD4.00392FE5@ars.de%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201212.mbox/%3cCA+7+kFAxrTJ1_NkNDrV5Hf-uBmkT6eTT_sJFt7zAWFs3O-c4Tw@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201212.mbox/%3c66E38C42347D6446BF7FCB22C3D3878072E2946552@ECCR06PUBLIC.exchange.local%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201212.mbox/%3c1355433805214-5738064.post@n5.nabble.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201212.mbox/%3cOFE336D4E1.95EFE641-ONC1257AD4.003811B1-C1257AD4.00392FE5@ars.de%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201212.mbox/%3cCA+7+kFAxrTJ1_NkNDrV5Hf-uBmkT6eTT_sJFt7zAWFs3O-c4Tw@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201212.mbox/%3c66E38C42347D6446BF7FCB22C3D3878072E2946552@ECCR06PUBLIC.exchange.local%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201212.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201212.mbox/%3c1355433805214-5738064.post@n5.nabble.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Dan Godfrey &lt;daniel.godf...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Release plugin &amp; ${project.version} dependencies</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Fri, 14 Dec 2012 11:06:43 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+In our case the 2 projects will always have the same versions, so you're
+correct, if we make a change to the project-windows then it will also
+require a release of the project-main artifact. In practice though
+project-windows rarely changes, while project-main is constantly in flux,
+so that hasn't ever been an issue.
+
+Potentially, these should probably be a single project. However, that would
+involve more complexity and maintenance on our CI server and greater chance
+for mistakes to happen than just having the 2 separate projects.
+
+Why does it only ignore ${project.version} from the current reactor and not
+for all dependencies? There must be something I'm missing, as I can't see
+any downside to allowing it for any &amp; all dependencies.
+
+Thanks,
+Dan.
+
+
+On 13 December 2012 20:37, Robert Scholte &lt;rfscholte@apache.org&gt; wrote:
+
+&gt; Hi,
+&gt;
+&gt; the maven-release-plugins only accepts ${project.version} for
+&gt; reactor-projects, i.e. projects being part of a multi-module project.
+&gt; The fact that your projects are separated also means that they both have
+&gt; their own release-cycle. As you describe, they often(!) will be the same,
+&gt; but if your MSI config is changed, does that require a new project-main? So
+&gt; I understand why it was implemented like this.
+&gt;
+&gt; You could change the value for allowTimestampedSnapshots[1] to true, but
+&gt; then you've lost the check for all snapshots.
+&gt;
+&gt; What you could probably do is combine this with the enforcer rule called
+&gt; RequireReleaseDependencies[2] (have never done this myself though).
+&gt;
+&gt;
+&gt; Robert
+&gt;
+&gt; [1] http://maven.apache.org/**plugins/maven-release-plugin/**
+&gt; prepare-mojo.html#**allowTimestampedSnapshots&lt;http://maven.apache.org/plugins/maven-release-plugin/prepare-mojo.html#allowTimestampedSnapshots&gt;
+&gt; [2] http://maven.apache.org/**enforcer/enforcer-rules/**
+&gt; requireReleaseDeps.html&lt;http://maven.apache.org/enforcer/enforcer-rules/requireReleaseDeps.html&gt;
+&gt;
+&gt;
+&gt;
+&gt;
+&gt; Op Thu, 13 Dec 2012 13:51:06 +0100 schreef Dan Godfrey &lt;
+&gt; daniel.godfrey@gmail.com&gt;:
+&gt;
+&gt;
+&gt;  Hi,
+&gt;&gt;
+&gt;&gt; I'm having trouble using the release-plugin on a project as it is
+&gt;&gt; complaining that it has snapshot dependencies, even though those
+&gt;&gt; dependencies are actually set to ${project.version}. So when the
+&gt;&gt; dependency
+&gt;&gt; check phase runs they are indeed SNAPSHOT dependencies, if it were to
+&gt;&gt; continue then they would be updated to non-SNAPSHOT dependencies in a
+&gt;&gt; later
+&gt;&gt; phase.
+&gt;&gt;
+&gt;&gt; I was wondering if anybody knows of anyway to get around this?
+&gt;&gt;
+&gt;&gt; To explain why: I have 2 separate projects project-main &amp; project-windows.
+&gt;&gt; project-main is a jar (well multiple jars)which are deployed to our local
+&gt;&gt; repo. project-windows then takes that deployed jar and packages it up as
+&gt;&gt; an
+&gt;&gt; MSI. Both of these projects are kept in lockstep with regards version
+&gt;&gt; numbers and have separate CI jobs. I've split the 2 projects up in
+&gt;&gt; different SCM repos like this as we have have other CI jobs depending on
+&gt;&gt; project-main for testing, and potentially in the future a project-linux,
+&gt;&gt; etc.
+&gt;&gt;
+&gt;&gt; Thanks,
+&gt;&gt; Dan.
+&gt;&gt;
+&gt;
+&gt; ------------------------------**------------------------------**---------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.**apache.org&lt;users-unsubscribe@maven.apache.org&gt;
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201212.mbox/raw/%3cCA+J=zur8xMjTuVi+if+wMvHYA8HDU5uJ-zyw1XnGfS+FECzDAg@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 3286 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201212.mbox/raw/%3cCA+J=zur8xMjTuVi+if+wMvHYA8HDU5uJ-zyw1XnGfS+FECzDAg@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

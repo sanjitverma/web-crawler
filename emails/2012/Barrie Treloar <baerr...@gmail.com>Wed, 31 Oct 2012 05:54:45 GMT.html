@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: maven-war-plugin: How to exclude src/main/webapp/WEB-INF/web.xml?</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201210.mbox/%3cCAPJK9=KsH3bYab_044y3r1r=-OGcGJ+NtVR0hKnZu9Snz4u6Lw@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201210.mbox/%3cCADVp3v-q+q7=ew4dFfH4whsCvWSyfGqAGt6RbyqEy1+X0x2cOw@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201210.mbox/%3cCAPJK9=KsH3bYab_044y3r1r=-OGcGJ+NtVR0hKnZu9Snz4u6Lw@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201210.mbox/%3cCADVp3v-q+q7=ew4dFfH4whsCvWSyfGqAGt6RbyqEy1+X0x2cOw@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201210.mbox/%3cCAPJK9=KsH3bYab_044y3r1r=-OGcGJ+NtVR0hKnZu9Snz4u6Lw@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201210.mbox/%3cCADVp3v-q+q7=ew4dFfH4whsCvWSyfGqAGt6RbyqEy1+X0x2cOw@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201210.mbox/%3cCAPJK9=KsH3bYab_044y3r1r=-OGcGJ+NtVR0hKnZu9Snz4u6Lw@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201210.mbox/%3cCADVp3v-q+q7=ew4dFfH4whsCvWSyfGqAGt6RbyqEy1+X0x2cOw@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Barrie Treloar &lt;baerr...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: maven-war-plugin: How to exclude src/main/webapp/WEB-INF/web.xml?</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Wed, 31 Oct 2012 05:54:45 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+On Wed, Oct 31, 2012 at 3:55 PM, Jeff &lt;predatorvi@gmail.com&gt; wrote:
+
+&gt; I'm using Enunciate to do some awesome wizardry with my web services, but I
+&gt; have a problem when src/main/webapp/WEB-INF/web.xml is in my project since
+&gt; it seems the enunciate-generated file gets overwritten by the
+&gt; maven-war-plugin.
+&gt;
+&gt; However, I am unable to exclude the web.xml using packagingExcludes option.
+&gt;  I've tried:
+&gt;
+&gt; &lt;packagingExcludes&gt;WEB-INF/web.xml&lt;/packagingExcludes&gt;
+&gt; &lt;packagingExcludes&gt;src/main/webapp/WEB-INF/web.xml&lt;/packagingExcludes&gt;
+&gt; &lt;packagingExcludes&gt;**/web.xml&lt;/packagingExcludes&gt;
+&gt;
+&gt; but it still gets copied.  What am I missing?
+&gt;
+&gt; --
+&gt;
+
+I'm only guessing since I don't use this plugin.
+
+Have you tried running with -X and wading through the output to see if its
+selecting something incorrectly?
+
+Alternatively you could try some hackery:
+Set
+http://maven.apache.org/plugins/maven-war-plugin/war-mojo.html#failOnMissingWebXmlto
+false.
+Set http://maven.apache.org/plugins/maven-war-plugin/war-mojo.html#webXmlto
+a non-existent file.
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201210.mbox/raw/%3cCADVp3v8a1Xm=U3Ee_hGmRDKRD=eQ+Y8xKiSM31cC5JaOMOSJPQ@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 1042 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201210.mbox/raw/%3cCADVp3v8a1Xm=U3Ee_hGmRDKRD=eQ+Y8xKiSM31cC5JaOMOSJPQ@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

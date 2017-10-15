@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: I want to separate the 3rd party jar in war file.</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201603.mbox/%3c1458283434586-5864042.post@n5.nabble.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201603.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201603.mbox/%3c56EBC0E9.2050507@yahoo.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201603.mbox/%3c1458283434586-5864042.post@n5.nabble.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201603.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201603.mbox/%3c56EBC0E9.2050507@yahoo.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201603.mbox/%3c1458283434586-5864042.post@n5.nabble.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201603.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201603.mbox/%3c56EBC0E9.2050507@yahoo.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201603.mbox/%3c1458283434586-5864042.post@n5.nabble.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201603.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201603.mbox/%3c56EBC0E9.2050507@yahoo.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Anders Hammar &lt;and...@hammar.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: I want to separate the 3rd party jar in war file.</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Fri, 18 Mar 2016 07:10:52 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+If some dependencies are already provided by the runtime (e.g. the app
+server) you use scope 'provided'. That will make those dependencies used
+during compilation but htey are not included in the war. More details on
+the different dependency scopes can be find by googling.
+However, using a different setup for local development and production is
+strongly discouraged, it will only lead to errors. So if you have some jars
+outside of your war during dev (i.e. 'provided') you should do that in
+production as well.
+
+/Anders
+
+On Fri, Mar 18, 2016 at 7:43 AM, pradeepkumar &lt;pradeepkumar.scm@gmail.com&gt;
+wrote:
+
+&gt; I want to separate the 3rd party jar in war file.
+&gt; Currently we have 165 jars are  using in our project. Out of this only 27
+&gt; jars are belongs to Application jars then rest of jars are 3rd party jars.
+&gt; In our projects our dev team is maintaining the jars in a separate folder
+&gt; in
+&gt; one drive as shown below.
+&gt; C:\Tomcatconfiguration\lib\Jar1 .. jar100
+&gt; they will make use of those jars through eclipse.
+&gt;
+&gt; In the same way we have a job which will generate the war lets say Desktop.
+&gt; in the same Desktop code there are maintaining some jars at
+&gt; WebContent\WEB-INF\lib level.
+&gt;
+&gt; But i am adding all the dependencies in all the pom.xmls then war are
+&gt; generated and working as expected. But the war file size is growing.
+&gt; When ever i generate the war file all the 165 jars are included in war file
+&gt; .then the war file  size is growing.
+&gt; So i want to separate the 3rd party jars from war file.
+&gt; I don't want to include all the 3rd party jars in WAR and want to use only
+&gt; application jars.
+&gt; Whenever i want to deploy i want make use of 3rd party jars.
+&gt; Can anyone suggest the best way and how can i do this.
+&gt; right now i am separating the the 3rd party jars by using the scope compile
+&gt; &lt;scope&gt;compile&lt;/scope&gt; tag in all the pom.xml as shown below .
+&gt;                         &lt;dependency&gt;
+&gt;                                 &lt;groupId&gt;org.apache.poi&lt;/groupId&gt;
+&gt;                                 &lt;artifactId&gt;poi&lt;/artifactId&gt;
+&gt;                                 &lt;version&gt;3.9&lt;/version&gt;
+&gt;                                 &lt;scope&gt;compile&lt;/scope&gt;
+&gt;                                 &lt;optional&gt;true&lt;/optional&gt;
+&gt;                         &lt;/dependency&gt;
+&gt;
+&gt; Is this the right approch ? then how to make use of 3rd party jars.
+&gt;
+&gt; Please suggest .
+&gt;
+&gt;
+&gt;
+&gt; --
+&gt; View this message in context:
+&gt; http://maven.40175.n5.nabble.com/I-want-to-separate-the-3rd-party-jar-in-war-file-tp5864042.html
+&gt; Sent from the Maven - Users mailing list archive at Nabble.com.
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201603.mbox/raw/%3cCAKDUN1s_eHjEOnchXkJ-sCFdyasknZiuT=aF9VBB9gbVZUEtQg@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 2759 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201603.mbox/raw/%3cCAKDUN1s_eHjEOnchXkJ-sCFdyasknZiuT=aF9VBB9gbVZUEtQg@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

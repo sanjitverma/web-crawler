@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>RE: unpacked dependency in assembly question</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201205.mbox/%3c6f6072d59d5a60ab1d172244570d1e6a.squirrel@www.mosabuam.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cCAKDUN1vLG_rQZV3VUYzxJCTDc+=M8+An9xjfPjCA-Rmo8_Z5Kw@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201205.mbox/%3c4FBFD89E.7070703@artifact-software.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cCAC-oDJ_ar=EimmiKYE-ALx3wg6q14EeFAxdy8_S0iem59J6kdQ@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201205.mbox/%3c6f6072d59d5a60ab1d172244570d1e6a.squirrel@www.mosabuam.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cCAKDUN1vLG_rQZV3VUYzxJCTDc+=M8+An9xjfPjCA-Rmo8_Z5Kw@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201205.mbox/%3c4FBFD89E.7070703@artifact-software.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201205.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201205.mbox/%3cCAC-oDJ_ar=EimmiKYE-ALx3wg6q14EeFAxdy8_S0iem59J6kdQ@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">&lt;Chad.Da...@emc.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">RE: unpacked dependency in assembly question</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Fri, 25 May 2012 19:20:47 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+
+
+&gt; So your problem is with the unzip stage where it is creating a top level
+&gt; directory and putting the files in it instead of exporting just the files into the
+&gt; output directory?
+&gt; Perhaps you want to share your current method of doing that?
+
+Hey Ron.  It's not that it's creating a top level directory, the zip contains a top level
+directory. 
+
+My method is nothing more than this:
+
+		&lt;dependencySet&gt;
+			&lt;useProjectArtifact&gt;false&lt;/useProjectArtifact&gt;
+			&lt;includes&gt;
+				&lt;include&gt;org.apache.tomcat:apache-tomcat&lt;/include&gt;
+			&lt;/includes&gt;
+			&lt;unpack&gt;true&lt;/unpack&gt;
+			&lt;outputDirectory&gt;catalina_base/myApp&lt;/outputDirectory&gt;
+		&lt;/dependencySet&gt;
+
+So, what happens here is that the tomcat distribution is a zip, and it's root folder is "apache-tomcat-5.5.35".
+ I'd like the contents of that folder dumped into my target output directory, but it, of course,
+just unzips the archive into that folder, leaving me with an extra folder I want to eliminate.
+ 
+
+FYI: I'm trying to create an assembly that prepares a zip of my tomcat app deployment following
+best practice separation of CATALINA_HOME from CATALINA_BASE.  This requires me create a pure
+version of the dist, under CATALINA_HOME, and a modified version of the dist, under CATALINE_BASE.
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201205.mbox/raw/%3c26A7FC1339D50348898F6DFFC9A96D9C06AA837D@MX14A.corp.emc.com%3e/">Unnamed text/plain</a> (inline, Quoted Printable, 1453 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201205.mbox/raw/%3c26A7FC1339D50348898F6DFFC9A96D9C06AA837D@MX14A.corp.emc.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

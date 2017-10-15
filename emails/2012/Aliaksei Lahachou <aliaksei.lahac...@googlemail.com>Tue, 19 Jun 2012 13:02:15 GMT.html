@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Plugins and multi-module projects</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201206.mbox/%3cCAGRr-Nj0dcZByR4suHNpakyCrjQwNecnYUnu1KL+kV00=G4hGQ@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201206.mbox/%3cCADx2i9_CqnyME=NonBsDEJ+Khrx1=3QYY3ZwK70GDXQOqBKWLA@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201206.mbox/%3cCAHa9zAFpKmGgdYCzBZ_e5DbW+GKmqsGSK7pEqdpz-N_LRf2ruQ@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201206.mbox/%3cCALznzY7_OC30eY8uGkASHSXtojEGM=5qtWrKXFjuV-JQgzEqAg@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201206.mbox/%3cCAGRr-Nj0dcZByR4suHNpakyCrjQwNecnYUnu1KL+kV00=G4hGQ@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201206.mbox/%3cCADx2i9_CqnyME=NonBsDEJ+Khrx1=3QYY3ZwK70GDXQOqBKWLA@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201206.mbox/%3cCAHa9zAFpKmGgdYCzBZ_e5DbW+GKmqsGSK7pEqdpz-N_LRf2ruQ@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201206.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201206.mbox/%3cCALznzY7_OC30eY8uGkASHSXtojEGM=5qtWrKXFjuV-JQgzEqAg@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Aliaksei Lahachou &lt;aliaksei.lahac...@googlemail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Plugins and multi-module projects</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Tue, 19 Jun 2012 13:02:15 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Try mvn -pl module2 -am exec:java -Dexec.mainClass=MyMainClass from the
+root directory.
+
+
+Regards,
+htfv (Aliaksei Lahachou)
+
+
+On Tue, Jun 19, 2012 at 1:27 AM, Mike Craig &lt;mkscrg@gmail.com&gt; wrote:
+
+&gt; I'm trying to use the exec-maven-plugin to run a main class in a
+&gt; multi-module project. The main class is in module2, which is dependent on
+&gt; module1. So far the only way I've been able to do this is:
+&gt;
+&gt;    mvn install
+&gt;    cd module2
+&gt;    mvn exec:java -Dexec.mainClass=MyMainClass
+&gt;
+&gt; But I shouldn't have to modify my local repository to run a goal in a
+&gt; self-contained project. I should be able to do this without installing,
+&gt; like so (from the top of the project):
+&gt;
+&gt;    mvn compile
+&gt;    mvn exec:java -Dexec.mainClass=MyMainClass
+&gt;
+&gt; Is this possible?
+&gt;
+&gt; More generally, is it possible (from a plugin) for one module to use
+&gt; another module without installing?
+&gt;
+&gt; Cheers,
+&gt; Mike
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201206.mbox/raw/%3cCALcFPWFhS24PM==OFmV6hUD+KHxSTRsfweohhfTa46GVJPZ_-w@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 894 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201206.mbox/raw/%3cCALcFPWFhS24PM==OFmV6hUD+KHxSTRsfweohhfTa46GVJPZ_-w@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

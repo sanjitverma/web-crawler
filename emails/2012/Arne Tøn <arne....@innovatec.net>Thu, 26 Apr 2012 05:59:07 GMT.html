@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Initial Maven Install - repository download fails on large files</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201204.mbox/%3cCAPCjjnE7OZWStoZHQ1mSx78TmL5SOr5GgJ1WLWGiD2Q2LbafAw@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201204.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201204.mbox/%3c1335421481935-5666817.post@n5.nabble.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201204.mbox/%3c8F850C918DCDBF4891A6C99A6B76683307D8A37B@cacgex01.calgary.chartwelltechnology.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201204.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201204.mbox/%3cCAGQXBeMsgVKFujTn+WFN9ci_Xf879NGTJp2cSuPO8XNTMrrTrA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201204.mbox/%3cCAPCjjnE7OZWStoZHQ1mSx78TmL5SOr5GgJ1WLWGiD2Q2LbafAw@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201204.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201204.mbox/%3c1335421481935-5666817.post@n5.nabble.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201204.mbox/%3c8F850C918DCDBF4891A6C99A6B76683307D8A37B@cacgex01.calgary.chartwelltechnology.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201204.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201204.mbox/%3cCAGQXBeMsgVKFujTn+WFN9ci_Xf879NGTJp2cSuPO8XNTMrrTrA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Arne Tøn &lt;arne....@innovatec.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Initial Maven Install - repository download fails on large files</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Thu, 26 Apr 2012 05:59:07 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+I have just installed:
+
+C:\workspaces&gt;mvn --version
+Apache Maven 3.0.4 (r1232337; 2012-01-17 09:44:56+0100)
+Maven home: C:\apps\apache-maven-3.0.4\bin\..
+Java version: 1.7.0_03, vendor: Oracle Corporation
+Java home: C:\Java\jdk1.7.0_03\jre
+Default locale: no_NO, platform encoding: Cp1252
+OS name: "windows 7", version: "6.1", arch: "amd64", family: "windows"
+
+Next I try to create a project according to "Get Started" guide. As warned,
+you have to restart the "mvn archetype:generate"  some times, as it fails,
+or rather hangs, due to download timeouts,especially on large files. After
+running it some 20-30 times maybe, I'm stuck in download on a particular
+large file:
+
+C:\workspaces&gt;scripts\mvn-arc-cre
+C:\workspaces&gt;SET MAVEN_OPTS=-Dmaven.artifact.threads=1
+C:\workspaces&gt;mvn archetype:generate -DgroupId=net.innovatec.zaet.mavtst1
+-DartifactId=mav-test-1 -DarchetypeArtifactId=maven-archetype-quickstart
+-DinteractiveMode=false
+[INFO] Scanning for projects...
+[INFO]
+[INFO]
+------------------------------------------------------------------------
+[INFO] Building Maven Stub Project (No POM) 1
+[INFO]
+------------------------------------------------------------------------
+[INFO]
+[INFO] &gt;&gt;&gt; maven-archetype-plugin:2.2:generate (default-cli) @
+standalone-pom &gt;&gt;&gt;
+[INFO]
+[INFO] &lt;&lt;&lt; maven-archetype-plugin:2.2:generate (default-cli) @
+standalone-pom &lt;&lt;&lt;
+[INFO]
+[INFO] --- maven-archetype-plugin:2.2:generate (default-cli) @
+standalone-pom ---
+Downloading:
+http://mirrors.ibiblio.org/pub/mirrors/maven2/org/codehaus/groovy/groovy/1.8.3/groovy-1.8.3.jar
+75/5394 KB
+Avbryte satsvis jobb (J/N)? n
+C:\workspaces&gt;
+
+That is, download stops and never resumes, I tried waiting for 3 hours
+without any further progress. Rerunning, I can results like:
+...
+374/5394 KB
+845/5394 KB
+51/5394 KB
+
+I've reached as far as 2216/5394 KB ,  but still its not even half of the
+file size.
+I've tried different mirrors, Wi-Fi and LAN connection,  different settings
+for "-Dmaven.artifact.threads=", and entering proxy settings (which should
+not be necessary according to what I know, and I had to guess what to set -
+it didn't work either). The local network is quite fast, but heavily
+loaded, meaning xfer can stop for some seconds now and then, typically
+visible on videos on youtube ;-) , but it always recovers after a while .
+I've successfully downloaded large files (Gigabyte Zip's) using Google
+Chrome and Firefox.  I have unfortunately no possibility to try  the
+computer on another network.
+
+Effectively, I cannot even get started using maven, since mvn stalls before
+it's created my project. Anyone got an idea how I can proceed?
+
+--arneT
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201204.mbox/raw/%3cCAGQXBeOOrzfe+Tw7H4zrBLXERD0Sx_or2NJ-8E6nAzMSxML=wg@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 2629 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201204.mbox/raw/%3cCAGQXBeOOrzfe+Tw7H4zrBLXERD0Sx_or2NJ-8E6nAzMSxML=wg@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Download &amp; Caching Text Artifacts (XML schema) with Maven</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201612.mbox/%3cCAHNbw8nJ4JjeOH9PrPRn5UksfyS_72bi7HxhMp2kJSqd+87Tbg@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201612.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201612.mbox/%3cCAF8HOZJY5v36kmznBkFBFZpwmCNyY4bd4_G3ZEExg+xePwtnzA@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201612.mbox/%3cCAHNbw8nJ4JjeOH9PrPRn5UksfyS_72bi7HxhMp2kJSqd+87Tbg@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201612.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201612.mbox/%3cCAHNbw8=QU3xqhvPJU=5Wj8KewGai32P2FQTs+xYVxGD1iYRs6g@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201612.mbox/%3cCAHNbw8nJ4JjeOH9PrPRn5UksfyS_72bi7HxhMp2kJSqd+87Tbg@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201612.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201612.mbox/%3cCAF8HOZJY5v36kmznBkFBFZpwmCNyY4bd4_G3ZEExg+xePwtnzA@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201612.mbox/%3cCAHNbw8nJ4JjeOH9PrPRn5UksfyS_72bi7HxhMp2kJSqd+87Tbg@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201612.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201612.mbox/%3cCAHNbw8=QU3xqhvPJU=5Wj8KewGai32P2FQTs+xYVxGD1iYRs6g@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Benson Margulies &lt;bimargul...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Download &amp; Caching Text Artifacts (XML schema) with Maven</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Sun, 04 Dec 2016 13:57:03 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Svante,
+
+I bet that problem isn't 'unchangeable', but rather the license.
+
+Anyway, it's easy to do what you want.
+
+Read http://central.sonatype.org/pages/ossrh-guide.html.
+
+You will probably want to put the schema into a zip or tar file, though you
+can leave it 'naked'. You set up a github.com repo with a pom that uses the
+build-helper-maven-plugin to attach the schema file(s) and then you can run
+'mvn deploy'.
+
+Then use the maven-dependency-plugin to pull it down in your build.
+
+--benson
+
+
+
+On Sun, Dec 4, 2016 at 6:22 AM, Svante Schubert &lt;svante.schubert@gmail.com&gt;
+wrote:
+
+&gt; Hi,
+&gt;
+&gt; In the Apache ODF Toolkit (incubating) project we are generating Java
+&gt; classes from the ODF XML schema. For this reason, we need to download the
+&gt; OASIS ODF XML schema, as Apache does not allow to have unchangeable
+&gt; artifacts within the source repository. On the other hand, I would love to
+&gt; build offline, without the need to download these schemas over and over
+&gt; again for every build. Similar as other Maven dependencies these schemas
+&gt; would be great to store within .m2
+&gt;
+&gt; What is the common Maven way to do such thing. Do you have any pointers,
+&gt; examples of a similar problem solution?
+&gt;
+&gt; Kind regards,
+&gt; Svante
+&gt; ᐧ
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201612.mbox/raw/%3cCALhtWke+n5csZfrqOk0FfWH68n2Tc218ooW_9YNpxVXtRUAgmQ@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, Quoted Printable, 1233 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201612.mbox/raw/%3cCALhtWke+n5csZfrqOk0FfWH68n2Tc218ooW_9YNpxVXtRUAgmQ@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

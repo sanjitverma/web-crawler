@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>AW: Apache Maven PMD Plugin - Language XML</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201604.mbox/%3cCAJhgr2a6LztJnDhsTHZDuMn0OwC5wdmdnXAjxzHGAGG_WmfvsQ@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201604.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201604.mbox/%3cOF0E8C0198.81021512-ON86257F92.0039B40A-86257F92.0039B40A@wawanesa.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201604.mbox/%3c570A99D2.20900@apache.org%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201604.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201604.mbox/%3c292073761.l9dr527z67@herve-desktop%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201604.mbox/%3cCAJhgr2a6LztJnDhsTHZDuMn0OwC5wdmdnXAjxzHGAGG_WmfvsQ@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201604.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201604.mbox/%3cOF0E8C0198.81021512-ON86257F92.0039B40A-86257F92.0039B40A@wawanesa.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201604.mbox/%3c570A99D2.20900@apache.org%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201604.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201604.mbox/%3c292073761.l9dr527z67@herve-desktop%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Christofer Dutz &lt;christofer.d...@c-ware.de&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">AW: Apache Maven PMD Plugin - Language XML</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Mon, 11 Apr 2016 10:17:18 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hi Jeremie,
+
+quite a while ago I helped implement the modular language support for PMD. 
+Before that the languages were hard-coded into PMD, but with those changes you can extend
+PMD with any Language you like (and you are willing to implement).
+
+I did this because I didn't want to continue to maintain an insanely old fork of PMD used
+in the Flex project and to add a Flex language module to the official PMD distribution. 
+
+I think I noticed quite a lot of new languages on the PMD list.
+You can find a list of the official ones and how to provide new languages here: http://pmd.sourceforge.net/pmd-5.3.2/customizing/new-language.html
+
+I really hope to find the time to port the FlexPMD to become a PMD plugin soon 
+
+Chris
+
+________________________________________
+Von: Jérémie DENOYER &lt;jdenoyer@smartwavesa.com&gt;
+Gesendet: Donnerstag, 31. März 2016 15:42
+An: users@maven.apache.org
+Betreff: Apache Maven PMD Plugin - Language XML
+
+Hi,
+
+PMD can be used for XML language (
+https://pmd.github.io/pmd-5.4.1/pmd-xml/rules/index.html).
+Therefore, Apache Maven PMD Plugin supports only java, javascriptand jsp.
+
+Is somebody aware of any improvement to support new language (like XML)
+with the Maven PMD Plugin ?
+
+Regards,
+
+Jérémie
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201604.mbox/raw/%3cDB5PR05MB1285607250374F3332A58915A2940@DB5PR05MB1285.eurprd05.prod.outlook.com%3e/">Unnamed text/plain</a> (inline, Quoted Printable, 1451 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201604.mbox/raw/%3cDB5PR05MB1285607250374F3332A58915A2940@DB5PR05MB1285.eurprd05.prod.outlook.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

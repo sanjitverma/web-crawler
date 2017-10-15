@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Need to fully understand bad implications of combined aggregator and parent pom</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201612.mbox/%3cB8D164BED956C5439875951895CB4B22589430AC@CAFRFD1MSGUSRJH.ITServices.sbc.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201612.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201612.mbox/%3ce3dc1e0d-510d-a55b-d419-6d52cf9c05d1@schulte.it%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201612.mbox/%3cB8D164BED956C5439875951895CB4B22589430AC@CAFRFD1MSGUSRJH.ITServices.sbc.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201612.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201612.mbox/%3cCANVgJmKDXFGg12Ve0cQJuCnbzA6g5y=VmUJWGQj5E2KVcdcPow@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201612.mbox/%3cB8D164BED956C5439875951895CB4B22589430AC@CAFRFD1MSGUSRJH.ITServices.sbc.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201612.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201612.mbox/%3ce3dc1e0d-510d-a55b-d419-6d52cf9c05d1@schulte.it%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201612.mbox/%3cB8D164BED956C5439875951895CB4B22589430AC@CAFRFD1MSGUSRJH.ITServices.sbc.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201612.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201612.mbox/%3cCANVgJmKDXFGg12Ve0cQJuCnbzA6g5y=VmUJWGQj5E2KVcdcPow@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Curtis Rueden &lt;ctrue...@wisc.edu&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Need to fully understand bad implications of combined aggregator and parent pom</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Thu, 01 Dec 2016 04:26:40 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hi David,
+
+&gt; The fact is, when I ensured that both the local and intranet repo is
+&gt; EMPTY of build artifacts, including the parent pom, the child modules
+&gt; fail to build because they can't find the parent pom, which just
+&gt; resides in the parent directory of each child module.
+
+I have never had that problem with multi-module projects that use a
+combined parent/aggregator in the top-level directory. This sounds like a
+bug to me. Can you please create an SSCCE / MCVE? Then maybe the community
+can comment further on what is going wrong for you.
+
+Regards,
+Curtis
+
+
+--
+Curtis Rueden
+LOCI software architect - http://loci.wisc.edu/software
+
+
+On Wed, Nov 30, 2016 at 7:59 PM, KARR, DAVID &lt;dk068x@att.com&gt; wrote:
+
+&gt; &gt; -----Original Message-----
+&gt; &gt; From: Dan Tran [mailto:dantran@gmail.com]
+&gt; &gt; Sent: Wednesday, November 30, 2016 5:10 PM
+&gt; &gt; To: Maven Users List &lt;users@maven.apache.org&gt;
+&gt; &gt; Subject: Re: Need to fully understand bad implications of combined
+&gt; &gt; aggregator and parent pom
+&gt; &gt;
+&gt; &gt; Correct we dont ever enter relativePath. The implicit one should work
+&gt; &gt; and should never see warning that a module can't find its parent
+&gt;
+&gt; Uh, whatever.  You're clearly disagreeing with me, so saying "correct"
+&gt; just confuses things.
+&gt;
+&gt; The fact is, when I ensured that both the local and intranet repo is EMPTY
+&gt; of build artifacts, including the parent pom, the child modules fail to
+&gt; build because they can't find the parent pom, which just resides in the
+&gt; parent directory of each child module.
+&gt;
+&gt; I never tried adding a "&lt;relativePath&gt;..&lt;/relativePath&gt; to all of the
+&gt; parent pom references, but I was able to get it to work by splitting out
+&gt; the parent pom responsibilities into a separate child module pom, and
+&gt; having all the references specify the relative path to that.
+&gt;
+&gt; &gt; On Wed, Nov 30, 2016 at 4:54 PM, KARR, DAVID &lt;dk068x@att.com&gt; wrote:
+&gt; &gt;
+&gt; &gt; &gt; &gt; -----Original Message-----
+&gt; &gt; &gt; &gt; From: Dan Tran [mailto:dantran@gmail.com]
+&gt; &gt; &gt; &gt; Sent: Wednesday, November 30, 2016 3:17 PM
+&gt; &gt; &gt; &gt; To: Maven Users List &lt;users@maven.apache.org&gt;
+&gt; &gt; &gt; &gt; Subject: Re: Need to fully understand bad implications of combined
+&gt; &gt; &gt; &gt; aggregator and parent pom
+&gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt; I concur with Ben,  aggregator module is banned at my work. Top
+&gt; &gt; &gt; &gt; level parent hosts all modules
+&gt; &gt; &gt;
+&gt; &gt; &gt; So does this mean that you utilize "relativePath" in the child
+&gt; &gt; &gt; module's parent definitions?  Otherwise, the child modules are being
+&gt; &gt; &gt; built before the POM for the top-level POM is installed (which happens
+&gt; &gt; &gt; at the end of the build).
+&gt; &gt; &gt;
+&gt; &gt; &gt; &gt; On Wed, Nov 30, 2016 at 1:47 PM, KARR, DAVID &lt;dk068x@att.com&gt; wrote:
+&gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt; &gt; &gt; -----Original Message-----
+&gt; &gt; &gt; &gt; &gt; &gt; From: Stephen Connolly [mailto:stephen.alan.connolly@gmail.com]
+&gt; &gt; &gt; &gt; &gt; &gt; Sent: Wednesday, November 30, 2016 1:01 PM
+&gt; &gt; &gt; &gt; &gt; &gt; To: Maven Users List &lt;users@maven.apache.org&gt;
+&gt; &gt; &gt; &gt; &gt; &gt; Subject: Re: Need to fully understand bad implications of
+&gt; &gt; &gt; &gt; &gt; &gt; combined aggregator and parent pom
+&gt; &gt; &gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt; &gt; &gt; You do have relativePath set correctly for the separate parent
+&gt; &gt; &gt; &gt; &gt; &gt; from aggregator?
+&gt; &gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt; &gt; Not sure whether you're addressing Benson or me, but setting
+&gt; &gt; &gt; &gt; &gt; relativePath is definitely a requirement, and I think the error
+&gt; &gt; &gt; &gt; &gt; message you get is pretty clear when you don’t have it, so I
+&gt; &gt; &gt; &gt; &gt; imagine
+&gt; &gt; &gt; &gt; that's not Benson's issue.
+&gt; &gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt; &gt; In my case, I did some cut/pasting and some global replaces to
+&gt; &gt; &gt; &gt; &gt; separate the POM into parent and aggregator, and now my build
+&gt; &gt; &gt; &gt; &gt; works from the top with empty repositories.
+&gt; &gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt; &gt; I don't use the site plugin.
+&gt; &gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt; &gt; &gt; On Wed 30 Nov 2016 at 03:28, Benson Margulies
+&gt; &gt; &gt; &gt; &gt; &gt; &lt;bimargulies@gmail.com&gt;
+&gt; &gt; &gt; &gt; &gt; &gt; wrote:
+&gt; &gt; &gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; My experience is precisely the opposite of yours. The most
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; common practice is for the parent to be the aggregator;
+it's
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; hard to get the site plugin, for example, to work right
+with
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; your preferred structure where they are different.
+&gt; &gt; &gt; &gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; I have built many projects with the the one-parent structure,
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; and they typically have interdependencies between the modules,
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; and they work fine.  Can you boil this down to a failing
+case
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; on github? Can you share some poms?
+&gt; &gt; &gt; &gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; On Tue, Nov 29, 2016 at 9:19 PM, KARR, DAVID &lt;dk068x@att.com&gt;
+&gt; &gt; &gt; &gt; wrote:
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; A while ago, I started working on an existing project
+with
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; many
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; developers.  The codebase has a large multi-project Maven
+&gt; &gt; build.
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; The top directory is both an "aggregator" and "parent"
+POM, as
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; it has a
+&gt; &gt; &gt; &gt; &gt; &gt; "modules"
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; list, and all of the child modules have it as their parent
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; POM, for dependencies and plugins.
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; I've always believed this is a defective architecture.
+ I
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; believe that
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; the top-level directory should have an "aggregator" POM
+that
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; just lists the modules to build, and a subdirectory of
+the
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; top-level directory should have a project that just defines
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; the parent POM, which defines dependencies and plugins
+for
+&gt; &gt; subprojects to use.
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Although I feel this is a "cleaner" architecture,
+I've never
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; been able
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; to cite specific problems with the other approach, besides
+the
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; fact that module changes and dependency/plugin changes
+go in
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; the same file, which is still a "cleanliness" argument.
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Today I think I saw a real reason why the present
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; architecture is a
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; problem, but I need to be certain the problem I'm seeing
+is
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; caused by this, and that the better architecture fixes
+this
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; problem, and whether there is a simple workaround in the
+&gt; &gt; meantime.
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; I've been modifying the build to use a completely
+new
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; intranet maven
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; repo and completely different groupids for the build
+&gt; &gt; artifacts.
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; I saw errors like this (with elisions):
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; -----------------------
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; [INFO] Reactor Summary:
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; [INFO]
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; [INFO] big-parent .........................................
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; FAILURE [
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; 5.230 s]
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; [INFO] some-other-module...................................
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; SKIPPED [INFO]
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; another-module......................................
+SKIPPED
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; [INFO]
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; .....................................................SKIPPED
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; [INFO]
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; --------------------------------------------------------------
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; ----
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; ----
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; --
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; [INFO] BUILD FAILURE
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; [INFO]
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; --------------------------------------------------------------
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; ----
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; ----
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; --
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; [INFO] Total time: 8.063 s
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; [INFO] Finished at: 2016-11-29T16:23:36-08:00 [INFO]
+Final
+&gt; &gt; &gt; &gt; Memory:
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; 41M/1093M [INFO]
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; --------------------------------------------------------------
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; ----
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; ----
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; --
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; [ERROR] Failed to execute goal on project some-other-module:
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Could not
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; resolve dependencies for project
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; com.mycomp.detsusl:some-other-module:bundle:2.0.0-SNAPSHOT:
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; Could not find artifact
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; com.mycomp.detsusl:another-module:jar:2.0.0-SNAPSHOT in
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; mycomp-public-group (
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; http://mavencentral.it.mycomp.com:8084/nexus/content/repositor
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; ies/
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; myco
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; mp-public-group/)
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; -&gt; [Help 1]
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; [ERROR]
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; ---------------
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; The "big-parent" module is the top-level directory
+that is
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; both the
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; aggregator and parent pom.
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Conceptually, I think this is happening because Maven
+is
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; trying to
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; evaluate dependencies before those dependencies are built.
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; Again, I think the "separated" architecture will resolve
+this,
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; but before I implement that, I need to understand exactly
+what
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; is going on
+&gt; &gt; &gt; &gt; here.
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; In my local workspace, I got around this by simply
+"cd"ing
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; to the
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; "another-module" directory and doing a "mvn install", then
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; "cd"ing to "some-other-module", doing the same, and then
+doing
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; the same again at the top level. The reality was messier
+than
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; this, because I had quite a few modules that I had to build
+&gt; &gt; manually this way.
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Assuming I'm right that separating the "parent" function
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; from the
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; "aggregator" function would resolve this, can someone explain
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; exactly what is happening here, how my assumed solution
+would
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; resolve this, and whether there's a cleaner temporary
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; workaround besides "cd"ing into each directory to do a
+&gt; &gt; separate install?
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; ------------------------------------------------------------
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; ----
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; ----
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; - To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; --------------------------------------------------------------
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; ----
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; --- To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt; &gt; &gt; &gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; --
+&gt; &gt; &gt; &gt; &gt; &gt; Sent from my phone
+&gt; &gt; &gt; &gt; &gt;
+&gt; &gt; &gt;
+&gt; &gt; &gt; ---------------------------------------------------------------------
+&gt; &gt; &gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; &gt; &gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt; &gt; &gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201612.mbox/raw/%3cCADN69ymfz3RGaWx=-uJDXpgqr6XXSzcmSAWKDri=ry0Mysxizg@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, Quoted Printable, 10358 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201612.mbox/raw/%3cCADN69ymfz3RGaWx=-uJDXpgqr6XXSzcmSAWKDri=ry0Mysxizg@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

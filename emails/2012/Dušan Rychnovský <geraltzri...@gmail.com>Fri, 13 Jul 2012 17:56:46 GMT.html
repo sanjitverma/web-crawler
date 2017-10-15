@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Artifact with external configuration - the Maven way</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201207.mbox/%3cCALcFPWFSj=c7PVAwpDp4dvzHgw0kS_ngyQ7DbFQb_WX1bzZD6g@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201207.mbox/%3c837A3AF32B10444D91F47202CA2FB9C7@apigee.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201207.mbox/%3c500048C7.3010607@linux.gr%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCALcFPWHOm9fBixoAwBDA7rFEk83hoApwY3WjMKeBecHAdce3JA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201207.mbox/%3cCALcFPWFSj=c7PVAwpDp4dvzHgw0kS_ngyQ7DbFQb_WX1bzZD6g@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201207.mbox/%3c837A3AF32B10444D91F47202CA2FB9C7@apigee.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201207.mbox/%3c500048C7.3010607@linux.gr%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCALcFPWHOm9fBixoAwBDA7rFEk83hoApwY3WjMKeBecHAdce3JA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Dušan Rychnovský &lt;geraltzri...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Artifact with external configuration - the Maven way</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Fri, 13 Jul 2012 17:56:46 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hi!
+
+I'm using Maven at work to organize my software projects. I will first of
+all describe you my current build process.
+
+-------------------------------------------------------------------------------------------------------------------------
+
+
+The typical deployment assembly contains at least:
+
+ - the application JAR file,
+ - a JAR file for every dependency,
+ - an application configuration file (an XML file with an XSD schema file),
+ - Log4J configuration file (a single XML file).
+
+It is important that the application configuration file is not packaged
+inside the application JAR file - I could not change configuration in
+production otherwise.
+
+The Maven assembly plugin is used to package all those files into a single
+ZIP to allow convenient deploy at the target machine.
+
+-------------------------------------------------------------------------------------------------------------------------
+
+For every environment (e.g. development, test, acceptance, production)
+there is a single Maven profile. The configuration files contain property
+placeholders. When building the assembly, the values of properties used in
+the configuration files (e.g. the default configuration values) are
+resolved according to the active profile.
+
+-------------------------------------------------------------------------------------------------------------------------
+
+
+The question I have is how to store the builds to be available for
+deployment - so that I don't have to build the project every time I need to
+deploy the application to a new machine. To my understanding, a Nexus
+repository is typically used for that. I have found out though that a Maven
+repository is only capable of storing simple artifacts, not ZIP assemblies.
+
+I am convinced that there are plenty of projects that need external
+configuration files in addition to the application JARs. What is the
+commonly used way to handle my issue?
+
+Thank you in advance for all replies.
+
+Dusan R.
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201207.mbox/raw/%3cCAFdPtEjnPXxd=wfnUZ4NoQ36qAMd4OrLgBPYJYrhtgV+qJrMGA@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 1954 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201207.mbox/raw/%3cCAFdPtEjnPXxd=wfnUZ4NoQ36qAMd4OrLgBPYJYrhtgV+qJrMGA@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Quick question on Super POM plugin management usage</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201203.mbox/%3cCAMsWnVZwjVk_be9Q2MG9PQFOCr5WdqDxdBLXYqAKosJzdt2nHA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201203.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201203.mbox/%3c1332986761231-5602388.post@n5.nabble.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201203.mbox/%3cCAMsWnVZwjVk_be9Q2MG9PQFOCr5WdqDxdBLXYqAKosJzdt2nHA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201203.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201203.mbox/%3cCAKDUN1tDnDbH6ktCaUdOXVngj4vo48+H7YpjjHWUKW4yLj0T-w@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201203.mbox/%3cCAMsWnVZwjVk_be9Q2MG9PQFOCr5WdqDxdBLXYqAKosJzdt2nHA@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201203.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201203.mbox/%3c1332986761231-5602388.post@n5.nabble.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201203.mbox/%3cCAMsWnVZwjVk_be9Q2MG9PQFOCr5WdqDxdBLXYqAKosJzdt2nHA@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201203.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201203.mbox/%3cCAKDUN1tDnDbH6ktCaUdOXVngj4vo48+H7YpjjHWUKW4yLj0T-w@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Barrie Treloar &lt;baerr...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Quick question on Super POM plugin management usage</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Thu, 29 Mar 2012 01:17:57 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+On Thu, Mar 29, 2012 at 11:17 AM, Daivish Shah &lt;daivish.shah@gmail.com&gt; wrote:
+&gt; Hi,
+&gt;
+&gt; I am trying to use the super POM in my all of the project and seems like
+&gt; PluginManagement doesn't work like this way.
+&gt;
+&gt; Super-Pom Project
+&gt;
+&gt; pom.xml
+&gt;
+&gt; &lt;build&gt;
+&gt; &lt;pluginManagement&gt;
+&gt; &lt;plugins&gt;
+&gt; &lt;plugin&gt;
+&gt;
+&gt;
+&gt;  &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+&gt; &lt;artifactId&gt;maven-javadoc-plugin&lt;/artifactId&gt;
+&gt; &lt;version&gt;2.8.1&lt;/version&gt;
+&gt; &lt;/plugin&gt;
+&gt;      &lt;/plugins&gt;
+&gt; &lt;/pluginManagement&gt;
+&gt; &lt;/build&gt;
+&gt;
+&gt;
+&gt;
+&gt; Using Super POM in my other project as followed.
+&gt;
+&gt; pom.xml
+&gt;
+&gt;  &lt;parent&gt;
+&gt;  &lt;groupId&gt;com.super&lt;/groupId&gt;
+&gt;  &lt;artifactId&gt;super-pom&lt;/artifactId&gt;
+&gt;  &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
+&gt; &lt;/parent&gt;
+&gt;
+&gt; &lt;build&gt;
+&gt; &lt;plugins&gt;
+&gt;                      &lt;plugin&gt;
+&gt;
+&gt;                           &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+&gt;
+&gt;                           &lt;artifactId&gt;maven-javadoc-plugin&lt;/artifactId&gt;
+&gt;
+&gt;                       &lt;/plugin&gt;
+&gt;                &lt;/plugins&gt;
+&gt;         &lt;/build&gt;
+&gt;
+&gt;
+&gt;
+&gt; When i try to use like this way compiler throws me WARNING/ERROR message
+&gt; and looks like i have to apply VERSION ID again when i use any of the
+&gt; plugin which is listed in my super POM Project. Which doesn't make sense to
+&gt; declare PLUGIN things in my SUPER POM Project.
+&gt;
+&gt;
+&gt; Any idea what's going on here ? Is that the way MAVEN designed or i am
+&gt; doing something wrong here ?
+&gt;
+&gt; Thanks,
+&gt; daivish.
+
+javadoc is a reporting plugin.
+You will probably need to *duplicate* the information in the
+&lt;reporting&gt; section.
+See http://jira.codehaus.org/browse/MSITE-443 for more details.
+
+I think you can leave out the version from the pluginManagement section.
+It may depend on whether you ever want to run javadoc directly, which
+is normally not what you want, you want to run all the reporting stuff
+via "mvn site"
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201203.mbox/raw/%3cCADVp3v9FFd2k1XOh9mKxLmajYsCh9sfAmg07c40Tg-dWGJuuNA@mail.gmail.com%3e/">Unnamed text/plain</a> (inline, Quoted Printable, 2135 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201203.mbox/raw/%3cCADVp3v9FFd2k1XOh9mKxLmajYsCh9sfAmg07c40Tg-dWGJuuNA@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: maven-jar-plugin-3.0.0 compatiblity/regression?</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201605.mbox/%3c20160521184859.A223F18263@minotaur.apache.org%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201605.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201605.mbox/%3cCAPCjjnG+q=QkZm_N_Lrepa_2ks4f+b3UYtFbENO9AfqwpRLTxA@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201605.mbox/%3cop.yhs00al9kdkhrr@desktop-2khsk44.dynamic.ziggo.nl%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201605.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201605.mbox/%3cCAPCjjnG+q=QkZm_N_Lrepa_2ks4f+b3UYtFbENO9AfqwpRLTxA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201605.mbox/%3c20160521184859.A223F18263@minotaur.apache.org%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201605.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201605.mbox/%3cCAPCjjnG+q=QkZm_N_Lrepa_2ks4f+b3UYtFbENO9AfqwpRLTxA@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201605.mbox/%3cop.yhs00al9kdkhrr@desktop-2khsk44.dynamic.ziggo.nl%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201605.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201605.mbox/%3cCAPCjjnG+q=QkZm_N_Lrepa_2ks4f+b3UYtFbENO9AfqwpRLTxA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Dan Tran &lt;dant...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: maven-jar-plugin-3.0.0 compatiblity/regression?</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Sat, 21 May 2016 19:40:33 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+that would be awesome. appassembler-m-p should copy the primary jar to its
+lib directory. However, this also means it must run at package phase in
+order to see the jar-plugin output
+
+-D
+
+On Sat, May 21, 2016 at 1:39 AM, Robert Scholte &lt;rfscholte@apache.org&gt;
+wrote:
+
+&gt; Hi Dan,
+&gt;
+&gt; So if I've correct the appassemble-maven-plugin assumes all jars are
+&gt; already put in the /lib directory by another plugin. I think it is more
+&gt; correct to let the plugin pull its libraries to this folder instead.
+&gt;
+&gt; WDYT?
+&gt; Robert
+&gt;
+&gt;
+&gt;
+&gt; On Fri, 20 May 2016 22:26:45 +0200, Dan Tran &lt;dantran@gmail.com&gt; wrote:
+&gt;
+&gt; I meant appassemble-maven-plugin.
+&gt;&gt;
+&gt;&gt; very likely the error is from the fix of
+&gt;&gt; https://issues.apache.org/jira/browse/MJAR-198
+&gt;&gt;
+&gt;&gt; For now, I will need to use antrun to copy the local primary jar to the
+&gt;&gt; place I need. Maybe,  appassemble should do this for me
+&gt;&gt;
+&gt;&gt;
+&gt;&gt; btw, if have RPM module but does invocation of 2 jar goals. Would that
+&gt;&gt; cause an issue?
+&gt;&gt;
+&gt;&gt; -D
+&gt;&gt;
+&gt;&gt; On Fri, May 20, 2016 at 1:11 PM, Karl Heinz Marbaise &lt;khmarbaise@gmx.de&gt;
+&gt;&gt; wrote:
+&gt;&gt;
+&gt;&gt; Hi Dan,
+&gt;&gt;&gt; On 5/20/16 10:04 PM, Dan Tran wrote:
+&gt;&gt;&gt;
+&gt;&gt;&gt; Hi Robert,
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; According to the jar plugin source   outputDirectory is not read only.
+&gt;&gt;&gt;&gt; that
+&gt;&gt;&gt;&gt; is why I can change the default value.
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; here is my use case
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;   - Start out of jar module with a profile to create the RPM
+&gt;&gt;&gt;&gt;   - In the profile, use assembler-maven-plugin to create  staging
+&gt;&gt;&gt;&gt; distribution
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt; assembly-maven-plugin? Do you mean maven-assembly-plugin ?
+&gt;&gt;&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt;   - since the primary jar file is not in my staging, I need to invoke jar
+&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; plugin explicitly  to create another jar. This makes jar plugin thinks
+&gt;&gt;&gt;&gt; it
+&gt;&gt;&gt;&gt; has 2 primary artifacts and bails out
+&gt;&gt;&gt;&gt;   - Use RPM to package the staging
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt; As there has been already a call which sets the main artifact (primary
+&gt;&gt;&gt; artiact) of the project and maven-jar-plugin regrets to set the main
+&gt;&gt;&gt; artifact if it is already been set....
+&gt;&gt;&gt;
+&gt;&gt;&gt; That sounds like you build needs to be cleaned up...to prevent setting
+&gt;&gt;&gt; the
+&gt;&gt;&gt; main artifact twice ? Can we see that build somewhere ? Or can you send
+&gt;&gt;&gt; me
+&gt;&gt;&gt; a log file of it? (privately?)
+&gt;&gt;&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt; This is  a valid use case right?
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt; Hm..we will see....
+&gt;&gt;&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt; Kind regards
+&gt;&gt;&gt; Karl Heinz
+&gt;&gt;&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; Thanks
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; -Dan
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; On Fri, May 20, 2016 at 12:15 PM, Robert Scholte &lt;rfscholte@apache.org&gt;
+&gt;&gt;&gt;&gt; wrote:
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; Dan,
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt; outputDirectory has become a readonly parameter.
+&gt;&gt;&gt;&gt;&gt; The reason is that you can set it with &lt;project&gt;&lt;build&gt;&lt;directory&gt;.
+&gt;&gt;&gt;&gt;&gt; Does
+&gt;&gt;&gt;&gt;&gt; that work for you?
+&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt; thanks,
+&gt;&gt;&gt;&gt;&gt; Robert
+&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt; On Fri, 20 May 2016 21:09:55 +0200, Karl Heinz Marbaise &lt;
+&gt;&gt;&gt;&gt;&gt; khmarbaise@gmx.de&gt;
+&gt;&gt;&gt;&gt;&gt; wrote:
+&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt; Hi Dan,
+&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;&gt; On 5/20/16 7:16 AM, Dan Tran wrote:
+&gt;&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;&gt; Hi
+&gt;&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; My jar project can also create RPM via rpm-maven-plugin:attach-rpm
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; now
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; throws this error
+&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; [ERROR] Failed to execute goal
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; org.apache.maven.plugins:maven-jar-plugin:3.0.0:jar
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; (project-jar-for-docker) on project xxx: You have to use a classifier
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; to attach supplemental artifacts to the project instead of replacing
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; them. -&gt; [Help 1]
+&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; This is a valid use case where I can have mutiple artifact extensions
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; without the need to use classifiers
+&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; Can you create an example project for this? So i can create an
+JIRA
+&gt;&gt;&gt;&gt;&gt;&gt; for
+&gt;&gt;&gt;&gt;&gt;&gt; that or you can create the jira with that...sounds like an edge case
+&gt;&gt;&gt;&gt;&gt;&gt; which
+&gt;&gt;&gt;&gt;&gt;&gt; i didn't thought of ?...
+&gt;&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;&gt; So you are replacing the main artifact but with different extensions
+?
+&gt;&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;&gt; Hm.. ?
+&gt;&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;&gt; The release notes of jar plugin 3.0.0 also not mentioned about this
+&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; https://issues.apache.org/jira/browse/MJAR-198
+&gt;&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;&gt; I hope this is not intentional
+&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; Kind regards
+&gt;&gt;&gt;&gt;&gt;&gt; Karl Heinz Marbaise
+&gt;&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;&gt; ---------------------------------------------------------------------
+&gt;&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt; ---------------------------------------------------------------------
+&gt;&gt;&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt;&gt;&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;&gt;&gt;
+&gt;&gt;&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201605.mbox/raw/%3cCAPCjjnFHMqgzO-HG2gqp8xo+E4TSUvP+iczD8Wwgjg1-m_9Zag@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 4593 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201605.mbox/raw/%3cCAPCjjnFHMqgzO-HG2gqp8xo+E4TSUvP+iczD8Wwgjg1-m_9Zag@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

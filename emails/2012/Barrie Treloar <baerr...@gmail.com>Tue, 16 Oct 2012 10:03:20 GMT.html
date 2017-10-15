@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: modules, dependencies, whatelse?</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201210.mbox/%3cCADVp3v8vArNi17YdHJkz=pgHD5O0wtbrKw12Mf1uV1k1VBGKpg@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201210.mbox/%3cCAMk_BegP9UcddBn=n0s6vncKuEtw_RgHxMjaBJOE61jMLr6yiw@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201210.mbox/%3cCALy+7U=UJLJftevJeNztcO+EbJ0x_pPpm-smxMy=bS_F6pAK-Q@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201210.mbox/%3c2008226851.01350316361120.JavaMail.Dennis@Dennis-Dator%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201210.mbox/%3cCADVp3v8vArNi17YdHJkz=pgHD5O0wtbrKw12Mf1uV1k1VBGKpg@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201210.mbox/%3cCAMk_BegP9UcddBn=n0s6vncKuEtw_RgHxMjaBJOE61jMLr6yiw@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201210.mbox/%3cCALy+7U=UJLJftevJeNztcO+EbJ0x_pPpm-smxMy=bS_F6pAK-Q@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201210.mbox/%3c2008226851.01350316361120.JavaMail.Dennis@Dennis-Dator%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Barrie Treloar &lt;baerr...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: modules, dependencies, whatelse?</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Tue, 16 Oct 2012 10:03:20 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+On Tue, Oct 16, 2012 at 3:19 AM, Wayne Fay &lt;waynefay@gmail.com&gt; wrote:
+&gt;&gt; The problem with this is that I also need to build standalone jars of myLib2
+&gt;&gt; and myLib3, and they need myLib1 themselves. Their code refers to classes in
+&gt;&gt; myLib1 and myLib3 code defers also to classes in myLib2. myLib2 and myLib3 do
+&gt;&gt; not even compile if they don't have myLib1/myLib2 listed as dependency in
+&gt;&gt; their pom file. But if I list them as dependecies, those are expected to be
+&gt;&gt; found in a repository or manually installed. Otherwise if I list them as
+&gt;&gt; modules, I'm forced to packaging="pom", so no standalone jars...
+&gt;
+&gt; Just set things up as you've been told and build your projects from
+&gt; the top/parent each time, not from the children. Then the reactor
+&gt; finds the files it needs when it builds each library. Use packaging of
+&gt; "jar" in each lib, and use packaging "pom" for the top parent.
+
+You dont need Nexus yet for your 3 module setup.
+
+I assume the number of classes you have are tiny* (by some definition of tiny).
+If you whole build run from the top level, as Wayne suggests, take
+longer than 5 minutes then we can help you to speed it up.
+
+Since you are new its easier to start with the small steps.
+
+When you are feeling braver you can run with options like "--also-make".
+But in your case I doubt that this will save you any cpu cycles.
+
+Most people work in an IDE rather than on the command line.
+What this means is, that most of the time you just work in your IDE
+that has maven support (Eclipse or IDE do) and you let the IDE rebuild
+your projects for you.
+When you are ready to commit back into your SCM or you would like to
+run the complete set of test (unit or integration) you break out to a
+shell and run "mvn clean install" and check nothing is broken.
+The incremental build cycle of an IDE will save you a lot more time
+than trying to improve the Maven build process.
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201210.mbox/raw/%3cCADVp3v89vQ2rrNGOgsdjC_L8PbKHf120GXVjF41ZPnAbQ26LEA@mail.gmail.com%3e/">Unnamed text/plain</a> (inline, None, 2081 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201210.mbox/raw/%3cCADVp3v89vQ2rrNGOgsdjC_L8PbKHf120GXVjF41ZPnAbQ26LEA@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

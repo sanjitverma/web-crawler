@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Structuring bigger Maven projects</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201611.mbox/%3cB8D164BED956C5439875951895CB4B2258942D3A@CAFRFD1MSGUSRJH.ITServices.sbc.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201611.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201611.mbox/%3cCAPCjjnFc60SEO0WL_aRuWwERe7jg5n=qQ-6UXBC-=5YXYud8wQ@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201611.mbox/%3ca0156957-fa66-d561-e8a4-69e02e414e48@gmx.de%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201611.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201611.mbox/%3cCAH9u10=5Vh4hBFTX0eBbX6zCPY4c7CXm9Kgw7Y+sc_S3ZjYsaA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201611.mbox/%3cB8D164BED956C5439875951895CB4B2258942D3A@CAFRFD1MSGUSRJH.ITServices.sbc.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201611.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201611.mbox/%3cCAPCjjnFc60SEO0WL_aRuWwERe7jg5n=qQ-6UXBC-=5YXYud8wQ@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201611.mbox/%3ca0156957-fa66-d561-e8a4-69e02e414e48@gmx.de%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201611.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201611.mbox/%3cCAH9u10=5Vh4hBFTX0eBbX6zCPY4c7CXm9Kgw7Y+sc_S3ZjYsaA@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Benson Margulies &lt;bimargul...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Structuring bigger Maven projects</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Wed, 30 Nov 2016 23:01:11 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+An alternative, which I never fully explored, is the CI/CD approach.
+Don't use the release plugin. Use -D, or an extension, to set a
+unique, non-snapshot, version for each build, and then use version
+ranges for the dependencies. I built an experimental extension at my
+last job to automatically set a rev property from the current git
+commit, but it wasn't entirely satisfactory.
+
+
+On Wed, Nov 30, 2016 at 1:44 PM, Karl Heinz Marbaise &lt;khmarbaise@gmx.de&gt; wrote:
+&gt; Hi,
+&gt;
+&gt;
+&gt;
+&gt; On 30/11/16 19:18, Florian Schätz wrote:
+&gt;&gt;&gt;
+&gt;&gt;&gt; A library project to be
+&gt;&gt;&gt; shared between multiple applications each having its own release-cycle
+&gt;&gt;&gt; should not be part of a multi-module project used to build such an
+&gt;&gt;&gt; application and should be an independent project with its own
+&gt;&gt;&gt; release-cycle.
+&gt;&gt;
+&gt;&gt;
+&gt;&gt; While this is of course a good idea, especially when starting to create
+&gt;&gt; new applications, the library projects will grow with the applications
+&gt;&gt; and not independently of them. We cannot start by first investing months
+&gt;&gt; to create the perfect will-work-for-ten-years library and only then
+&gt;&gt; start coding the application that will, in the first months, only use
+&gt;&gt; 10% of all these features. So, realistically, during a development
+&gt;&gt; cycle, both the application and the library will grow... (which doesn't
+&gt;&gt; mean that we cannot separate them)
+&gt;&gt;
+&gt;&gt; Which leads me, for example, to the problem that I still want to
+&gt;&gt; automate as much as possible. I would like, for example, to click one
+&gt;&gt; button in my build server, perhaps enter some parameters and get a new
+&gt;&gt; release candidate of the libraries from the current release branch,
+&gt;&gt; update the dependency version of the application to this rc version,
+&gt;&gt; make the application an rc (from the application's release branch),
+&gt;&gt; install them both into the repository, tag the current status on git and
+&gt;&gt; deploy the rc application onto the server.
+&gt;&gt;
+&gt;&gt; Especially for bigger projects, I want to keep the amount of manual work
+&gt;&gt; needed as small as possible. As much building should be done
+&gt;&gt; automatically, if possible. And I would like not having to code a
+&gt;&gt; jenkins or maven plugin for that purpose (but of course, I would, if
+&gt;&gt; needed, no problem there).
+&gt;
+&gt;
+&gt;
+&gt; You can simply use maven-release-plugin (in Maven itself) which you can used
+&gt; to  fully automatically create releases of your project...This will need
+&gt; only a plugin in Jenkins which handles all those stuff...correctly
+&gt; configured things like scm entries in your pom file tagging in Git will be
+&gt; done as well....
+&gt;
+&gt; Sometimes you might need to improve that using the versions-maven-plugin in
+&gt; combination with some pipeline steps in Jenkins...which prevents some
+&gt; drawbacks of the maven-release-plugin....
+&gt;
+&gt;
+&gt; May be you need to think about using the Maven integration in Jenkins or
+&gt; using freestyle projects or better start using pipelines ...(I often
+&gt; observed performance drawbacks in relationship with Maven integration in
+&gt; Jenkins)...
+&gt;
+&gt;
+&gt; https://wiki.jenkins-ci.org/display/JENKINS/M2+Release+Plugin
+&gt; https://wiki.jenkins-ci.org/display/JENKINS/Release+Plugin
+&gt;
+&gt;
+&gt; Kind regards
+&gt; Karl Heinz Marbaise
+&gt;
+&gt;
+&gt;
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201611.mbox/raw/%3cCALhtWkf9xHYhgJ=G63BshLUufO_jHBb4CSgajpJo72me+0iw3g@mail.gmail.com%3e/">Unnamed text/plain</a> (inline, Quoted Printable, 3548 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201611.mbox/raw/%3cCALhtWkf9xHYhgJ=G63BshLUufO_jHBb4CSgajpJo72me+0iw3g@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: In plugin dev, how do you spec the containing and child elements for multi-valued param?</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201208.mbox/%3cB8D164BED956C5439875951895CB4B220EEC5F9D@WABOTH9MSGUSR8C.ITServices.sbc.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201208.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201208.mbox/%3c1345242901285-5717418.post@n5.nabble.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201208.mbox/%3cB8D164BED956C5439875951895CB4B220EEC5F9D@WABOTH9MSGUSR8C.ITServices.sbc.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201208.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201208.mbox/%3cbcd41bad4c96c2e72f70234c940773fd.squirrel@www.mosabuam.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201208.mbox/%3cB8D164BED956C5439875951895CB4B220EEC5F9D@WABOTH9MSGUSR8C.ITServices.sbc.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201208.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201208.mbox/%3c1345242901285-5717418.post@n5.nabble.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201208.mbox/%3cB8D164BED956C5439875951895CB4B220EEC5F9D@WABOTH9MSGUSR8C.ITServices.sbc.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201208.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201208.mbox/%3cbcd41bad4c96c2e72f70234c940773fd.squirrel@www.mosabuam.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Anders Hammar &lt;and...@hammar.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: In plugin dev, how do you spec the containing and child elements for multi-valued param?</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Fri, 17 Aug 2012 22:29:31 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+I *think* it doesn't matter what you call the child element. But I
+could be wrong.
+
+/Anders
+
+On Sat, Aug 18, 2012 at 12:15 AM, KARR, DAVID &lt;dk068x@att.com&gt; wrote:
+&gt; I'm reading the "Maven Complete Reference" doc from Sonatype.  In the section on "Multi-valued
+Mojo Parameters", it has the example of an "excludes" property, where you specify an "excludes"
+container element with child "exclude" elements.  What I don't understand is how it knows
+to expect the "exclude" child element.  It's only specifying the name of the container element,
+not the child element.  Is it really just removing the last character from the container element
+name, to get the expected name for the child element?
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201208.mbox/raw/%3cCAKDUN1v9oSx5LJrQ9jS1M8ryJf5vpVdFK76moSbUUXnqHB=mQA@mail.gmail.com%3e/">Unnamed text/plain</a> (inline, Quoted Printable, 1100 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201208.mbox/raw/%3cCAKDUN1v9oSx5LJrQ9jS1M8ryJf5vpVdFK76moSbUUXnqHB=mQA@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

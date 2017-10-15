@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Preleminary Maven 3.4.0-SNAPSHOT Testing</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201606.mbox/%3c55fe2a74-e841-19f8-b2f5-81346ccc4857@verit.de%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201606.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201606.mbox/%3cCAArU9iZq9dzqr9qwWj7s-Qw3jKP2HDw8AEos4CTm1bWfYqttjQ@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201606.mbox/%3c55fe2a74-e841-19f8-b2f5-81346ccc4857@verit.de%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201606.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201606.mbox/%3cCAArU9iZq9dzqr9qwWj7s-Qw3jKP2HDw8AEos4CTm1bWfYqttjQ@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201606.mbox/%3c55fe2a74-e841-19f8-b2f5-81346ccc4857@verit.de%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201606.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201606.mbox/%3cCAArU9iZq9dzqr9qwWj7s-Qw3jKP2HDw8AEos4CTm1bWfYqttjQ@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201606.mbox/%3c55fe2a74-e841-19f8-b2f5-81346ccc4857@verit.de%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201606.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201606.mbox/%3cCAArU9iZq9dzqr9qwWj7s-Qw3jKP2HDw8AEos4CTm1bWfYqttjQ@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Anton Tanasenko &lt;atg.sleepl...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Preleminary Maven 3.4.0-SNAPSHOT Testing</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Sat, 11 Jun 2016 22:43:01 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hi,
+There is a commit for MNG-2478 which I think could cause problems for
+projects that are authored using 3.4.0 and the new resources-filtered
+source folder is used (provided it was not configured in the project as
+such before). Those projects will not be buildable with prior maven
+versions.
+This is not something major, but it does break backwards compatibility
+somewhat. Is that ok?
+
+https://issues.apache.org/jira/browse/MNG-2478
+
+
+2016-06-11 23:21 GMT+03:00 Karl Heinz Marbaise &lt;khmarbaise@gmx.de&gt;:
+
+&gt; Hi to all Maven users,
+&gt;
+&gt; is someone of you willing to do some testing on the current state of
+&gt; development for the upcoming Maven 3.4.0 release?
+&gt;
+&gt; Please be aware of this *** This is not an official release ***
+&gt;
+&gt; I have created downloadable packages which are available from here:
+&gt;
+&gt; Windows: https://s.apache.org/fawM,
+&gt; Linux: https://s.apache.org/RQ3C
+&gt;
+&gt;
+&gt; Every kind of feedback is helpful.
+&gt;
+&gt; This is only a current state of development (Git hash:
+&gt; 644ac9c40ad41bf61e3b099918af33b8eb950621) to get some feedback from the
+&gt; community...
+&gt;
+&gt; The current list of changes can be seen in the issue tracker:
+&gt;
+&gt; https://issues.apache.org/jira/issues/?jql=project%20%3D%20MNG%20AND%20fixVersion%20%3D%203.4.0
+&gt;
+&gt;
+&gt; Kind regards
+&gt; Karl Heinz Marbaise
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+&gt;
+
+
+-- 
+Regards,
+Anton.
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201606.mbox/raw/%3cCAMYdmati0yh6xH8vTZo8xgkkXvEb_QOD2RQeet9+qvEY5Nqo=Q@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 1492 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201606.mbox/raw/%3cCAMYdmati0yh6xH8vTZo8xgkkXvEb_QOD2RQeet9+qvEY5Nqo=Q@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: .m2 location</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201211.mbox/%3c509982C7.3030507@hanaden.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201211.mbox/%3c1352251304.35933.YahooMailNeo@web120902.mail.ne1.yahoo.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201211.mbox/%3cCAJYUOtcRuUHMh0zo6GGu=H0b4phTQDKncyhVeck8CE-UZ4ZQ7Q@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201211.mbox/%3c1352251304.35933.YahooMailNeo@web120902.mail.ne1.yahoo.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201211.mbox/%3c509982C7.3030507@hanaden.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201211.mbox/%3c1352251304.35933.YahooMailNeo@web120902.mail.ne1.yahoo.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201211.mbox/%3cCAJYUOtcRuUHMh0zo6GGu=H0b4phTQDKncyhVeck8CE-UZ4ZQ7Q@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201211.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201211.mbox/%3c1352251304.35933.YahooMailNeo@web120902.mail.ne1.yahoo.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Barrie Treloar &lt;baerr...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: .m2 location</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Tue, 06 Nov 2012 23:51:51 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+On Wed, Nov 7, 2012 at 5:54 AM, Java House &lt;java4dev@gmail.com&gt; wrote:
+
+&gt; Hello
+&gt;
+&gt; I need to define another location for the .m2 folder.
+&gt; My problem is that we are having network home directories. As a result the
+&gt; .m2 folder is placed automatically on the network drive which is never
+&gt; available when you are offline.
+&gt; In addition to that slow network conditions makes its access very slow.
+&gt;
+&gt; I am searching for days for a solution and as it appears several other
+&gt; people on the net without success.
+&gt; setting the MAVEN_OPTS to -Duser.home=c:\dev
+&gt; does nothing.
+&gt;
+&gt; I have even tryed to start it with a bat file so that I set variables for
+&gt; my home directory somewhere else but without any succes.
+&gt; It seems as the location of the .m2 is hardcoded.
+&gt;
+&gt; Is there anyone who has solved the problem?
+&gt;
+&gt; Please help
+&gt;
+
+http://lmgtfy.com/?q=maven+new+.m2+location
+
+The very first link http://maven.apache.org/settings.html shows you how to
+set where the localRepository.
+
+Since you also want your settings.xml file to be available offline you will
+need to specify that to maven too.
+
+mvn -h
+
+shows you the options, you want --settings option
+
+Unfortunately you can't set that in MAVEN_OPTS as the mvn.bat file passes
+those options to the java executable.
+
+@REM Start MAVEN2
+:runm2
+set CLASSWORLDS_LAUNCHER=org.codehaus.plexus.classworlds.launcher.Launcher
+%MAVEN_JAVA_EXE% %MAVEN_OPTS% -classpath %CLASSWORLDS_JAR%
+"-Dclassworlds.conf=%M2_HOME%\bin\m2.conf" "-Dmaven.home=%M2_HOME%"
+%CLASSWORLDS_LAUNCHER% %MAVEN_CMD_LINE_ARGS%
+if ERRORLEVEL 1 goto error
+goto end
+
+Your choices are:
+* hack the bat file for all developers
+* use doskey mvn=mvn.bat --settings C:\settings.xml (no idea how you get
+this to be made permanent)
+* stop using network drives for local user directories
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201211.mbox/raw/%3cCADVp3v8taCwpWitLVVYUyqiWiqbTHvaofJVsF61sGrLBm6MgTA@mail.gmail.com%3e/1">Unnamed text/plain</a> (inline, None, 1785 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201211.mbox/raw/%3cCADVp3v8taCwpWitLVVYUyqiWiqbTHvaofJVsF61sGrLBm6MgTA@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

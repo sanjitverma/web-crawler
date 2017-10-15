@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>RE: maven-ear-plugin - How to manipulate Manifest.MF of webModule and ejbModule?</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201207.mbox/%3c1341950504008-5713686.post@n5.nabble.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cABB151421EA480408FE016CFB8E1AAF03AB3C10172@exchange1.exchange.themis.ag.gov.bc.ca%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201207.mbox/%3c4FFB372C.9080806@procergs.rs.gov.br%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCALy+7U=AcKBWbrq3xBATHD2m7xCJm-RLEZERSwgod81-NQ3oxw@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201207.mbox/%3c1341950504008-5713686.post@n5.nabble.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cABB151421EA480408FE016CFB8E1AAF03AB3C10172@exchange1.exchange.themis.ag.gov.bc.ca%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201207.mbox/%3c4FFB372C.9080806@procergs.rs.gov.br%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201207.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201207.mbox/%3cCALy+7U=AcKBWbrq3xBATHD2m7xCJm-RLEZERSwgod81-NQ3oxw@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Amir Gheibi &lt;aghe...@fmep.ag.gov.bc.ca&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">RE: maven-ear-plugin - How to manipulate Manifest.MF of webModule and ejbModule?</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Tue, 10 Jul 2012 21:19:07 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+I'm not sure about different behaviors. But I would normally get the JAR and WAR plugins to
+edit respected modules' MANIFEST files.
+
+-----Original Message-----
+From: Mauricio
+Sent: July-09-12 12:55 PM
+Subject: maven-ear-plugin - How to manipulate Manifest.MF of webModule and ejbModule?
+
+Hello,
+
+I have a multimodule maven project with the following structure:
+
+|     app (parent)
+     -- pom.xml
+     -- app-ear
+        -- pom.xml
+     -- app-ejb
+        -- src
+        -- pom.xml
+     -- app-web
+        -- src
+        -- pom.xml
+|
+
+This is my *app/pom.xml* (parent project) where I put all my application
+dependencies:
+
+|&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+     &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+     &lt;groupId&gt;com.mycompany&lt;/groupId&gt;
+     &lt;artifactId&gt;app&lt;/artifactId&gt;
+     &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
+     &lt;packaging&gt;pom&lt;/packaging&gt;
+
+     &lt;name&gt;app&lt;/name&gt;
+     &lt;url&gt;http://maven.apache.org&lt;/url&gt;
+
+     &lt;modules&gt;
+         &lt;module&gt;app-ejb&lt;/module&gt;
+         &lt;module&gt;app-web&lt;/module&gt;
+         &lt;module&gt;app-ear&lt;/module&gt;
+     &lt;/modules&gt;
+
+     &lt;dependencies&gt;
+         &lt;dependency&gt;
+             &lt;groupId&gt;javax.ejb&lt;/groupId&gt;
+             &lt;artifactId&gt;ejb-api&lt;/artifactId&gt;
+             &lt;version&gt;3.0&lt;/version&gt;
+             &lt;scope&gt;provided&lt;/scope&gt;
+         &lt;/dependency&gt;
+         &lt;dependency&gt;
+             &lt;groupId&gt;javaee&lt;/groupId&gt;
+             &lt;artifactId&gt;javaee-api&lt;/artifactId&gt;
+             &lt;version&gt;5&lt;/version&gt;
+             &lt;scope&gt;provided&lt;/scope&gt;
+         &lt;/dependency&gt;
+         &lt;dependency&gt;
+             &lt;groupId&gt;org.glassfish&lt;/groupId&gt;
+             &lt;artifactId&gt;javax.faces&lt;/artifactId&gt;
+             &lt;version&gt;2.0.9&lt;/version&gt;
+             &lt;scope&gt;provided&lt;/scope&gt;
+         &lt;/dependency&gt;
+         &lt;dependency&gt;
+             &lt;groupId&gt;org.richfaces.ui&lt;/groupId&gt;
+             &lt;artifactId&gt;richfaces-components-ui&lt;/artifactId&gt;
+         &lt;/dependency&gt;
+         &lt;dependency&gt;
+             &lt;groupId&gt;org.richfaces.core&lt;/groupId&gt;
+             &lt;artifactId&gt;richfaces-core-impl&lt;/artifactId&gt;
+         &lt;/dependency&gt;
+     &lt;/dependencies&gt;
+
+     &lt;dependencyManagement&gt;
+         &lt;dependencies&gt;
+             &lt;dependency&gt;
+                 &lt;groupId&gt;org.richfaces&lt;/groupId&gt;
+                 &lt;artifactId&gt;richfaces-bom&lt;/artifactId&gt;
+                 &lt;version&gt;4.2.0.Final&lt;/version&gt;
+                 &lt;scope&gt;import&lt;/scope&gt;
+                 &lt;type&gt;pom&lt;/type&gt;
+             &lt;/dependency&gt;
+         &lt;/dependencies&gt;
+     &lt;/dependencyManagement&gt;
+
+     &lt;build&gt;
+         &lt;plugins&gt;
+             &lt;plugin&gt;
+                 &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                 &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+                 &lt;version&gt;2.4&lt;/version&gt;
+                 &lt;configuration&gt;
+                     &lt;source&gt;1.6&lt;/source&gt;
+                     &lt;target&gt;1.6&lt;/target&gt;
+                 &lt;/configuration&gt;
+             &lt;/plugin&gt;
+         &lt;/plugins&gt;
+     &lt;/build&gt;
+
+&lt;/project&gt;
+|
+
+This is my *app-ejb/pom.xml*:
+
+|&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+     &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+     &lt;parent&gt;
+         &lt;artifactId&gt;app&lt;/artifactId&gt;
+         &lt;groupId&gt;com.mycompany&lt;/groupId&gt;
+         &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
+     &lt;/parent&gt;
+
+     &lt;artifactId&gt;app-ejb&lt;/artifactId&gt;
+     &lt;packaging&gt;ejb&lt;/packaging&gt;
+
+     &lt;build&gt;
+         &lt;plugins&gt;
+             &lt;plugin&gt;
+                 &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                 &lt;artifactId&gt;maven-ejb-plugin&lt;/artifactId&gt;
+                 &lt;version&gt;2.3&lt;/version&gt;
+                 &lt;configuration&gt;
+                     &lt;ejbVersion&gt;3.0&lt;/ejbVersion&gt;
+                 &lt;/configuration&gt;
+             &lt;/plugin&gt;
+         &lt;/plugins&gt;
+     &lt;/build&gt;
+&lt;/project&gt;
+|
+
+This is my *app-web/pom.xml*:
+
+|&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+     &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+     &lt;parent&gt;
+         &lt;artifactId&gt;app&lt;/artifactId&gt;
+         &lt;groupId&gt;com.mycompany&lt;/groupId&gt;
+         &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
+     &lt;/parent&gt;
+
+     &lt;artifactId&gt;app-web&lt;/artifactId&gt;
+     &lt;packaging&gt;war&lt;/packaging&gt;
+
+     &lt;dependencies&gt;
+         &lt;dependency&gt;
+             &lt;groupId&gt;${project.groupId}&lt;/groupId&gt;
+             &lt;artifactId&gt;app-ejb&lt;/artifactId&gt;
+             &lt;version&gt;${project.version}&lt;/version&gt;
+             &lt;scope&gt;provided&lt;/scope&gt;
+         &lt;/dependency&gt;
+     &lt;/dependencies&gt;
+
+     &lt;build&gt;
+         &lt;finalName&gt;app-web&lt;/finalName&gt;
+         &lt;plugins&gt;
+             &lt;plugin&gt;
+                 &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                 &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
+                 &lt;version&gt;2.2&lt;/version&gt;
+             &lt;/plugin&gt;
+         &lt;/plugins&gt;
+     &lt;/build&gt;
+
+&lt;/project&gt;
+|
+
+And finally this is my *app-ear/pom.xml* where I have the detais about how generate my app.ear
+file:
+
+|&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+     &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+     &lt;parent&gt;
+         &lt;artifactId&gt;app&lt;/artifactId&gt;
+         &lt;groupId&gt;com.mycompany&lt;/groupId&gt;
+         &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
+     &lt;/parent&gt;
+
+     &lt;artifactId&gt;app-ear&lt;/artifactId&gt;
+     &lt;packaging&gt;ear&lt;/packaging&gt;
+
+     &lt;dependencies&gt;
+         &lt;dependency&gt;
+             &lt;groupId&gt;${project.groupId}&lt;/groupId&gt;
+             &lt;artifactId&gt;app-ejb&lt;/artifactId&gt;
+             &lt;type&gt;ejb&lt;/type&gt;
+             &lt;version&gt;${project.version}&lt;/version&gt;
+             &lt;scope&gt;provided&lt;/scope&gt;
+         &lt;/dependency&gt;
+         &lt;dependency&gt;
+             &lt;groupId&gt;${project.groupId}&lt;/groupId&gt;
+             &lt;artifactId&gt;app-web&lt;/artifactId&gt;
+             &lt;type&gt;war&lt;/type&gt;
+             &lt;version&gt;${project.version}&lt;/version&gt;
+             &lt;scope&gt;provided&lt;/scope&gt;
+         &lt;/dependency&gt;
+     &lt;/dependencies&gt;
+
+     &lt;build&gt;
+         &lt;finalName&gt;app&lt;/finalName&gt;
+         &lt;plugins&gt;
+             &lt;plugin&gt;
+                 &lt;artifactId&gt;maven-ear-plugin&lt;/artifactId&gt;
+                 &lt;version&gt;2.7&lt;/version&gt;
+                 &lt;configuration&gt;
+                     &lt;version&gt;5&lt;/version&gt;
+                     &lt;unpackTypes&gt;war&lt;/unpackTypes&gt;
+                     &lt;defaultLibBundleDir&gt;lib&lt;/defaultLibBundleDir&gt;
+                     &lt;skinnyWars&gt;true&lt;/skinnyWars&gt;
+                     &lt;modules&gt;
+                         &lt;webModule&gt;
+                             &lt;groupId&gt;com.mycompany&lt;/groupId&gt;
+                             &lt;artifactId&gt;app-web&lt;/artifactId&gt;
+                             &lt;bundleFileName&gt;app-web.war&lt;/bundleFileName&gt;
+                             &lt;contextRoot&gt;/app&lt;/contextRoot&gt;
+                         &lt;/webModule&gt;
+                         &lt;ejbModule&gt;
+                             &lt;groupId&gt;com.mycompany&lt;/groupId&gt;
+                             &lt;artifactId&gt;app-ejb&lt;/artifactId&gt;
+                             &lt;bundleFileName&gt;app-ejb.jar&lt;/bundleFileName&gt;
+                         &lt;/ejbModule&gt;
+                         &lt;jarModule&gt;
+                             &lt;groupId&gt;org.glassfish&lt;/groupId&gt;
+                             &lt;artifactId&gt;javax.faces&lt;/artifactId&gt;
+                         &lt;/jarModule&gt;
+                         &lt;jarModule&gt;
+                             &lt;groupId&gt;org.richfaces.core&lt;/groupId&gt;
+                             &lt;artifactId&gt;richfaces-core-api&lt;/artifactId&gt;
+                         &lt;/jarModule&gt;
+                         &lt;jarModule&gt;
+                             &lt;groupId&gt;org.richfaces.core&lt;/groupId&gt;
+                             &lt;artifactId&gt;richfaces-core-impl&lt;/artifactId&gt;
+                         &lt;/jarModule&gt;
+                         &lt;jarModule&gt;
+                             &lt;groupId&gt;org.richfaces.ui&lt;/groupId&gt;
+                             &lt;artifactId&gt;richfaces-components-api&lt;/artifactId&gt;
+                         &lt;/jarModule&gt;
+                         &lt;jarModule&gt;
+                             &lt;groupId&gt;org.richfaces.ui&lt;/groupId&gt;
+                             &lt;artifactId&gt;richfaces-components-ui&lt;/artifactId&gt;
+                         &lt;/jarModule&gt;
+                         &lt;jarModule&gt;
+                             &lt;groupId&gt;net.sourceforge.cssparser&lt;/groupId&gt;
+                             &lt;artifactId&gt;cssparser&lt;/artifactId&gt;
+                         &lt;/jarModule&gt;
+                         &lt;jarModule&gt;
+                             &lt;groupId&gt;org.w3c.css&lt;/groupId&gt;
+                             &lt;artifactId&gt;sac&lt;/artifactId&gt;
+                         &lt;/jarModule&gt;
+                         &lt;jarModule&gt;
+                             &lt;groupId&gt;com.google.guava&lt;/groupId&gt;
+                             &lt;artifactId&gt;guava&lt;/artifactId&gt;
+                         &lt;/jarModule&gt;
+                     &lt;/modules&gt;
+                 &lt;/configuration&gt;
+             &lt;/plugin&gt;
+         &lt;/plugins&gt;
+     &lt;/build&gt;
+&lt;/project&gt;
+|
+
+My problem is that /app.ear/app-web.war!META-INF/MANIFEST.MF/ and /app.ear/app-ejb.jar!META-INF/MANIFEST.MF/
+looks like this:
+
+|     Manifest-Version: 1.0
+     Build-Jdk: 1.6.0_24
+     Class-Path: lib/javax.faces-2.0.9.jar lib/richfaces-core-api-4.2.0.Fin
+      al.jar lib/richfaces-core-impl-4.2.0.Final.jar lib/richfaces-componen
+      ts-api-4.2.0.Final.jar lib/richfaces-components-ui-4.2.0.Final.jar li
+      b/cssparser-0.9.5.jar lib/sac-1.3.jar lib/guava-10.0.1.jar lib/jsr305
+      -1.3.9.jar
+     Created-By: Apache Maven
+     Archiver-Version: Plexus Archiver
+|
+
+And I really have to remove the Class-Path entry from these MANIFEST.
+
+Why? Because it seems that RichFaces is being loaded two times in classpath of my application.
+(One from app.ear/lib folder and another from app.ear/app-web.war!META-INF/MANIFEST.MF Class-Path
+entry). And when I try to deploy app.ear in my Application Server (Oracle Weblogic
+10.3.5) I get some errors like that:
+
+|     INFO: Unsanitized stacktrace from failed start...
+     java.lang.IllegalArgumentException: duplicate key: class   javax.faces.validator.RequiredValidator
+at com.google.common.base.Preconditions.checkArgument(Preconditions.java:115)
+at com.google.common.collect.RegularImmutableMap.&lt;init&gt;(RegularImmutableMap.java:72)
+at com.google.common.collect.ImmutableMap$Builder.fromEntryList(ImmutableMap.java:221)
+at com.google.common.collect.ImmutableMap$Builder.build(ImmutableMap.java:207)
+at org.richfaces.javascript.ClientServiceConfigParser.parseConfig(ClientServiceConfigParser.java:53)
+at org.richfaces.application.ValidatorModule.createClientScriptService(ValidatorModule.java:65)
+at org.richfaces.application.ValidatorModule.configure(ValidatorModule.java:60)
+at org.richfaces.application.ServicesFactoryImpl.init(ServicesFactoryImpl.java:27)
+|
+
+It's weird that if I run |mvn package| in my *app-web* project, the Class-path entry does
+not go to app-web.war/META-INF/MANIFEST.MF. It only occurs when I run |mvn package| in my
+*app* parent project.
+
+So, how could I remove the Class-path entry of webModule and ejbModule MANIFEST file?
+
+I found a similar problem in this thread &lt;http://stackoverflow.com/questions/9237485/how-to-set-up-manifest-class-path-properly-in-maven-war-plugin&gt;
+but without a solution.
+
+I appreciate any help.
+
+Thanks,
+Mauricio
+
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201207.mbox/raw/%3cABB151421EA480408FE016CFB8E1AAF03AB3C1016F@exchange1.exchange.themis.ag.gov.bc.ca%3e/">Unnamed text/plain</a> (inline, Quoted Printable, 11821 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201207.mbox/raw/%3cABB151421EA480408FE016CFB8E1AAF03AB3C1016F@exchange1.exchange.themis.ag.gov.bc.ca%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: dependency:analyze seems to report spurious 'unused' jars</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201210.mbox/%3cCAKDUN1tNcVW2_tTVC_x9R4xRdKAurUO-mAc-zLc6oTaBzq3Xfw@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201210.mbox/%3cCALhtWke0vV+foTB-WUtAmnCyaQM3YKRdzGOX9s0HJbJaHwHx_A@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201210.mbox/%3cCALhtWkfM5rwymjBcP6SgCR-zDKGjQQMYHoUSFh71WEQ0=z0fjw@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201210.mbox/%3cCALhtWke0vV+foTB-WUtAmnCyaQM3YKRdzGOX9s0HJbJaHwHx_A@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201210.mbox/%3cCAKDUN1tNcVW2_tTVC_x9R4xRdKAurUO-mAc-zLc6oTaBzq3Xfw@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201210.mbox/%3cCALhtWke0vV+foTB-WUtAmnCyaQM3YKRdzGOX9s0HJbJaHwHx_A@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201210.mbox/%3cCALhtWkfM5rwymjBcP6SgCR-zDKGjQQMYHoUSFh71WEQ0=z0fjw@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201210.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201210.mbox/%3cCALhtWke0vV+foTB-WUtAmnCyaQM3YKRdzGOX9s0HJbJaHwHx_A@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Anders Hammar &lt;and...@hammar.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: dependency:analyze seems to report spurious 'unused' jars</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Tue, 23 Oct 2012 18:47:59 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Well, for starters this plugin analyzes the binary code and not the
+source code. This means that reported unused declared dependencies
+might in fact be used when compiling the source code. Here's a few
+examples;
+* static constants - the compiler optimizes this by replacing the
+constant references with the actual value. Thus, analyzing the binary
+code there is no dependency any longer.
+* runtime dependencies - runtime dependencies normally don't have a
+direct code dependency so the plugin don't see this. The plugin should
+probably ignore runtime deps and I think I've seen some
+discussion/jira around adding this in the upcoming release, but I
+could be wrong.
+* Annotations with source retention - these annotation references are
+discarded by the compiler.
+
+There a more cases I'm sure. And there could of course also be bugs...:-)
+
+I think that what the plugin reports as "used undeclared dependencies"
+are always correct, but "unused declared dependencies" may be wrong.
+
+/Anders
+
+On Tue, Oct 23, 2012 at 8:05 PM, Benson Margulies &lt;bimargulies@gmail.com&gt; wrote:
+&gt; I've a situation in which 2.5.1 of m-d-p:analyze is reporting 'unused
+&gt; declared dependencies' that are not unused, in fact, removing them and
+&gt; running maven 3.0.4 has the immediate and dramatic effect of making
+&gt; the compile fail. Is there something I don't understand here about
+&gt; what those goals are trying to report? Should I try to make a test
+&gt; case?
+&gt;
+&gt; ---------------------------------------------------------------------
+&gt; To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+&gt; For additional commands, e-mail: users-help@maven.apache.org
+&gt;
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: users-unsubscribe@maven.apache.org
+For additional commands, e-mail: users-help@maven.apache.org
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201210.mbox/raw/%3cCAKDUN1s52QddUi4mhUf3Ojj-A6b=jp43c9=J-ytZy=q0_=ZdcA@mail.gmail.com%3e/">Unnamed text/plain</a> (inline, None, 1823 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201210.mbox/raw/%3cCAKDUN1s52QddUi4mhUf3Ojj-A6b=jp43c9=J-ytZy=q0_=ZdcA@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: Source build of CloudStack versions 4.8.11 and 4.9.0.1 fails</title>
+  <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>maven-users mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/maven-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201612.mbox/%3cCANVgJmKDXFGg12Ve0cQJuCnbzA6g5y=VmUJWGQj5E2KVcdcPow@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201612.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201612.mbox/%3cCALv+pX45_oQiTHXVEe6dj6Atdc2YhqTd1WV2MK1JD39Nface3w@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201612.mbox/%3cCAHCQ2g4t-HSAbFFhYktsWnd3Xp9jVmWbhVG5bWjHDrgV-fsJmg@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201612.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201612.mbox/%3c1480678242.3117.6.camel@wsn062.assona.local%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/maven-users/201612.mbox/%3cCANVgJmKDXFGg12Ve0cQJuCnbzA6g5y=VmUJWGQj5E2KVcdcPow@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/maven-users/201612.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/maven-users/201612.mbox/%3cCALv+pX45_oQiTHXVEe6dj6Atdc2YhqTd1WV2MK1JD39Nface3w@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/maven-users/201612.mbox/%3cCAHCQ2g4t-HSAbFFhYktsWnd3Xp9jVmWbhVG5bWjHDrgV-fsJmg@mail.gmail.com%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/maven-users/201612.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/maven-users/201612.mbox/%3c1480678242.3117.6.camel@wsn062.assona.local%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Bernd Eckenfels &lt;e...@zusammenkunft.net&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: Source build of CloudStack versions 4.8.11 and 4.9.0.1 fails</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Fri, 02 Dec 2016 14:59:10 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hello,
+Do you mean Apache CloudStack? Why don't you ask there:
+ It seems to me that the POM contains artifacts not yet on central (or in another repo) or
+you need to install the checkstyle artifact before you can use it. Maybe it would help to
+skip the checkstyle run.
+But I would expect the cloudstack project to provide an working build instruction.
+Gruss
+Bernd
+-- 
+http://bernd.eckenfels.net
+
+		_____________________________
+From: Max Walker &lt;forloop386@gmail.com&gt;
+Sent: Freitag, Dezember 2, 2016 9:48 AM
+Subject: Re: Source build of CloudStack versions 4.8.11 and 4.9.0.1 fails
+To: Maven Users List &lt;users@maven.apache.org&gt;
+
+
+Hello Thorsten,
+
+I am new to CloudStack. I am trying to build CloudStack from source and I
+am following the instructions / steps given in the installation document.
+
+Thanks,
+-Max
+
+On Fri, Dec 2, 2016 at 2:14 PM, Thorsten Heit &lt;thorsten.heit@vkb.de&gt; wrote:
+
+&gt; Hi Max,
+&gt;
+&gt; &gt; I am getting the following error when I do a source build on version
+&gt; 4.8.11
+&gt; &gt; and 4.9.0.1 (mvn -P deps is the command I run):
+&gt; &gt;
+&gt; &gt; ---
+&gt; &gt; BUILD FAILURE
+&gt; &gt; [INFO] ------------------------------------------------------------
+&gt; &gt; ------------
+&gt; &gt; [INFO] Total time: 7.442s
+&gt; &gt; [INFO] Finished at: Tue Nov 29 14:10:59 IST 2016
+&gt; &gt; [INFO] Final Memory: 31M/74M
+&gt; &gt; [INFO] ------------------------------------------------------------
+&gt; &gt; ------------
+&gt; &gt; [WARNING] The requested profile "deps" could not be activated because it
+&gt; &gt; does not exist.
+&gt; &gt; [ERROR] Failed to execute goal
+&gt; &gt; org.apache.maven.plugins:maven-checkstyle-plugin:2.11:check
+&gt; &gt; (cloudstack-checkstyle) on project cloud-maven-standard: Execution
+&gt; &gt; cloudstack-checkstyle of goal
+&gt; &gt; org.apache.maven.plugins:maven-checkstyle-plugin:2.11:check
+&gt; &gt; failed: Plugin org.apache.maven.plugins:maven-checkstyle-plugin:2.11 or
+&gt; one
+&gt; &gt; of its dependencies could not be resolved: Failure to find
+&gt; &gt; org.apache.cloudstack:checkstyle:jar:4.8.1.1H in
+&gt; &gt; http://repo.maven.apache.org/maven2 was cached in the local repository,
+&gt; &gt; resolution will not be reattempted until the update interval of central
+&gt; has
+&gt; &gt; elapsed or updates are forced -&gt; [Help 1]
+&gt; &gt; [ERROR]
+&gt; &gt; ------
+&gt; &gt;
+&gt; &gt; Not clear how to fix this. Thanks in advance for all the help,
+&gt;
+&gt; Have a look at the message:
+&gt; You're activating a profile on the command line ("-P deps") that obviously
+&gt; doesn't exist. What are you trying to do?
+&gt;
+&gt;
+&gt; Regards
+&gt;
+&gt; Thorsten
+
+
+
+	
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/maven-users/201612.mbox/raw/%3c57A008FAA9E6E1E3.F985AC83-A48E-4600-B842-4FFA9310AD20@mail.outlook.com%3e/1">Unnamed text/plain</a> (inline, Quoted Printable, 2426 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/maven-users/201612.mbox/raw/%3c57A008FAA9E6E1E3.F985AC83-A48E-4600-B842-4FFA9310AD20@mail.outlook.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>
